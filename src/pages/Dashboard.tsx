@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Plus, Play, Trash2, Edit, Copy, Users, Brain, Search, RefreshCw, Sparkles } from 'lucide-react';
+import { Plus, Play, Trash2, Edit, Copy, Users, Brain, Search, RefreshCw } from 'lucide-react';
 import type { Quiz, Room } from '@/types/quiz';
 
 const Dashboard = () => {
@@ -132,28 +132,6 @@ const Dashboard = () => {
             </Link>
           </Button>
         </div>
-
-        {/* Recommended Topics */}
-        <section className="mb-10 p-6 bg-accent/10 border border-accent/20 rounded-xl">
-          <div className="flex items-center gap-2 mb-4">
-            <Sparkles className="h-5 w-5 text-accent" />
-            <h2 className="font-display text-xl font-bold text-foreground">Ajánlott témák</h2>
-          </div>
-          <div className="flex flex-wrap gap-4">
-            <Button variant="outline" className="bg-background hover:bg-accent/10" asChild>
-              <Link to="/ai-generate?topic=geometria háromszögek&subject=matematika">
-                <Brain className="mr-2 h-4 w-4 text-primary" />
-                Háromszögek (Geometria) generálása
-              </Link>
-            </Button>
-            <Button variant="outline" className="bg-background hover:bg-accent/10" asChild>
-              <Link to="/ai-generate?topic=helyesírás&subject=magyar">
-                <Brain className="mr-2 h-4 w-4 text-primary" />
-                Magyar helyesírás generálása
-              </Link>
-            </Button>
-          </div>
-        </section>
 
         {/* My Quizzes */}
         <section className="mb-10">

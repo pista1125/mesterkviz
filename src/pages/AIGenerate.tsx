@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Navbar } from '@/components/Navbar';
@@ -18,14 +18,6 @@ const AIGenerate = () => {
   const [numQuestions, setNumQuestions] = useState(5);
   const [gradeLevel, setGradeLevel] = useState('');
   const [generating, setGenerating] = useState(false);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const topicParam = params.get('topic');
-    const subjectParam = params.get('subject');
-    if (topicParam) setTopic(topicParam);
-    if (subjectParam) setSubject(subjectParam);
-  }, []);
 
   if (!authLoading && !user) {
     navigate('/auth');
