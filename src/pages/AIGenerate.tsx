@@ -34,7 +34,7 @@ const AIGenerate = () => {
     setGenerating(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke('generate-quiz', {
+      const { data, error } = await supabase.functions.invoke('smooth-service', {
         body: { subject, topic: topic.trim(), numQuestions, gradeLevel },
       });
 
