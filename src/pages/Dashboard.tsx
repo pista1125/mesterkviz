@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Plus, Play, Trash2, Edit, Copy, Users, Brain, Search, RefreshCw } from 'lucide-react';
+import { Plus, Play, Trash2, Edit, Copy, Users, Brain, Search, RefreshCw, Sparkles } from 'lucide-react';
 import type { Quiz, Room } from '@/types/quiz';
 
 const Dashboard = () => {
