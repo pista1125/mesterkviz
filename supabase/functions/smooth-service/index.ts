@@ -13,29 +13,6 @@ serve(async (req) => {
     }
 
     try {
-        const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-        const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
-
-        const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-            global: {
-                headers: {
-                    Authorization: req.headers.get("Authorization") ?? "",
-                },
-            },
-        });
-
-        const {
-            data: { user },
-            error: userError,
-        } = await supabase.auth.getUser();
-
-        if (userError || !user) {
-            return new Response(JSON.stringify({ error: "Unauthorized" }), {
-                status: 401,
-                headers: { ...corsHeaders, "Content-Type": "application/json" },
-            });
-        }
-
         const { subject, topic, numQuestions, gradeLevel } = await req.json();
 
         if (!subject || !topic || !numQuestions) {
