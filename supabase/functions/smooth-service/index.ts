@@ -1,13 +1,6 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { corsHeaders } from "../_shared/cors.ts";
 
-const corsHeaders = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers":
-        "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
-};
-
-serve(async (req) => {
+Deno.serve(async (req: Request) => {
     if (req.method === "OPTIONS") {
         return new Response("ok", { headers: corsHeaders });
     }
@@ -16,10 +9,13 @@ serve(async (req) => {
         const { subject, topic, numQuestions, gradeLevel } = await req.json();
 
         if (!subject || !topic || !numQuestions) {
-            return new Response(JSON.stringify({ error: "Hiányzó paraméterek" }), {
-                status: 400,
-                headers: { ...corsHeaders, "Content-Type": "application/json" },
-            });
+            return new Response(
+                JSON.stringify({ error: "Hiányzó paraméterek" }),
+                {
+                    status: 400,
+                    headers: { ...corsHeaders, "Content-Type": "application/json" },
+                }
+            );
         }
 
         const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
@@ -27,25 +23,27 @@ serve(async (req) => {
             throw new Error("OPENAI_API_KEY nincs beállítva a Supabase titkok között.");
         }
 
-        const systemPrompt = `Te egy oktatási kvíz generátor AI vagy. A felhasználó megadja a tantárgyat, témakört, évfolyamot és a kérdések számát. Generálj egy kvízt a megadott paraméterek alapján.
+        const systemPrompt = `
+Te egy oktatási kvíz generátor AI vagy.
+Magyar nyelven generálj STRICT JSON választ.
+Ne adj vissza magyarázatot, csak tiszta JSON-t.
+`;
 
-FONTOS SZABÁLYOK:
-- Minden kérdés legyen egyértelmű és kornak megfelelő.
-- A helyes válasz mindig pontosan egy legyen multiple-choice esetén.
-- A válaszlehetőségek legyenek hasonlóak, hogy ne legyen nyilvánvaló a helyes válasz.
-- Magyar nyelven generálj mindent.
-- Az id mezőkhöz használj egyedi azonosítókat (UUID v4 javasolt).
-- Ha egy kérdéshez jól illeszkedne egy illusztráció (pl. térkép, ábra, történelmi esemény), adj meg egy releváns imageUrl-t. Használj publikus, ingyenes képforrásokat.
-- NE adj minden kérdéshez képet - csak akkor, ha a kép tényleg segít vagy vizuálisan releváns.
-- Ha nem találsz megfelelő képet, hagyd üresen az imageUrl mezőt.`;
+        const userPrompt = `
+Generálj egy kvízt:
 
-        const userPrompt = `Generálj egy kvízt az alábbi paraméterekkel:
-- Tantárgy: ${subject}
-- Témakör: ${topic}
-- Évfolyam: ${gradeLevel || "általános"}
-- Kérdések száma: ${numQuestions}
+Tantárgy: ${subject}
+Témakör: ${topic}
+Évfolyam: ${gradeLevel || "általános"}
+Kérdések száma: ${numQuestions}
 
-Minden kérdéshez 4 válaszlehetőséget adj meg.`;
+Szabályok:
+- 4 válasz multiple-choice esetén
+- pontosan 1 helyes válasz
+- UUID v4 id-k
+- imageUrl csak ha tényleg releváns
+- timeLimit 10–30 között
+`;
 
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
@@ -55,75 +53,86 @@ Minden kérdéshez 4 válaszlehetőséget adj meg.`;
             },
             body: JSON.stringify({
                 model: "gpt-4o-mini",
+                temperature: 0.7,
                 messages: [
                     { role: "system", content: systemPrompt },
                     { role: "user", content: userPrompt },
                 ],
-                response_format: {
-                    type: "json_schema",
-                    json_schema: {
-                        name: "quiz_schema",
-                        strict: true,
-                        schema: {
-                            type: "object",
-                            properties: {
-                                title: { type: "string" },
-                                description: { type: "string" },
-                                questions: {
-                                    type: "array",
-                                    items: {
-                                        type: "object",
-                                        properties: {
-                                            id: { type: "string" },
-                                            type: { type: "string", enum: ["multiple-choice", "text-input"] },
-                                            text: { type: "string" },
-                                            imageUrl: { type: "string" },
-                                            timeLimit: { type: "number" },
-                                            options: {
-                                                type: "array",
-                                                items: {
-                                                    type: "object",
-                                                    properties: {
-                                                        id: { type: "string" },
-                                                        text: { type: "string" },
-                                                        isCorrect: { type: "boolean" },
-                                                    },
-                                                    required: ["id", "text", "isCorrect"],
-                                                    additionalProperties: false,
-                                                },
-                                            },
-                                            correctAnswer: { type: "string" },
-                                        },
-                                        required: ["id", "type", "text", "imageUrl", "timeLimit", "options", "correctAnswer"],
-                                        additionalProperties: false,
-                                    },
-                                },
-                            },
-                            required: ["title", "description", "questions"],
-                            additionalProperties: false,
-                        },
-                    },
-                },
+                response_format: { type: "json_object" }, // stabilabb mint json_schema
             }),
         });
 
         if (!response.ok) {
             const errorText = await response.text();
             console.error("OpenAI error:", errorText);
-            return new Response(JSON.stringify({ error: "OpenAI API hiba történt" }), {
-                status: 500,
-                headers: { ...corsHeaders, "Content-Type": "application/json" },
-            });
+            return new Response(
+                JSON.stringify({ error: "OpenAI API hiba történt" }),
+                {
+                    status: 500,
+                    headers: { ...corsHeaders, "Content-Type": "application/json" },
+                }
+            );
         }
 
         const data = await response.json();
-        const quizData = JSON.parse(data.choices[0].message.content);
+
+        if (!data.choices?.length) {
+            return new Response(
+                JSON.stringify({ error: "Az AI nem adott választ" }),
+                {
+                    status: 500,
+                    headers: { ...corsHeaders, "Content-Type": "application/json" },
+                }
+            );
+        }
+
+        let content = data.choices[0].message?.content;
+
+        if (!content) {
+            return new Response(
+                JSON.stringify({ error: "Üres AI válasz" }),
+                {
+                    status: 500,
+                    headers: { ...corsHeaders, "Content-Type": "application/json" },
+                }
+            );
+        }
+
+        // 🧠 Ha ```json blokkban jön vissza
+        content = content.replace(/```json/g, "").replace(/```/g, "").trim();
+
+        let quizData;
+
+        try {
+            quizData = JSON.parse(content);
+        } catch (parseError) {
+            console.error("JSON parse error:", parseError);
+            return new Response(
+                JSON.stringify({ error: "AI válasz nem volt valid JSON" }),
+                {
+                    status: 500,
+                    headers: { ...corsHeaders, "Content-Type": "application/json" },
+                }
+            );
+        }
+
+        // 🔎 Minimális validáció
+        if (!quizData.title || !quizData.questions) {
+            return new Response(
+                JSON.stringify({ error: "Hiányos AI válasz struktúra" }),
+                {
+                    status: 500,
+                    headers: { ...corsHeaders, "Content-Type": "application/json" },
+                }
+            );
+        }
 
         return new Response(JSON.stringify(quizData), {
             headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
     } catch (error) {
         console.error("Edge function error:", error);
+
         return new Response(
             JSON.stringify({
                 error: error instanceof Error ? error.message : "Ismeretlen hiba",

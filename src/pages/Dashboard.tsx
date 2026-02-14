@@ -133,6 +133,28 @@ const Dashboard = () => {
           </Button>
         </div>
 
+        {/* Recommended Topics */}
+        <section className="mb-10 p-6 bg-accent/10 border border-accent/20 rounded-xl">
+          <div className="flex items-center gap-2 mb-4">
+            <Sparkles className="h-5 w-5 text-accent" />
+            <h2 className="font-display text-xl font-bold text-foreground">Ajánlott témák</h2>
+          </div>
+          <div className="flex flex-wrap gap-4">
+            <Button variant="outline" className="bg-background hover:bg-accent/10" asChild>
+              <Link to="/ai-generate?topic=geometria háromszögek&subject=matematika">
+                <Brain className="mr-2 h-4 w-4 text-primary" />
+                Háromszögek (Geometria) generálása
+              </Link>
+            </Button>
+            <Button variant="outline" className="bg-background hover:bg-accent/10" asChild>
+              <Link to="/ai-generate?topic=helyesírás&subject=magyar">
+                <Brain className="mr-2 h-4 w-4 text-primary" />
+                Magyar helyesírás generálása
+              </Link>
+            </Button>
+          </div>
+        </section>
+
         {/* My Quizzes */}
         <section className="mb-10">
           <div className="mb-4 flex items-center justify-between gap-4">
