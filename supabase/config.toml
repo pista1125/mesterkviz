@@ -1,4 +1,7 @@
 project_id = "ltipxxsedxjzdmlndqgw"
 
+[functions.rapid-handler]
+verify_jwt = false
+
 [functions]
 # Az import_map-et kivesszük, mert a CLI hibát dob rá, és már nincs rá szükség

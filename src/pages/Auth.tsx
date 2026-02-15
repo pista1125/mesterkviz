@@ -50,6 +50,7 @@ const Auth = () => {
     setLoading(false);
     if (error) {
       toast.error('Regisztrációs hiba: ' + error.message);
+      console.error('Registration error details:', error);
     } else {
       toast.success('Sikeres regisztráció! Kérjük, erősítsd meg az e-mail címedet.');
     }
