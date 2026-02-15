@@ -34,7 +34,7 @@ const AIGenerate = () => {
     setGenerating(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke('smooth-service', {
+      const { data, error } = await supabase.functions.invoke('rapid-handler', {
         body: { subject, topic: topic.trim(), numQuestions, gradeLevel },
       });
 

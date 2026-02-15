@@ -1,4 +1,4 @@
-project_id = "bhpaodvrguqrtedduiyd"
+project_id = "ltipxxsedxjzdmlndqgw"
 
 [functions]
-import_map = "./functions/import_map.json"
+# Az import_map-et kivesszük, mert a CLI hibát dob rá, és már nincs rá szükség
