@@ -5,11 +5,39 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarData } from './Avatar';
 import { Check } from 'lucide-react';
 
-const CHARACTERS = [
-    '🐻', '🐱', '🐶', '🦊', '🦁', '🐵', '🐼', '🐨', '🐯', '🐙', '🦖', '🦄',
-    '🐸', '🐧', '🦉', '🐝', '🐢', '🐋', '🐉', '👽', '🤖', '👻',
-    '🍕', '🍔', '🚗', '🚀', '🎮', '🎸', '⚽', '🎨', '🌈', '💎'
+const AVATAR_CATEGORIES = [
+    {
+        id: 'animals',
+        name: 'Állatos',
+        icon: '🐾',
+        emojis: ['🦊', '🐻', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🐧']
+    },
+    {
+        id: 'fantasy',
+        name: 'Fantázia',
+        icon: '🐲',
+        emojis: ['🧛', '🧟', '🧞', '🧙‍♀️', '🧝‍♂️', '🧜‍♀️', '🦸‍♂️', '🦹‍♀️', '🧌', '🪄']
+    },
+    {
+        id: 'objects',
+        name: 'Tárgyak',
+        icon: '🍕',
+        emojis: ['📱', '💻', '⌚', '🎮', '🎲', '🧩', '🎸', '🥁', '🛴', '🚗']
+    },
+    {
+        id: 'aesthetic',
+        name: 'Cuki',
+        icon: '🌈',
+        emojis: ['🌼', '🌺', '🌻', '🌷', '🪷', '🌙', '☀️', '⭐', '🌟', '✨']
+    },
+    {
+        id: 'cool',
+        name: 'Vagány',
+        icon: '😎',
+        emojis: ['🕶️', '🧢', '👑', '💣', '🗡️', '🛹', '🏍️', '🚀', '🎧', '🥊']
+    }
 ];
+
 const ACCESSORIES = ['none', '🎩', '👑', '🎓', '👓', '🕶️', '🎄', '🎃', '🎀', '🎧', '🍦', '🥞', '🍕'];
 
 interface AvatarSelectorProps {
@@ -44,21 +72,40 @@ export const AvatarSelector = ({ onSelect, initialAvatar }: AvatarSelectorProps)
                 </TabsList>
 
                 <TabsContent value="character" className="mt-4">
-                    <div className="grid grid-cols-4 gap-2">
-                        {CHARACTERS.map((char) => (
-                            <Button
-                                key={char}
-                                variant={avatar.character === char ? "default" : "outline"}
-                                className="h-14 text-2xl relative"
-                                onClick={() => handleCharSelect(char)}
-                            >
-                                {char}
-                                {avatar.character === char && (
-                                    <Check className="absolute top-1 right-1 h-3 w-3 text-primary-foreground" />
-                                )}
-                            </Button>
+                    <Tabs defaultValue="animals" className="w-full">
+                        <TabsList className="grid w-full grid-cols-5 h-auto p-1 gap-1">
+                            {AVATAR_CATEGORIES.map((cat) => (
+                                <TabsTrigger
+                                    key={cat.id}
+                                    value={cat.id}
+                                    className="flex flex-col py-2 px-1 text-[10px] gap-1 data-[state=active]:bg-primary/10"
+                                >
+                                    <span className="text-xl">{cat.icon}</span>
+                                    <span className="hidden sm:inline">{cat.name}</span>
+                                </TabsTrigger>
+                            ))}
+                        </TabsList>
+
+                        {AVATAR_CATEGORIES.map((cat) => (
+                            <TabsContent key={cat.id} value={cat.id} className="mt-4">
+                                <div className="grid grid-cols-5 gap-2">
+                                    {cat.emojis.map((char) => (
+                                        <Button
+                                            key={char}
+                                            variant={avatar.character === char ? "default" : "outline"}
+                                            className="h-14 text-2xl relative"
+                                            onClick={() => handleCharSelect(char)}
+                                        >
+                                            {char}
+                                            {avatar.character === char && (
+                                                <Check className="absolute top-1 right-1 h-3 w-3 text-primary-foreground" />
+                                            )}
+                                        </Button>
+                                    ))}
+                                </div>
+                            </TabsContent>
                         ))}
-                    </div>
+                    </Tabs>
                 </TabsContent>
 
                 <TabsContent value="accessory" className="mt-4">
