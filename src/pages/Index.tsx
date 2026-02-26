@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -131,7 +131,7 @@ const Index = () => {
           </div>
           <div className="mt-10 text-center">
             <Button size="lg" asChild>
-              <a href="/auth">Regisztrálj tanárként</a>
+              <Link to="/auth">Regisztrálj tanárként</Link>
             </Button>
           </div>
         </div>
