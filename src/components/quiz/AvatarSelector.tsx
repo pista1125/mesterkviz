@@ -5,7 +5,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarData } from './Avatar';
 import { Check } from 'lucide-react';
 
-const CHARACTERS = ['🐻', '🐱', '🐶', '🦊', '🦁', '🐵', '🐼', '🐨', '🐯', '🐙', '🦖', '🦄'];
+const CHARACTERS = [
+    '🐻', '🐱', '🐶', '🦊', '🦁', '🐵', '🐼', '🐨', '🐯', '🐙', '🦖', '🦄',
+    '🐸', '🐧', '🦉', '🐝', '🐢', '🐋', '🐉', '👽', '🤖', '👻',
+    '🍕', '🍔', '🚗', '🚀', '🎮', '🎸', '⚽', '🎨', '🌈', '💎'
+];
 const ACCESSORIES = ['none', '🎩', '👑', '🎓', '👓', '🕶️', '🎄', '🎃', '🎀', '🎧', '🍦', '🥞', '🍕'];
 
 interface AvatarSelectorProps {
