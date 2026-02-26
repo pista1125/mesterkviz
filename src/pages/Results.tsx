@@ -9,6 +9,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { supabase } from '@/integrations/supabase/client';
 import { ArrowLeft, Download, Trophy, CheckCircle2, History } from 'lucide-react';
+import { Avatar } from '@/components/quiz/Avatar';
+import { Podium } from '@/components/quiz/Podium';
 import type { Room, Quiz, QuizQuestion, RoomParticipant, QuizAnswer } from '@/types/quiz';
 
 const Results = () => {
@@ -179,25 +181,9 @@ const Results = () => {
         )}
 
         {/* Top 3 Podium */}
-        {currentSessionResults.length >= 3 && (
-          <div className="mb-8 flex items-end justify-center gap-4">
-            {[currentSessionResults[1], currentSessionResults[0], currentSessionResults[2]].map((student, i) => {
-              const heights = ['h-24', 'h-32', 'h-20'];
-              const positions = ['2.', '1.', '3.'];
-              const colors = ['bg-secondary', 'bg-accent', 'bg-primary'];
-              return (
-                <div key={student.id} className="flex flex-col items-center">
-                  <span className="mb-2 font-display text-sm font-bold">{student.student_name}</span>
-                  <span className="mb-1 text-xs text-muted-foreground">{student.totalScore} pont</span>
-                  <div className={`flex w-20 items-end justify-center rounded-t-lg ${heights[i]} ${colors[i]} text-primary-foreground`}>
-                    <div className="pb-2 text-center">
-                      {i === 1 && <Trophy className="mx-auto mb-1 h-5 w-5" />}
-                      <span className="font-display text-lg font-bold">{positions[i]}</span>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+        {currentSessionResults.length > 0 && (
+          <div className="mb-12">
+            <Podium winners={currentSessionResults.slice(0, 3) as any} />
           </div>
         )}
 

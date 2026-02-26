@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Square, SkipForward, Maximize, Minimize, Users, Trophy, BarChart3, Clock, UserCircle } from 'lucide-react';
 import type { Room, Quiz, QuizQuestion, RoomParticipant, QuizAnswer, AvatarData } from '@/types/quiz';
 import { Avatar } from '@/components/quiz/Avatar';
+import { Podium } from '@/components/quiz/Podium';
 import { ReactionDisplay } from '@/components/quiz/ReactionDisplay';
 
 const COLORS = [
@@ -318,14 +319,14 @@ const PresenterView = () => {
           )}
 
           {room.status === 'completed' && (
-            <motion.div key="completed" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="text-center">
-              <Trophy className="mx-auto mb-6 h-24 w-24 text-accent" />
-              <h2 className="font-display text-4xl font-bold">Kvíz befejezve!</h2>
-              {leaderboard.length > 0 && (
-                <div className="mt-8">
-                  <p className="mb-4 text-xl text-muted-foreground">Győztes:</p>
-                  <div className="font-display text-3xl font-bold text-primary">{leaderboard[0]?.student_name}</div>
-                  <div className="mt-2 text-xl text-muted-foreground">{leaderboard[0]?.totalScore} pont</div>
+            <motion.div key="completed" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full">
+              <h2 className="font-display text-4xl font-black mb-12 text-center">Kvíz befejezve!</h2>
+              {leaderboard.length > 0 ? (
+                <Podium winners={leaderboard.slice(0, 3) as any} />
+              ) : (
+                <div className="text-center">
+                  <Trophy className="mx-auto mb-6 h-24 w-24 text-accent opacity-20" />
+                  <p className="text-xl text-muted-foreground">Nincsenek eredmények</p>
                 </div>
               )}
             </motion.div>

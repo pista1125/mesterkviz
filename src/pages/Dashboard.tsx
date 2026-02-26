@@ -80,6 +80,30 @@ const Dashboard = () => {
     toast.success('Szoba újraindítva!');
   };
 
+  const deleteRoom = async (id: string) => {
+    if (!confirm('Biztosan törlöd ezt a szobát? Az összes kapcsolódó eredmény is törlődni fog.')) return;
+
+    const { error } = await supabase.from('rooms').delete().eq('id', id);
+    if (error) {
+      toast.error('Hiba a törléskor');
+    } else {
+      setRooms((prev) => prev.filter((r) => r.id !== id));
+      toast.success('Szoba törölve');
+    }
+  };
+
+  const deleteAllRooms = async () => {
+    if (!confirm('Biztosan törlöd az ÖSSZES szobádat? Ez a művelet nem vonható vissza!')) return;
+
+    const { error } = await supabase.from('rooms').delete().eq('teacher_id', user?.id);
+    if (error) {
+      toast.error('Hiba a tömeges törléskor');
+    } else {
+      setRooms([]);
+      toast.success('Az összes szoba törölve');
+    }
+  };
+
   const filteredQuizzes = quizzes.filter((q) => {
     if (!searchQuery) return true;
     const query = searchQuery.toLowerCase();
@@ -90,6 +114,13 @@ const Dashboard = () => {
       ((q as any).topic || '').toLowerCase().includes(query)
     );
   });
+
+  const roomsByClass = rooms.reduce((acc, room) => {
+    const className = room.class_name || 'Osztály nélküli';
+    if (!acc[className]) acc[className] = [];
+    acc[className].push(room);
+    return acc;
+  }, {} as Record<string, (Room & { quiz_title?: string })[]>);
 
   if (authLoading || loading) {
     return (
@@ -210,7 +241,15 @@ const Dashboard = () => {
 
         {/* My Rooms */}
         <section>
-          <h2 className="mb-4 font-display text-xl font-bold text-foreground">Szobáim</h2>
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="font-display text-xl font-bold text-foreground">Szobáim</h2>
+            {rooms.length > 0 && (
+              <Button variant="ghost" size="sm" className="text-destructive hover:bg-destructive/10" onClick={deleteAllRooms}>
+                <Trash2 className="mr-2 h-4 w-4" />
+                Összes törlése
+              </Button>
+            )}
+          </div>
           {rooms.length === 0 ? (
             <Card>
               <CardContent className="py-10 text-center">
@@ -218,51 +257,72 @@ const Dashboard = () => {
               </CardContent>
             </Card>
           ) : (
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {rooms.map((room) => (
-                <Card key={room.id} className="transition-shadow hover:shadow-md">
-                  <CardHeader className="pb-3">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <CardTitle className="flex items-center gap-2 text-lg">
-                          <span className="font-mono text-primary">{room.code}</span>
-                          <button onClick={() => copyRoomCode(room.code)} className="text-muted-foreground hover:text-foreground">
-                            <Copy className="h-3.5 w-3.5" />
-                          </button>
-                        </CardTitle>
-                        <CardDescription>{room.quiz_title}</CardDescription>
-                      </div>
-                      <Badge
-                        variant={room.status === 'active' ? 'default' : room.status === 'completed' ? 'secondary' : 'outline'}
-                      >
-                        {room.status === 'waiting' ? 'Várakozik' : room.status === 'active' ? 'Aktív' : 'Befejezett'}
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="mb-3 text-sm text-muted-foreground">
-                      {room.class_name && <span>{room.class_name}</span>}
-                      {room.grade && <span> · {room.grade}</span>}
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      <Button size="sm" variant="outline" asChild>
-                        <Link to={`/room/${room.id}`}>
-                          <Users className="mr-1 h-3 w-3" />
-                          Kezelés
-                        </Link>
-                      </Button>
-                      <Button size="sm" variant="outline" asChild>
-                        <Link to={`/results/${room.id}`}>Eredmények</Link>
-                      </Button>
-                      {room.status === 'completed' && (
-                        <Button size="sm" variant="ghost" onClick={() => restartRoom(room.id)}>
-                          <RefreshCw className="mr-1 h-3 w-3" />
-                          Újraindítás
-                        </Button>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
+            <div className="space-y-8">
+              {Object.entries(roomsByClass).map(([className, classRooms]) => (
+                <div key={className} className="space-y-4">
+                  <div className="flex items-center gap-2">
+                    <div className="h-px flex-1 bg-border"></div>
+                    <Badge variant="outline" className="px-3 py-1 font-display text-sm font-bold bg-muted/50">
+                      {className}
+                    </Badge>
+                    <div className="h-px flex-1 bg-border"></div>
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {classRooms.map((room) => (
+                      <Card key={room.id} className="transition-shadow hover:shadow-md relative group">
+                        <CardHeader className="pb-3 pr-10">
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <CardTitle className="flex items-center gap-2 text-lg">
+                                <span className="font-mono text-primary">{room.code}</span>
+                                <button onClick={() => copyRoomCode(room.code)} className="text-muted-foreground hover:text-foreground">
+                                  <Copy className="h-3.5 w-3.5" />
+                                </button>
+                              </CardTitle>
+                              <CardDescription>{room.quiz_title}</CardDescription>
+                            </div>
+                            <Badge
+                              variant={room.status === 'active' ? 'default' : room.status === 'completed' ? 'secondary' : 'outline'}
+                            >
+                              {room.status === 'waiting' ? 'Várakozik' : room.status === 'active' ? 'Aktív' : 'Befejezett'}
+                            </Badge>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="mb-3 text-sm text-muted-foreground">
+                            {room.grade && <span>{room.grade} evfolyam</span>}
+                            {room.notes && <span> · {room.notes}</span>}
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            <Button size="sm" variant="outline" asChild>
+                              <Link to={`/room/${room.id}`}>
+                                <Users className="mr-1 h-3 w-3" />
+                                Kezelés
+                              </Link>
+                            </Button>
+                            <Button size="sm" variant="outline" asChild>
+                              <Link to={`/results/${room.id}`}>Eredmények</Link>
+                            </Button>
+                            {room.status === 'completed' && (
+                              <Button size="sm" variant="ghost" onClick={() => restartRoom(room.id)}>
+                                <RefreshCw className="mr-1 h-3 w-3" />
+                                Újraindítás
+                              </Button>
+                            )}
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="absolute bottom-6 right-6 h-8 w-8 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity hover:text-destructive"
+                            onClick={() => deleteRoom(room.id)}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           )}
