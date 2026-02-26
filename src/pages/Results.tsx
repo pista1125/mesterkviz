@@ -214,7 +214,12 @@ const Results = () => {
                 {currentSessionResults.map((student, i) => (
                   <TableRow key={student.id}>
                     <TableCell className="font-bold">{i + 1}.</TableCell>
-                    <TableCell className="font-medium">{student.student_name}</TableCell>
+                    <TableCell className="font-medium">
+                      <div className="flex items-center gap-2">
+                        <Avatar avatar={student.avatar as any} size="sm" className="h-8 w-8" />
+                        {student.student_name}
+                      </div>
+                    </TableCell>
                     <TableCell className="text-center">
                       <div className="flex items-center justify-center gap-1">
                         <CheckCircle2 className="h-4 w-4 text-quiz-green" />

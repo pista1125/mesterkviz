@@ -54,7 +54,7 @@ const JoinRoom = () => {
     findRoom(code);
   };
 
-  const handleJoin = async () => {
+  const handleJoin = async (overrideAvatar?: AvatarData) => {
     if (!room || !name.trim()) {
       toast.error('Add meg a neved!');
       return;
@@ -62,6 +62,7 @@ const JoinRoom = () => {
 
     setJoining(true);
     const sessionId = getStudentSessionId();
+    const finalAvatar = overrideAvatar || avatar;
 
     // Check if already joined
     const { data: existing } = await supabase
@@ -75,7 +76,7 @@ const JoinRoom = () => {
       // Already joined, go to play
       sessionStorage.setItem('participant_id', existing.id);
       sessionStorage.setItem('student_name', name.trim());
-      sessionStorage.setItem('student_avatar', JSON.stringify(existing.avatar || avatar));
+      sessionStorage.setItem('student_avatar', JSON.stringify(existing.avatar || finalAvatar));
       navigate(`/play/${room.id}`);
       return;
     }
@@ -86,7 +87,7 @@ const JoinRoom = () => {
         room_id: room.id,
         student_name: name.trim(),
         student_session_id: sessionId,
-        avatar: avatar,
+        avatar: finalAvatar,
       })
       .select()
       .single();
@@ -101,7 +102,7 @@ const JoinRoom = () => {
     if (data) {
       sessionStorage.setItem('participant_id', data.id);
       sessionStorage.setItem('student_name', name.trim());
-      sessionStorage.setItem('student_avatar', JSON.stringify(avatar));
+      sessionStorage.setItem('student_avatar', JSON.stringify(finalAvatar));
       navigate(`/play/${room.id}`);
     }
   };
@@ -186,7 +187,7 @@ const JoinRoom = () => {
               <AvatarSelector
                 onSelect={(selectedAvatar) => {
                   setAvatar(selectedAvatar);
-                  handleJoin();
+                  handleJoin(selectedAvatar);
                 }}
               />
             </div>
