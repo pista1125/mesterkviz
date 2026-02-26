@@ -6,8 +6,10 @@ import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Square, SkipForward, Maximize, Minimize, Users, Trophy, BarChart3, Clock } from 'lucide-react';
-import type { Room, Quiz, QuizQuestion, RoomParticipant, QuizAnswer } from '@/types/quiz';
+import { Play, Square, SkipForward, Maximize, Minimize, Users, Trophy, BarChart3, Clock, UserCircle } from 'lucide-react';
+import type { Room, Quiz, QuizQuestion, RoomParticipant, QuizAnswer, AvatarData } from '@/types/quiz';
+import { Avatar } from '@/components/quiz/Avatar';
+import { ReactionDisplay } from '@/components/quiz/ReactionDisplay';
 
 const COLORS = [
   { bg: 'bg-quiz-red', icon: '▲' },
@@ -201,12 +203,38 @@ const PresenterView = () => {
       <div className="flex flex-1 items-center justify-center p-6">
         <AnimatePresence mode="wait">
           {room.status === 'waiting' && (
-            <motion.div key="waiting" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center">
-              <div className="font-display text-8xl font-black tracking-widest text-primary">{room.code}</div>
-              <p className="mt-6 text-2xl text-muted-foreground">Várakozás a diákokra...</p>
-              <div className="mt-4 flex items-center justify-center gap-2 text-lg text-muted-foreground">
-                <Users className="h-6 w-6" /> {totalParticipants} diák csatlakozott
+            <motion.div key="waiting" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full max-w-5xl">
+              <div className="text-center mb-12">
+                <div className="font-display text-8xl font-black tracking-widest text-primary">{room.code}</div>
+                <p className="mt-4 text-2xl text-muted-foreground">Várakozás a diákokra...</p>
               </div>
+
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 pl-4 pr-4">
+                <AnimatePresence>
+                  {participants.map((p, i) => (
+                    <motion.div
+                      key={p.id}
+                      initial={{ opacity: 0, scale: 0.5, y: 20 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.5 }}
+                      transition={{ delay: i * 0.05 }}
+                      className="flex flex-col items-center gap-2 rounded-xl bg-card p-4 shadow-sm border border-border/50"
+                    >
+                      <Avatar avatar={p.avatar as AvatarData} size="md" />
+                      <span className="font-display font-bold text-sm truncate w-full text-center">
+                        {p.student_name}
+                      </span>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
+
+              {participants.length === 0 && (
+                <div className="flex flex-col items-center justify-center py-20 text-muted-foreground gap-4">
+                  <UserCircle className="h-16 w-16 opacity-20" />
+                  <p>Még nem csatlakozott senki</p>
+                </div>
+              )}
             </motion.div>
           )}
 
@@ -226,6 +254,7 @@ const PresenterView = () => {
                   >
                     <div className="flex items-center gap-4">
                       <span className="font-display text-2xl font-bold text-muted-foreground w-10">{i + 1}.</span>
+                      <Avatar avatar={student.avatar as AvatarData} size="sm" className="h-10 w-10" />
                       <span className="font-medium text-lg">{student.student_name}</span>
                     </div>
                     <div className="flex items-center gap-2 font-display text-xl font-bold text-primary">
@@ -307,6 +336,9 @@ const PresenterView = () => {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Real-time Reactions Overlay */}
+      <ReactionDisplay roomId={id!} />
     </div>
   );
 };

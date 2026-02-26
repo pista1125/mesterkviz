@@ -5,8 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Clock, CheckCircle2, Users, Zap, Send, Trophy } from 'lucide-react';
-import type { Room, Quiz, QuizQuestion, RoomParticipant } from '@/types/quiz';
+import { Clock, CheckCircle2, Users, Zap, Send, Trophy, Smile } from 'lucide-react';
+import type { Room, Quiz, QuizQuestion, RoomParticipant, AvatarData } from '@/types/quiz';
+import { Avatar } from '@/components/quiz/Avatar';
+import { ReactionButton } from '@/components/quiz/ReactionButton';
 
 const COLORS = [
   { bg: 'bg-quiz-red', icon: '▲', label: 'A' },
@@ -240,9 +242,12 @@ const PlayQuiz = () => {
             <span>{participants.length} résztvevő</span>
           </div>
           {studentName && (
-            <div className="mt-4 rounded-lg bg-muted px-4 py-2">
-              <span className="text-sm text-muted-foreground">Te:</span>{' '}
-              <span className="font-medium">{studentName}</span>
+            <div className="mt-4 flex flex-col items-center gap-3">
+              <Avatar avatar={JSON.parse(sessionStorage.getItem('student_avatar') || '{"character": "🐻", "accessory": "none"}')} size="lg" />
+              <div className="rounded-lg bg-muted px-4 py-2">
+                <span className="text-sm text-muted-foreground">Te:</span>{' '}
+                <span className="font-medium">{studentName}</span>
+              </div>
             </div>
           )}
         </motion.div>
@@ -286,7 +291,10 @@ const PlayQuiz = () => {
           <Clock className="h-5 w-5" />
           {timer}s
         </div>
-        <div className="text-sm text-muted-foreground">{studentName}</div>
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-muted-foreground">{studentName}</span>
+          <Avatar avatar={JSON.parse(sessionStorage.getItem('student_avatar') || '{"character": "🐻", "accessory": "none"}')} size="sm" className="h-8 w-8" />
+        </div>
       </div>
 
       {/* Question */}
@@ -317,9 +325,8 @@ const PlayQuiz = () => {
               <motion.div
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className={`mb-4 rounded-xl p-4 text-center text-primary-foreground ${
-                  answerCorrect ? 'bg-quiz-green' : 'bg-destructive'
-                }`}
+                className={`mb-4 rounded-xl p-4 text-center text-primary-foreground ${answerCorrect ? 'bg-quiz-green' : 'bg-destructive'
+                  }`}
               >
                 <div className="text-lg font-bold">
                   {answerCorrect ? '✓ Helyes válasz!' : '✗ Helytelen válasz'}
@@ -346,13 +353,12 @@ const PlayQuiz = () => {
                       whileTap={!answered ? { scale: 0.98 } : {}}
                       onClick={() => !answered && submitAnswer(option.id)}
                       disabled={answered}
-                      className={`flex items-center gap-4 rounded-xl p-5 text-left text-lg font-bold text-primary-foreground transition-all ${color.bg} ${
-                        answered
+                      className={`flex items-center gap-4 rounded-xl p-5 text-left text-lg font-bold text-primary-foreground transition-all ${color.bg} ${answered
                           ? isSelected
                             ? 'ring-4 ring-foreground/30'
                             : 'opacity-50'
                           : 'hover:brightness-110 active:brightness-90'
-                      }`}
+                        }`}
                     >
                       <span className="text-2xl">{color.icon}</span>
                       <span>{option.text || `Válasz ${i + 1}`}</span>
@@ -381,6 +387,9 @@ const PlayQuiz = () => {
           </motion.div>
         </AnimatePresence>
       </div>
+
+      {/* Reaction FAB */}
+      <ReactionButton roomId={roomId!} className="fixed bottom-6 right-6 z-40" />
     </div>
   );
 };

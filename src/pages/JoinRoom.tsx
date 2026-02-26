@@ -6,9 +6,11 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Zap, Users } from 'lucide-react';
+import { Zap, Users, UserCircle } from 'lucide-react';
 import { getStudentSessionId } from '@/types/quiz';
-import type { Room } from '@/types/quiz';
+import type { Room, AvatarData } from '@/types/quiz';
+import { AvatarSelector } from '@/components/quiz/AvatarSelector';
+import { Avatar } from '@/components/quiz/Avatar';
 
 const JoinRoom = () => {
   const { code: urlCode } = useParams();
@@ -17,7 +19,8 @@ const JoinRoom = () => {
   const [name, setName] = useState('');
   const [room, setRoom] = useState<Room | null>(null);
   const [joining, setJoining] = useState(false);
-  const [step, setStep] = useState<'code' | 'name'>(!urlCode ? 'code' : 'name');
+  const [step, setStep] = useState<'code' | 'name' | 'avatar'>(!urlCode ? 'code' : 'name');
+  const [avatar, setAvatar] = useState<AvatarData>({ character: '🐻', accessory: 'none' });
 
   useEffect(() => {
     if (urlCode) {
@@ -63,7 +66,7 @@ const JoinRoom = () => {
     // Check if already joined
     const { data: existing } = await supabase
       .from('room_participants')
-      .select('id')
+      .select('id, avatar')
       .eq('room_id', room.id)
       .eq('student_session_id', sessionId)
       .maybeSingle();
@@ -71,7 +74,8 @@ const JoinRoom = () => {
     if (existing) {
       // Already joined, go to play
       sessionStorage.setItem('participant_id', existing.id);
-      sessionStorage.setItem('student_name', name);
+      sessionStorage.setItem('student_name', name.trim());
+      sessionStorage.setItem('student_avatar', JSON.stringify(existing.avatar || avatar));
       navigate(`/play/${room.id}`);
       return;
     }
@@ -82,6 +86,7 @@ const JoinRoom = () => {
         room_id: room.id,
         student_name: name.trim(),
         student_session_id: sessionId,
+        avatar: avatar,
       })
       .select()
       .single();
@@ -96,6 +101,7 @@ const JoinRoom = () => {
     if (data) {
       sessionStorage.setItem('participant_id', data.id);
       sessionStorage.setItem('student_name', name.trim());
+      sessionStorage.setItem('student_avatar', JSON.stringify(avatar));
       navigate(`/play/${room.id}`);
     }
   };
@@ -157,15 +163,32 @@ const JoinRoom = () => {
               <Button
                 className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
                 size="lg"
-                onClick={handleJoin}
+                onClick={() => setStep('avatar')}
                 disabled={joining || !name.trim()}
               >
-                <Users className="mr-2 h-5 w-5" />
-                {joining ? 'Csatlakozás...' : 'Csatlakozás'}
+                <UserCircle className="mr-2 h-5 w-5" />
+                Avatár választása
               </Button>
               <Button variant="ghost" size="sm" className="w-full" onClick={() => { setStep('code'); setRoom(null); }}>
                 Másik szobakód
               </Button>
+            </div>
+          )}
+
+          {step === 'avatar' && (
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 mb-2">
+                <Button variant="ghost" size="sm" onClick={() => setStep('name')} className="p-0 h-auto">
+                  Vissza
+                </Button>
+                <div className="text-sm font-medium">Lépés 3/3 - Avatár választása</div>
+              </div>
+              <AvatarSelector
+                onSelect={(selectedAvatar) => {
+                  setAvatar(selectedAvatar);
+                  handleJoin();
+                }}
+              />
             </div>
           )}
         </CardContent>

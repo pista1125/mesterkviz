@@ -4,6 +4,11 @@ export interface QuizOption {
   isCorrect: boolean;
 }
 
+export interface AvatarData {
+  character: string;
+  accessory: string;
+}
+
 export interface QuizQuestion {
   id: string;
   type: 'multiple-choice' | 'text-input';
@@ -54,6 +59,7 @@ export interface RoomParticipant {
   student_session_id: string;
   joined_at: string;
   is_active: boolean;
+  avatar?: AvatarData;
 }
 
 export interface QuizAnswer {
