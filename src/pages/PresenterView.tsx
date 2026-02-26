@@ -300,9 +300,6 @@ const PresenterView = () => {
                 <div className="grid gap-4 sm:grid-cols-2">
                   {currentQuestion.options.map((opt, i) => {
                     const color = COLORS[i % COLORS.length];
-                    const answeredCount = answersForCurrentQ.filter(
-                      (a) => (a.answer as any)?.selectedOptionId === opt.id
-                    ).length;
                     return (
                       <div
                         key={opt.id}
@@ -312,7 +309,6 @@ const PresenterView = () => {
                           <span className="text-2xl">{color.icon}</span>
                           <span className="text-lg font-bold">{opt.text || `Válasz ${i + 1}`}</span>
                         </div>
-                        <Badge variant="secondary" className="text-base">{answeredCount}</Badge>
                       </div>
                     );
                   })}

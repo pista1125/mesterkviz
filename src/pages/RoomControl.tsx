@@ -315,27 +315,19 @@ const RoomControl = () => {
                     <div className="grid gap-3 sm:grid-cols-2">
                       {currentQuestion.options.map((opt, i) => {
                         const colors = ['bg-quiz-red', 'bg-quiz-blue', 'bg-quiz-yellow', 'bg-quiz-green'];
-                        const answeredCount = answersForCurrentQ.filter(
-                          (a) => (a.answer as any)?.selectedOptionId === opt.id
-                        ).length;
                         return (
                           <div
                             key={opt.id}
                             className={`flex items-center justify-between rounded-lg p-4 text-primary-foreground ${colors[i % 4]}`}
                           >
                             <span className="font-medium">{opt.text || `Válasz ${i + 1}`}</span>
-                            <div className="flex items-center gap-2">
-                              {opt.isCorrect && <CheckCircle2 className="h-5 w-5" />}
-                              <Badge variant="secondary">{answeredCount}</Badge>
-                            </div>
+                            {opt.isCorrect && <CheckCircle2 className="h-5 w-5" />}
                           </div>
                         );
                       })}
                     </div>
                   )}
-                  <div className="mt-4 text-sm text-muted-foreground">
-                    Válaszolt: {answersForCurrentQ.length}/{totalParticipants} diák
-                  </div>
+
                 </CardContent>
               </Card>
             )}
