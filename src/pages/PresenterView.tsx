@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Square, SkipForward, Maximize, Minimize, Users, Trophy, BarChart3, Clock, UserCircle } from 'lucide-react';
+import { Play, Square, SkipForward, Maximize, Minimize, Users, Trophy, BarChart3, Clock, UserCircle, CheckCircle2 } from 'lucide-react';
 import type { Room, Quiz, QuizQuestion, RoomParticipant, QuizAnswer, AvatarData } from '@/types/quiz';
 import { Avatar } from '@/components/quiz/Avatar';
 import { Podium } from '@/components/quiz/Podium';
@@ -321,15 +321,26 @@ const PresenterView = () => {
                 )}
               </div>
 
-              {/* Answer options - WITHOUT correct answer indicators */}
+              {/* Multiple Choice Answers */}
               {currentQuestion.type === 'multiple-choice' && (
                 <div className="grid gap-4 sm:grid-cols-2">
                   {currentQuestion.options.map((opt, i) => {
                     const color = COLORS[i % COLORS.length];
+                    const isCorrect = opt.isCorrect;
+                    const showCorrect = timer === 0;
+
                     return (
-                      <div
+                      <motion.div
                         key={opt.id}
-                        className={`flex items-center justify-between rounded-xl p-5 text-primary-foreground ${color.bg}`}
+                        initial={false}
+                        animate={{
+                          scale: showCorrect && isCorrect ? 1.05 : 1,
+                          boxShadow: showCorrect && isCorrect ? '0 0 20px rgba(34, 197, 94, 0.5)' : 'none'
+                        }}
+                        className={`flex items-center justify-between rounded-xl p-5 text-primary-foreground transition-all ${showCorrect
+                          ? isCorrect ? 'bg-quiz-green ring-4 ring-white/20' : 'bg-muted/20 opacity-40 grayscale'
+                          : color.bg
+                          }`}
                       >
                         <div className="flex items-center gap-3">
                           <span className="text-2xl">{color.icon}</span>
@@ -337,30 +348,70 @@ const PresenterView = () => {
                             <MathRenderer text={opt.text || `Válasz ${i + 1}`} />
                           </span>
                         </div>
-                      </div>
+                        {showCorrect && isCorrect && (
+                          <CheckCircle2 className="h-6 w-6" />
+                        )}
+                      </motion.div>
                     );
                   })}
                 </div>
               )}
 
+              {/* Text Input Answer */}
+              {currentQuestion.type === 'text-input' && (
+                <div className="flex flex-col items-center justify-center space-y-6 py-12">
+                  <div className="relative w-full max-w-lg overflow-hidden rounded-2xl bg-card p-8 shadow-inner border-2 border-dashed border-muted-foreground/20">
+                    <p className="text-center text-muted-foreground mb-4">A válasz helye</p>
+                    <AnimatePresence>
+                      {timer === 0 && (
+                        <motion.div
+                          initial={{ y: 20, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          className="flex flex-col items-center gap-4"
+                        >
+                          <Badge className="bg-quiz-green hover:bg-quiz-green py-1 px-4 text-lg">Helyes válasz</Badge>
+                          <div className="text-4xl font-black text-primary">
+                            <MathRenderer text={currentQuestion.correctAnswer || ''} />
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </div>
+              )}
+
+              {/* Matching Answers */}
               {currentQuestion.type === 'matching' && (
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-6 sm:grid-cols-2">
                   <div className="space-y-3">
                     <h3 className="text-center font-display font-bold text-muted-foreground">Bal oldal</h3>
                     {(currentQuestion.pairs || []).map((pair) => (
-                      <div key={pair.id} className="rounded-xl border bg-card p-4 text-center font-bold shadow-sm">
+                      <motion.div
+                        key={pair.id}
+                        animate={timer === 0 ? { borderColor: 'rgb(34, 197, 94)', backgroundColor: 'rgba(34, 197, 94, 0.05)' } : {}}
+                        className="rounded-xl border bg-card p-4 text-center font-bold shadow-sm transition-colors"
+                      >
                         <MathRenderer text={pair.left} />
-                      </div>
+                      </motion.div>
                     ))}
                   </div>
                   <div className="space-y-3">
                     <h3 className="text-center font-display font-bold text-muted-foreground">Jobb oldal</h3>
                     {(currentQuestion.pairs || []).map((pair) => (
-                      <div key={pair.id} className="rounded-xl border bg-card p-4 text-center font-bold shadow-sm">
+                      <motion.div
+                        key={pair.id}
+                        animate={timer === 0 ? { borderColor: 'rgb(34, 197, 94)', backgroundColor: 'rgba(34, 197, 94, 0.05)' } : {}}
+                        className="rounded-xl border bg-card p-4 text-center font-bold shadow-sm transition-colors"
+                      >
                         <MathRenderer text={pair.right} />
-                      </div>
+                      </motion.div>
                     ))}
                   </div>
+                  {timer === 0 && (
+                    <div className="col-span-full text-center">
+                      <p className="text-sm text-quiz-green font-bold">A párok sorrendben vannak feltüntetve</p>
+                    </div>
+                  )}
                 </div>
               )}
             </motion.div>
