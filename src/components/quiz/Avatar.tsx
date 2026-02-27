@@ -20,8 +20,9 @@ const sizeClasses = {
 };
 
 export const Avatar = ({ avatar, className, size = 'md' }: AvatarProps) => {
-    const char = avatar?.character || '🐻';
-    const acc = avatar?.accessory || 'none';
+    const data = typeof avatar === 'string' ? JSON.parse(avatar) : avatar;
+    const char = data?.character || '🐻';
+    const acc = data?.accessory || 'none';
 
     return (
         <div className={cn(
