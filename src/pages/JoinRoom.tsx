@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Zap, Users, UserCircle } from 'lucide-react';
+import { Users, UserCircle } from 'lucide-react';
 import { getStudentSessionId } from '@/types/quiz';
 import type { Room, AvatarData } from '@/types/quiz';
 import { AvatarSelector } from '@/components/quiz/AvatarSelector';
@@ -111,8 +111,8 @@ const JoinRoom = () => {
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-primary/10 via-background to-secondary/10 p-4">
       <Card className="w-full max-w-md shadow-xl">
         <CardHeader className="text-center">
-          <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-primary">
-            <Zap className="h-6 w-6 text-primary-foreground" />
+          <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-background border p-1.5 border-primary/20 shadow-sm overflow-hidden">
+            <img src="/favicon.ico" alt="KvízMester" className="h-full w-full object-contain" />
           </div>
           <CardTitle className="font-display text-2xl">KvízMester</CardTitle>
         </CardHeader>

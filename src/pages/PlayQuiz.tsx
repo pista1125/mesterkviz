@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Clock, CheckCircle2, Users, Zap, Send, Trophy, Smile } from 'lucide-react';
+import { Clock, CheckCircle2, Users, Send, Trophy, Smile } from 'lucide-react';
 import type { Room, Quiz, QuizQuestion, RoomParticipant, AvatarData } from '@/types/quiz';
 import { Avatar } from '@/components/quiz/Avatar';
 import { AvatarSelector } from '@/components/quiz/AvatarSelector';
@@ -595,7 +595,12 @@ const PlayQuiz = () => {
             </div>
           </>
         ) : (
-          <div className="font-display font-bold text-primary">KvízMester</div>
+          <div className="flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-background border p-1 border-primary/20 shadow-sm overflow-hidden">
+              <img src="/favicon.ico" alt="KvízMester" className="h-full w-full object-contain" />
+            </div>
+            <div className="font-display font-bold text-primary">KvízMester</div>
+          </div>
         )}
         <div className="flex items-center gap-2">
           <span className="text-sm text-muted-foreground">{studentName}</span>

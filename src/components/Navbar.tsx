@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
-import { LogOut, LayoutDashboard, Zap } from 'lucide-react';
+import { LogOut, LayoutDashboard } from 'lucide-react';
 import { toast } from 'sonner';
 
 export function Navbar() {
@@ -21,8 +21,8 @@ export function Navbar() {
     <nav className="sticky top-0 z-50 border-b bg-card/80 backdrop-blur-md">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-            <Zap className="h-5 w-5 text-primary-foreground" />
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-background border p-1 border-primary/20 shadow-sm overflow-hidden">
+            <img src="/favicon.ico" alt="KvízMester" className="h-full w-full object-contain" />
           </div>
           <span className="font-display text-xl font-bold text-foreground">
             KvízMester

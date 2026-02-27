@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Navbar } from '@/components/Navbar';
-import { Zap, Users, Brain, BarChart3 } from 'lucide-react';
+import { Users, Brain, BarChart3 } from 'lucide-react';
 
 const Index = () => {
   const [roomCode, setRoomCode] = useState('');

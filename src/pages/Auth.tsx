@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
-import { Zap } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 const Auth = () => {
   const { signIn, signUp, user } = useAuth();
@@ -62,8 +62,8 @@ const Auth = () => {
       <div className="container mx-auto flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-8">
         <Card className="w-full max-w-md shadow-lg">
           <CardHeader className="text-center">
-            <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-primary">
-              <Zap className="h-6 w-6 text-primary-foreground" />
+            <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-background border p-1.5 border-primary/20 shadow-sm overflow-hidden">
+              <img src="/favicon.ico" alt="KvízMester" className="h-full w-full object-contain" />
             </div>
             <CardTitle className="font-display text-2xl">KvízMester</CardTitle>
             <CardDescription>Tanári fiók kezelése</CardDescription>
