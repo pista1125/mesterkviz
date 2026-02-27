@@ -66,10 +66,21 @@ const PresenterView = () => {
     if (!id) return;
     const channel = supabase
       .channel(`presenter-${id}`)
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'room_participants', filter: `room_id=eq.${id}` }, () => {
-        supabase.from('room_participants').select('*').eq('room_id', id).eq('is_active', true).order('joined_at').then(({ data }) => {
-          if (data) setParticipants(data as unknown as RoomParticipant[]);
-        });
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'room_participants', filter: `room_id=eq.${id}` }, (payload) => {
+        if (payload.eventType === 'UPDATE') {
+          setParticipants(prev => {
+            const updated = payload.new as unknown as RoomParticipant;
+            if (!updated.is_active) return prev.filter(p => p.id !== updated.id);
+            if (prev.find(p => p.id === updated.id)) {
+              return prev.map(p => p.id === updated.id ? updated : p);
+            }
+            return [...prev, updated].sort((a, b) => new Date(a.joined_at).getTime() - new Date(b.joined_at).getTime());
+          });
+        } else {
+          supabase.from('room_participants').select('*').eq('room_id', id).eq('is_active', true).order('joined_at').then(({ data }) => {
+            if (data) setParticipants(data as unknown as RoomParticipant[]);
+          });
+        }
       })
       .on('postgres_changes', { event: '*', schema: 'public', table: 'quiz_answers', filter: `room_id=eq.${id}` }, () => {
         supabase.from('quiz_answers').select('*').eq('room_id', id).then(({ data }) => {
