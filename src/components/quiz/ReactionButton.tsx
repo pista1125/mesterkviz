@@ -20,18 +20,24 @@ interface ReactionButtonProps {
 
 export const ReactionButton = ({ roomId, className }: ReactionButtonProps) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [channel, setChannel] = useState<any>(null);
+
+    useEffect(() => {
+        const newChannel = supabase.channel(`reactions-${roomId}`).subscribe();
+        setChannel(newChannel);
+        return () => {
+            supabase.removeChannel(newChannel);
+        };
+    }, [roomId]);
 
     const sendReaction = async (emoji: string) => {
-        const channel = supabase.channel(`reactions-${roomId}`);
-        await channel.subscribe(async (status) => {
-            if (status === 'SUBSCRIBED') {
-                await channel.send({
-                    type: 'broadcast',
-                    event: 'reaction',
-                    payload: { emoji },
-                });
-            }
-        });
+        if (channel) {
+            await channel.send({
+                type: 'broadcast',
+                event: 'reaction',
+                payload: { emoji },
+            });
+        }
         setIsOpen(false);
     };
 

@@ -8,8 +8,15 @@ import { toast } from 'sonner';
 import { Clock, CheckCircle2, Users, Zap, Send, Trophy, Smile } from 'lucide-react';
 import type { Room, Quiz, QuizQuestion, RoomParticipant, AvatarData } from '@/types/quiz';
 import { Avatar } from '@/components/quiz/Avatar';
+import { AvatarSelector } from '@/components/quiz/AvatarSelector';
 import { ReactionButton } from '@/components/quiz/ReactionButton';
 import { MathRenderer } from '@/components/quiz/MathRenderer';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const COLORS = [
   { bg: 'bg-quiz-red', icon: '▲', label: 'A' },
@@ -54,6 +61,15 @@ const PlayQuiz = () => {
     completedRight: [],
     shuffledLeft: [],
     shuffledRight: []
+  });
+  const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
+  const [isEditingAvatar, setIsEditingAvatar] = useState(false);
+  const [currentAvatar, setCurrentAvatar] = useState<AvatarData>(() => {
+    try {
+      return JSON.parse(sessionStorage.getItem('student_avatar') || '{"character": "🐻", "accessory": "none"}');
+    } catch {
+      return { character: '🐻', accessory: 'none' };
+    }
   });
   const currentQIndexRef = useRef(-1);
 
@@ -133,7 +149,17 @@ const PlayQuiz = () => {
           }
         }
       })
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'room_participants', filter: `room_id=eq.${roomId}` }, () => {
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'room_participants', filter: `room_id=eq.${roomId}` }, (payload: any) => {
+        // Check if current participant was kicked
+        if (payload.new && payload.new.id === participantId && payload.new.is_active === false) {
+          toast.error('Ki lettél téve a szobából');
+          sessionStorage.removeItem('participant_id');
+          sessionStorage.removeItem('student_name');
+          sessionStorage.removeItem('student_avatar');
+          navigate('/join');
+          return;
+        }
+
         supabase.from('room_participants').select('*').eq('room_id', roomId).then(({ data }) => {
           if (data) setParticipants(data as unknown as RoomParticipant[]);
         });
@@ -299,6 +325,25 @@ const PlayQuiz = () => {
     }
   };
 
+  const handleAvatarUpdate = async (newAvatar: AvatarData) => {
+    if (!participantId) return;
+
+    const { error } = await supabase
+      .from('room_participants')
+      .update({ avatar: newAvatar } as any)
+      .eq('id', participantId);
+
+    if (error) {
+      toast.error('Hiba az avatár frissítésekor');
+      return;
+    }
+
+    setCurrentAvatar(newAvatar);
+    sessionStorage.setItem('student_avatar', JSON.stringify(newAvatar));
+    setIsEditingAvatar(false);
+    toast.success('Avatár frissítve!');
+  };
+
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
@@ -309,78 +354,67 @@ const PlayQuiz = () => {
 
   if (!room || !quiz) return null;
 
-  // Waiting Room
-  if (room.status === 'waiting') {
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-primary/20 via-background to-secondary/20 p-4">
-        <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary">
-            <Zap className="h-8 w-8 text-primary-foreground" />
-          </div>
-          <h1 className="font-display text-3xl font-bold text-foreground">Várakozás...</h1>
-          <p className="mt-2 text-muted-foreground">A tanár hamarosan elindítja a kvízt</p>
-          <div className="mt-6 font-display text-5xl font-black tracking-widest text-primary animate-pulse-slow">{room.code}</div>
-          <div className="mt-6 flex items-center justify-center gap-2 text-muted-foreground">
-            <Users className="h-5 w-5" />
-            <span>{participants.length} résztvevő</span>
-          </div>
-          {studentName && (
-            <div className="mt-4 flex flex-col items-center gap-3">
-              <Avatar avatar={JSON.parse(sessionStorage.getItem('student_avatar') || '{"character": "🐻", "accessory": "none"}')} size="lg" />
-              <div className="rounded-lg bg-muted px-4 py-2">
-                <span className="text-sm text-muted-foreground">Te:</span>{' '}
-                <span className="font-medium">{studentName}</span>
-              </div>
+  const renderContent = () => {
+    // Waiting Room
+    if (room.status === 'waiting') {
+      return (
+        <div className="flex flex-1 flex-col items-center justify-center bg-gradient-to-br from-primary/20 via-background to-secondary/20 p-4">
+          <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-center">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary">
+              <Zap className="h-8 w-8 text-primary-foreground" />
             </div>
-          )}
-        </motion.div>
-      </div>
-    );
-  }
+            <h1 className="font-display text-3xl font-bold text-foreground">Várakozás...</h1>
+            <p className="mt-2 text-muted-foreground">A tanár hamarosan elindítja a kvízt</p>
+            <div className="mt-6 font-display text-5xl font-black tracking-widest text-primary animate-pulse-slow">{room.code}</div>
+            <div className="mt-6 flex items-center justify-center gap-2 text-muted-foreground">
+              <Users className="h-5 w-5" />
+              <span>{participants.length} résztvevő</span>
+            </div>
+            {studentName && (
+              <div className="mt-4 flex flex-col items-center gap-3">
+                <button
+                  onClick={() => { setIsAvatarModalOpen(true); setIsEditingAvatar(false); }}
+                  className="transition-transform hover:scale-110 active:scale-95"
+                >
+                  <Avatar avatar={currentAvatar} size="lg" />
+                </button>
+                <div className="rounded-lg bg-muted px-4 py-2">
+                  <span className="text-sm text-muted-foreground">Te:</span>{' '}
+                  <span className="font-medium">{studentName}</span>
+                </div>
+              </div>
+            )}
+          </motion.div>
+        </div>
+      );
+    }
 
-  // Quiz Completed
-  if (room.status === 'completed') {
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-quiz-green/20 via-background to-primary/10 p-4">
-        <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-center">
-          <CheckCircle2 className="mx-auto mb-4 h-20 w-20 text-quiz-green" />
-          <h1 className="font-display text-3xl font-bold">Kvíz vége!</h1>
-          <p className="mt-2 text-muted-foreground">Köszönjük a részvételt!</p>
-          {room.show_results_to_students && (
-            <Button className="mt-6" onClick={() => navigate(`/results/${room.id}`)}>
-              Eredmények megtekintése
+    // Quiz Completed
+    if (room.status === 'completed') {
+      return (
+        <div className="flex flex-1 flex-col items-center justify-center bg-gradient-to-br from-quiz-green/20 via-background to-primary/10 p-4">
+          <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-center">
+            <CheckCircle2 className="mx-auto mb-4 h-20 w-20 text-quiz-green" />
+            <h1 className="font-display text-3xl font-bold">Kvíz vége!</h1>
+            <p className="mt-2 text-muted-foreground">Köszönjük a részvételt!</p>
+            {room.show_results_to_students && (
+              <Button className="mt-6" onClick={() => navigate(`/results/${room.id}`)}>
+                Eredmények megtekintése
+              </Button>
+            )}
+            <Button variant="ghost" className="mt-3" onClick={() => navigate('/')}>
+              Vissza a főoldalra
             </Button>
-          )}
-          <Button variant="ghost" className="mt-3" onClick={() => navigate('/')}>
-            Vissza a főoldalra
-          </Button>
-        </motion.div>
-      </div>
-    );
-  }
-
-  // Active Quiz - Show Question
-  const question = quiz.questions[room.current_question_index];
-  if (!question) return null;
-
-  return (
-    <div className="flex min-h-screen flex-col bg-background">
-      {/* Top Bar */}
-      <div className="flex items-center justify-between border-b bg-card px-4 py-3">
-        <div className="text-sm text-muted-foreground">
-          {room.current_question_index + 1}/{quiz.questions.length}
+          </motion.div>
         </div>
-        <div className={`flex items-center gap-2 font-display text-xl font-bold ${timer <= 5 ? 'text-destructive' : 'text-foreground'}`}>
-          <Clock className="h-5 w-5" />
-          {timer}s
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-muted-foreground">{studentName}</span>
-          <Avatar avatar={JSON.parse(sessionStorage.getItem('student_avatar') || '{"character": "🐻", "accessory": "none"}')} size="sm" className="h-8 w-8" />
-        </div>
-      </div>
+      );
+    }
 
-      {/* Question */}
+    // Active Quiz - Show Question
+    const question = quiz.questions[room.current_question_index];
+    if (!question) return null;
+
+    return (
       <div className="flex flex-1 flex-col p-4">
         <AnimatePresence mode="wait">
           <motion.div
@@ -542,9 +576,74 @@ const PlayQuiz = () => {
           </motion.div>
         </AnimatePresence>
       </div>
+    );
+  };
+
+  return (
+    <div className="flex min-h-screen flex-col bg-background">
+      {/* Top Bar - Only in active or completed(?) rooms, or show always? */}
+      {/* We'll show a modified top bar for waiting state too for consistency */}
+      <div className="flex items-center justify-between border-b bg-card px-4 py-3">
+        {room.status === 'active' ? (
+          <>
+            <div className="text-sm text-muted-foreground">
+              {room.current_question_index + 1}/{quiz.questions.length}
+            </div>
+            <div className={`flex items-center gap-2 font-display text-xl font-bold ${timer <= 5 ? 'text-destructive' : 'text-foreground'}`}>
+              <Clock className="h-5 w-5" />
+              {timer}s
+            </div>
+          </>
+        ) : (
+          <div className="font-display font-bold text-primary">KvízMester</div>
+        )}
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-muted-foreground">{studentName}</span>
+          <button
+            onClick={() => { setIsAvatarModalOpen(true); setIsEditingAvatar(false); }}
+            className="transition-transform hover:scale-110 active:scale-95"
+          >
+            <Avatar avatar={currentAvatar} size="sm" className="h-8 w-8" />
+          </button>
+        </div>
+      </div>
+
+      {renderContent()}
 
       {/* Reaction FAB */}
       <ReactionButton roomId={roomId!} className="fixed bottom-6 right-6 z-40" />
+
+      {/* Avatar Modal */}
+      <Dialog open={isAvatarModalOpen} onOpenChange={setIsAvatarModalOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-center font-display text-2xl">
+              {isEditingAvatar ? 'Avatár szerkesztése' : 'Avatárod'}
+            </DialogTitle>
+          </DialogHeader>
+          <div className="flex flex-col items-center justify-center py-6">
+            {!isEditingAvatar ? (
+              <>
+                <div className="mb-8">
+                  <Avatar avatar={currentAvatar} size="xl" />
+                </div>
+                <Button
+                  onClick={() => setIsEditingAvatar(true)}
+                  className="w-full font-bold"
+                  size="lg"
+                >
+                  Szerkesztés
+                </Button>
+              </>
+            ) : (
+              <AvatarSelector
+                initialAvatar={currentAvatar}
+                onSelect={handleAvatarUpdate}
+              />
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

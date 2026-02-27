@@ -137,6 +137,20 @@ const PresenterView = () => {
     toast.success('Kvíz befejezve!');
   };
 
+  const handleKickParticipant = async (participantId: string) => {
+    const { error } = await supabase
+      .from('room_participants')
+      .update({ is_active: false })
+      .eq('id', participantId);
+
+    if (error) {
+      toast.error('Hiba a résztvevő kitiltásakor');
+    } else {
+      toast.success('Résztvevő eltávolítva');
+      setParticipants(prev => prev.filter(p => p.id !== participantId));
+    }
+  };
+
   const getLeaderboard = () => {
     const sessionAnswers = answers.filter((a) => (a as any).session_number === (room?.session_number || 1));
     return participants.map((p) => {
@@ -222,7 +236,17 @@ const PresenterView = () => {
                       transition={{ delay: i * 0.05 }}
                       className="flex flex-col items-center gap-2 rounded-xl bg-card p-4 shadow-sm border border-border/50"
                     >
-                      <Avatar avatar={p.avatar as AvatarData} size="md" />
+                      <div className="relative group">
+                        <Avatar avatar={p.avatar as AvatarData} size="md" />
+                        <Button
+                          variant="destructive"
+                          size="icon"
+                          className="absolute -top-2 -right-2 h-6 w-6 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                          onClick={() => handleKickParticipant(p.id)}
+                        >
+                          <span className="text-xs">✕</span>
+                        </Button>
+                      </div>
                       <span className="font-display font-bold text-sm truncate w-full text-center">
                         {p.student_name}
                       </span>
