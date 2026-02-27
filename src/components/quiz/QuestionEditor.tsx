@@ -10,6 +10,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import type { QuizQuestion } from '@/types/quiz';
 import { ANSWER_COLORS } from '@/types/quiz';
+import { MathRenderer } from '@/components/quiz/MathRenderer';
 
 interface QuestionEditorProps {
   question: QuizQuestion;
@@ -119,6 +120,12 @@ export function QuestionEditor({ question, index, onChange, onDelete }: Question
             placeholder="Írd be a kérdést..."
             rows={2}
           />
+          {question.text && (
+            <div className="mt-2 rounded-md bg-muted/30 p-2 text-sm italic">
+              <span className="mb-1 block text-xs font-semibold uppercase text-muted-foreground">Előnézet:</span>
+              <MathRenderer text={question.text} />
+            </div>
+          )}
         </div>
 
         {/* Image support */}
@@ -205,6 +212,7 @@ export function QuestionEditor({ question, index, onChange, onDelete }: Question
             >
               <option value="multiple-choice">Feleletválasztós</option>
               <option value="text-input">Szabad szöveges</option>
+              <option value="matching">Párosító</option>
             </select>
           </div>
           <div className="space-y-2">
@@ -228,21 +236,28 @@ export function QuestionEditor({ question, index, onChange, onDelete }: Question
               {question.options.map((option, i) => {
                 const color = ANSWER_COLORS[i % ANSWER_COLORS.length];
                 return (
-                  <div key={option.id} className="flex items-center gap-2">
-                    <RadioGroupItem value={option.id} id={option.id} />
-                    <div className={`h-6 w-6 rounded ${color.bg} flex items-center justify-center text-xs text-primary-foreground`}>
-                      {color.icon}
+                  <div key={option.id} className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <RadioGroupItem value={option.id} id={option.id} />
+                      <div className={`h-6 w-6 rounded ${color.bg} flex items-center justify-center text-xs text-primary-foreground`}>
+                        {color.icon}
+                      </div>
+                      <Input
+                        value={option.text}
+                        onChange={(e) => updateOption(i, e.target.value)}
+                        placeholder={`${i + 1}. válasz`}
+                        className="flex-1"
+                      />
+                      {question.options.length > 2 && (
+                        <Button size="sm" variant="ghost" onClick={() => removeOption(i)}>
+                          <Trash2 className="h-3 w-3" />
+                        </Button>
+                      )}
                     </div>
-                    <Input
-                      value={option.text}
-                      onChange={(e) => updateOption(i, e.target.value)}
-                      placeholder={`${i + 1}. válasz`}
-                      className="flex-1"
-                    />
-                    {question.options.length > 2 && (
-                      <Button size="sm" variant="ghost" onClick={() => removeOption(i)}>
-                        <Trash2 className="h-3 w-3" />
-                      </Button>
+                    {option.text && (
+                      <div className="ml-16 rounded bg-muted/20 p-1.5 text-xs">
+                        <MathRenderer text={option.text} />
+                      </div>
                     )}
                   </div>
                 );
@@ -255,7 +270,7 @@ export function QuestionEditor({ question, index, onChange, onDelete }: Question
               </Button>
             )}
           </div>
-        ) : (
+        ) : question.type === 'text-input' ? (
           <div className="space-y-2">
             <Label>Helyes válasz</Label>
             <Input
@@ -263,6 +278,77 @@ export function QuestionEditor({ question, index, onChange, onDelete }: Question
               onChange={(e) => updateQuestion({ correctAnswer: e.target.value })}
               placeholder="Írd be a helyes választ..."
             />
+          </div>
+        ) : (
+          <div className="space-y-3">
+            <Label>Párosító elemek</Label>
+            <div className="space-y-2">
+              {(question.pairs || []).map((pair, i) => (
+                <div key={pair.id} className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 flex gap-2">
+                      <Input
+                        value={pair.left}
+                        onChange={(e) => {
+                          const newPairs = [...(question.pairs || [])];
+                          newPairs[i] = { ...pair, left: e.target.value };
+                          updateQuestion({ pairs: newPairs });
+                        }}
+                        placeholder="Bal oldali elem"
+                      />
+                      <div className="flex items-center text-muted-foreground">↔</div>
+                      <Input
+                        value={pair.right}
+                        onChange={(e) => {
+                          const newPairs = [...(question.pairs || [])];
+                          newPairs[i] = { ...pair, right: e.target.value };
+                          updateQuestion({ pairs: newPairs });
+                        }}
+                        placeholder="Jobb oldali elem"
+                      />
+                    </div>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => {
+                        const newPairs = (question.pairs || []).filter((_, idx) => idx !== i);
+                        updateQuestion({ pairs: newPairs });
+                      }}
+                    >
+                      <Trash2 className="h-3 w-3" />
+                    </Button>
+                  </div>
+                  {(pair.left || pair.right) && (
+                    <div className="ml-2 flex gap-4 text-xs italic text-muted-foreground">
+                      <div className="flex-1 min-h-[1.5rem] rounded bg-muted/20 p-1">
+                        {pair.left && <MathRenderer text={pair.left} />}
+                      </div>
+                      <div className="w-4" />
+                      <div className="flex-1 min-h-[1.5rem] rounded bg-muted/20 p-1">
+                        {pair.right && <MathRenderer text={pair.right} />}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+              {(question.pairs || []).length < 8 && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    updateQuestion({
+                      pairs: [
+                        ...(question.pairs || []),
+                        { id: crypto.randomUUID(), left: '', right: '' },
+                      ],
+                    });
+                  }}
+                >
+                  <Plus className="mr-1 h-3 w-3" />
+                  Pár hozzáadása
+                </Button>
+              )}
+            </div>
           </div>
         )}
       </CardContent>

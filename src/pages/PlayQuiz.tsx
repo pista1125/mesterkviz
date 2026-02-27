@@ -9,6 +9,7 @@ import { Clock, CheckCircle2, Users, Zap, Send, Trophy, Smile } from 'lucide-rea
 import type { Room, Quiz, QuizQuestion, RoomParticipant, AvatarData } from '@/types/quiz';
 import { Avatar } from '@/components/quiz/Avatar';
 import { ReactionButton } from '@/components/quiz/ReactionButton';
+import { MathRenderer } from '@/components/quiz/MathRenderer';
 
 const COLORS = [
   { bg: 'bg-quiz-red', icon: '▲', label: 'A' },
@@ -39,6 +40,21 @@ const PlayQuiz = () => {
   const [earnedScore, setEarnedScore] = useState(0);
   const [timer, setTimer] = useState(0);
   const [questionStartTime, setQuestionStartTime] = useState(0);
+  const [matchingState, setMatchingState] = useState<{
+    leftSelected: string | null,
+    rightSelected: string | null,
+    completedLeft: string[],
+    completedRight: string[],
+    shuffledLeft: { id: string, text: string }[],
+    shuffledRight: { id: string, text: string }[]
+  }>({
+    leftSelected: null,
+    rightSelected: null,
+    completedLeft: [],
+    completedRight: [],
+    shuffledLeft: [],
+    shuffledRight: []
+  });
   const currentQIndexRef = useRef(-1);
 
   const participantId = sessionStorage.getItem('participant_id');
@@ -101,6 +117,20 @@ const PlayQuiz = () => {
           setAnswerCorrect(null);
           setEarnedScore(0);
           setQuestionStartTime(Date.now());
+
+          const question = quiz?.questions[newRoom.current_question_index];
+          if (question?.type === 'matching' && question.pairs) {
+            const leftItems = question.pairs.map(p => ({ id: p.id, text: p.left }));
+            const rightItems = question.pairs.map(p => ({ id: p.id, text: p.right }));
+            setMatchingState({
+              leftSelected: null,
+              rightSelected: null,
+              completedLeft: [],
+              completedRight: [],
+              shuffledLeft: [...leftItems].sort(() => Math.random() - 0.5),
+              shuffledRight: [...rightItems].sort(() => Math.random() - 0.5)
+            });
+          }
         }
       })
       .on('postgres_changes', { event: '*', schema: 'public', table: 'room_participants', filter: `room_id=eq.${roomId}` }, () => {
@@ -132,6 +162,25 @@ const PlayQuiz = () => {
 
     return () => clearInterval(interval);
   }, [room?.current_question_index, room?.status]);
+
+  // Initial matching setup
+  useEffect(() => {
+    if (quiz && room && room.status === 'active' && matchingState.shuffledLeft.length === 0) {
+      const question = quiz.questions[room.current_question_index];
+      if (question?.type === 'matching' && question.pairs) {
+        const leftItems = question.pairs.map(p => ({ id: p.id, text: p.left }));
+        const rightItems = question.pairs.map(p => ({ id: p.id, text: p.right }));
+        setMatchingState({
+          leftSelected: null,
+          rightSelected: null,
+          completedLeft: [],
+          completedRight: [],
+          shuffledLeft: [...leftItems].sort(() => Math.random() - 0.5),
+          shuffledRight: [...rightItems].sort(() => Math.random() - 0.5)
+        });
+      }
+    }
+  }, [quiz, room?.current_question_index]);
 
   // Check if already answered this question
   useEffect(() => {
@@ -173,6 +222,12 @@ const PlayQuiz = () => {
     } else if (question.type === 'text-input') {
       isCorrect = textAnswer.trim().toLowerCase() === (question.correctAnswer || '').trim().toLowerCase();
       answerData = { text: textAnswer.trim() };
+    } else if (question.type === 'matching') {
+      // Matching is submitted when all pairs are found or time runs out
+      const totalPairs = question.pairs?.length || 0;
+      const correctPairs = matchingState.completedLeft.length;
+      isCorrect = correctPairs === totalPairs;
+      answerData = { correctPairs, totalPairs };
     }
 
     const timeTaken = Date.now() - questionStartTime;
@@ -213,6 +268,34 @@ const PlayQuiz = () => {
           setQuestionStartTime(Date.now());
         }, 1500);
       }
+    }
+  };
+
+  const handleMatch = (leftId: string, rightId: string) => {
+    if (leftId === rightId) {
+      toast.success('Helyes pár!');
+      setMatchingState(prev => {
+        const newState = {
+          ...prev,
+          leftSelected: null,
+          rightSelected: null,
+          completedLeft: [...prev.completedLeft, leftId],
+          completedRight: [...prev.completedRight, rightId]
+        };
+
+        // Auto submit if all pairs are finished
+        const question = quiz?.questions[room!.current_question_index];
+        if (question?.pairs && newState.completedLeft.length === question.pairs.length) {
+          setTimeout(() => {
+            submitAnswer();
+          }, 500);
+        }
+
+        return newState;
+      });
+    } else {
+      toast.error('Nem egyezik!');
+      setMatchingState(prev => ({ ...prev, leftSelected: null, rightSelected: null }));
     }
   };
 
@@ -309,7 +392,7 @@ const PlayQuiz = () => {
           >
             <div className="mb-6 rounded-xl bg-card p-6 text-center shadow-sm">
               <h2 className="font-display text-xl font-bold text-card-foreground md:text-2xl">
-                {question.text}
+                <MathRenderer text={question.text} />
               </h2>
               {question.imageUrl && (
                 <img
@@ -331,6 +414,16 @@ const PlayQuiz = () => {
                 <div className="text-lg font-bold">
                   {answerCorrect ? '✓ Helyes válasz!' : '✗ Helytelen válasz'}
                 </div>
+                {!answerCorrect && question.type === 'text-input' && (
+                  <div className="mt-2 text-sm italic opacity-90">
+                    A helyes válasz: <MathRenderer text={question.correctAnswer || ''} className="inline-block" />
+                  </div>
+                )}
+                {!answerCorrect && question.type === 'multiple-choice' && (
+                  <div className="mt-2 text-sm italic opacity-90">
+                    A helyes válasz: <MathRenderer text={question.options.find(o => o.isCorrect)?.text || ''} className="inline-block" />
+                  </div>
+                )}
                 {earnedScore > 0 && (
                   <div className="mt-1 flex items-center justify-center gap-1 text-sm">
                     <Trophy className="h-4 w-4" />
@@ -354,14 +447,14 @@ const PlayQuiz = () => {
                       onClick={() => !answered && submitAnswer(option.id)}
                       disabled={answered}
                       className={`flex items-center gap-4 rounded-xl p-5 text-left text-lg font-bold text-primary-foreground transition-all ${color.bg} ${answered
-                          ? isSelected
-                            ? 'ring-4 ring-foreground/30'
-                            : 'opacity-50'
-                          : 'hover:brightness-110 active:brightness-90'
+                        ? isSelected
+                          ? 'ring-4 ring-foreground/30'
+                          : 'opacity-50'
+                        : 'hover:brightness-110 active:brightness-90'
                         }`}
                     >
                       <span className="text-2xl">{color.icon}</span>
-                      <span>{option.text || `Válasz ${i + 1}`}</span>
+                      <MathRenderer text={option.text || `Válasz ${i + 1}`} />
                     </motion.button>
                   );
                 })}
@@ -369,19 +462,81 @@ const PlayQuiz = () => {
             )}
 
             {/* Text Input Answer */}
-            {question.type === 'text-input' && !answered && (
-              <div className="flex gap-3">
-                <Input
-                  value={textAnswer}
-                  onChange={(e) => setTextAnswer(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && submitAnswer()}
-                  placeholder="Írd be a válaszod..."
-                  className="text-lg"
-                  autoFocus
-                />
-                <Button size="lg" onClick={() => submitAnswer()} disabled={!textAnswer.trim()}>
-                  <Send className="h-5 w-5" />
-                </Button>
+            {question.type === 'text-input' && (
+              <div className="flex flex-1 flex-col items-center justify-center space-y-4">
+                <div className="w-full max-w-md space-y-2">
+                  <Input
+                    placeholder="Írd be a választ..."
+                    value={textAnswer}
+                    onChange={(e) => setTextAnswer(e.target.value)}
+                    disabled={answered}
+                    className="h-14 text-center text-xl font-bold"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && textAnswer.trim() && !answered) {
+                        submitAnswer();
+                      }
+                    }}
+                  />
+                  <Button
+                    className="w-full h-12 text-lg font-bold"
+                    onClick={() => submitAnswer()}
+                    disabled={answered || !textAnswer.trim()}
+                  >
+                    <Send className="mr-2 h-5 w-5" /> Beküldés
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* Matching Answer */}
+            {question.type === 'matching' && (
+              <div className="grid flex-1 grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <h3 className="mb-2 text-center font-display font-bold">Bal oldal</h3>
+                  {matchingState.shuffledLeft.map((item) => {
+                    const isCompleted = matchingState.completedLeft.includes(item.id);
+                    const isSelected = matchingState.leftSelected === item.id;
+                    return (
+                      <Button
+                        key={item.id}
+                        variant={isSelected ? "default" : isCompleted ? "secondary" : "outline"}
+                        className={`w-full h-auto py-4 text-lg font-medium transition-all ${isCompleted ? 'opacity-50 cursor-default' : ''}`}
+                        onClick={() => {
+                          if (answered || isCompleted) return;
+                          setMatchingState(prev => ({ ...prev, leftSelected: item.id }));
+                          if (matchingState.rightSelected) {
+                            handleMatch(item.id, matchingState.rightSelected);
+                          }
+                        }}
+                      >
+                        <MathRenderer text={item.text} />
+                      </Button>
+                    );
+                  })}
+                </div>
+                <div className="space-y-2">
+                  <h3 className="mb-2 text-center font-display font-bold">Jobb oldal</h3>
+                  {matchingState.shuffledRight.map((item) => {
+                    const isCompleted = matchingState.completedRight.includes(item.id);
+                    const isSelected = matchingState.rightSelected === item.id;
+                    return (
+                      <Button
+                        key={item.id}
+                        variant={isSelected ? "default" : isCompleted ? "secondary" : "outline"}
+                        className={`w-full h-auto py-4 text-lg font-medium transition-all ${isCompleted ? 'opacity-50 cursor-default' : ''}`}
+                        onClick={() => {
+                          if (answered || isCompleted) return;
+                          setMatchingState(prev => ({ ...prev, rightSelected: item.id }));
+                          if (matchingState.leftSelected) {
+                            handleMatch(matchingState.leftSelected, item.id);
+                          }
+                        }}
+                      >
+                        <MathRenderer text={item.text} />
+                      </Button>
+                    );
+                  })}
+                </div>
               </div>
             )}
           </motion.div>

@@ -9,13 +9,20 @@ export interface AvatarData {
   accessory: string;
 }
 
+export interface MatchingPair {
+  id: string;
+  left: string;
+  right: string;
+}
+
 export interface QuizQuestion {
   id: string;
-  type: 'multiple-choice' | 'text-input';
+  type: 'multiple-choice' | 'text-input' | 'matching';
   text: string;
   imageUrl?: string;
   options: QuizOption[];
   correctAnswer?: string;
+  pairs?: MatchingPair[];
   timeLimit?: number;
 }
 

@@ -11,6 +11,7 @@ import type { Room, Quiz, QuizQuestion, RoomParticipant, QuizAnswer, AvatarData 
 import { Avatar } from '@/components/quiz/Avatar';
 import { Podium } from '@/components/quiz/Podium';
 import { ReactionDisplay } from '@/components/quiz/ReactionDisplay';
+import { MathRenderer } from '@/components/quiz/MathRenderer';
 
 const COLORS = [
   { bg: 'bg-quiz-red', icon: '▲' },
@@ -285,7 +286,7 @@ const PresenterView = () => {
               {/* Question */}
               <div className="mb-8 rounded-2xl bg-card p-8 text-center shadow-lg">
                 <h2 className="font-display text-2xl font-bold text-card-foreground md:text-4xl">
-                  {currentQuestion.text}
+                  <MathRenderer text={currentQuestion.text} />
                 </h2>
                 {currentQuestion.imageUrl && (
                   <img
@@ -308,11 +309,34 @@ const PresenterView = () => {
                       >
                         <div className="flex items-center gap-3">
                           <span className="text-2xl">{color.icon}</span>
-                          <span className="text-lg font-bold">{opt.text || `Válasz ${i + 1}`}</span>
+                          <span className="text-lg font-bold">
+                            <MathRenderer text={opt.text || `Válasz ${i + 1}`} />
+                          </span>
                         </div>
                       </div>
                     );
                   })}
+                </div>
+              )}
+
+              {currentQuestion.type === 'matching' && (
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-3">
+                    <h3 className="text-center font-display font-bold text-muted-foreground">Bal oldal</h3>
+                    {(currentQuestion.pairs || []).map((pair) => (
+                      <div key={pair.id} className="rounded-xl border bg-card p-4 text-center font-bold shadow-sm">
+                        <MathRenderer text={pair.left} />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="space-y-3">
+                    <h3 className="text-center font-display font-bold text-muted-foreground">Jobb oldal</h3>
+                    {(currentQuestion.pairs || []).map((pair) => (
+                      <div key={pair.id} className="rounded-xl border bg-card p-4 text-center font-bold shadow-sm">
+                        <MathRenderer text={pair.right} />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
             </motion.div>
