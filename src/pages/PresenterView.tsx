@@ -33,6 +33,7 @@ const PresenterView = () => {
   const [loading, setLoading] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [showRanglistaCompleted, setShowRanglistaCompleted] = useState(false);
   const [timer, setTimer] = useState(0);
 
   const fetchRoomData = useCallback(async () => {
@@ -96,6 +97,14 @@ const PresenterView = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, [room?.current_question_index, room?.status]);
+
+  // Show Ranglista button after podium animation when completed
+  useEffect(() => {
+    if (!room || room.status !== 'completed') return;
+    setShowRanglistaCompleted(false);
+    const t = setTimeout(() => setShowRanglistaCompleted(true), 5500);
+    return () => clearTimeout(t);
+  }, [room?.status]);
 
   const toggleFullscreen = async () => {
     if (!document.fullscreenElement) {
@@ -428,6 +437,20 @@ const PresenterView = () => {
                   <p className="text-xl text-muted-foreground">Nincsenek eredmények</p>
                 </div>
               )}
+              <AnimatePresence>
+                {showRanglistaCompleted && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-8 flex justify-center"
+                  >
+                    <Button size="lg" className="font-bold" onClick={() => navigate(`/results/${room.id}`)}>
+                      <BarChart3 className="mr-2 h-5 w-5" />
+                      Ranglista megtekintése
+                    </Button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           )}
         </AnimatePresence>

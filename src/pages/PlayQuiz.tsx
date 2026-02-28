@@ -5,8 +5,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Clock, CheckCircle2, Users, Send, Trophy, Smile, Zap } from 'lucide-react';
-import type { Room, Quiz, QuizQuestion, RoomParticipant, AvatarData } from '@/types/quiz';
+import { Clock, CheckCircle2, Users, Send, Trophy, Smile, Zap, BarChart3 } from 'lucide-react';
+import type { Room, Quiz, QuizQuestion, RoomParticipant, AvatarData, QuizAnswer } from '@/types/quiz';
+import { Podium } from '@/components/quiz/Podium';
 import { Avatar } from '@/components/quiz/Avatar';
 import { AvatarSelector } from '@/components/quiz/AvatarSelector';
 import { ReactionButton } from '@/components/quiz/ReactionButton';
@@ -39,6 +40,8 @@ const PlayQuiz = () => {
   const [room, setRoom] = useState<Room | null>(null);
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [participants, setParticipants] = useState<RoomParticipant[]>([]);
+  const [completedAnswers, setCompletedAnswers] = useState<QuizAnswer[]>([]);
+  const [showRanglistaBtn, setShowRanglistaBtn] = useState(false);
   const [loading, setLoading] = useState(true);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [textAnswer, setTextAnswer] = useState('');
@@ -249,6 +252,34 @@ const PlayQuiz = () => {
     checkExistingAnswer();
   }, [room?.current_question_index, participantId, room?.status]);
 
+  // Fetch answers and show Ranglista button when quiz is completed
+  useEffect(() => {
+    if (!room || room.status !== 'completed' || !roomId) return;
+
+    const fetchCompletedData = async () => {
+      const [ansRes, partRes] = await Promise.all([
+        supabase.from('quiz_answers').select('*').eq('room_id', roomId).eq('session_number', room.session_number),
+        supabase.from('room_participants').select('*').eq('room_id', roomId).eq('is_active', true),
+      ]);
+      if (ansRes.data) setCompletedAnswers(ansRes.data as unknown as QuizAnswer[]);
+      if (partRes.data) setParticipants(partRes.data as unknown as RoomParticipant[]);
+    };
+    fetchCompletedData();
+
+    // Show Ranglista button after podium animation finishes (~5s)
+    const timer = setTimeout(() => setShowRanglistaBtn(true), 5500);
+    return () => clearTimeout(timer);
+  }, [room?.status, roomId]);
+
+  const getLeaderboard = () => {
+    return participants.map((p) => {
+      const sa = completedAnswers.filter((a) => a.participant_id === p.id);
+      const totalScore = sa.reduce((sum, a) => sum + (a.score || 0), 0);
+      const correctCount = sa.filter((a) => a.is_correct).length;
+      return { ...p, totalScore, correctCount };
+    }).sort((a, b) => b.totalScore - a.totalScore);
+  };
+
   const submitAnswer = async (optionId?: string) => {
     if (!room || !quiz || !participantId || answered) return;
 
@@ -417,20 +448,36 @@ const PlayQuiz = () => {
 
     // Quiz Completed
     if (room.status === 'completed') {
+      const leaderboard = getLeaderboard();
       return (
         <div className="flex flex-1 flex-col items-center justify-center bg-gradient-to-br from-quiz-green/20 via-background to-primary/10 p-4">
-          <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-center">
-            <CheckCircle2 className="mx-auto mb-4 h-20 w-20 text-quiz-green" />
-            <h1 className="font-display text-3xl font-bold">Kvíz vége!</h1>
-            <p className="mt-2 text-muted-foreground">Köszönjük a részvételt!</p>
-            {room.show_results_to_students && (
-              <Button className="mt-6" onClick={() => navigate(`/results/${room.id}`)}>
-                Eredmények megtekintése
-              </Button>
+          <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="w-full max-w-4xl">
+            <h1 className="font-display text-3xl font-bold text-center mb-6">Kvíz vége!</h1>
+            {leaderboard.length > 0 ? (
+              <Podium winners={leaderboard.slice(0, 3) as any} />
+            ) : (
+              <div className="text-center py-12">
+                <Trophy className="mx-auto mb-4 h-16 w-16 text-accent opacity-30" />
+                <p className="text-muted-foreground">Nincsenek eredmények</p>
+              </div>
             )}
-            <Button variant="ghost" className="mt-3" onClick={() => navigate('/')}>
-              Vissza a főoldalra
-            </Button>
+            <AnimatePresence>
+              {showRanglistaBtn && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-8 flex flex-col items-center gap-3"
+                >
+                  <Button size="lg" className="font-bold" onClick={() => navigate(`/results/${room.id}`)}>
+                    <BarChart3 className="mr-2 h-5 w-5" />
+                    Ranglista megtekintése
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => navigate('/')}>
+                    Vissza a főoldalra
+                  </Button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         </div>
       );
