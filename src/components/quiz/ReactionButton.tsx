@@ -66,17 +66,19 @@ export const ReactionButton = ({ roomId, className }: ReactionButtonProps) => {
                 )}
             </AnimatePresence>
 
-            <Button
-                variant="secondary"
-                size="icon"
+            <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
                 className={cn(
-                    "h-14 w-14 rounded-full shadow-lg border-2 border-primary/20",
-                    isOpen ? "bg-primary text-primary-foreground" : "bg-card"
+                    "h-16 w-16 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border-2 border-white/50 backdrop-blur-sm transition-all flex items-center justify-center",
+                    isOpen
+                        ? "bg-primary text-primary-foreground rotate-180"
+                        : "bg-gradient-to-br from-primary via-primary/90 to-accent text-white"
                 )}
                 onClick={() => setIsOpen(!isOpen)}
             >
-                <Smile className="h-7 w-7" />
-            </Button>
+                <Smile className={cn("h-8 w-8 transition-transform", isOpen && "scale-90")} />
+            </motion.button>
         </div>
     );
 };
