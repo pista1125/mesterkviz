@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Clock, CheckCircle2, Users, Send, Trophy, Smile } from 'lucide-react';
+import { Clock, CheckCircle2, Users, Send, Trophy, Smile, Zap } from 'lucide-react';
 import type { Room, Quiz, QuizQuestion, RoomParticipant, AvatarData } from '@/types/quiz';
 import { Avatar } from '@/components/quiz/Avatar';
 import { AvatarSelector } from '@/components/quiz/AvatarSelector';
@@ -87,32 +87,43 @@ const PlayQuiz = () => {
   const fetchRoomData = async () => {
     if (!roomId) return;
 
-    const { data: roomData } = await supabase
-      .from('rooms')
-      .select('*')
-      .eq('id', roomId)
-      .single();
+    try {
+      const { data: roomData, error: roomError } = await supabase
+        .from('rooms')
+        .select('*')
+        .eq('id', roomId)
+        .single();
 
-    if (!roomData) {
-      toast.error('Szoba nem található');
-      navigate('/');
-      return;
+      if (roomError || !roomData) {
+        toast.error('Szoba nem található');
+        navigate('/');
+        return;
+      }
+
+      const roomTyped = roomData as unknown as Room;
+      setRoom(roomTyped);
+      currentQIndexRef.current = roomTyped.current_question_index;
+
+      const [quizRes, partRes] = await Promise.all([
+        supabase.from('quizzes').select('*').eq('id', roomData.quiz_id).single(),
+        supabase.from('room_participants').select('*').eq('room_id', roomId),
+      ]);
+
+      if (quizRes.data) {
+        setQuiz({ ...quizRes.data, questions: quizRes.data.questions as unknown as QuizQuestion[] } as Quiz);
+      } else {
+        toast.error('Kvíz adatok nem tölthetők be');
+      }
+
+      if (partRes.data) {
+        setParticipants(partRes.data as unknown as RoomParticipant[]);
+      }
+    } catch (err) {
+      console.error('Error fetching room data:', err);
+      toast.error('Hiba történt az adatok betöltésekor');
+    } finally {
+      setLoading(false);
     }
-
-    const roomTyped = roomData as unknown as Room;
-    setRoom(roomTyped);
-    currentQIndexRef.current = roomTyped.current_question_index;
-
-    const [quizRes, partRes] = await Promise.all([
-      supabase.from('quizzes').select('*').eq('id', roomData.quiz_id).single(),
-      supabase.from('room_participants').select('*').eq('room_id', roomId),
-    ]);
-
-    if (quizRes.data) {
-      setQuiz({ ...quizRes.data, questions: quizRes.data.questions as unknown as QuizQuestion[] } as Quiz);
-    }
-    if (partRes.data) setParticipants(partRes.data as unknown as RoomParticipant[]);
-    setLoading(false);
   };
 
   // Real-time subscription
@@ -352,7 +363,15 @@ const PlayQuiz = () => {
     );
   }
 
-  if (!room || !quiz) return null;
+  if (!room || !quiz) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4 text-center">
+        <h2 className="text-xl font-bold mb-2">Hiba történt</h2>
+        <p className="text-muted-foreground mb-4">Nem sikerült betölteni a szoba vagy a kvíz adatait.</p>
+        <Button onClick={() => navigate('/')}>Vissza a főoldalra</Button>
+      </div>
+    );
+  }
 
   const renderContent = () => {
     // Waiting Room
