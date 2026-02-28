@@ -133,32 +133,39 @@ const PlayQuiz = () => {
     const channel = supabase
       .channel(`play-${roomId}`)
       .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'rooms', filter: `id=eq.${roomId}` }, (payload) => {
-        const newRoom = payload.new as unknown as Room;
-        setRoom(newRoom);
+        const update = payload.new as Partial<Room>;
 
-        if (newRoom.current_question_index !== currentQIndexRef.current) {
-          currentQIndexRef.current = newRoom.current_question_index;
-          setAnswered(false);
-          setSelectedAnswer(null);
-          setTextAnswer('');
-          setAnswerCorrect(null);
-          setEarnedScore(0);
-          setQuestionStartTime(Date.now());
+        setRoom(prev => {
+          if (!prev) return prev;
+          const updatedRoom = { ...prev, ...update } as Room;
 
-          const question = quiz?.questions[newRoom.current_question_index];
-          if (question?.type === 'matching' && question.pairs) {
-            const leftItems = question.pairs.map(p => ({ id: p.id, text: p.left }));
-            const rightItems = question.pairs.map(p => ({ id: p.id, text: p.right }));
-            setMatchingState({
-              leftSelected: null,
-              rightSelected: null,
-              completedLeft: [],
-              completedRight: [],
-              shuffledLeft: [...leftItems].sort(() => Math.random() - 0.5),
-              shuffledRight: [...rightItems].sort(() => Math.random() - 0.5)
-            });
+          if (updatedRoom.current_question_index !== currentQIndexRef.current) {
+            currentQIndexRef.current = updatedRoom.current_question_index;
+            setAnswered(false);
+            setSelectedAnswer(null);
+            setTextAnswer('');
+            setAnswerCorrect(null);
+            setEarnedScore(0);
+            setQuestionStartTime(Date.now());
+
+            if (quiz && quiz.questions) {
+              const question = quiz.questions[updatedRoom.current_question_index];
+              if (question?.type === 'matching' && question.pairs) {
+                const leftItems = question.pairs.map(p => ({ id: p.id, text: p.left }));
+                const rightItems = question.pairs.map(p => ({ id: p.id, text: p.right }));
+                setMatchingState({
+                  leftSelected: null,
+                  rightSelected: null,
+                  completedLeft: [],
+                  completedRight: [],
+                  shuffledLeft: [...leftItems].sort(() => Math.random() - 0.5),
+                  shuffledRight: [...rightItems].sort(() => Math.random() - 0.5)
+                });
+              }
+            }
           }
-        }
+          return updatedRoom;
+        });
       })
       .on('postgres_changes', { event: '*', schema: 'public', table: 'room_participants', filter: `room_id=eq.${roomId}` }, (payload: any) => {
         // Check if current participant was kicked
