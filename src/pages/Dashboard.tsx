@@ -151,12 +151,6 @@ const Dashboard = () => {
             </Link>
           </Button>
           <Button variant="secondary" asChild>
-            <Link to="/ai-generate">
-              <Brain className="mr-2 h-4 w-4" />
-              AI Generálás
-            </Link>
-          </Button>
-          <Button variant="secondary" asChild>
             <Link to="/room/new">
               <Play className="mr-2 h-4 w-4" />
               Szoba létrehozása

@@ -8,9 +8,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
+import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Plus, Save, ArrowLeft } from 'lucide-react';
+import { Plus, Save, ArrowLeft, Brain, Sparkles, Loader2 } from 'lucide-react';
 import type { QuizQuestion } from '@/types/quiz';
 import { createEmptyQuestion } from '@/types/quiz';
 
@@ -29,6 +30,7 @@ const QuizEditor = () => {
   const [isPublished, setIsPublished] = useState(false);
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(!!isEditing);
+  const [generating, setGenerating] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !user) navigate('/auth');
@@ -105,6 +107,57 @@ const QuizEditor = () => {
     }
   };
 
+  const handleAIGenerate = async () => {
+    if (!user) return;
+    if (!topic.trim()) {
+      toast.error('Add meg a témakört az AI generáláshoz!');
+      return;
+    }
+
+    setGenerating(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('rapid-handler', {
+        body: {
+          subject,
+          topic: topic.trim(),
+          numQuestions: 5,
+          gradeLevel
+        },
+      });
+
+      if (error) {
+        toast.error('Hiba az AI generálásnál: ' + error.message);
+        setGenerating(false);
+        return;
+      }
+
+      if (data?.error) {
+        toast.error(data.error);
+        setGenerating(false);
+        return;
+      }
+
+      if (data.title && !title) setTitle(data.title);
+      if (data.description && !description) setDescription(data.description);
+
+      const newQuestions = JSON.parse(JSON.stringify(data.questions)) as QuizQuestion[];
+
+      // If we only have one empty question, replace it. Otherwise append.
+      if (questions.length === 1 && !questions[0].text.trim() && questions[0].options.every(o => !o.text.trim())) {
+        setQuestions(newQuestions);
+      } else {
+        setQuestions([...questions, ...newQuestions]);
+      }
+
+      toast.success('AI generált kérdések hozzáadva!');
+    } catch (e) {
+      toast.error('Váratlan hiba történt');
+    } finally {
+      setGenerating(false);
+    }
+  };
+
   const updateQuestion = (index: number, question: QuizQuestion) => {
     setQuestions((prev) => prev.map((q, i) => (i === index ? question : q)));
   };
@@ -143,6 +196,42 @@ const QuizEditor = () => {
         </div>
 
         <div className="mx-auto max-w-3xl space-y-6">
+          {/* AI Helper section */}
+          {!isEditing && (
+            <div className="rounded-xl border border-primary/20 bg-primary/5 p-6 shadow-sm">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="font-display text-lg font-bold flex items-center gap-2">
+                  <Brain className="h-5 w-5 text-primary" />
+                  AI Segéd
+                </h2>
+                <Badge variant="outline" className="bg-background">Beta</Badge>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">
+                Nem tudod mit kérdezz? Add meg a témakört, és az AI generál neked kérdéseket alapként!
+              </p>
+              <div className="flex gap-2">
+                <Input
+                  placeholder="pl. Törtek összeadása, 5. osztályos szinten"
+                  value={topic}
+                  onChange={(e) => setTopic(e.target.value)}
+                  className="bg-background"
+                />
+                <Button
+                  onClick={handleAIGenerate}
+                  disabled={generating || !topic.trim()}
+                  className="whitespace-nowrap"
+                >
+                  {generating ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <Sparkles className="mr-2 h-4 w-4" />
+                  )}
+                  {generating ? 'Generálás...' : 'Kérdések generálása'}
+                </Button>
+              </div>
+            </div>
+          )}
+
           {/* Quiz metadata */}
           <div className="rounded-xl border bg-card p-6 shadow-sm">
             <div className="grid gap-4 sm:grid-cols-2">
