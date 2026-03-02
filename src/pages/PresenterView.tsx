@@ -182,6 +182,8 @@ const PresenterView = () => {
   const answersForCurrentQ = answers.filter((a) => a.question_index === room.current_question_index && (a as any).session_number === room.session_number);
   const totalParticipants = participants.length;
   const leaderboard = getLeaderboard();
+  const allAnswered = totalParticipants > 0 && answersForCurrentQ.length >= totalParticipants;
+  const showResults = timer === 0 || allAnswered;
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -336,7 +338,7 @@ const PresenterView = () => {
                   {currentQuestion.options.map((opt, i) => {
                     const color = COLORS[i % COLORS.length];
                     const isCorrect = opt.isCorrect;
-                    const showCorrect = timer === 0;
+                    const showCorrect = showResults;
 
                     return (
                       <motion.div
@@ -372,7 +374,7 @@ const PresenterView = () => {
                   <div className="relative w-full max-w-lg overflow-hidden rounded-2xl bg-card p-8 shadow-inner border-2 border-dashed border-muted-foreground/20">
                     <p className="text-center text-muted-foreground mb-4">A válasz helye</p>
                     <AnimatePresence>
-                      {timer === 0 && (
+                      {showResults && (
                         <motion.div
                           initial={{ y: 20, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
@@ -397,7 +399,7 @@ const PresenterView = () => {
                     {(currentQuestion.pairs || []).map((pair) => (
                       <motion.div
                         key={pair.id}
-                        animate={timer === 0 ? { borderColor: 'rgb(34, 197, 94)', backgroundColor: 'rgba(34, 197, 94, 0.05)' } : {}}
+                        animate={showResults ? { borderColor: 'rgb(34, 197, 94)', backgroundColor: 'rgba(34, 197, 94, 0.05)' } : {}}
                         className="rounded-xl border bg-card p-4 text-center font-bold shadow-sm transition-colors"
                       >
                         <MathRenderer text={pair.left} />
@@ -409,14 +411,14 @@ const PresenterView = () => {
                     {(currentQuestion.pairs || []).map((pair) => (
                       <motion.div
                         key={pair.id}
-                        animate={timer === 0 ? { borderColor: 'rgb(34, 197, 94)', backgroundColor: 'rgba(34, 197, 94, 0.05)' } : {}}
+                        animate={showResults ? { borderColor: 'rgb(34, 197, 94)', backgroundColor: 'rgba(34, 197, 94, 0.05)' } : {}}
                         className="rounded-xl border bg-card p-4 text-center font-bold shadow-sm transition-colors"
                       >
                         <MathRenderer text={pair.right} />
                       </motion.div>
                     ))}
                   </div>
-                  {timer === 0 && (
+                  {showResults && (
                     <div className="col-span-full text-center">
                       <p className="text-sm text-quiz-green font-bold">A párok sorrendben vannak feltüntetve</p>
                     </div>

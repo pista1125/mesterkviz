@@ -73,10 +73,26 @@ const JoinRoom = () => {
       .maybeSingle();
 
     if (existing) {
+      // Re-activate if they were kicked and update their data
+      const { error: updateError } = await supabase
+        .from('room_participants')
+        .update({
+          is_active: true,
+          student_name: name.trim(),
+          avatar: finalAvatar
+        } as any)
+        .eq('id', existing.id);
+
+      if (updateError) {
+        toast.error('Nem sikerült újracsatlakozni');
+        setJoining(false);
+        return;
+      }
+
       // Already joined, go to play
       sessionStorage.setItem('participant_id', existing.id);
       sessionStorage.setItem('student_name', name.trim());
-      sessionStorage.setItem('student_avatar', JSON.stringify(existing.avatar || finalAvatar));
+      sessionStorage.setItem('student_avatar', JSON.stringify(finalAvatar));
       navigate(`/play/${room.id}`);
       return;
     }
