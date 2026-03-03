@@ -207,28 +207,29 @@ const QuizEditor = () => {
                 </h2>
                 <Badge variant="outline" className="bg-background">Beta</Badge>
               </div>
-              <p className="text-sm text-muted-foreground mb-4">
-                Nem tudod mit kérdezz? Add meg a témakört, és az AI generál neked kérdéseket alapként!
-              </p>
-              <div className="flex gap-2">
-                <Input
-                  placeholder="pl. Törtek összeadása, 5. osztályos szinten..."
-                  value={aiPrompt}
-                  onChange={(e) => setAiPrompt(e.target.value)}
-                  className="bg-background"
-                />
-                <Button
-                  onClick={handleAIGenerate}
-                  disabled={generating || !aiPrompt.trim()}
-                  className="whitespace-nowrap"
-                >
-                  {generating ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <Sparkles className="mr-2 h-4 w-4" />
-                  )}
-                  {generating ? 'Generálás...' : 'Kérdések generálása'}
-                </Button>
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="ai-assistant-input">Mit generáljon az AI? (Instrukciók)</Label>
+                <div className="flex gap-2">
+                  <Input
+                    id="ai-assistant-input"
+                    placeholder="pl. 10 kérdés a törtekről 5. osztályos szinten..."
+                    value={aiPrompt}
+                    onChange={(e) => setAiPrompt(e.target.value)}
+                    className="bg-background border-primary/30 focus-visible:ring-primary"
+                  />
+                  <Button
+                    onClick={handleAIGenerate}
+                    disabled={generating || !aiPrompt.trim()}
+                    className="whitespace-nowrap"
+                  >
+                    {generating ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                      <Sparkles className="mr-2 h-4 w-4" />
+                    )}
+                    {generating ? 'Generálás...' : 'Kérdések generálása'}
+                  </Button>
+                </div>
               </div>
             </div>
           )}
@@ -271,8 +272,9 @@ const QuizEditor = () => {
                 </select>
               </div>
               <div className="space-y-2">
-                <Label>Témakör</Label>
+                <Label htmlFor="quiz-topic-input">Kvíz témaköre (Mentett adat)</Label>
                 <Input
+                  id="quiz-topic-input"
                   value={topic}
                   onChange={(e) => setTopic(e.target.value)}
                   placeholder="pl. Törtek, Összeadás..."
