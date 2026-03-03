@@ -8,8 +8,20 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Plus, Play, Trash2, Edit, Copy, Users, Brain, Search, RefreshCw } from 'lucide-react';
+import { Plus, Play, Trash2, Edit, Copy, Users, Brain, Search, RefreshCw, Settings2, Loader2 } from 'lucide-react';
 import type { Quiz, Room } from '@/types/quiz';
+import { generateRoomCode } from '@/types/quiz';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Switch } from "@/components/ui/switch";
 
 const Dashboard = () => {
   const { user, loading: authLoading } = useAuth();
@@ -18,6 +30,14 @@ const Dashboard = () => {
   const [rooms, setRooms] = useState<(Room & { quiz_title?: string })[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedGrade, setSelectedGrade] = useState<string | null>(null);
+
+  // Quick Start State
+  const [quickStartQuiz, setQuickStartQuiz] = useState<Quiz | null>(null);
+  const [controlMode, setControlMode] = useState<'auto' | 'manual'>('auto');
+  const [timeLimit, setTimeLimit] = useState(15);
+  const [showResults, setShowResults] = useState(true);
+  const [starting, setStarting] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -104,7 +124,60 @@ const Dashboard = () => {
     }
   };
 
+  const handleQuickStart = async () => {
+    if (!user || !quickStartQuiz) return;
+
+    setStarting(true);
+    let code = generateRoomCode();
+    let retries = 0;
+
+    while (retries < 5) {
+      const { error } = await supabase.from('rooms').insert({
+        teacher_id: user.id,
+        quiz_id: quickStartQuiz.id,
+        code,
+        class_name: quickStartQuiz.grade_level || '',
+        grade: quickStartQuiz.grade_level || '',
+        control_mode: controlMode,
+        time_limit_seconds: timeLimit,
+        show_results_to_students: showResults,
+        status: 'waiting',
+        current_question_index: 0,
+      });
+
+      if (!error) {
+        toast.success(`Szoba létrehozva! Kód: ${code}`);
+        const { data: room } = await supabase
+          .from('rooms')
+          .select('id')
+          .eq('code', code)
+          .single();
+        if (room) {
+          navigate(`/room/${room.id}`);
+        }
+        setStarting(false);
+        setQuickStartQuiz(null);
+        return;
+      }
+
+      if (error.code === '23505') {
+        code = generateRoomCode();
+        retries++;
+      } else {
+        toast.error('Hiba az indításkor: ' + error.message);
+        setStarting(false);
+        return;
+      }
+    }
+    toast.error('Nem sikerült egyedi kódot generálni.');
+    setStarting(false);
+  };
+
   const filteredQuizzes = quizzes.filter((q) => {
+    // Grade filter
+    if (selectedGrade && q.grade_level !== selectedGrade) return false;
+
+    // Search query filter
     if (!searchQuery) return true;
     const query = searchQuery.toLowerCase();
     return (
@@ -167,6 +240,46 @@ const Dashboard = () => {
               Szoba létrehozása
             </Link>
           </Button>
+        </div>
+
+        {/* Grade Filter Bar */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-display text-sm font-bold uppercase tracking-wider text-muted-foreground">
+              Szűrés évfolyam szerint
+            </h3>
+            {selectedGrade && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setSelectedGrade(null)}
+                className="h-7 text-xs"
+              >
+                Szűrés törlése
+              </Button>
+            )}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {['Összes', '1. osztály', '2. osztály', '3. osztály', '4. osztály', '5. osztály', '6. osztály', '7. osztály', '8. osztály', '9. osztály', '10. osztály', '11. osztály', '12. osztály'].map((grade) => {
+              const gradeValue = grade === 'Összes' ? null : grade;
+              const isActive = selectedGrade === gradeValue;
+
+              return (
+                <button
+                  key={grade}
+                  onClick={() => setSelectedGrade(gradeValue)}
+                  className={`
+                    px-4 py-2 rounded-lg text-sm font-medium transition-all
+                    ${isActive
+                      ? 'bg-primary text-primary-foreground shadow-md scale-105'
+                      : 'bg-card hover:bg-accent border border-border/50 text-muted-foreground'}
+                  `}
+                >
+                  {grade === 'Összes' ? 'Összes' : grade.split('.')[0]}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* My Quizzes */}
@@ -246,6 +359,17 @@ const Dashboard = () => {
                                   </p>
                                 </div>
                                 <div className="mt-auto flex items-center justify-between gap-1 pt-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                  <Button
+                                    size="sm"
+                                    className="h-7 flex-1 px-2 text-[11px] bg-primary/90 hover:bg-primary"
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      setQuickStartQuiz(quiz);
+                                    }}
+                                  >
+                                    <Play className="mr-1 h-3 w-3 fill-current" />
+                                    Indítás
+                                  </Button>
                                   <Button size="sm" variant="outline" className="h-7 flex-1 px-2 text-[11px]" asChild>
                                     <Link to={`/quiz/${quiz.id}/edit`}>
                                       <Edit className="mr-1 h-3 w-3" />
@@ -366,6 +490,86 @@ const Dashboard = () => {
           )}
         </section>
       </div>
+
+      <Dialog open={!!quickStartQuiz} onOpenChange={(open) => !open && !starting && setQuickStartQuiz(null)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Settings2 className="h-5 w-5 text-primary" />
+              Kvíz indítása: {quickStartQuiz?.title}
+            </DialogTitle>
+            <DialogDescription>
+              Válaszd ki a vezérlés módját mielőtt elindítod a játékot.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-6 py-4">
+            <div className="space-y-3">
+              <Label className="text-sm font-semibold">Kérdésvezérlés módja</Label>
+              <RadioGroup value={controlMode} onValueChange={(v) => setControlMode(v as 'auto' | 'manual')}>
+                <div className="flex items-center space-x-3 rounded-lg border p-3 cursor-pointer hover:bg-accent/50 transition-colors" onClick={() => setControlMode('auto')}>
+                  <RadioGroupItem value="auto" id="auto" />
+                  <label htmlFor="auto" className="flex-1 cursor-pointer">
+                    <div className="font-medium text-sm">Automatikus</div>
+                    <div className="text-[12px] text-muted-foreground">Diákok saját tempóban haladnak</div>
+                  </label>
+                </div>
+                <div className="flex items-center space-x-3 rounded-lg border p-3 cursor-pointer hover:bg-accent/50 transition-colors" onClick={() => setControlMode('manual')}>
+                  <RadioGroupItem value="manual" id="manual" />
+                  <label htmlFor="manual" className="flex-1 cursor-pointer">
+                    <div className="font-medium text-sm">Manuális</div>
+                    <div className="text-[12px] text-muted-foreground">Tanár vezérli a kérdésváltást</div>
+                  </label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="time-limit" className="text-sm font-semibold">Időlimit (mp)</Label>
+                <Input
+                  id="time-limit"
+                  type="number"
+                  value={timeLimit}
+                  onChange={(e) => setTimeLimit(parseInt(e.target.value) || 15)}
+                  min={5}
+                  max={120}
+                  className="w-full"
+                />
+              </div>
+              <div className="flex flex-col justify-end gap-2 pb-1">
+                <div className="flex items-center justify-between gap-2">
+                  <Label htmlFor="show-results" className="text-[12px] leading-tight cursor-pointer">Eredmények mutatása</Label>
+                  <Switch
+                    id="show-results"
+                    checked={showResults}
+                    onCheckedChange={setShowResults}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="ghost" onClick={() => !starting && setQuickStartQuiz(null)} disabled={starting}>
+              Mégse
+            </Button>
+            <Button onClick={handleQuickStart} disabled={starting} className="min-w-[120px]">
+              {starting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Indítás...
+                </>
+              ) : (
+                <>
+                  <Play className="mr-2 h-4 w-4 fill-current" />
+                  Játék indítása
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
