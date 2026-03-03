@@ -25,6 +25,7 @@ const QuizEditor = () => {
   const [description, setDescription] = useState('');
   const [subject, setSubject] = useState('matematika');
   const [topic, setTopic] = useState('');
+  const [aiPrompt, setAiPrompt] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
   const [questions, setQuestions] = useState<QuizQuestion[]>([createEmptyQuestion()]);
   const [isPublished, setIsPublished] = useState(false);
@@ -109,8 +110,8 @@ const QuizEditor = () => {
 
   const handleAIGenerate = async () => {
     if (!user) return;
-    if (!topic.trim()) {
-      toast.error('Add meg a témakört az AI generáláshoz!');
+    if (!aiPrompt.trim()) {
+      toast.error('Add meg az AI promptot a generáláshoz!');
       return;
     }
 
@@ -120,8 +121,8 @@ const QuizEditor = () => {
       const { data, error } = await supabase.functions.invoke('rapid-handler', {
         body: {
           subject,
-          topic: topic.trim(),
-          numQuestions: topic.match(/(\d+)\s*kérdés/)?.[1] ? parseInt(topic.match(/(\d+)\s*kérdés/)?.[1]!) : 5,
+          topic: aiPrompt.trim(),
+          numQuestions: aiPrompt.match(/(\d+)\s*kérdés/)?.[1] ? parseInt(aiPrompt.match(/(\d+)\s*kérdés/)?.[1]!) : 5,
           gradeLevel
         },
       });
@@ -211,14 +212,14 @@ const QuizEditor = () => {
               </p>
               <div className="flex gap-2">
                 <Input
-                  placeholder="pl. Törtek összeadása, 5. osztályos szinten"
-                  value={topic}
-                  onChange={(e) => setTopic(e.target.value)}
+                  placeholder="pl. Törtek összeadása, 5. osztályos szinten..."
+                  value={aiPrompt}
+                  onChange={(e) => setAiPrompt(e.target.value)}
                   className="bg-background"
                 />
                 <Button
                   onClick={handleAIGenerate}
-                  disabled={generating || !topic.trim()}
+                  disabled={generating || !aiPrompt.trim()}
                   className="whitespace-nowrap"
                 >
                   {generating ? (
