@@ -126,6 +126,13 @@ const Dashboard = () => {
     return acc;
   }, {} as Record<string, Record<string, Quiz[]>>);
 
+  const roomsByClass = rooms.reduce((acc, room) => {
+    const className = room.class_name || 'Osztály nélküli';
+    if (!acc[className]) acc[className] = [];
+    acc[className].push(room);
+    return acc;
+  }, {} as Record<string, (Room & { quiz_title?: string })[]>);
+
   if (authLoading || loading) {
     return (
       <div className="min-h-screen bg-background">
