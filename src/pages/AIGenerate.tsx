@@ -17,6 +17,7 @@ const AIGenerate = () => {
   const [topic, setTopic] = useState('');
   const [numQuestions, setNumQuestions] = useState(5);
   const [gradeLevel, setGradeLevel] = useState('');
+  const [includeTrueFalse, setIncludeTrueFalse] = useState(true);
   const [generating, setGenerating] = useState(false);
 
   if (!authLoading && !user) {
@@ -35,7 +36,7 @@ const AIGenerate = () => {
 
     try {
       const { data, error } = await supabase.functions.invoke('rapid-handler', {
-        body: { subject, topic: topic.trim(), numQuestions, gradeLevel },
+        body: { subject, topic: topic.trim(), numQuestions, gradeLevel, includeTrueFalse },
       });
 
       if (error) {
@@ -142,11 +143,19 @@ const AIGenerate = () => {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label>Évfolyam</Label>
-                  <Input
+                  <select
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                     value={gradeLevel}
                     onChange={(e) => setGradeLevel(e.target.value)}
-                    placeholder="pl. 5. osztály"
-                  />
+                  >
+                    <option value="">Válassz évfolyamot...</option>
+                    {[...Array(12)].map((_, i) => (
+                      <option key={i + 1} value={`${i + 1}. osztály`}>
+                        {i + 1}. osztály
+                      </option>
+                    ))}
+                    <option value="Egyéb">Egyéb</option>
+                  </select>
                 </div>
                 <div className="space-y-2">
                   <Label>Kérdések száma</Label>
@@ -158,6 +167,19 @@ const AIGenerate = () => {
                     max={20}
                   />
                 </div>
+              </div>
+
+              <div className="flex items-center space-x-2 rounded-md border p-3">
+                <input
+                  type="checkbox"
+                  id="includeTrueFalse"
+                  checked={includeTrueFalse}
+                  onChange={(e) => setIncludeTrueFalse(e.target.checked)}
+                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                />
+                <Label htmlFor="includeTrueFalse" className="cursor-pointer">
+                  Igaz/Hamis kérdések bevonása
+                </Label>
               </div>
 
               <Button

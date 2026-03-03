@@ -646,6 +646,39 @@ const PlayQuiz = () => {
                 </div>
               </div>
             )}
+            {/* True/False Answer */}
+            {question.type === 'true-false' && (
+              <div className="flex flex-1 gap-4 items-center justify-center">
+                <motion.button
+                  whileHover={!answered ? { scale: 1.02 } : {}}
+                  whileTap={!answered ? { scale: 0.98 } : {}}
+                  onClick={() => !answered && submitAnswer(question.options.find(o => o.text === 'Igaz')?.id)}
+                  disabled={answered}
+                  className={`flex-1 max-w-sm h-32 rounded-2xl text-2xl font-bold text-primary-foreground transition-all bg-quiz-blue ${answered
+                    ? selectedAnswer === question.options.find(o => o.text === 'Igaz')?.id
+                      ? 'ring-4 ring-foreground/30'
+                      : 'opacity-50'
+                    : 'hover:brightness-110 active:brightness-90'
+                    }`}
+                >
+                  Igaz
+                </motion.button>
+                <motion.button
+                  whileHover={!answered ? { scale: 1.02 } : {}}
+                  whileTap={!answered ? { scale: 0.98 } : {}}
+                  onClick={() => !answered && submitAnswer(question.options.find(o => o.text === 'Hamis')?.id)}
+                  disabled={answered}
+                  className={`flex-1 max-w-sm h-32 rounded-2xl text-2xl font-bold text-primary-foreground transition-all bg-quiz-red ${answered
+                    ? selectedAnswer === question.options.find(o => o.text === 'Hamis')?.id
+                      ? 'ring-4 ring-foreground/30'
+                      : 'opacity-50'
+                    : 'hover:brightness-110 active:brightness-90'
+                    }`}
+                >
+                  Hamis
+                </motion.button>
+              </div>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>

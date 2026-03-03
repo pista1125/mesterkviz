@@ -17,7 +17,7 @@ export interface MatchingPair {
 
 export interface QuizQuestion {
   id: string;
-  type: 'multiple-choice' | 'text-input' | 'matching';
+  type: 'multiple-choice' | 'text-input' | 'matching' | 'true-false';
   text: string;
   imageUrl?: string;
   options: QuizOption[];

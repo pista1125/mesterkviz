@@ -211,6 +211,7 @@ export function QuestionEditor({ question, index, onChange, onDelete }: Question
               onChange={(e) => updateQuestion({ type: e.target.value as QuizQuestion['type'] })}
             >
               <option value="multiple-choice">Feleletválasztós</option>
+              <option value="true-false">Igaz/Hamis</option>
               <option value="text-input">Szabad szöveges</option>
               <option value="matching">Párosító</option>
             </select>
@@ -278,6 +279,44 @@ export function QuestionEditor({ question, index, onChange, onDelete }: Question
               onChange={(e) => updateQuestion({ correctAnswer: e.target.value })}
               placeholder="Írd be a helyes választ..."
             />
+          </div>
+        ) : question.type === 'true-false' ? (
+          <div className="space-y-3">
+            <Label>Helyes válasz kiválasztása</Label>
+            <div className="flex gap-4">
+              <Button
+                variant={question.options.find(o => o.text === 'Igaz')?.isCorrect ? 'default' : 'outline'}
+                className="flex-1 h-14 text-lg font-bold"
+                onClick={() => {
+                  const options = [
+                    { id: crypto.randomUUID(), text: 'Igaz', isCorrect: true },
+                    { id: crypto.randomUUID(), text: 'Hamis', isCorrect: false }
+                  ];
+                  updateQuestion({ options });
+                }}
+              >
+                Igaz
+              </Button>
+              <Button
+                variant={question.options.find(o => o.text === 'Hamis')?.isCorrect ? 'default' : 'outline'}
+                className="flex-1 h-14 text-lg font-bold"
+                onClick={() => {
+                  const options = [
+                    { id: crypto.randomUUID(), text: 'Igaz', isCorrect: false },
+                    { id: crypto.randomUUID(), text: 'Hamis', isCorrect: true }
+                  ];
+                  updateQuestion({ options });
+                }}
+              >
+                Hamis
+              </Button>
+            </div>
+            {/* Initialize options if not present or incorrect type */}
+            {(!question.options || question.options.length !== 2 || !['Igaz', 'Hamis'].includes(question.options[0].text)) && (
+              <div className="text-xs text-muted-foreground italic">
+                Kérlek válassz egyet a fenti lehetőségek közül az inicializáláshoz.
+              </div>
+            )}
           </div>
         ) : (
           <div className="space-y-3">
@@ -352,6 +391,6 @@ export function QuestionEditor({ question, index, onChange, onDelete }: Question
           </div>
         )}
       </CardContent>
-    </Card>
+    </Card >
   );
 }

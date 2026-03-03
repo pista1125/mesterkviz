@@ -12,22 +12,23 @@ Deno.serve(async (req) => {
         const systemPrompt = `Te egy oktatási kvíz generátor AI vagy. A felhasználó megadja a tantárgyat, témakört, évfolyamot és a kérdések számát. Generálj egy kvízt a megadott paraméterek alapján.
 
 FONTOS SZABÁLYOK:
-- Minden kérdés legyen egyértelmű és kornak megfelelő
-- A helyes válasz mindig pontosan egy legyen multiple-choice esetén
-- A válaszlehetőségek legyenek hasonlóak, hogy ne legyen nyilvánvaló a helyes válasz
-- Magyar nyelven generálj mindent
-- Az id mezőkhöz használj UUID v4 formátumot (pl. "a1b2c3d4-e5f6-7890-abcd-ef1234567890")
-- Ha egy kérdéshez jól illeszkedne egy illusztráció (pl. térkép, ábra, természeti jelenség, történelmi esemény), adj meg egy releváns imageUrl-t. Használj publikus, ingyenes képforrásokat (pl. Wikimedia Commons, Unsplash). A kép legyen valódi, elérhető URL.
-- NE adj minden kérdéshez képet - csak akkor, ha a kép tényleg segít megérteni a kérdést vagy vizuálisan releváns.
-- Ha nem találsz megfelelő képet, hagyd üresen az imageUrl mezőt.`;
+- Minden kérdés legyen egyértelmű és kornak megfelelő.
+- Magyar nyelven generálj mindent.
+- Az id mezőkhöz használj UUID v4 formátumot.
+- Kérdéstípusok: "multiple-choice", "true-false", "text-input".
+- RANDOMIZÁLÁS: Multiple-choice esetén a helyes választ (isCorrect: true) véletlenszerű helyre tedd az options tömbben, NE mindig az első helyre!
+- PONTOS SZÁM: Pontosan annyi kérdést generálj, amennyi a "numQuestions" paraméterben szerepel.
+- HA a témakör leírásában konkrét kérések vannak a kérdések típusára vagy eloszlására vonatkozóan (pl. "2 igaz-hamis, 3 feleletválasztós"), akkor azt szigorúan tartsd be!
+- True-false típusnál az options mezőben pontosan két elem legyen: "Igaz" és "Hamis" szöveggel.
+- Text-input típusnál az options mező legyen üres tömb [], és a correctAnswer mező tartalmazza a helyes választ.
+- Illusztrációk: Csak ha tényleg releváns, adj imageUrl-t (Wikimedia Commons, Unsplash).`;
 
-        const userPrompt = `Generálj egy kvízt az alábbi paraméterekkel:
-- Tantárgy: ${subject}
-- Témakör: ${topic}
-- Évfolyam: ${gradeLevel || "általános"}
-- Kérdések száma: ${numQuestions}
+        const userPrompt = `Generálj egy kvízt ${numQuestions} kérdéssel.
+Tantárgy: ${subject}
+Témakör: ${topic}
+Évfolyam: ${gradeLevel || "általános"}
 
-Minden kérdéshez 4 válaszlehetőséget adj meg. Ha releváns, adj hozzá képet is (imageUrl).`;
+Tartsd be a kért kérdésszámot (${numQuestions}) és ha a témakörben speciális típusmegosztás szerepel, azt is.`;
 
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
@@ -58,7 +59,7 @@ Minden kérdéshez 4 válaszlehetőséget adj meg. Ha releváns, adj hozzá kép
                                             type: "object",
                                             properties: {
                                                 id: { type: "string", description: "Unique UUID for the question" },
-                                                type: { type: "string", enum: ["multiple-choice", "text-input"] },
+                                                type: { type: "string", enum: ["multiple-choice", "text-input", "true-false"] },
                                                 text: { type: "string", description: "The question text" },
                                                 imageUrl: { type: "string", description: "Optional URL to an illustrative image for this question. Only include if truly relevant." },
                                                 timeLimit: { type: "number", description: "Time limit in seconds (10-30)" },

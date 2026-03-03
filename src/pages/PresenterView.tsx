@@ -425,6 +425,37 @@ const PresenterView = () => {
                   )}
                 </div>
               )}
+
+              {/* True/False Answers */}
+              {currentQuestion.type === 'true-false' && (
+                <div className="grid gap-6 sm:grid-cols-2 py-8">
+                  {['Igaz', 'Hamis'].map((text, i) => {
+                    const opt = currentQuestion.options.find(o => o.text === text);
+                    const isCorrect = opt?.isCorrect;
+                    const showCorrect = showResults;
+
+                    return (
+                      <motion.div
+                        key={text}
+                        initial={false}
+                        animate={{
+                          scale: showCorrect && isCorrect ? 1.05 : 1,
+                          boxShadow: showCorrect && isCorrect ? '0 0 20px rgba(34, 197, 94, 0.5)' : 'none'
+                        }}
+                        className={`flex items-center justify-between rounded-2xl p-8 text-white transition-all ${showCorrect
+                          ? isCorrect ? 'bg-quiz-green ring-4 ring-white/20' : 'bg-muted/20 opacity-40 grayscale'
+                          : text === 'Igaz' ? 'bg-quiz-blue' : 'bg-quiz-red'
+                          }`}
+                      >
+                        <span className="text-3xl font-black">{text}</span>
+                        {showCorrect && isCorrect && (
+                          <CheckCircle2 className="h-8 w-8" />
+                        )}
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              )}
             </motion.div>
           )}
 

@@ -121,7 +121,7 @@ const QuizEditor = () => {
         body: {
           subject,
           topic: topic.trim(),
-          numQuestions: 5,
+          numQuestions: topic.match(/(\d+)\s*kérdés/)?.[1] ? parseInt(topic.match(/(\d+)\s*kérdés/)?.[1]!) : 5,
           gradeLevel
         },
       });
@@ -279,11 +279,19 @@ const QuizEditor = () => {
               </div>
               <div className="space-y-2">
                 <Label>Évfolyam</Label>
-                <Input
+                <select
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                   value={gradeLevel}
                   onChange={(e) => setGradeLevel(e.target.value)}
-                  placeholder="pl. 5. osztály"
-                />
+                >
+                  <option value="">Válassz évfolyamot...</option>
+                  {[...Array(12)].map((_, i) => (
+                    <option key={i + 1} value={`${i + 1}. osztály`}>
+                      {i + 1}. osztály
+                    </option>
+                  ))}
+                  <option value="Egyéb">Egyéb</option>
+                </select>
               </div>
               <div className="flex items-center gap-3 sm:col-span-2">
                 <Switch checked={isPublished} onCheckedChange={setIsPublished} />
