@@ -115,12 +115,16 @@ const Dashboard = () => {
     );
   });
 
-  const roomsByClass = rooms.reduce((acc, room) => {
-    const className = room.class_name || 'Osztály nélküli';
-    if (!acc[className]) acc[className] = [];
-    acc[className].push(room);
+  const quizzesByGrade = filteredQuizzes.reduce((acc, quiz) => {
+    const grade = quiz.grade_level || 'Egyéb / Nincs megadva';
+    const topic = (quiz as any).topic || 'Általános / Nincs témakör';
+
+    if (!acc[grade]) acc[grade] = {};
+    if (!acc[grade][topic]) acc[grade][topic] = [];
+
+    acc[grade][topic].push(quiz);
     return acc;
-  }, {} as Record<string, (Room & { quiz_title?: string })[]>);
+  }, {} as Record<string, Record<string, Quiz[]>>);
 
   if (authLoading || loading) {
     return (
@@ -160,7 +164,7 @@ const Dashboard = () => {
 
         {/* My Quizzes */}
         <section className="mb-10">
-          <div className="mb-4 flex items-center justify-between gap-4">
+          <div className="mb-6 flex items-center justify-between gap-4">
             <h2 className="font-display text-xl font-bold text-foreground">Kvízeim</h2>
             <div className="relative w-64">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -172,6 +176,7 @@ const Dashboard = () => {
               />
             </div>
           </div>
+
           {filteredQuizzes.length === 0 ? (
             <Card>
               <CardContent className="py-10 text-center">
@@ -189,45 +194,77 @@ const Dashboard = () => {
               </CardContent>
             </Card>
           ) : (
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {filteredQuizzes.map((quiz) => (
-                <Card key={quiz.id} className="group transition-shadow hover:shadow-md">
-                  <CardHeader className="pb-3">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <CardTitle className="text-lg">{quiz.title}</CardTitle>
-                        <CardDescription>{quiz.description || 'Nincs leírás'}</CardDescription>
+            <div className="space-y-10">
+              {Object.entries(quizzesByGrade).sort().map(([grade, topics]) => (
+                <div key={grade} className="space-y-6">
+                  <div className="flex items-center gap-3">
+                    <Badge variant="default" className="bg-primary px-4 py-1.5 text-sm font-bold shadow-sm">
+                      {grade}
+                    </Badge>
+                    <div className="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent"></div>
+                  </div>
+
+                  <div className="space-y-8 pl-2 sm:pl-4">
+                    {Object.entries(topics).sort().map(([topicName, topicQuizzes]) => (
+                      <div key={topicName} className="space-y-3">
+                        <h4 className="flex items-center gap-2 text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                          <span className="h-1.5 w-1.5 rounded-full bg-accent"></span>
+                          {topicName}
+                          <span className="text-xs font-normal lowercase">({topicQuizzes.length} db)</span>
+                        </h4>
+
+                        <div className="grid gap-3 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                          {topicQuizzes.map((quiz) => (
+                            <Card key={quiz.id} className="group relative flex flex-col overflow-hidden transition-all hover:shadow-lg hover:border-primary/40 bg-card/50 backdrop-blur-sm border-muted/60">
+                              <CardHeader className="p-3 pb-1">
+                                <div className="mb-1 flex items-center justify-between gap-1">
+                                  <Badge
+                                    variant={quiz.is_published ? 'default' : 'secondary'}
+                                    className="h-4 px-1 text-[10px] uppercase font-bold tracking-tighter"
+                                  >
+                                    {quiz.is_published ? 'Pub' : 'Priv'}
+                                  </Badge>
+                                  <span className="text-[10px] text-muted-foreground tabular-nums">
+                                    {quiz.questions.length} Q
+                                  </span>
+                                </div>
+                                <CardTitle className="line-clamp-2 min-h-[2.5rem] text-sm font-bold leading-tight group-hover:text-primary transition-colors">
+                                  {quiz.title}
+                                </CardTitle>
+                              </CardHeader>
+                              <CardContent className="flex-1 p-3 pt-1">
+                                <div className="mb-3">
+                                  <p className="line-clamp-1 text-[11px] text-muted-foreground italic">
+                                    {quiz.subject}
+                                  </p>
+                                </div>
+                                <div className="mt-auto flex items-center justify-between gap-1 pt-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                  <Button size="sm" variant="outline" className="h-7 flex-1 px-2 text-[11px]" asChild>
+                                    <Link to={`/quiz/${quiz.id}/edit`}>
+                                      <Edit className="mr-1 h-3 w-3" />
+                                      Szerk.
+                                    </Link>
+                                  </Button>
+                                  <Button
+                                    size="sm"
+                                    variant="ghost"
+                                    className="h-7 w-7 p-0 text-destructive hover:bg-destructive/10"
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      deleteQuiz(quiz.id);
+                                    }}
+                                  >
+                                    <Trash2 className="h-3.5 w-3.5" />
+                                  </Button>
+                                </div>
+                              </CardContent>
+                            </Card>
+                          ))}
+                        </div>
                       </div>
-                      <Badge variant={quiz.is_published ? 'default' : 'secondary'}>
-                        {quiz.is_published ? 'Publikus' : 'Privát'}
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="mb-4 flex flex-wrap gap-2 text-sm text-muted-foreground">
-                      <span>{quiz.questions.length} kérdés</span>
-                      <span>·</span>
-                      <span>{quiz.subject}</span>
-                      {(quiz as any).topic && (
-                        <>
-                          <span>·</span>
-                          <Badge variant="outline" className="text-xs">{(quiz as any).topic}</Badge>
-                        </>
-                      )}
-                    </div>
-                    <div className="flex gap-2">
-                      <Button size="sm" variant="outline" asChild>
-                        <Link to={`/quiz/${quiz.id}/edit`}>
-                          <Edit className="mr-1 h-3 w-3" />
-                          Szerkesztés
-                        </Link>
-                      </Button>
-                      <Button size="sm" variant="ghost" className="text-destructive" onClick={() => deleteQuiz(quiz.id)}>
-                        <Trash2 className="h-3 w-3" />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           )}
