@@ -74,7 +74,7 @@ const Dashboard = () => {
 
     const { error } = await supabase.from('quizzes').delete().eq('id', id);
     if (error) {
-      toast.error('Hiba a törléskor');
+      toast.error('Hiba a törléskor: ' + error.message);
     } else {
       setQuizzes((prev) => prev.filter((q) => q.id !== id));
       toast.success('Kvíz törölve');

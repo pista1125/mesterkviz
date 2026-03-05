@@ -12,7 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Plus, Save, ArrowLeft, Brain, Sparkles, Loader2, Search, Menu, X, ChevronRight, Hash } from 'lucide-react';
+import { Plus, Save, ArrowLeft, Brain, Sparkles, Loader2, Search, Menu, X, ChevronRight, Hash, Trash2 } from 'lucide-react';
 import type { QuizQuestion, Quiz } from '@/types/quiz';
 import { createEmptyQuestion } from '@/types/quiz';
 
@@ -317,24 +317,41 @@ const QuizEditor = () => {
                   if (!isVisible && searchQuery) return null;
 
                   return (
-                    <Button
+                    <div
                       key={q.id}
-                      variant="ghost"
-                      className="w-full justify-start text-left h-auto py-2 px-3 hover:bg-primary/5 group"
-                      onClick={() => scrollToQuestion(index)}
+                      className="flex items-center gap-1 group/item"
                     >
-                      <div className="flex items-start gap-2 overflow-hidden w-full">
-                        <Badge variant="secondary" className="shrink-0 h-5 w-5 p-0 flex items-center justify-center text-[10px]">
-                          {index + 1}
-                        </Badge>
-                        <div className="flex flex-col items-start overflow-hidden flex-1 min-w-0">
-                          <span className="text-xs font-medium truncate block w-full group-hover:text-primary transition-colors">
-                            {q.text || 'Üres kérdés...'}
-                          </span>
-                          <span className="text-[10px] text-muted-foreground uppercase">{q.type}</span>
+                      <Button
+                        variant="ghost"
+                        className="flex-1 justify-start text-left h-auto py-2 px-3 hover:bg-primary/5 min-w-0"
+                        onClick={() => scrollToQuestion(index)}
+                      >
+                        <div className="flex items-start gap-2 overflow-hidden w-full">
+                          <Badge variant="secondary" className="shrink-0 h-5 w-5 p-0 flex items-center justify-center text-[10px]">
+                            {index + 1}
+                          </Badge>
+                          <div className="flex flex-col items-start overflow-hidden flex-1 min-w-0">
+                            <span className="text-xs font-medium truncate block w-full group-hover:text-primary transition-colors">
+                              {q.text.length > 25 ? `${q.text.substring(0, 25)}...` : (q.text || 'Üres kérdés...')}
+                            </span>
+                            <span className="text-[10px] text-muted-foreground uppercase">{q.type}</span>
+                          </div>
                         </div>
-                      </div>
-                    </Button>
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 text-muted-foreground hover:text-destructive transition-colors shrink-0"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (confirm('Biztosan törlöd ezt a kérdést?')) {
+                            deleteQuestion(index);
+                          }
+                        }}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                   );
                 })}
                 {searchQuery && !questions.some((q, i) =>
