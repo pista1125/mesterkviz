@@ -70,6 +70,8 @@ const Dashboard = () => {
   }, [user]);
 
   const deleteQuiz = async (id: string) => {
+    if (!confirm('Biztosan törlöd ezt a kvízt? Ez a művelet nem vonható vissza!')) return;
+
     const { error } = await supabase.from('quizzes').delete().eq('id', id);
     if (error) {
       toast.error('Hiba a törléskor');
@@ -358,7 +360,7 @@ const Dashboard = () => {
                                     {quiz.subject}
                                   </p>
                                 </div>
-                                <div className="mt-auto flex items-center justify-between gap-1 pt-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <div className="mt-auto flex items-center justify-between gap-1 pt-1 opacity-100 transition-opacity">
                                   <Button
                                     size="sm"
                                     className="h-7 flex-1 px-2 text-[11px] bg-primary/90 hover:bg-primary"

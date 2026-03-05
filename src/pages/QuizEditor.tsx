@@ -240,7 +240,7 @@ const QuizEditor = () => {
               <Badge variant="outline" className="hidden lg:inline-flex shrink-0">
                 {isEditing ? 'Szerkesztés' : 'Új'}
               </Badge>
-              <h1 className="font-display text-xs md:text-sm lg:text-base font-bold truncate max-w-[120px] md:max-w-[300px]">
+              <h1 className="font-display text-xs md:text-sm lg:text-base font-bold truncate max-w-[150px] md:max-w-[400px]">
                 {title || 'Névtelen kvíz'}
               </h1>
             </div>
@@ -328,7 +328,7 @@ const QuizEditor = () => {
                           {index + 1}
                         </Badge>
                         <div className="flex flex-col items-start overflow-hidden">
-                          <span className="text-xs font-medium truncate w-full group-hover:text-primary transition-colors">
+                          <span className="text-xs font-medium truncate block w-full group-hover:text-primary transition-colors">
                             {q.text || 'Üres kérdés...'}
                           </span>
                           <span className="text-[10px] text-muted-foreground uppercase">{q.type}</span>
