@@ -12,7 +12,15 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Plus, Save, ArrowLeft, Brain, Sparkles, Loader2, Search, Menu, X, ChevronRight, Hash, Trash2 } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { Plus, Save, ArrowLeft, Brain, Sparkles, Loader2, Search, Menu, X, ChevronRight, Hash, Trash2, AlertTriangle } from 'lucide-react';
 import type { QuizQuestion, Quiz } from '@/types/quiz';
 import { createEmptyQuestion } from '@/types/quiz';
 
@@ -33,6 +41,7 @@ const QuizEditor = () => {
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(!!isEditing);
   const [generating, setGenerating] = useState(false);
+  const [questionToDelete, setQuestionToDelete] = useState<number | null>(null);
 
   // Sidebar and navigation states
   const [searchQuery, setSearchQuery] = useState('');
@@ -344,9 +353,7 @@ const QuizEditor = () => {
                         className="h-8 w-8 text-muted-foreground hover:text-destructive transition-colors shrink-0"
                         onClick={(e) => {
                           e.stopPropagation();
-                          if (confirm('Biztosan törlöd ezt a kérdést?')) {
-                            deleteQuestion(index);
-                          }
+                          setQuestionToDelete(index);
                         }}
                       >
                         <Trash2 className="h-4 w-4" />
@@ -508,7 +515,7 @@ const QuizEditor = () => {
                       question={question}
                       index={index}
                       onChange={(q) => updateQuestion(index, q)}
-                      onDelete={() => deleteQuestion(index)}
+                      onDelete={() => setQuestionToDelete(index)}
                     />
                   </div>
                 ))}
@@ -534,6 +541,37 @@ const QuizEditor = () => {
           </div>
         </main>
       </div>
+
+      <Dialog open={questionToDelete !== null} onOpenChange={(open) => !open && setQuestionToDelete(null)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-destructive">
+              <AlertTriangle className="h-5 w-5" />
+              Kérdés törlése
+            </DialogTitle>
+            <DialogDescription>
+              Biztosan törlöd ezt a kérdést? Ezt a műveletet nem lehet visszavonni.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex sm:justify-between gap-2 mt-4">
+            <Button variant="ghost" onClick={() => setQuestionToDelete(null)}>
+              Mégse
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={() => {
+                if (questionToDelete !== null) {
+                  deleteQuestion(questionToDelete);
+                  setQuestionToDelete(null);
+                }
+              }}
+            >
+              <Trash2 className="mr-2 h-4 w-4" />
+              Kérdés törlése
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

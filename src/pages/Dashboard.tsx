@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Plus, Play, Trash2, Edit, Copy, Users, Brain, Search, RefreshCw, Settings2, Loader2 } from 'lucide-react';
+import { Plus, Play, Trash2, Edit, Copy, Users, Brain, Search, RefreshCw, Settings2, Loader2, AlertTriangle } from 'lucide-react';
 import type { Quiz, Room } from '@/types/quiz';
 import { generateRoomCode } from '@/types/quiz';
 import {
@@ -31,6 +31,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedGrade, setSelectedGrade] = useState<string | null>(null);
+  const [quizToDelete, setQuizToDelete] = useState<string | null>(null);
 
   // Quick Start State
   const [quickStartQuiz, setQuickStartQuiz] = useState<Quiz | null>(null);
@@ -70,8 +71,6 @@ const Dashboard = () => {
   }, [user]);
 
   const deleteQuiz = async (id: string) => {
-    if (!confirm('Biztosan törlöd ezt a kvízt? Ez a művelet nem vonható vissza!')) return;
-
     const { error } = await supabase.from('quizzes').delete().eq('id', id);
     if (error) {
       toast.error('Hiba a törléskor: ' + error.message);
@@ -384,7 +383,7 @@ const Dashboard = () => {
                                     className="h-7 w-7 p-0 text-destructive hover:bg-destructive/10"
                                     onClick={(e) => {
                                       e.preventDefault();
-                                      deleteQuiz(quiz.id);
+                                      setQuizToDelete(quiz.id);
                                     }}
                                   >
                                     <Trash2 className="h-3.5 w-3.5" />
@@ -568,6 +567,37 @@ const Dashboard = () => {
                   Játék indítása
                 </>
               )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={!!quizToDelete} onOpenChange={(open) => !open && setQuizToDelete(null)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-destructive">
+              <AlertTriangle className="h-5 w-5" />
+              Kvíz törlése
+            </DialogTitle>
+            <DialogDescription>
+              Biztosan törlöd ezt a kvízt? Az összes kapcsolódó szoba és eredmény is törlődni fog. Ezt a műveletet nem lehet visszavonni.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex sm:justify-between gap-2 mt-4">
+            <Button variant="ghost" onClick={() => setQuizToDelete(null)}>
+              Mégse
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={() => {
+                if (quizToDelete) {
+                  deleteQuiz(quizToDelete);
+                  setQuizToDelete(null);
+                }
+              }}
+            >
+              <Trash2 className="mr-2 h-4 w-4" />
+              Kvíz törlése
             </Button>
           </DialogFooter>
         </DialogContent>
