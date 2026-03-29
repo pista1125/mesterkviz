@@ -241,6 +241,12 @@ const Dashboard = () => {
               Szoba létrehozása
             </Link>
           </Button>
+          <Button variant="outline" className="border-primary/30 text-primary hover:bg-primary/5 shadow-sm ml-auto" asChild>
+            <Link to="/discover">
+              <Search className="mr-2 h-4 w-4" />
+              Publikus kvízek felfedezése
+            </Link>
+          </Button>
         </div>
 
         {/* Grade Filter Bar */}

@@ -12,6 +12,7 @@ import CreateRoom from "./pages/CreateRoom";
 import RoomControl from "./pages/RoomControl";
 import JoinRoom from "./pages/JoinRoom";
 import PlayQuiz from "./pages/PlayQuiz";
+import Discover from "./pages/Discover";
 import Results from "./pages/Results";
 import PresenterView from "./pages/PresenterView";
 import NotFound from "./pages/NotFound";
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/ai-generate" element={<AIGenerate />} />
           <Route path="/room/new" element={<CreateRoom />} />
           <Route path="/room/:id" element={<RoomControl />} />
+          <Route path="/discover" element={<Discover />} />
           <Route path="/join" element={<JoinRoom />} />
           <Route path="/join/:code" element={<JoinRoom />} />
           <Route path="/play/:roomId" element={<PlayQuiz />} />
