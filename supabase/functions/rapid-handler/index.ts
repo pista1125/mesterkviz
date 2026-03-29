@@ -4,7 +4,8 @@ Deno.serve(async (req) => {
     if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
     try {
-        const { subject, topic, numQuestions, gradeLevel } = await req.json();
+        const { subject, topic, numQuestions: rawNumQuestions, gradeLevel } = await req.json();
+        const numQuestions = parseInt(rawNumQuestions, 10) || 5;
         const rawKey = Deno.env.get("OPENAI_API_KEY") || "";
         const OPENAI_API_KEY = rawKey.replace(/[^\x20-\x7E]/g, "").trim();
         if (!OPENAI_API_KEY) throw new Error("OPENAI_API_KEY is not configured");

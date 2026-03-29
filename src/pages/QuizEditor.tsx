@@ -42,6 +42,7 @@ const QuizEditor = () => {
   const [loading, setLoading] = useState(!!isEditing);
   const [generating, setGenerating] = useState(false);
   const [questionToDelete, setQuestionToDelete] = useState<number | null>(null);
+  const [aiQuestionCount, setAiQuestionCount] = useState<number>(5);
 
   // Sidebar and navigation states
   const [searchQuery, setSearchQuery] = useState('');
@@ -151,7 +152,7 @@ const QuizEditor = () => {
         body: {
           subject,
           topic: aiPrompt.trim(),
-          numQuestions: aiPrompt.match(/(\d+)\s*kérdés/)?.[1] ? parseInt(aiPrompt.match(/(\d+)\s*kérdés/)?.[1]!) : 5,
+          numQuestions: aiQuestionCount,
           gradeLevel
         },
       });
@@ -416,15 +417,27 @@ const QuizEditor = () => {
                   <div className="flex gap-2">
                     <Input
                       id="ai-assistant-input"
-                      placeholder="pl. 10 kérdés a törtekről 5. osztályos szinten..."
+                      placeholder="pl. Törtek 5. osztályos szinten..."
                       value={aiPrompt}
                       onChange={(e) => setAiPrompt(e.target.value)}
-                      className="bg-background border-primary/30 focus-visible:ring-primary"
+                      className="bg-background border-primary/30 focus-visible:ring-primary flex-1"
                     />
+                    <div className="flex items-center gap-2 shrink-0 w-24">
+                      <Label htmlFor="ai-question-count" className="sr-only">Kérdések száma</Label>
+                      <Input
+                        id="ai-question-count"
+                        type="number"
+                        min={1}
+                        max={50}
+                        value={aiQuestionCount}
+                        onChange={(e) => setAiQuestionCount(parseInt(e.target.value) || 5)}
+                        className="bg-background border-primary/30 focus-visible:ring-primary text-center px-1"
+                      />
+                    </div>
                     <Button
                       onClick={handleAIGenerate}
                       disabled={generating || !aiPrompt.trim()}
-                      className="whitespace-nowrap"
+                      className="whitespace-nowrap shrink-0"
                     >
                       {generating ? (
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
