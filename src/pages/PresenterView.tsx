@@ -98,7 +98,7 @@ const PresenterView = () => {
       setTimer((prev) => { if (prev <= 1) { clearInterval(interval); return 0; } return prev - 1; });
     }, 1000);
     return () => clearInterval(interval);
-  }, [room?.current_question_index, room?.status]);
+  }, [room?.current_question_index, room?.status, showStartCountdown]);
 
   // Show Ranglista button after podium animation when completed
   useEffect(() => {

@@ -145,24 +145,7 @@ const PlayQuiz = () => {
           const updatedRoom = { ...prev, ...update } as Room;
 
           if (updatedRoom.current_question_index !== currentQIndexRef.current) {
-            const isFirstQuestion = currentQIndexRef.current === -1 && updatedRoom.current_question_index === 0;
             currentQIndexRef.current = updatedRoom.current_question_index;
-            
-            if (isFirstQuestion) {
-              setShowStartCountdown(true);
-              setCountdownValue(3);
-              const cdInterval = setInterval(() => {
-                setCountdownValue(prev => {
-                  if (prev <= 1) {
-                    clearInterval(cdInterval);
-                    setTimeout(() => setShowStartCountdown(false), 1000);
-                    return 0;
-                  }
-                  return prev - 1;
-                });
-              }, 1000);
-            }
-
             setAnswered(false);
             setSelectedAnswer(null);
             setTextAnswer('');
@@ -186,6 +169,23 @@ const PlayQuiz = () => {
               }
             }
           }
+
+          // Trigger countdown if status changes from 'waiting' to 'active'
+          if (prev.status === 'waiting' && updatedRoom.status === 'active') {
+            setShowStartCountdown(true);
+            setCountdownValue(3);
+            const cdInterval = setInterval(() => {
+              setCountdownValue(v => {
+                if (v <= 1) {
+                  clearInterval(cdInterval);
+                  setTimeout(() => setShowStartCountdown(false), 1000);
+                  return 0;
+                }
+                return v - 1;
+              });
+            }, 1000);
+          }
+
           return updatedRoom;
         });
       })
@@ -227,7 +227,7 @@ const PlayQuiz = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [room?.current_question_index, room?.status]);
+  }, [room?.current_question_index, room?.status, showStartCountdown]);
 
   // Initial matching setup
   useEffect(() => {
@@ -698,7 +698,12 @@ const PlayQuiz = () => {
                 <motion.button
                   whileHover={!answered ? { scale: 1.02 } : {}}
                   whileTap={!answered ? { scale: 0.98 } : {}}
-                  onClick={() => !answered && submitAnswer(question.options.find(o => o.text === 'Igaz')?.id)}
+                  onClick={() => {
+                    if (answered) return;
+                    const opt = question.options.find(o => o.text === 'Igaz');
+                    if (opt) submitAnswer(opt.id);
+                    else toast.error('Hiba: Igaz válaszlehetőség nem található');
+                  }}
                   disabled={answered}
                   className={`flex-1 max-w-sm h-32 rounded-2xl text-2xl font-bold text-primary-foreground transition-all bg-quiz-blue ${answered
                     ? selectedAnswer === question.options.find(o => o.text === 'Igaz')?.id
@@ -712,7 +717,12 @@ const PlayQuiz = () => {
                 <motion.button
                   whileHover={!answered ? { scale: 1.02 } : {}}
                   whileTap={!answered ? { scale: 0.98 } : {}}
-                  onClick={() => !answered && submitAnswer(question.options.find(o => o.text === 'Hamis')?.id)}
+                  onClick={() => {
+                    if (answered) return;
+                    const opt = question.options.find(o => o.text === 'Hamis');
+                    if (opt) submitAnswer(opt.id);
+                    else toast.error('Hiba: Hamis válaszlehetőség nem található');
+                  }}
                   disabled={answered}
                   className={`flex-1 max-w-sm h-32 rounded-2xl text-2xl font-bold text-primary-foreground transition-all bg-quiz-red ${answered
                     ? selectedAnswer === question.options.find(o => o.text === 'Hamis')?.id
