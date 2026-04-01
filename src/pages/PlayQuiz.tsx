@@ -49,6 +49,8 @@ const PlayQuiz = () => {
   const [answerCorrect, setAnswerCorrect] = useState<boolean | null>(null);
   const [earnedScore, setEarnedScore] = useState(0);
   const [timer, setTimer] = useState(0);
+  const [showStartCountdown, setShowStartCountdown] = useState(false);
+  const [countdownValue, setCountdownValue] = useState(3);
   const [questionStartTime, setQuestionStartTime] = useState(0);
   const [matchingState, setMatchingState] = useState<{
     leftSelected: string | null,
@@ -143,7 +145,24 @@ const PlayQuiz = () => {
           const updatedRoom = { ...prev, ...update } as Room;
 
           if (updatedRoom.current_question_index !== currentQIndexRef.current) {
+            const isFirstQuestion = currentQIndexRef.current === -1 && updatedRoom.current_question_index === 0;
             currentQIndexRef.current = updatedRoom.current_question_index;
+            
+            if (isFirstQuestion) {
+              setShowStartCountdown(true);
+              setCountdownValue(3);
+              const cdInterval = setInterval(() => {
+                setCountdownValue(prev => {
+                  if (prev <= 1) {
+                    clearInterval(cdInterval);
+                    setTimeout(() => setShowStartCountdown(false), 1000);
+                    return 0;
+                  }
+                  return prev - 1;
+                });
+              }, 1000);
+            }
+
             setAnswered(false);
             setSelectedAnswer(null);
             setTextAnswer('');
@@ -192,7 +211,7 @@ const PlayQuiz = () => {
 
   // Timer countdown
   useEffect(() => {
-    if (!room || room.status !== 'active' || !quiz) return;
+    if (!room || room.status !== 'active' || !quiz || showStartCountdown) return;
     const question = quiz.questions[room.current_question_index];
     if (!question) return;
 
@@ -289,7 +308,7 @@ const PlayQuiz = () => {
     let isCorrect = false;
     let answerData: Record<string, unknown> = {};
 
-    if (question.type === 'multiple-choice' && optionId) {
+    if ((question.type === 'multiple-choice' || question.type === 'true-false') && optionId) {
       const selectedOption = question.options.find((o) => o.id === optionId);
       isCorrect = selectedOption?.isCorrect || false;
       answerData = { selectedOptionId: optionId };
@@ -486,6 +505,33 @@ const PlayQuiz = () => {
     // Active Quiz - Show Question
     const question = quiz.questions[room.current_question_index];
     if (!question) return null;
+
+    if (showStartCountdown) {
+      return (
+        <div className="flex flex-1 flex-col items-center justify-center bg-primary text-primary-foreground p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="text-center"
+          >
+            <h1 className="text-3xl md:text-5xl font-black mb-8 drop-shadow-xl">{quiz.title}</h1>
+            <div className="relative">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={countdownValue}
+                  initial={{ opacity: 0, scale: 2 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0 }}
+                  className="text-9xl md:text-[12rem] font-black"
+                >
+                  {countdownValue > 0 ? countdownValue : 'TÜZEZZ!'}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </motion.div>
+        </div>
+      );
+    }
 
     return (
       <div className="flex flex-1 flex-col p-4">

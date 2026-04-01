@@ -34,6 +34,8 @@ const PresenterView = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [showRanglistaCompleted, setShowRanglistaCompleted] = useState(false);
+  const [showStartCountdown, setShowStartCountdown] = useState(false);
+  const [countdownValue, setCountdownValue] = useState(3);
   const [timer, setTimer] = useState(0);
 
   const fetchRoomData = useCallback(async () => {
@@ -87,7 +89,7 @@ const PresenterView = () => {
 
   // Timer
   useEffect(() => {
-    if (!room || room.status !== 'active' || !quiz) return;
+    if (!room || room.status !== 'active' || !quiz || showStartCountdown) return;
     const question = quiz.questions[room.current_question_index];
     if (!question) return;
     const timeLimit = question.timeLimit || room.time_limit_seconds || 15;
@@ -124,7 +126,29 @@ const PresenterView = () => {
 
   const startQuiz = async () => {
     if (!room) return;
-    await supabase.from('rooms').update({ status: 'active', started_at: new Date().toISOString(), current_question_index: 0 }).eq('id', room.id);
+    setShowStartCountdown(true);
+    setCountdownValue(3);
+    
+    // Start countdown timer onscreen
+    const cdInterval = setInterval(() => {
+      setCountdownValue(prev => {
+        if (prev <= 1) {
+          clearInterval(cdInterval);
+          setTimeout(() => setShowStartCountdown(false), 1000);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    // Update DB status immediately or after countdown? 
+    // Updating immediately keeps students in sync with the countdown since they listen for status change.
+    await supabase.from('rooms').update({ 
+      status: 'active', 
+      started_at: new Date().toISOString(), 
+      current_question_index: 0 
+    }).eq('id', room.id);
+    
     toast.success('Kvíz elindítva!');
   };
 
@@ -303,7 +327,32 @@ const PresenterView = () => {
             </motion.div>
           )}
 
-          {room.status === 'active' && !showLeaderboard && currentQuestion && (
+          {room.status === 'active' && showStartCountdown && (
+            <motion.div
+              key="countdown"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.2 }}
+              className="flex flex-col items-center justify-center text-center"
+            >
+              <h2 className="text-4xl md:text-6xl font-black mb-12 text-primary">{quiz.title}</h2>
+              <div className="relative">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={countdownValue}
+                    initial={{ opacity: 0, scale: 2 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0 }}
+                    className="text-[12rem] md:text-[18rem] font-black leading-none text-primary"
+                  >
+                    {countdownValue > 0 ? countdownValue : 'TÜZEZZ!'}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </motion.div>
+          )}
+
+          {room.status === 'active' && !showLeaderboard && !showStartCountdown && currentQuestion && (
             <motion.div key={`q-${room.current_question_index}`} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="w-full max-w-4xl">
               {/* Timer and progress */}
               <div className="mb-4 flex items-center justify-between">
