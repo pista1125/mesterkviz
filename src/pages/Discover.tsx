@@ -39,6 +39,8 @@ const Discover = () => {
   // Quick Start State
   const [quickStartQuiz, setQuickStartQuiz] = useState<PublicQuiz | null>(null);
   const [controlMode, setControlMode] = useState<'auto' | 'manual'>('auto');
+  const [gameMode, setGameMode] = useState<'classic' | 'submarine'>('classic');
+  const [gameDuration, setGameDuration] = useState(300);
   const [timeLimit, setTimeLimit] = useState(15);
   const [showResults, setShowResults] = useState(true);
   const [starting, setStarting] = useState(false);
@@ -115,6 +117,8 @@ const Discover = () => {
         class_name: quickStartQuiz.grade_level || '',
         grade: quickStartQuiz.grade_level || '',
         control_mode: controlMode,
+        game_mode: gameMode,
+        game_duration_seconds: gameDuration,
         time_limit_seconds: timeLimit,
         show_results_to_students: showResults,
         status: 'waiting',
@@ -351,7 +355,7 @@ const Discover = () => {
 
       {/* Quick Start Dialog */}
       <Dialog open={!!quickStartQuiz} onOpenChange={(open) => !open && !starting && setQuickStartQuiz(null)}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-2xl">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Settings2 className="h-5 w-5 text-primary" />
@@ -362,50 +366,92 @@ const Discover = () => {
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-6 py-4">
-            <div className="space-y-3">
-              <Label className="text-sm font-semibold">Kérdésvezérlés módja</Label>
-              <RadioGroup value={controlMode} onValueChange={(v) => setControlMode(v as 'auto' | 'manual')}>
-                <div className="flex items-center space-x-3 rounded-lg border p-3 cursor-pointer hover:bg-accent/50 transition-colors" onClick={() => setControlMode('auto')}>
-                  <RadioGroupItem value="auto" id="auto" />
-                  <label htmlFor="auto" className="flex-1 cursor-pointer">
-                    <div className="font-medium text-sm">Automatikus</div>
-                    <div className="text-[12px] text-muted-foreground">Diákok saját tempóban haladnak</div>
-                  </label>
-                </div>
-                <div className="flex items-center space-x-3 rounded-lg border p-3 cursor-pointer hover:bg-accent/50 transition-colors" onClick={() => setControlMode('manual')}>
-                  <RadioGroupItem value="manual" id="manual" />
-                  <label htmlFor="manual" className="flex-1 cursor-pointer">
-                    <div className="font-medium text-sm">Manuális</div>
-                    <div className="text-[12px] text-muted-foreground">Tanár vezérli a kérdésváltást</div>
-                  </label>
-                </div>
-              </RadioGroup>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="time-limit" className="text-sm font-semibold">Időlimit/kérdés (mp)</Label>
-                <Input
-                  id="time-limit"
-                  type="number"
-                  value={timeLimit}
-                  onChange={(e) => setTimeLimit(parseInt(e.target.value) || 15)}
-                  min={5}
-                  max={120}
-                  className="w-full"
-                />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-4">
+            {/* Left Column: Controls & Settings */}
+            <div className="space-y-6">
+              <div className="space-y-3">
+                <Label className="text-sm font-semibold">Kérdésvezérlés módja</Label>
+                <RadioGroup value={controlMode} onValueChange={(v) => setControlMode(v as 'auto' | 'manual')}>
+                  <div className="flex items-center space-x-3 rounded-lg border p-3 cursor-pointer hover:bg-accent/50 transition-colors" onClick={() => setControlMode('auto')}>
+                    <RadioGroupItem value="auto" id="auto" />
+                    <label htmlFor="auto" className="flex-1 cursor-pointer">
+                      <div className="font-medium text-sm">Automatikus</div>
+                      <div className="text-[12px] text-muted-foreground">Diákok saját tempóban haladnak</div>
+                    </label>
+                  </div>
+                  <div className="flex items-center space-x-3 rounded-lg border p-3 cursor-pointer hover:bg-accent/50 transition-colors" onClick={() => setControlMode('manual')}>
+                    <RadioGroupItem value="manual" id="manual" />
+                    <label htmlFor="manual" className="flex-1 cursor-pointer">
+                      <div className="font-medium text-sm">Manuális</div>
+                      <div className="text-[12px] text-muted-foreground">Tanár vezérli a kérdésváltást</div>
+                    </label>
+                  </div>
+                </RadioGroup>
               </div>
-              <div className="flex flex-col justify-end gap-2 pb-1">
-                <div className="flex items-center justify-between gap-2">
-                  <Label htmlFor="show-results" className="text-[12px] leading-tight cursor-pointer">Eredmények mutatása</Label>
-                  <Switch
-                    id="show-results"
-                    checked={showResults}
-                    onCheckedChange={setShowResults}
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="time-limit" className="text-sm font-semibold">Időlimit/kérdés (mp)</Label>
+                  <Input
+                    id="time-limit"
+                    type="number"
+                    value={timeLimit}
+                    onChange={(e) => setTimeLimit(parseInt(e.target.value) || 15)}
+                    min={5}
+                    max={120}
+                    className="w-full"
                   />
                 </div>
+                <div className="flex flex-col justify-end gap-2 pb-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <Label htmlFor="show-results" className="text-[12px] leading-tight cursor-pointer">Eredmények</Label>
+                    <Switch
+                      id="show-results"
+                      checked={showResults}
+                      onCheckedChange={setShowResults}
+                    />
+                  </div>
+                </div>
               </div>
+            </div>
+
+            {/* Right Column: Game Modes */}
+            <div className="space-y-6">
+              <div className="space-y-3">
+                <Label className="text-sm font-semibold">Játékmód</Label>
+                <RadioGroup value={gameMode} onValueChange={(v) => setGameMode(v as 'classic' | 'submarine')}>
+                  <div className="flex items-center space-x-3 rounded-lg border p-3 cursor-pointer hover:bg-accent/50 transition-colors" onClick={() => setGameMode('classic')}>
+                    <RadioGroupItem value="classic" id="classic" />
+                    <label htmlFor="classic" className="flex-1 cursor-pointer">
+                      <div className="font-medium text-sm">Klasszikus</div>
+                    </label>
+                  </div>
+                  <div className={`flex items-center space-x-3 rounded-lg border p-3 cursor-pointer transition-colors ${gameMode === 'submarine' ? 'bg-primary/5 border-primary/30' : 'hover:bg-accent/50'}`} onClick={() => setGameMode('submarine')}>
+                    <RadioGroupItem value="submarine" id="submarine" />
+                    <label htmlFor="submarine" className="flex-1 cursor-pointer">
+                      <div className={`font-medium text-sm ${gameMode === 'submarine' ? 'text-primary' : ''}`}>Tengeralattjáró 🦈</div>
+                      <div className="text-[10px] text-muted-foreground">Közös menekülés a cápa elől</div>
+                    </label>
+                  </div>
+                </RadioGroup>
+              </div>
+
+              {gameMode === 'submarine' && (
+                <div className="space-y-3 rounded-lg border border-primary/20 bg-primary/5 p-4 animate-in fade-in slide-in-from-top-2">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-xs font-bold text-primary">Játékidő: {Math.floor(gameDuration / 60)} perc</Label>
+                  </div>
+                  <Input
+                    type="range"
+                    min={60}
+                    max={600}
+                    step={60}
+                    value={gameDuration}
+                    onChange={(e) => setGameDuration(parseInt(e.target.value))}
+                    className="h-1.5 w-full appearance-none rounded-lg bg-primary/20"
+                  />
+                </div>
+              )}
             </div>
           </div>
 

@@ -76,6 +76,11 @@ const PlayQuiz = () => {
       return { character: '🐻', accessory: 'none' };
     }
   });
+
+  // Submarine Mode state
+  const [submarineCorrectStore, setSubmarineCorrectStore] = useState(0);
+  const [showBoostButton, setShowBoostButton] = useState(false);
+  const [localSubmarineQIndex, setLocalSubmarineQIndex] = useState(0);
   const currentQIndexRef = useRef(-1);
 
   const participantId = sessionStorage.getItem('participant_id');
@@ -296,7 +301,28 @@ const PlayQuiz = () => {
       const totalScore = sa.reduce((sum, a) => sum + (a.score || 0), 0);
       const correctCount = sa.filter((a) => a.is_correct).length;
       return { ...p, totalScore, correctCount };
-    }).sort((a, b) => b.totalScore - a.totalScore);
+    }).sort((a, b) => (b.totalScore || 0) - (a.totalScore || 0));
+  };
+
+  const handleSubmarineBoost = async () => {
+    if (!room || !roomId) return;
+    
+    // Increment boost in DB
+    const { error } = await supabase.rpc('increment_submarine_boost', { room_uuid: roomId });
+    
+    // If RPC doesn't exist, fallback to regular update (not atomic but better than nothing)
+    if (error) {
+      await supabase.from('rooms')
+        .update({ submarine_boosts: (room.submarine_boosts || 0) + 1 })
+        .eq('id', roomId);
+    }
+
+    setSubmarineCorrectStore(0);
+    setShowBoostButton(false);
+    toast.success('🚀 TENGERALATTJÁRÓ FELGYORSÍTVA!', {
+      icon: '🚀',
+      duration: 2000
+    });
   };
 
   const submitAnswer = async (optionId?: string) => {
@@ -326,7 +352,11 @@ const PlayQuiz = () => {
 
     const timeTaken = Date.now() - questionStartTime;
     const timeLimitMs = (question.timeLimit || room.time_limit_seconds || 15) * 1000;
-    const score = calculateScore(isCorrect, timeTaken, timeLimitMs);
+    
+    // Scoring logic for submarine mode: fixed 1000 per correct
+    const score = room.game_mode === 'submarine' 
+      ? (isCorrect ? 1000 : 0)
+      : calculateScore(isCorrect, timeTaken, timeLimitMs);
 
     const { error } = await supabase.from('quiz_answers').insert({
       room_id: room.id,
@@ -348,20 +378,36 @@ const PlayQuiz = () => {
     setAnswerCorrect(isCorrect);
     setEarnedScore(score);
 
-    if (room.control_mode === 'auto') {
-      const nextIndex = room.current_question_index + 1;
-      if (nextIndex < quiz.questions.length) {
-        setTimeout(() => {
+    // Submarine progress
+    if (room.game_mode === 'submarine' && isCorrect) {
+      const newCorrectCount = submarineCorrectStore + 1;
+      setSubmarineCorrectStore(newCorrectCount);
+      if (newCorrectCount >= 3) {
+        setShowBoostButton(true);
+      }
+    }
+
+    // Auto progress logic
+    if (room.control_mode === 'auto' || room.game_mode === 'submarine') {
+      const nextIndex = room.game_mode === 'submarine'
+        ? (localSubmarineQIndex + 1) % quiz.questions.length
+        : (room.current_question_index + 1) % quiz.questions.length;
+
+      setTimeout(() => {
+        if (room.game_mode === 'submarine') {
+          setLocalSubmarineQIndex(nextIndex);
+        } else {
           currentQIndexRef.current = nextIndex;
           setRoom((prev) => prev ? { ...prev, current_question_index: nextIndex } : prev);
-          setAnswered(false);
-          setSelectedAnswer(null);
-          setTextAnswer('');
-          setAnswerCorrect(null);
-          setEarnedScore(0);
-          setQuestionStartTime(Date.now());
-        }, 1500);
-      }
+        }
+        
+        setAnswered(false);
+        setSelectedAnswer(null);
+        setTextAnswer('');
+        setAnswerCorrect(null);
+        setEarnedScore(0);
+        setQuestionStartTime(Date.now());
+      }, 2000); // 2 seconds delay as requested
     }
   };
 
@@ -503,7 +549,8 @@ const PlayQuiz = () => {
     }
 
     // Active Quiz - Show Question
-    const question = quiz.questions[room.current_question_index];
+    const questionIndex = room.game_mode === 'submarine' ? localSubmarineQIndex : room.current_question_index;
+    const question = quiz.questions[questionIndex];
     if (!question) return null;
 
     if (showStartCountdown) {
@@ -537,7 +584,7 @@ const PlayQuiz = () => {
       <div className="flex flex-1 flex-col p-4">
         <AnimatePresence mode="wait">
           <motion.div
-            key={room.current_question_index}
+            key={questionIndex}
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -50 }}
@@ -584,6 +631,57 @@ const PlayQuiz = () => {
                   </div>
                 )}
               </motion.div>
+            )}
+
+            {room.game_mode === 'submarine' && (
+              <div className="sticky top-0 z-30 -mx-4 mb-6 bg-background/80 p-4 backdrop-blur-md border-b">
+                <div className="flex flex-col items-center gap-4">
+                  <div className="flex gap-4">
+                    {[...Array(3)].map((_, i) => (
+                      <div 
+                        key={i} 
+                        className={`h-12 w-12 rounded-full border-4 flex items-center justify-center transition-all duration-300 ${
+                          i < submarineCorrectStore 
+                            ? 'bg-quiz-green border-quiz-green text-white scale-110' 
+                            : 'bg-muted border-muted-foreground/20 text-muted-foreground/20'
+                        }`}
+                      >
+                        {i < submarineCorrectStore ? (
+                          <CheckCircle2 className="h-6 w-6" />
+                        ) : (
+                          <div className="h-2 w-2 rounded-full bg-current" />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <AnimatePresence>
+                    {showBoostButton && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.5, y: -20 }}
+                        animate={{ 
+                          opacity: 1, 
+                          scale: [1, 1.05, 1],
+                          y: 0 
+                        }}
+                        transition={{ 
+                          scale: { repeat: Infinity, duration: 1 } 
+                        }}
+                        className="w-full max-w-sm"
+                      >
+                        <Button 
+                          size="lg" 
+                          onClick={handleSubmarineBoost}
+                          className="w-full h-14 bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-black text-xl rounded-2xl shadow-[0_4px_15px_rgba(250,204,21,0.5)] border-2 border-yellow-200"
+                        >
+                          <Zap className="mr-3 h-6 w-6 fill-blue-900" />
+                          BOOST AKTIVÁLÁSA!
+                        </Button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
             )}
 
             {/* Multiple Choice Answers */}

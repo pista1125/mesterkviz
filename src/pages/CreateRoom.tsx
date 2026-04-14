@@ -24,6 +24,8 @@ const CreateRoom = () => {
   const [grade, setGrade] = useState('');
   const [notes, setNotes] = useState('');
   const [controlMode, setControlMode] = useState<'auto' | 'manual'>('auto');
+  const [gameMode, setGameMode] = useState<'classic' | 'submarine'>('classic');
+  const [gameDuration, setGameDuration] = useState(300); // 5 minutes in seconds
   const [timeLimit, setTimeLimit] = useState(15);
   const [showResults, setShowResults] = useState(true);
   const [creating, setCreating] = useState(false);
@@ -70,6 +72,8 @@ const CreateRoom = () => {
         grade,
         notes,
         control_mode: controlMode,
+        game_mode: gameMode,
+        game_duration_seconds: gameDuration,
         time_limit_seconds: timeLimit,
         show_results_to_students: showResults,
         status: 'waiting',
@@ -199,7 +203,7 @@ const CreateRoom = () => {
             <CardHeader>
               <CardTitle className="text-lg">Vezérlés</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-6">
               <div className="space-y-3">
                 <Label>Kérdésvezérlés módja</Label>
                 <RadioGroup value={controlMode} onValueChange={(v) => setControlMode(v as 'auto' | 'manual')}>
@@ -219,6 +223,45 @@ const CreateRoom = () => {
                   </div>
                 </RadioGroup>
               </div>
+
+              <div className="space-y-3">
+                <Label className="text-base font-bold">Különleges játékmódok</Label>
+                <RadioGroup value={gameMode} onValueChange={(v) => setGameMode(v as 'classic' | 'submarine')}>
+                  <div className="flex items-center space-x-3 rounded-lg border p-3">
+                    <RadioGroupItem value="classic" id="classic" />
+                    <label htmlFor="classic" className="cursor-pointer">
+                      <div className="font-medium">Klasszikus</div>
+                      <div className="text-sm text-muted-foreground">Hagyományos kvíz élmény</div>
+                    </label>
+                  </div>
+                  <div className="flex items-center space-x-3 rounded-lg border p-3 bg-primary/5 border-primary/20">
+                    <RadioGroupItem value="submarine" id="submarine" />
+                    <label htmlFor="submarine" className="cursor-pointer">
+                      <div className="font-medium text-primary">Tengeralattjáró</div>
+                      <div className="text-sm text-muted-foreground">Közös menekülés a cápa elől (Csapatmunka!)</div>
+                    </label>
+                  </div>
+                </RadioGroup>
+              </div>
+
+              {gameMode === 'submarine' && (
+                <div className="space-y-3 rounded-lg border border-primary/20 bg-primary/5 p-4 animate-in fade-in slide-in-from-top-2">
+                  <Label>Játék időtartama: {Math.floor(gameDuration / 60)} perc</Label>
+                  <Input
+                    type="range"
+                    min={60}
+                    max={600}
+                    step={60}
+                    value={gameDuration}
+                    onChange={(e) => setGameDuration(parseInt(e.target.value))}
+                    className="h-2 w-full appearance-none rounded-lg bg-primary/20"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    A cápa boost nélkül 1 perc alatt éri el a hajót. A diákok 3 helyes válaszonként +10 mp-et nyernek.
+                  </p>
+                </div>
+              )}
+
               <div className="space-y-2">
                 <Label>Időlimit kérdésenként (mp)</Label>
                 <Input

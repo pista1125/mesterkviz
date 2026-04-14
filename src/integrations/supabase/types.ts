@@ -201,6 +201,9 @@ export type Database = {
           status: string
           teacher_id: string
           time_limit_seconds: number | null
+          game_mode: string
+          submarine_boosts: number
+          game_duration_seconds: number
         }
         Insert: {
           class_name?: string | null
@@ -219,6 +222,9 @@ export type Database = {
           status?: string
           teacher_id: string
           time_limit_seconds?: number | null
+          game_mode?: string
+          submarine_boosts?: number
+          game_duration_seconds?: number
         }
         Update: {
           class_name?: string | null
@@ -237,6 +243,9 @@ export type Database = {
           status?: string
           teacher_id?: string
           time_limit_seconds?: number | null
+          game_mode?: string
+          submarine_boosts?: number
+          game_duration_seconds?: number
         }
         Relationships: [
           {
@@ -261,6 +270,7 @@ export type Database = {
     }
     Functions: {
       generate_room_code: { Args: never; Returns: string }
+      increment_submarine_boost: { Args: { room_uuid: string }; Returns: void }
     }
     Enums: {
       [_ in never]: never

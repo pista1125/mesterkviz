@@ -12,6 +12,7 @@ import { Avatar } from '@/components/quiz/Avatar';
 import { Podium } from '@/components/quiz/Podium';
 import { ReactionDisplay } from '@/components/quiz/ReactionDisplay';
 import { MathRenderer } from '@/components/quiz/MathRenderer';
+import { SubmarineGame } from '@/components/quiz/SubmarineGame';
 
 const COLORS = [
   { bg: 'bg-quiz-red', icon: '▲' },
@@ -352,8 +353,17 @@ const PresenterView = () => {
             </motion.div>
           )}
 
-          {room.status === 'active' && !showLeaderboard && !showStartCountdown && currentQuestion && (
-            <motion.div key={`q-${room.current_question_index}`} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="w-full max-w-4xl">
+          {room.status === 'active' && !showLeaderboard && !showStartCountdown && (
+            room.game_mode === 'submarine' ? (
+              <motion.div key="submarine-game" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full max-w-6xl">
+                <SubmarineGame 
+                  room={room} 
+                  participants={participants} 
+                  onEnd={endQuiz}
+                />
+              </motion.div>
+            ) : currentQuestion ? (
+              <motion.div key={`q-${room.current_question_index}`} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="w-full max-w-4xl">
               {/* Timer and progress */}
               <div className="mb-4 flex items-center justify-between">
                 <span className="font-display text-lg text-muted-foreground">
@@ -505,7 +515,8 @@ const PresenterView = () => {
                   })}
                 </div>
               )}
-            </motion.div>
+              </motion.div>
+            ) : null
           )}
 
           {room.status === 'completed' && (

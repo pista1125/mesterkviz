@@ -50,6 +50,9 @@ export interface Room {
   grade: string;
   notes: string;
   control_mode: 'auto' | 'manual';
+  game_mode: 'classic' | 'submarine';
+  submarine_boosts: number;
+  game_duration_seconds: number;
   time_limit_seconds: number;
   show_results_to_students: boolean;
   current_question_index: number;
