@@ -346,7 +346,7 @@ const PresenterView = () => {
                     exit={{ opacity: 0, scale: 0 }}
                     className="text-[12rem] md:text-[18rem] font-black leading-none text-primary"
                   >
-                    {countdownValue > 0 ? countdownValue : 'TÜZEZZ!'}
+                    {countdownValue > 0 ? countdownValue : 'RAJT!'}
                   </motion.div>
                 </AnimatePresence>
               </div>
