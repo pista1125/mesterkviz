@@ -76,19 +76,6 @@ export const SubmarineGame: React.FC<SubmarineGameProps> = ({ room, participants
 
   return (
     <div className="relative h-[600px] w-full overflow-hidden rounded-3xl bg-slate-900 shadow-2xl ring-4 ring-slate-800">
-      {/* SVG Background Removal Filter */}
-      <svg width="0" height="0" className="absolute pointer-events-none">
-        <defs>
-          <filter id="remove-white">
-            <feColorMatrix type="matrix" values="
-              1 0 0 0 0
-              0 1 0 0 0
-              0 0 1 0 0
-              -3 -3 -3 1 8.5" />
-          </filter>
-        </defs>
-      </svg>
-
       {/* Deep Sea Background */}
       <div 
         className="absolute inset-0 bg-cover bg-center transition-transform duration-[1s] ease-linear"
@@ -98,7 +85,6 @@ export const SubmarineGame: React.FC<SubmarineGameProps> = ({ room, participants
         }}
       />
       
-      {/* Rest of the UI remains same... */}
       {/* Bubbles Overlay */}
       <div className="pointer-events-none absolute inset-0 opacity-30">
         {[...Array(20)].map((_, i) => (
@@ -168,7 +154,8 @@ export const SubmarineGame: React.FC<SubmarineGameProps> = ({ room, participants
             alt="Shark" 
             className="h-auto w-full" 
             style={{ 
-              filter: 'url(#remove-white) drop-shadow(0 20px 50px rgba(0,0,0,0.5))' 
+              mixBlendMode: 'screen',
+              filter: 'brightness(1.1) contrast(1.1)'
             }}
           />
         </motion.div>
@@ -197,7 +184,8 @@ export const SubmarineGame: React.FC<SubmarineGameProps> = ({ room, participants
               alt="Submarine" 
               className="h-auto w-full" 
               style={{ 
-                filter: 'url(#remove-white) drop-shadow(0 15px 30px rgba(255,255,0,0.4))' 
+                mixBlendMode: 'screen',
+                filter: 'brightness(1.2) contrast(1.1)'
               }}
             />
             <motion.div 
