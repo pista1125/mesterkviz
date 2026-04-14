@@ -258,11 +258,13 @@ const PlayQuiz = () => {
     if (!room || !participantId || room.status !== 'active') return;
 
     const checkExistingAnswer = async () => {
+      const qIndex = room.game_mode === 'submarine' ? localSubmarineQIndex : room.current_question_index;
+      
       const { data } = await supabase
         .from('quiz_answers')
         .select('*')
         .eq('participant_id', participantId)
-        .eq('question_index', room.current_question_index)
+        .eq('question_index', qIndex)
         .eq('room_id', room.id)
         .eq('session_number', room.session_number)
         .maybeSingle();
@@ -271,10 +273,18 @@ const PlayQuiz = () => {
         setAnswered(true);
         setAnswerCorrect(data.is_correct);
         setEarnedScore((data as any).score || 0);
+      } else {
+        // If no answer found for THIS index, reset answered state
+        // This is important for the independent loop in Submarine mode
+        if (room.game_mode === 'submarine') {
+          setAnswered(false);
+          setAnswerCorrect(null);
+          setEarnedScore(0);
+        }
       }
     };
     checkExistingAnswer();
-  }, [room?.current_question_index, participantId, room?.status]);
+  }, [room?.current_question_index, localSubmarineQIndex, participantId, room?.status]);
 
   // Fetch answers and show Ranglista button when quiz is completed
   useEffect(() => {
@@ -361,7 +371,7 @@ const PlayQuiz = () => {
     const { error } = await supabase.from('quiz_answers').insert({
       room_id: room.id,
       participant_id: participantId,
-      question_index: room.current_question_index,
+      question_index: room.game_mode === 'submarine' ? localSubmarineQIndex : room.current_question_index,
       answer: JSON.parse(JSON.stringify(answerData)),
       is_correct: isCorrect,
       time_taken_ms: timeTaken,
@@ -571,7 +581,7 @@ const PlayQuiz = () => {
                   exit={{ opacity: 0, scale: 0 }}
                   className="text-9xl md:text-[12rem] font-black"
                 >
-                  {countdownValue > 0 ? countdownValue : 'TÜZEZZ!'}
+                  {countdownValue > 0 ? countdownValue : 'RAJT!'}
                 </motion.div>
               </AnimatePresence>
             </div>

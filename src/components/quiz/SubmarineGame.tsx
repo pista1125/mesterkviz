@@ -76,6 +76,19 @@ export const SubmarineGame: React.FC<SubmarineGameProps> = ({ room, participants
 
   return (
     <div className="relative h-[600px] w-full overflow-hidden rounded-3xl bg-slate-900 shadow-2xl ring-4 ring-slate-800">
+      {/* SVG Background Removal Filter */}
+      <svg width="0" height="0" className="absolute pointer-events-none">
+        <defs>
+          <filter id="remove-white">
+            <feColorMatrix type="matrix" values="
+              1 0 0 0 0
+              0 1 0 0 0
+              0 0 1 0 0
+              -3 -3 -3 1 8.5" />
+          </filter>
+        </defs>
+      </svg>
+
       {/* Deep Sea Background */}
       <div 
         className="absolute inset-0 bg-cover bg-center transition-transform duration-[1s] ease-linear"
@@ -84,7 +97,8 @@ export const SubmarineGame: React.FC<SubmarineGameProps> = ({ room, participants
           transform: `scale(1.1) translateX(${-gameProgress * 0.1}%)`
         }}
       />
-
+      
+      {/* Rest of the UI remains same... */}
       {/* Bubbles Overlay */}
       <div className="pointer-events-none absolute inset-0 opacity-30">
         {[...Array(20)].map((_, i) => (
@@ -152,7 +166,10 @@ export const SubmarineGame: React.FC<SubmarineGameProps> = ({ room, participants
           <img 
             src="/game/shark.png" 
             alt="Shark" 
-            className="h-auto w-full drop-shadow-[0_20px_50px_rgba(255,0,0,0.3)]" 
+            className="h-auto w-full" 
+            style={{ 
+              filter: 'url(#remove-white) drop-shadow(0 20px 50px rgba(0,0,0,0.5))' 
+            }}
           />
         </motion.div>
 
@@ -170,19 +187,21 @@ export const SubmarineGame: React.FC<SubmarineGameProps> = ({ room, participants
             rotate: { duration: 2.5, repeat: Infinity, ease: "easeInOut" }
           }}
           style={{ 
-            width: '18%', 
-            maxWidth: '250px'
+            width: '20%', 
+            maxWidth: '280px'
           }}
         >
           <div className="relative">
             <img 
               src="/game/submarine.png" 
               alt="Submarine" 
-              className="h-auto w-full drop-shadow-[0_15px_30px_rgba(255,255,0,0.4)]" 
-              style={{ transform: 'scaleX(-1)' }} // Flip to face left (away from shark)
+              className="h-auto w-full" 
+              style={{ 
+                filter: 'url(#remove-white) drop-shadow(0 15px 30px rgba(255,255,0,0.4))' 
+              }}
             />
             <motion.div 
-              className="absolute -right-1 top-1/2 h-6 w-3 bg-yellow-400 blur-md rounded-full"
+              className="absolute -left-1 top-1/2 h-6 w-3 bg-yellow-400 blur-md rounded-full"
               animate={{ opacity: [0.3, 0.9, 0.3], scale: [1, 1.8, 1] }}
               transition={{ duration: 0.1, repeat: Infinity }}
             />
@@ -204,7 +223,7 @@ export const SubmarineGame: React.FC<SubmarineGameProps> = ({ room, participants
           </div>
         </div>
         <div className="mt-3 flex justify-between text-[11px] font-black uppercase tracking-[0.3em] text-white/50">
-          <span className="flex items-center gap-1"><Zap className="h-3 w-3" /> START</span>
+          <span className="flex items-center gap-1"><Zap className="h-3 w-3" /> RAJT</span>
           <span className="flex items-center gap-1">SZABADSÁG <Trophy className="h-3 w-3" /></span>
         </div>
       </div>
