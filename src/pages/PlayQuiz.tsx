@@ -338,7 +338,8 @@ const PlayQuiz = () => {
   const submitAnswer = async (optionId?: string) => {
     if (!room || !quiz || !participantId || answered) return;
 
-    const question = quiz.questions[room.current_question_index];
+    const questionIndex = room.game_mode === 'submarine' ? localSubmarineQIndex : room.current_question_index;
+    const question = quiz.questions[questionIndex];
     if (!question) return;
 
     let isCorrect = false;
@@ -434,7 +435,8 @@ const PlayQuiz = () => {
         };
 
         // Auto submit if all pairs are finished
-        const question = quiz?.questions[room!.current_question_index];
+        const qIdx = room?.game_mode === 'submarine' ? localSubmarineQIndex : room!.current_question_index;
+        const question = quiz?.questions[qIdx];
         if (question?.pairs && newState.completedLeft.length === question.pairs.length) {
           setTimeout(() => {
             submitAnswer();
