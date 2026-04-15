@@ -14,7 +14,7 @@ interface SubmarineGameProps {
 export const SubmarineGame: React.FC<SubmarineGameProps> = ({ room, participants, onEnd }) => {
   const [elapsedTime, setElapsedTime] = useState(0);
   const totalDuration = room.game_duration_seconds || 300;
-  const initialSafety = 60; // 1 minute
+  const initialSafety = 120; // 2 minutes
   
   // Calculate current safety time based on boosts and elapsed time
   const currentSafety = useMemo(() => {
@@ -71,7 +71,7 @@ export const SubmarineGame: React.FC<SubmarineGameProps> = ({ room, participants
   // Shark approaches from the left based on safety distance
   // If safety is 60m (max), shark is far away (diff of ~50%)
   // If safety is 0m, shark is touching the sub
-  const safetyOffset = (currentSafety / 60) * 50; 
+  const safetyOffset = (currentSafety / 120) * 50; 
   const sharkPos = Math.max(5, subPos - 15 - safetyOffset);
 
   return (
