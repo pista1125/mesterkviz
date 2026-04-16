@@ -80,8 +80,24 @@ const PlayQuiz = () => {
   // Submarine Mode state
   const [submarineCorrectStore, setSubmarineCorrectStore] = useState(0);
   const [showBoostButton, setShowBoostButton] = useState(false);
-  const [localSubmarineQIndex, setLocalSubmarineQIndex] = useState(0);
+  // Infinite random queue: holds actual quiz question indices in shuffled order
+  const [submarineQueue, setSubmarineQueue] = useState<number[]>([]);
+  // Which slot in the queue we're currently on (monotonically increasing → unique DB key)
+  const globalSubmarineAnswerIndex = useRef(0);
   const currentQIndexRef = useRef(-1);
+
+  // Helper: generate a shuffled array of indices 0..n-1
+  const shuffleIndices = (n: number): number[] => {
+    const arr = Array.from({ length: n }, (_, i) => i);
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+
+  // The real quiz question to display for submarine mode
+  const submarineActualQIndex = submarineQueue[0] ?? 0;
 
   const participantId = sessionStorage.getItem('participant_id');
   const studentName = sessionStorage.getItem('student_name');
@@ -253,18 +269,23 @@ const PlayQuiz = () => {
     }
   }, [quiz, room?.current_question_index]);
 
-  // Check if already answered this question
+  // Initialize submarine queue when quiz loads in submarine mode
+  useEffect(() => {
+    if (!quiz || !room || room.game_mode !== 'submarine' || submarineQueue.length > 0) return;
+    setSubmarineQueue(shuffleIndices(quiz.questions.length));
+  }, [quiz, room?.game_mode]);
+
+  // Check if already answered this question (non-submarine only)
   useEffect(() => {
     if (!room || !participantId || room.status !== 'active') return;
+    if (room.game_mode === 'submarine') return; // submarine uses its own flow
 
     const checkExistingAnswer = async () => {
-      const qIndex = room.game_mode === 'submarine' ? localSubmarineQIndex : room.current_question_index;
-      
       const { data } = await supabase
         .from('quiz_answers')
         .select('*')
         .eq('participant_id', participantId)
-        .eq('question_index', qIndex)
+        .eq('question_index', room.current_question_index)
         .eq('room_id', room.id)
         .eq('session_number', room.session_number)
         .maybeSingle();
@@ -273,18 +294,10 @@ const PlayQuiz = () => {
         setAnswered(true);
         setAnswerCorrect(data.is_correct);
         setEarnedScore((data as any).score || 0);
-      } else {
-        // If no answer found for THIS index, reset answered state
-        // This is important for the independent loop in Submarine mode
-        if (room.game_mode === 'submarine') {
-          setAnswered(false);
-          setAnswerCorrect(null);
-          setEarnedScore(0);
-        }
       }
     };
     checkExistingAnswer();
-  }, [room?.current_question_index, localSubmarineQIndex, participantId, room?.status]);
+  }, [room?.current_question_index, participantId, room?.status, room?.game_mode]);
 
   // Fetch answers and show Ranglista button when quiz is completed
   useEffect(() => {
@@ -338,7 +351,11 @@ const PlayQuiz = () => {
   const submitAnswer = async (optionId?: string) => {
     if (!room || !quiz || !participantId || answered) return;
 
-    const questionIndex = room.game_mode === 'submarine' ? localSubmarineQIndex : room.current_question_index;
+    const isSubmarine = room.game_mode === 'submarine';
+    // For submarine: use the current front of the shuffled queue as the actual question
+    const questionIndex = isSubmarine ? submarineActualQIndex : room.current_question_index;
+    // Unique DB key: for submarine, use the global monotonic counter
+    const dbQuestionIndex = isSubmarine ? globalSubmarineAnswerIndex.current : room.current_question_index;
     const question = quiz.questions[questionIndex];
     if (!question) return;
 
@@ -354,7 +371,6 @@ const PlayQuiz = () => {
       isCorrect = textAnswer.trim().toLowerCase() === (question.correctAnswer || '').trim().toLowerCase();
       answerData = { text: textAnswer.trim() };
     } else if (question.type === 'matching') {
-      // Matching is submitted when all pairs are found or time runs out
       const totalPairs = question.pairs?.length || 0;
       const correctPairs = matchingState.completedLeft.length;
       isCorrect = correctPairs === totalPairs;
@@ -365,14 +381,14 @@ const PlayQuiz = () => {
     const timeLimitMs = (question.timeLimit || room.time_limit_seconds || 15) * 1000;
     
     // Scoring logic for submarine mode: fixed 1000 per correct
-    const score = room.game_mode === 'submarine' 
+    const score = isSubmarine 
       ? (isCorrect ? 1000 : 0)
       : calculateScore(isCorrect, timeTaken, timeLimitMs);
 
     const { error } = await supabase.from('quiz_answers').insert({
       room_id: room.id,
       participant_id: participantId,
-      question_index: room.game_mode === 'submarine' ? localSubmarineQIndex : room.current_question_index,
+      question_index: dbQuestionIndex,
       answer: JSON.parse(JSON.stringify(answerData)),
       is_correct: isCorrect,
       time_taken_ms: timeTaken,
@@ -389,8 +405,8 @@ const PlayQuiz = () => {
     setAnswerCorrect(isCorrect);
     setEarnedScore(score);
 
-    // Submarine progress
-    if (room.game_mode === 'submarine' && isCorrect) {
+    // Submarine progress tracking for boost
+    if (isSubmarine && isCorrect) {
       const newCorrectCount = submarineCorrectStore + 1;
       setSubmarineCorrectStore(newCorrectCount);
       if (newCorrectCount >= 3) {
@@ -399,15 +415,21 @@ const PlayQuiz = () => {
     }
 
     // Auto progress logic
-    if (room.control_mode === 'auto' || room.game_mode === 'submarine') {
-      const nextIndex = room.game_mode === 'submarine'
-        ? (localSubmarineQIndex + 1) % quiz.questions.length
-        : (room.current_question_index + 1) % quiz.questions.length;
-
+    if (room.control_mode === 'auto' || isSubmarine) {
       setTimeout(() => {
-        if (room.game_mode === 'submarine') {
-          setLocalSubmarineQIndex(nextIndex);
+        if (isSubmarine) {
+          // Advance the global answer index (unique DB key)
+          globalSubmarineAnswerIndex.current += 1;
+          // Pop the front of the queue; refill with a new shuffled batch if running low
+          setSubmarineQueue(prev => {
+            const next = prev.slice(1);
+            if (next.length < 3) {
+              return [...next, ...shuffleIndices(quiz.questions.length)];
+            }
+            return next;
+          });
         } else {
+          const nextIndex = (room.current_question_index + 1) % quiz.questions.length;
           currentQIndexRef.current = nextIndex;
           setRoom((prev) => prev ? { ...prev, current_question_index: nextIndex } : prev);
         }
@@ -418,7 +440,7 @@ const PlayQuiz = () => {
         setAnswerCorrect(null);
         setEarnedScore(0);
         setQuestionStartTime(Date.now());
-      }, 2000); // 2 seconds delay as requested
+      }, 2000);
     }
   };
 
@@ -435,7 +457,7 @@ const PlayQuiz = () => {
         };
 
         // Auto submit if all pairs are finished
-        const qIdx = room?.game_mode === 'submarine' ? localSubmarineQIndex : room!.current_question_index;
+        const qIdx = room?.game_mode === 'submarine' ? submarineActualQIndex : room!.current_question_index;
         const question = quiz?.questions[qIdx];
         if (question?.pairs && newState.completedLeft.length === question.pairs.length) {
           setTimeout(() => {
@@ -561,7 +583,7 @@ const PlayQuiz = () => {
     }
 
     // Active Quiz - Show Question
-    const questionIndex = room.game_mode === 'submarine' ? localSubmarineQIndex : room.current_question_index;
+    const questionIndex = room.game_mode === 'submarine' ? submarineActualQIndex : room.current_question_index;
     const question = quiz.questions[questionIndex];
     if (!question) return null;
 
