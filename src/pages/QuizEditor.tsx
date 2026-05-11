@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
+import { Checkbox } from '@/components/ui/checkbox';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -42,7 +43,9 @@ const QuizEditor = () => {
   const [loading, setLoading] = useState(!!isEditing);
   const [generating, setGenerating] = useState(false);
   const [questionToDelete, setQuestionToDelete] = useState<number | null>(null);
+  const [isDeleteAllOpen, setIsDeleteAllOpen] = useState(false);
   const [aiQuestionCount, setAiQuestionCount] = useState<number>(5);
+  const [selectedAiTypes, setSelectedAiTypes] = useState<string[]>(['multiple-choice', 'true-false', 'text-input', 'matching']);
 
   // Sidebar and navigation states
   const [searchQuery, setSearchQuery] = useState('');
@@ -144,16 +147,26 @@ const QuizEditor = () => {
       toast.error('Add meg az AI promptot a generáláshoz!');
       return;
     }
-
+ 
     setGenerating(true);
-
+ 
+    const shuffleArray = <T,>(array: T[]): T[] => {
+      const shuffled = [...array];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    };
+ 
     try {
       const { data, error } = await supabase.functions.invoke('rapid-handler', {
         body: {
           subject,
           topic: aiPrompt.trim(),
           numQuestions: aiQuestionCount,
-          gradeLevel
+          gradeLevel,
+          selectedTypes: selectedAiTypes
         },
       });
 
@@ -171,8 +184,19 @@ const QuizEditor = () => {
 
       if (data.title && !title) setTitle(data.title);
       if (data.description && !description) setDescription(data.description);
-
-      const newQuestions = JSON.parse(JSON.stringify(data.questions)) as QuizQuestion[];
+ 
+      let newQuestions = JSON.parse(JSON.stringify(data.questions)) as QuizQuestion[];
+ 
+      // Shuffle multiple-choice options because AI puts correct answer first
+      newQuestions = newQuestions.map(q => {
+        if (q.type === 'multiple-choice' && q.options) {
+          return {
+            ...q,
+            options: shuffleArray(q.options)
+          };
+        }
+        return q;
+      });
 
       // If we only have one empty question, replace it. Otherwise append.
       if (questions.length === 1 && !questions[0].text.trim() && questions[0].options.every(o => !o.text.trim())) {
@@ -282,9 +306,20 @@ const QuizEditor = () => {
             <div className="p-4 border-b space-y-4">
               <div className="flex items-center justify-between">
                 <h2 className="font-display font-bold text-sm uppercase tracking-wider text-muted-foreground">Kérdések ({questions.length})</h2>
-                <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsSidebarOpen(false)}>
-                  <X className="h-4 w-4" />
-                </Button>
+                <div className="flex items-center gap-1">
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="h-8 w-8 text-muted-foreground hover:text-destructive" 
+                    onClick={() => setIsDeleteAllOpen(true)}
+                    title="Összes kérdés törlése"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsSidebarOpen(false)}>
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
               <div className="relative">
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -412,40 +447,74 @@ const QuizEditor = () => {
                   </h2>
                   <Badge variant="outline" className="bg-background">Beta</Badge>
                 </div>
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="ai-assistant-input">Mit generáljon az AI? (Instrukciók)</Label>
-                  <div className="flex gap-2">
-                    <Input
-                      id="ai-assistant-input"
-                      placeholder="pl. Törtek 5. osztályos szinten..."
-                      value={aiPrompt}
-                      onChange={(e) => setAiPrompt(e.target.value)}
-                      className="bg-background border-primary/30 focus-visible:ring-primary flex-1"
-                    />
-                    <div className="flex items-center gap-2 shrink-0 w-24">
-                      <Label htmlFor="ai-question-count" className="sr-only">Kérdések száma</Label>
+                <div className="flex flex-col gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="ai-assistant-input">Mit generáljon az AI? (Instrukciók)</Label>
+                    <div className="flex gap-2">
                       <Input
-                        id="ai-question-count"
-                        type="number"
-                        min={1}
-                        max={50}
-                        value={aiQuestionCount}
-                        onChange={(e) => setAiQuestionCount(parseInt(e.target.value) || 5)}
-                        className="bg-background border-primary/30 focus-visible:ring-primary text-center px-1"
+                        id="ai-assistant-input"
+                        placeholder="pl. Törtek 5. osztályos szinten..."
+                        value={aiPrompt}
+                        onChange={(e) => setAiPrompt(e.target.value)}
+                        className="bg-background border-primary/30 focus-visible:ring-primary flex-1"
                       />
+                      <div className="flex items-center gap-2 shrink-0 w-24">
+                        <Label htmlFor="ai-question-count" className="sr-only">Kérdések száma</Label>
+                        <Input
+                          id="ai-question-count"
+                          type="number"
+                          min={1}
+                          max={50}
+                          value={aiQuestionCount}
+                          onChange={(e) => setAiQuestionCount(parseInt(e.target.value) || 5)}
+                          className="bg-background border-primary/30 focus-visible:ring-primary text-center px-1"
+                        />
+                      </div>
+                      <Button
+                        onClick={handleAIGenerate}
+                        disabled={generating || !aiPrompt.trim() || selectedAiTypes.length === 0}
+                        className="whitespace-nowrap shrink-0"
+                      >
+                        {generating ? (
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        ) : (
+                          <Sparkles className="mr-2 h-4 w-4" />
+                        )}
+                        {generating ? 'Generálás...' : 'Kérdések generálása'}
+                      </Button>
                     </div>
-                    <Button
-                      onClick={handleAIGenerate}
-                      disabled={generating || !aiPrompt.trim()}
-                      className="whitespace-nowrap shrink-0"
-                    >
-                      {generating ? (
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      ) : (
-                        <Sparkles className="mr-2 h-4 w-4" />
-                      )}
-                      {generating ? 'Generálás...' : 'Kérdések generálása'}
-                    </Button>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label className="text-xs font-semibold text-muted-foreground uppercase">Kérdéstípusok kiválasztása:</Label>
+                    <div className="flex flex-wrap gap-x-6 gap-y-2">
+                      {[
+                        { id: 'multiple-choice', label: 'Feleletválasztós' },
+                        { id: 'true-false', label: 'Igaz/Hamis' },
+                        { id: 'text-input', label: 'Szabad szöveges' },
+                        { id: 'matching', label: 'Párosító' },
+                      ].map((type) => (
+                        <div key={type.id} className="flex items-center space-x-2">
+                          <Checkbox
+                            id={`type-${type.id}`}
+                            checked={selectedAiTypes.includes(type.id)}
+                            onCheckedChange={(checked) => {
+                              if (checked) {
+                                setSelectedAiTypes([...selectedAiTypes, type.id]);
+                              } else {
+                                setSelectedAiTypes(selectedAiTypes.filter((t) => t !== type.id));
+                              }
+                            }}
+                          />
+                          <label
+                            htmlFor={`type-${type.id}`}
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                          >
+                            {type.label}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -581,6 +650,36 @@ const QuizEditor = () => {
             >
               <Trash2 className="mr-2 h-4 w-4" />
               Kérdés törlése
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+ 
+      <Dialog open={isDeleteAllOpen} onOpenChange={setIsDeleteAllOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-destructive">
+              <AlertTriangle className="h-5 w-5" />
+              Összes kérdés törlése
+            </DialogTitle>
+            <DialogDescription>
+              Biztosan törlöd az ÖSSZES kérdést ebből a kvízből? Ezt a műveletet nem lehet visszavonni.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex sm:justify-between gap-2 mt-4">
+            <Button variant="ghost" onClick={() => setIsDeleteAllOpen(false)}>
+              Mégse
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={() => {
+                setQuestions([]);
+                setIsDeleteAllOpen(false);
+                toast.success('Összes kérdés törölve');
+              }}
+            >
+              <Trash2 className="mr-2 h-4 w-4" />
+              Minden törlése
             </Button>
           </DialogFooter>
         </DialogContent>
