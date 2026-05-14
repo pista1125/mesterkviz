@@ -60,7 +60,7 @@ const Discover = () => {
         .select('*, profiles!teacher_id(display_name)')
         .eq('is_published', true)
         .neq('teacher_id', user.id)
-        .order('created_at', { ascending: false });
+        .order('updated_at', { ascending: false });
 
       if (error) {
         toast.error('Hiba a kvízek betöltésekor: ' + error.message);
@@ -313,6 +313,15 @@ const Discover = () => {
                                 {(quiz.profiles as any)?.display_name?.charAt(0)?.toUpperCase() || '?'}
                               </span>
                               Készítette: <strong className="text-foreground/80 font-medium truncate max-w-[120px]">{(quiz.profiles as any)?.display_name || 'Ismeretlen'}</strong>
+                            </p>
+                            <p className="text-[10px] text-muted-foreground/60 mt-1 ml-5">
+                              Mentve: {new Date(quiz.updated_at).toLocaleString('hu-HU', { 
+                                year: 'numeric', 
+                                month: '2-digit', 
+                                day: '2-digit',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                              })}
                             </p>
                           </div>
                           <div className="flex items-center justify-between gap-2 pt-1 transition-opacity">

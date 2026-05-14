@@ -46,6 +46,7 @@ const QuizEditor = () => {
   const [isDeleteAllOpen, setIsDeleteAllOpen] = useState(false);
   const [aiQuestionCount, setAiQuestionCount] = useState<number>(5);
   const [selectedAiTypes, setSelectedAiTypes] = useState<string[]>(['multiple-choice', 'true-false', 'text-input', 'matching']);
+  const [lastSaved, setLastSaved] = useState<string | null>(null);
 
   // Sidebar and navigation states
   const [searchQuery, setSearchQuery] = useState('');
@@ -91,6 +92,7 @@ const QuizEditor = () => {
       setGradeLevel(data.grade_level || '');
       setQuestions((data.questions as unknown as QuizQuestion[]) || []);
       setIsPublished(data.is_published);
+      setLastSaved(data.updated_at);
       setLoading(false);
     };
 
@@ -137,6 +139,10 @@ const QuizEditor = () => {
       toast.success('Kvíz mentve!');
       if (!isEditing) {
         navigate('/dashboard');
+      } else {
+        // Refresh last saved time after successful update
+        const { data: refreshed } = await supabase.from('quizzes').select('updated_at').eq('id', id!).single();
+        if (refreshed) setLastSaved(refreshed.updated_at);
       }
     }
   };
@@ -277,6 +283,11 @@ const QuizEditor = () => {
               <h1 className="font-display text-xs md:text-sm lg:text-base font-bold truncate flex-1 min-w-0 max-w-[150px] md:max-w-[400px]">
                 {title || 'Névtelen kvíz'}
               </h1>
+              {lastSaved && (
+                <span className="hidden xl:inline-flex text-[10px] text-muted-foreground whitespace-nowrap">
+                  Mentve: {new Date(lastSaved).toLocaleString('hu-HU', { hour: '2-digit', minute: '2-digit' })}
+                </span>
+              )}
             </div>
           </div>
           <div className="flex items-center gap-2">

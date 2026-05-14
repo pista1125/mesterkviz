@@ -42,7 +42,7 @@ const CreateRoom = () => {
         .from('quizzes')
         .select('*')
         .eq('teacher_id', user.id)
-        .order('created_at', { ascending: false });
+        .order('updated_at', { ascending: false });
       if (data) {
         setQuizzes(data.map((q: any) => ({ ...q, questions: q.questions as any })));
       }
@@ -151,8 +151,11 @@ const CreateRoom = () => {
                       <RadioGroupItem value={quiz.id} id={quiz.id} />
                       <label htmlFor={quiz.id} className="flex-1 cursor-pointer">
                         <div className="font-medium">{quiz.title}</div>
-                        <div className="text-sm text-muted-foreground">
-                          {quiz.questions.length} kérdés · {quiz.subject}
+                        <div className="text-sm text-muted-foreground flex justify-between items-center">
+                          <span>{quiz.questions.length} kérdés · {quiz.subject}</span>
+                          <span className="text-xs opacity-70">
+                            Mentve: {new Date(quiz.updated_at).toLocaleDateString('hu-HU')}
+                          </span>
                         </div>
                       </label>
                     </div>

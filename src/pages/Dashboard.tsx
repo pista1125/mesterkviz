@@ -53,7 +53,7 @@ const Dashboard = () => {
 
     const fetchData = async () => {
       const [quizRes, roomRes] = await Promise.all([
-        supabase.from('quizzes').select('*').eq('teacher_id', user.id).order('created_at', { ascending: false }),
+        supabase.from('quizzes').select('*').eq('teacher_id', user.id).order('updated_at', { ascending: false }),
         supabase.from('rooms').select('*, quizzes(title)').eq('teacher_id', user.id).order('created_at', { ascending: false }),
       ]);
 
@@ -364,9 +364,18 @@ const Dashboard = () => {
                                 </CardTitle>
                               </CardHeader>
                               <CardContent className="flex-1 p-3 pt-1">
-                                <div className="mb-3">
+                                <div className="mb-2">
                                   <p className="line-clamp-1 text-[11px] text-muted-foreground italic">
                                     {quiz.subject}
+                                  </p>
+                                  <p className="text-[10px] text-muted-foreground/70 mt-0.5">
+                                    Mentve: {new Date(quiz.updated_at).toLocaleString('hu-HU', { 
+                                      year: 'numeric', 
+                                      month: '2-digit', 
+                                      day: '2-digit',
+                                      hour: '2-digit',
+                                      minute: '2-digit'
+                                    })}
                                   </p>
                                 </div>
                                 <div className="mt-auto flex items-center justify-between gap-1 pt-1 opacity-100 transition-opacity">
