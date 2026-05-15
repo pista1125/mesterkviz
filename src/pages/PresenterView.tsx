@@ -253,7 +253,7 @@ const PresenterView = () => {
       </div>
 
       {/* Main content */}
-      <div className="flex flex-1 items-center justify-center p-6">
+      <div className="flex flex-1 items-center justify-center p-4">
         <AnimatePresence mode="wait">
           {room.status === 'waiting' && (
             <motion.div key="waiting" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full max-w-5xl">
@@ -379,8 +379,8 @@ const PresenterView = () => {
               </div>
 
               {/* Question */}
-              <div className="mb-8 rounded-2xl bg-card p-8 text-center shadow-lg">
-                <h2 className="font-display text-2xl font-bold text-card-foreground md:text-4xl">
+              <div className="mb-4 rounded-2xl bg-card p-6 text-center shadow-lg border border-border/50">
+                <h2 className="font-display text-xl font-bold text-card-foreground md:text-3xl">
                   <MathRenderer text={currentQuestion.text} />
                 </h2>
                 {currentQuestion.imageUrl && (
@@ -415,8 +415,8 @@ const PresenterView = () => {
                           scale: showCorrect && isCorrect ? 1.05 : 1,
                           boxShadow: showCorrect && isCorrect ? '0 0 20px rgba(34, 197, 94, 0.5)' : 'none'
                         }}
-                        className={`flex items-center justify-between rounded-xl p-5 text-primary-foreground transition-all ${showCorrect
-                          ? isCorrect ? 'bg-quiz-green ring-4 ring-white/20' : 'bg-muted/20 opacity-40 grayscale'
+                        className={`flex items-center justify-between rounded-xl p-4 text-primary-foreground transition-all ${showCorrect
+                          ? isCorrect ? 'bg-quiz-green ring-4 ring-white/20 z-10' : `${color.bg} opacity-30`
                           : color.bg
                           }`}
                       >
@@ -437,7 +437,7 @@ const PresenterView = () => {
 
               {/* Text Input Answer */}
               {currentQuestion.type === 'text-input' && (
-                <div className="flex flex-col items-center justify-center space-y-6 py-12">
+                <div className="flex flex-col items-center justify-center space-y-4 py-6">
                   <div className="relative w-full max-w-lg overflow-hidden rounded-2xl bg-card p-8 shadow-inner border-2 border-dashed border-muted-foreground/20">
                     <p className="text-center text-muted-foreground mb-4">A válasz helye</p>
                     <AnimatePresence>
@@ -460,7 +460,7 @@ const PresenterView = () => {
 
               {/* Matching Answers */}
               {currentQuestion.type === 'matching' && (
-                <div className="grid gap-6 sm:grid-cols-2">
+                <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-3">
                     <h3 className="text-center font-display font-bold text-muted-foreground">Bal oldal</h3>
                     {(currentQuestion.pairs || []).map((pair) => (
@@ -495,7 +495,7 @@ const PresenterView = () => {
 
               {/* True/False Answers */}
               {currentQuestion.type === 'true-false' && (
-                <div className="grid gap-6 sm:grid-cols-2 py-8">
+                <div className="grid gap-4 sm:grid-cols-2 py-4">
                   {['Igaz', 'Hamis'].map((text, i) => {
                     const opt = currentQuestion.options.find(o => o.text === text);
                     const isCorrect = opt?.isCorrect;
@@ -509,8 +509,8 @@ const PresenterView = () => {
                           scale: showCorrect && isCorrect ? 1.05 : 1,
                           boxShadow: showCorrect && isCorrect ? '0 0 20px rgba(34, 197, 94, 0.5)' : 'none'
                         }}
-                        className={`flex items-center justify-between rounded-2xl p-8 text-white transition-all ${showCorrect
-                          ? isCorrect ? 'bg-quiz-green ring-4 ring-white/20' : 'bg-muted/20 opacity-40 grayscale'
+                        className={`flex items-center justify-between rounded-2xl p-6 text-white transition-all ${showCorrect
+                          ? isCorrect ? 'bg-quiz-green ring-4 ring-white/20 z-10' : `${text === 'Igaz' ? 'bg-quiz-blue' : 'bg-quiz-red'} opacity-30`
                           : text === 'Igaz' ? 'bg-quiz-blue' : 'bg-quiz-red'
                           }`}
                       >
