@@ -13,6 +13,7 @@ import { Podium } from '@/components/quiz/Podium';
 import { ReactionDisplay } from '@/components/quiz/ReactionDisplay';
 import { MathRenderer } from '@/components/quiz/MathRenderer';
 import { SubmarineGame } from '@/components/quiz/SubmarineGame';
+import { QuestionResultsChart } from '@/components/quiz/QuestionResultsChart';
 
 const COLORS = [
   { bg: 'bg-quiz-red', icon: '▲' },
@@ -390,6 +391,13 @@ const PresenterView = () => {
                   />
                 )}
               </div>
+
+              {/* Results Chart */}
+              <QuestionResultsChart 
+                question={currentQuestion} 
+                answers={answersForCurrentQ} 
+                showResults={showResults} 
+              />
 
               {/* Multiple Choice Answers */}
               {currentQuestion.type === 'multiple-choice' && (
