@@ -36,8 +36,8 @@ export const QuestionResultsChart: React.FC<QuestionResultsChartProps> = ({
     >
       {question.type === 'multiple-choice' || question.type === 'true-false' ? (
         <div className="bg-card rounded-xl p-4 shadow-md border border-border/50 bg-gradient-to-b from-card to-muted/10">
-          <h3 className="text-sm font-bold text-center mb-4 font-display text-muted-foreground uppercase tracking-wider">Válaszok eloszlása</h3>
-          <div className="h-40 w-full">
+          <h3 className="text-sm font-bold text-center mb-2 font-display text-muted-foreground uppercase tracking-wider">Válaszok eloszlása</h3>
+          <div className="h-44 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={question.options.map((opt, index) => {
                 const count = answers.filter((a) => (a.answer as any).selectedOptionId === opt.id).length;
@@ -53,7 +53,24 @@ export const QuestionResultsChart: React.FC<QuestionResultsChartProps> = ({
                   dataKey="icon" 
                   axisLine={false} 
                   tickLine={false}
-                  tick={{ fontSize: 20, fontWeight: 'black' }}
+                  interval={0}
+                  tick={(props: any) => {
+                    const { x, y, payload } = props;
+                    const index = payload.index;
+                    const isCorrect = question.options[index]?.isCorrect;
+                    return (
+                      <g transform={`translate(${x},${y})`}>
+                        <text x={0} y={0} dy={16} textAnchor="middle" fill="#666" style={{ fontSize: 20, fontWeight: 'black' }}>
+                          {payload.value}
+                        </text>
+                        {isCorrect && (
+                          <text x={0} y={20} dy={16} textAnchor="middle" fill="#22c55e" style={{ fontSize: 24, fontWeight: 'black' }}>
+                            ✓
+                          </text>
+                        )}
+                      </g>
+                    );
+                  }}
                 />
                 <Tooltip 
                   cursor={{ fill: 'rgba(0,0,0,0.05)' }}
