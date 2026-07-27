@@ -33,6 +33,7 @@ export interface Quiz {
   description: string;
   subject: string;
   grade_level: string;
+  topic?: string;
   questions: QuizQuestion[];
   is_published: boolean;
   published_at: string | null;

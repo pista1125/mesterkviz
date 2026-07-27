@@ -1,0 +1,79 @@
+INSERT INTO quizzes (id, teacher_id, title, description, subject, grade_level, topic, questions, is_published, published_at, created_at, updated_at)
+    VALUES (
+        '9ee68674-1d4e-4cd9-b5bc-456c85c96b10',
+        '21feff02-016d-46e2-bb9d-c27495133b1b',
+        '38. óra: Egyenlő nevezőjű törtek összeadása és kivonása',
+        'Egyenlő nevezőjű törtek összeadásának és kivonásának szabályai.',
+        'Matematika',
+        '5. osztály',
+        'Törtek',
+        '[{"id": "4d867b51-d7b5-414b-b826-98bf28b918f7", "text": "Hogyan adunk össze azonos nevezőjű törteket?", "type": "multiple-choice", "options": [{"id": "85b30888-3979-4af5-8424-4cc4173c8559", "text": "A számlálókat összeadjuk, a nevező változatlan marad", "isCorrect": true}, {"id": "a1431e83-7cca-4676-98f3-b10252d1ecd6", "text": "A számlálókat és a nevezőket is összeadjuk", "isCorrect": false}, {"id": "c3796e62-ce8a-40da-9d74-8c573bf374d0", "text": "A nevezőket összeadjuk, a számláló változatlan", "isCorrect": false}, {"id": "6061c3bd-45dc-4513-8b07-b85af07b3225", "text": "Összeszorozzuk őket", "isCorrect": false}], "timeLimit": 15}, {"id": "e2bd0138-a6f7-4b75-bbcf-58b5c1e50040", "text": "Mennyi a 2/7 + 3/7 összeadás eredménye?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "5/7"}, {"id": "d99b4e5d-c574-423b-8d19-28da79a6f3ed", "text": "Mennyi a 7/9 - 4/9 kivonás eredménye?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "3/9"}, {"id": "54a145c3-1ba8-4caa-8365-cf4d0f5d2e6e", "text": "A 3/8 + 5/8 összeadás eredménye 1 egész.", "type": "true-false", "options": [{"id": "cc3bb4f7-44b9-47d7-bfb1-acf2a580fca9", "text": "Igaz", "isCorrect": true}, {"id": "04d63e6c-2b6e-435e-94aa-c4f27e75c1d2", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "c8d3156e-f593-43a1-9f2f-2b49af9cb248", "text": "Mennyi az 1 - 2/5 kifejezés értéke?", "type": "multiple-choice", "options": [{"id": "1853dc61-9900-4b57-b56f-6c1d43e618c6", "text": "1/5", "isCorrect": false}, {"id": "d5bab706-7971-4185-b97d-57b945469805", "text": "3/5", "isCorrect": true}, {"id": "c65fa6db-bdb0-4c7f-940e-2ed08113ed5e", "text": "2/5", "isCorrect": false}, {"id": "a82f16b8-2195-4a38-b041-1d03973bce72", "text": "4/5", "isCorrect": false}], "timeLimit": 15}, {"id": "2b592cc5-5cbb-4ccf-84e6-4cf7d4e6008e", "text": "Kivonáskor az azonos nevezőjű törteknél a nevezőket kivonjuk egymásból.", "type": "true-false", "options": [{"id": "0d2800e0-1263-43a0-95e6-419c6b644ebf", "text": "Igaz", "isCorrect": false}, {"id": "c010ba86-dbdf-4ce2-95d2-994baa0066ea", "text": "Hamis", "isCorrect": true}], "timeLimit": 15}, {"id": "b3b6ff5b-e68a-4668-bffb-5cce7b58335b", "text": "Peti megevett a pizza 3/8 részét, Kati pedig 2/8 részét. A pizza hányad része maradt meg?", "type": "multiple-choice", "options": [{"id": "3888ac9f-60e4-4a85-803c-a732bbd57606", "text": "5/8", "isCorrect": false}, {"id": "229ae475-67f7-42c7-abbb-8fef091a1c0f", "text": "3/8", "isCorrect": true}, {"id": "b6ba7443-8883-4d52-9ade-9a6960fcc50a", "text": "1/8", "isCorrect": false}, {"id": "24ac8874-e312-416f-a896-76b9644ca2ea", "text": "4/8", "isCorrect": false}], "timeLimit": 15}]'::jsonb,
+        true,
+        NOW(),
+        NOW(),
+        NOW()
+    );
+
+INSERT INTO quizzes (id, teacher_id, title, description, subject, grade_level, topic, questions, is_published, published_at, created_at, updated_at)
+    VALUES (
+        '29c10871-84b6-488f-b1b9-2e8dac9c3719',
+        '21feff02-016d-46e2-bb9d-c27495133b1b',
+        '39. óra: Különböző nevezőjű törtek összeadása és kivonása',
+        'Különböző nevezőjű törtek közös nevezőre hozása és összevonása.',
+        'Matematika',
+        '5. osztály',
+        'Törtek',
+        '[{"id": "f67295ad-e304-4e9f-aec0-4eb3d7abf81b", "text": "Mi a legelső lépés különböző nevezőjű törtek összeadásánál?", "type": "multiple-choice", "options": [{"id": "0cbe796b-4e47-4a2e-9c63-5677464f175f", "text": "A számlálók összeadása", "isCorrect": false}, {"id": "45ca6c0e-bb51-402d-896e-480492c4a2cd", "text": "Közös nevezőre hozás (bővítéssel)", "isCorrect": true}, {"id": "0c26733a-87f6-4734-8eab-1a6b47585e12", "text": "A nevezők szorzása", "isCorrect": false}, {"id": "7bee4f58-45b7-4744-84ca-f1bb518dee4d", "text": "Tizedes törtté alakítás", "isCorrect": false}], "timeLimit": 15}, {"id": "e247825b-d157-4830-9ba0-e87369713af4", "text": "Mennyi az 1/2 + 1/4 összeadás eredménye? (Közös nevező: 4 -> 2/4 + 1/4)", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "3/4"}, {"id": "8b4032bd-7407-4907-bcdf-61a6243f10d6", "text": "Mennyi a 2/3 - 1/6 kivonás eredménye? (Közös nevező: 6 -> 4/6 - 1/6 = 3/6 = 1/2)", "type": "multiple-choice", "options": [{"id": "f4894292-0249-412f-bb1a-caf73063acbb", "text": "1/3", "isCorrect": false}, {"id": "c86a1329-94fd-4c2d-8940-59207c3e6b08", "text": "3/6 (vagy 1/2)", "isCorrect": true}, {"id": "a4705345-da99-4365-b00c-8ebe480cf167", "text": "1/6", "isCorrect": false}, {"id": "0a048133-5136-40cb-9b9d-4af264db1046", "text": "2/6", "isCorrect": false}], "timeLimit": 15}, {"id": "c54bea6b-5ea6-4b86-a78c-1bee16f3287d", "text": "Az 1/3 + 1/2 közös nevezője a 6.", "type": "true-false", "options": [{"id": "64b04c7c-5079-41de-897a-20d50795c3ae", "text": "Igaz", "isCorrect": true}, {"id": "07a5a98f-0cfb-4054-b715-08d2d2a1145c", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "e7ee7c51-b031-4349-9eb0-5bed25a882ad", "text": "Számítsd ki: 1/3 + 1/2 = ?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "5/6"}, {"id": "e335e040-9236-4351-965b-9f51cca7e90c", "text": "A 3/4 - 1/2 művelet eredménye 1/4.", "type": "true-false", "options": [{"id": "19857b60-2711-4dd4-b7f4-6ee4cc9940c7", "text": "Igaz", "isCorrect": true}, {"id": "01107728-b75e-435f-b5a1-f4aacadc9b5f", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "ffda6f89-cc64-4f0d-8b83-c3613e028b46", "text": "Mennyi a 2/5 + 1/10 összeadás eredménye?", "type": "multiple-choice", "options": [{"id": "b0ce859d-0338-4d69-a4f8-53819d431d2c", "text": "3/10", "isCorrect": false}, {"id": "c924cf33-68d2-4263-9ecb-a52965777114", "text": "5/10 (vagy 1/2)", "isCorrect": true}, {"id": "31fd7cc8-7255-4375-bfee-fb11629dad3f", "text": "3/5", "isCorrect": false}, {"id": "584d9384-8b47-4a8c-9351-8e35c287eefe", "text": "4/10", "isCorrect": false}], "timeLimit": 15}]'::jsonb,
+        true,
+        NOW(),
+        NOW(),
+        NOW()
+    );
+
+INSERT INTO quizzes (id, teacher_id, title, description, subject, grade_level, topic, questions, is_published, published_at, created_at, updated_at)
+    VALUES (
+        'b9899eb4-0664-45f0-b367-003060b49647',
+        '21feff02-016d-46e2-bb9d-c27495133b1b',
+        '40. óra: Törtek összevonásának gyakorlása',
+        'Mindennapi feladatok és törtek összevonásának elmélyítése.',
+        'Matematika',
+        '5. osztály',
+        'Törtek',
+        '[{"id": "6b26fee9-bf5b-485b-b418-33a245cf7fe0", "text": "Egy kancsóban 3/4 liter víz volt. Kiöntöttek belőle 1/2 litert. Mennyi víz maradt a kancsóban?", "type": "multiple-choice", "options": [{"id": "54e198d4-b60f-4204-bcd9-5c928db6b353", "text": "1/4 liter", "isCorrect": true}, {"id": "d2f6eaa4-d87b-4572-aad3-1cb8913dbea8", "text": "2/4 liter", "isCorrect": false}, {"id": "88e9d525-b805-4055-965c-5680aa42a08b", "text": "1/2 liter", "isCorrect": false}, {"id": "678887e9-92b3-4958-8572-4d585022b114", "text": "3/8 liter", "isCorrect": false}], "timeLimit": 15}, {"id": "e5fd921f-fa4b-4bff-b550-a61f618babf9", "text": "Számítsd ki: 1/4 + 1/3 = ? (Közös nevező: 12)", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "7/12"}, {"id": "660d4d63-a7e7-4072-af32-3527f4a9ed43", "text": "Mennyi a 2 egész - 3/4 kifejezés értéke?", "type": "multiple-choice", "options": [{"id": "797eac50-1046-4ca1-b81e-61392366e593", "text": "1 egész 1/4 (vagy 5/4)", "isCorrect": true}, {"id": "82f180a2-e9f1-429b-8da0-c830166d0a3a", "text": "1 egész 3/4", "isCorrect": false}, {"id": "01cd7c41-758e-4f5e-ac72-dac261024e64", "text": "1/4", "isCorrect": false}, {"id": "69afe663-1ea7-4061-ba18-ff60569f39a8", "text": "2 egész 1/4", "isCorrect": false}], "timeLimit": 15}, {"id": "9e57907c-8717-49e7-b782-f13d90288133", "text": "Az 1/5 + 2/5 + 2/5 összeadás eredménye 1 egész.", "type": "true-false", "options": [{"id": "d2d7e89a-af04-45ab-b9e5-abbf40b48c96", "text": "Igaz", "isCorrect": true}, {"id": "97d3738f-3929-46b4-83d2-5958b355fbec", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "88bbb7a1-e80a-47a6-ac2e-c08ed7edb17f", "text": "Számítsd ki: 5/6 - 1/3 = ?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "3/6"}, {"id": "80ab4e40-58bf-44cf-bd96-14b187008940", "text": "Két tört összege lehet kisebb, mint az egyik összeadandó tört (pozitív törteknél).", "type": "true-false", "options": [{"id": "74aa34e8-f711-4840-8864-c2aa8ba28766", "text": "Igaz", "isCorrect": false}, {"id": "34970559-84b3-4eab-ad98-7ec9df3dcd10", "text": "Hamis", "isCorrect": true}], "timeLimit": 15}, {"id": "7df7ddf9-c93c-4a47-806e-e44cf6b442e7", "text": "Mennyi a 3/10 + 2/5 összeadás értéke?", "type": "multiple-choice", "options": [{"id": "83b7b998-8887-4387-8729-cde5910b67ab", "text": "5/10", "isCorrect": false}, {"id": "874587b5-b251-4520-b717-f647559e21ea", "text": "7/10", "isCorrect": true}, {"id": "977168b3-6c1a-4047-b3f7-ae693d568bf7", "text": "5/15", "isCorrect": false}, {"id": "bc41779a-615a-4aed-8d39-6dff4f53b11f", "text": "6/10", "isCorrect": false}], "timeLimit": 15}]'::jsonb,
+        true,
+        NOW(),
+        NOW(),
+        NOW()
+    );
+
+INSERT INTO quizzes (id, teacher_id, title, description, subject, grade_level, topic, questions, is_published, published_at, created_at, updated_at)
+    VALUES (
+        'e428266f-2c1d-4974-9737-a25e965a9835',
+        '21feff02-016d-46e2-bb9d-c27495133b1b',
+        '41. óra: Tört szorzása természetes számmal',
+        'Tört egésszel való szorzásának szabályai (számláló szorzása vagy nevező osztása).',
+        'Matematika',
+        '5. osztály',
+        'Törtek',
+        '[{"id": "6f3cde1c-02d6-4707-9965-60942ff96666", "text": "Hogyan szorzunk meg egy törtet egy természetes számmal?", "type": "multiple-choice", "options": [{"id": "e8aadc6d-c13a-4fd8-8685-fcc0b73c9164", "text": "A számlálót megszorozzuk a számmal, a nevező változatlan marad", "isCorrect": true}, {"id": "9a529b3c-7a41-40a9-959a-fce6d405df41", "text": "A nevezőt megszorozzuk a számmal", "isCorrect": false}, {"id": "931fa225-9c0f-4dbc-85e6-22ca26d8912c", "text": "A számlálót és a nevezőt is megszorozzuk a számmal", "isCorrect": false}, {"id": "ae8e58da-0594-409c-8175-9e53035cf354", "text": "A számlálóból kivonjuk a számot", "isCorrect": false}], "timeLimit": 15}, {"id": "9dbb3183-bdd0-4e2c-86f9-2a0cafb6ab49", "text": "Mennyi az 2/7 * 3 szorzás eredménye?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "6/7"}, {"id": "53614200-44aa-4785-a476-9a2daf7734a7", "text": "Mennyi a 3/4 * 4 szorzat értéke?", "type": "multiple-choice", "options": [{"id": "af76e4ee-9d28-4640-ae97-11b74a62e432", "text": "12/16", "isCorrect": false}, {"id": "a23b41f8-d47d-441a-8674-4886de133cfe", "text": "3 egész (vagy 12/4)", "isCorrect": true}, {"id": "9739b63e-16d8-4567-b164-2a0b625ce200", "text": "3/16", "isCorrect": false}, {"id": "cfa06f0a-766f-443f-95ef-fe37493e9d1b", "text": "7/4", "isCorrect": false}], "timeLimit": 15}, {"id": "32aa0e93-d9d2-423e-8d1c-f168ef643b2b", "text": "Ha a nevező osztható a szorzóval, a szorzást a nevező osztásával is elvégezhetjük.", "type": "true-false", "options": [{"id": "6788b554-5f66-46f0-93ca-371e6f6e7a0f", "text": "Igaz", "isCorrect": true}, {"id": "7f2d4aaa-b6d5-4785-88e0-e55e56b5b168", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "87592380-e545-420c-9771-a5cb18d541c7", "text": "Számítsd ki: 1/5 * 5 = ?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "1"}, {"id": "7669be24-08ee-4f7a-b615-7be85314cda0", "text": "Az 2/9 * 4 szorzás eredménye 8/36.", "type": "true-false", "options": [{"id": "3b9e439f-c6c1-498b-a33e-abefe4c3532a", "text": "Igaz", "isCorrect": false}, {"id": "58dcad59-00b6-486d-b3a6-7c24545405b8", "text": "Hamis (ez 8/9)", "isCorrect": true}], "timeLimit": 15}, {"id": "a237cbcb-7f76-4cde-bc5a-2ab50019b967", "text": "Mennyi az 3/8 * 2 szorzat egyszerűsített alakja?", "type": "multiple-choice", "options": [{"id": "8cc2eb76-7cc5-4cc5-93f7-6d898dcfb580", "text": "6/16", "isCorrect": false}, {"id": "5870b523-9dbf-46d3-8119-15eb339ad190", "text": "3/4", "isCorrect": true}, {"id": "d335cdb2-bc11-4dd7-8da2-24b97afa3209", "text": "5/8", "isCorrect": false}, {"id": "19b97e4a-f594-4b23-9351-9f82b87e4971", "text": "6/8", "isCorrect": false}], "timeLimit": 15}]'::jsonb,
+        true,
+        NOW(),
+        NOW(),
+        NOW()
+    );
+
+INSERT INTO quizzes (id, teacher_id, title, description, subject, grade_level, topic, questions, is_published, published_at, created_at, updated_at)
+    VALUES (
+        '208a9868-641f-4705-8ea9-d36e08898c4d',
+        '21feff02-016d-46e2-bb9d-c27495133b1b',
+        '42. óra: Törtek egész számmal szorzásának gyakorlása',
+        'Gyakorló feladatok és szöveges példák tört egész számmal való szorzására.',
+        'Matematika',
+        '5. osztály',
+        'Törtek',
+        '[{"id": "ea1e11d0-775e-4fdd-bc34-11a5b7b35627", "text": "Egy üvegbe 3/4 liter szörp fér. Hány liter szörp van 4 ilyen üvegben összesen?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "3"}, {"id": "bfa9d9aa-22db-4bf2-ae4a-09ad2ad3b077", "text": "Mennyi a 2/5 * 10 szorzat értéke?", "type": "multiple-choice", "options": [{"id": "58f743b5-7449-4ff4-a45a-3e2d8442b1ef", "text": "4", "isCorrect": true}, {"id": "05cf6483-15a9-4d02-9767-366befa5caaa", "text": "20/50", "isCorrect": false}, {"id": "8c3cad4c-c80c-4fba-8008-dda6b125ec5f", "text": "2", "isCorrect": false}, {"id": "6254dc63-98f6-452e-a2d8-40534c6f21fb", "text": "10", "isCorrect": false}], "timeLimit": 15}, {"id": "ff49919c-351a-4542-9dcd-d5ff58fcf1e1", "text": "A 4/9 * 3 művelet elvégezhető úgy is, hogy a nevezőt 9/3=3-ra osztjuk, így a kapott tört 4/3.", "type": "true-false", "options": [{"id": "867029ee-4619-4da1-b667-549ea65501e4", "text": "Igaz", "isCorrect": true}, {"id": "f814faad-8bb3-46e3-903c-25f43862e766", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "76ab1f3a-1f91-4f60-8dd8-d1a5b2738ba9", "text": "Számítsd ki: 5/12 * 6 = ? (Vegyes törtként vagy egyszerűsítve: 5/2)", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "5/2"}, {"id": "f32c3752-65a0-4948-b7fe-1a90e326f288", "text": "Mennyi az 1/3 * 9 szorzás végeredménye?", "type": "multiple-choice", "options": [{"id": "a5b3565f-f5b5-47e1-9298-ccd308282d87", "text": "1", "isCorrect": false}, {"id": "46ec721a-2495-4bb2-b4b7-fbbcbb7dff05", "text": "3", "isCorrect": true}, {"id": "99e69621-91d4-45b2-959d-63ef9a53e40d", "text": "9/27", "isCorrect": false}, {"id": "6cedebf2-5eaa-4513-8606-753bab4c85f0", "text": "6", "isCorrect": false}], "timeLimit": 15}, {"id": "c6bb2c6a-4451-44e9-9327-d910c110fe0d", "text": "Bármely tört 0-val való szorzata 0.", "type": "true-false", "options": [{"id": "6510d31b-e1e4-4f20-8854-f5fad5c264f2", "text": "Igaz", "isCorrect": true}, {"id": "79a2d3bf-f810-42ac-8d22-3503e2377ea3", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "5c3a32a5-0ae6-483b-894f-603827c49ea8", "text": "Mennyi a 3/10 * 5 szorzat?", "type": "multiple-choice", "options": [{"id": "66a54bba-2812-4963-86cb-699cdb2af9cd", "text": "15/50", "isCorrect": false}, {"id": "b08d9ca1-0614-4ed4-8e33-8466121aa352", "text": "3/2 (vagy 1 egész 1/2)", "isCorrect": true}, {"id": "11297d9c-61fc-468d-822f-d1d72480ea0e", "text": "15/10", "isCorrect": false}, {"id": "ba295b60-becb-4ec2-8610-375274c6dcde", "text": "3/50", "isCorrect": false}], "timeLimit": 15}]'::jsonb,
+        true,
+        NOW(),
+        NOW(),
+        NOW()
+    );

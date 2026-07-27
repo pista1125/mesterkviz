@@ -1,0 +1,79 @@
+INSERT INTO quizzes (id, teacher_id, title, description, subject, grade_level, topic, questions, is_published, published_at, created_at, updated_at)
+    VALUES (
+        'e00a42ce-8344-43a9-a487-93bda69b63cc',
+        '21feff02-016d-46e2-bb9d-c27495133b1b',
+        '58. óra: Közönséges törtek tizedes tört alakja',
+        'Átírás közönséges törtből tizedes törtbe és viszont.',
+        'Matematika',
+        '5. osztály',
+        'Törtek',
+        '[{"id": "f0a6e117-9e6e-4254-a971-a1ca01dba69c", "text": "Hogyan írható át egy közönséges tört tizedes tört alakba?", "type": "multiple-choice", "options": [{"id": "8e31446a-b858-424e-9bdd-6cc64e7e5fe9", "text": "A számlálót elosztjuk a nevezővel", "isCorrect": true}, {"id": "d310c43b-8a1b-4075-838c-1260ea3413c2", "text": "A nevezőt elosztjuk a számlálóval", "isCorrect": false}, {"id": "879eb15a-532f-4134-a0e7-760afccc0a9c", "text": "Megszorozzuk őket", "isCorrect": false}, {"id": "4c4c022f-6fbc-4411-8628-37f9870990b6", "text": "Kivonjuk őket egymásból", "isCorrect": false}], "timeLimit": 15}, {"id": "03ed9629-5513-44bb-8fe5-ab76abbb1fd4", "text": "Mennyi az 1/5 tört tizedes tört alakja?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "0,2"}, {"id": "a160dca9-6632-45ae-8b4f-8934fa8d8c46", "text": "Mennyi a 3/4 tört tizedes tört alakja?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "0,75"}, {"id": "bb76f82e-8576-4b8f-aa14-24c9a751a112", "text": "A 0,5 tizedes tört közönséges tört alakban 1/2.", "type": "true-false", "options": [{"id": "65a3de69-2a72-4007-93e4-f47f0eede230", "text": "Igaz", "isCorrect": true}, {"id": "5467e512-bd3c-4fad-bf51-2c9037d60917", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "b0392053-7e5b-403f-a7d3-cd7275345767", "text": "Melyik tizedes tört felel meg az 1/8 törtnek?", "type": "multiple-choice", "options": [{"id": "4fb5e29b-6810-43d2-ba8c-5add5f56c034", "text": "0,125", "isCorrect": true}, {"id": "3f65439a-d929-47f7-9b59-c57a2526ca1e", "text": "0,8", "isCorrect": false}, {"id": "37a444de-f133-4622-a0b4-a87fb078366c", "text": "0,18", "isCorrect": false}, {"id": "67ac7806-ae85-4431-9f00-2060aa7c3d72", "text": "0,25", "isCorrect": false}], "timeLimit": 15}, {"id": "3189b252-2645-4392-8f71-a9ac548ade33", "text": "Minden közönséges tört felírható véges tizedes tört alakban.", "type": "true-false", "options": [{"id": "08a1dd0c-98f6-4f5d-a05b-610771640538", "text": "Igaz", "isCorrect": false}, {"id": "56f4c8e6-a669-4a8d-a2af-fee4902e34de", "text": "Hamis (pl. 1/3 végtelen szakaszos)", "isCorrect": true}], "timeLimit": 15}, {"id": "f339b4ab-c8e3-4bba-bde3-01189de4120e", "text": "Írd át a 0,4 tizedes törtet legegyszerűbb közönséges tört alakra!", "type": "multiple-choice", "options": [{"id": "52a2a38c-3d6d-4d00-b07d-72ea74a3d3e3", "text": "2/5", "isCorrect": true}, {"id": "ce515d0e-986a-46d6-a51c-10475300ae30", "text": "4/10", "isCorrect": false}, {"id": "48f80cc0-7894-46bd-bc24-c691c43cbdda", "text": "1/4", "isCorrect": false}, {"id": "f7815a60-f41d-43d5-8c69-bdc43110a09e", "text": "4/5", "isCorrect": false}], "timeLimit": 15}]'::jsonb,
+        true,
+        NOW(),
+        NOW(),
+        NOW()
+    );
+
+INSERT INTO quizzes (id, teacher_id, title, description, subject, grade_level, topic, questions, is_published, published_at, created_at, updated_at)
+    VALUES (
+        'fc26c18b-2541-4dc7-978e-ffee09163ac9',
+        '21feff02-016d-46e2-bb9d-c27495133b1b',
+        '59. óra: Összefoglalás',
+        'A Törtek témakör tanult fogalmainak és eljárásainak áttekintése.',
+        'Matematika',
+        '5. osztály',
+        'Törtek',
+        '[{"id": "16e90137-56d7-4796-b1fa-7a64d77def4b", "text": "Melyik állítás IGAZ?", "type": "multiple-choice", "options": [{"id": "42f748f0-4789-40ea-a8db-61f1098e2925", "text": "A 0,5 és az 1/2 ugyanazt az értéket képviseli", "isCorrect": true}, {"id": "3269af7b-9388-4222-ad62-e7e5cf31cb47", "text": "A tört egyszerűsítése növeli a tört értékét", "isCorrect": false}, {"id": "a90af2a8-0570-415d-bff6-ea8bc47e698e", "text": "Tizedes törtet 10-zel szorozva a tizedesvessző balra tolódik", "isCorrect": false}, {"id": "ac231a34-3dc0-4d5a-9376-2cd26bee3eb7", "text": "A nevező mutatja meg, hány részt vettünk el", "isCorrect": false}], "timeLimit": 15}, {"id": "cbd14408-af39-4a38-9619-15c9f7634ccf", "text": "Számítsd ki: 2/5 + 0,4 = ? (0,4 + 0,4 vagy 2/5 + 2/5)", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "0,8"}, {"id": "a6693f62-71cf-41f7-955d-e976dc870629", "text": "A 3/4 nagyobb, mint a 0,7 (mert 0,75 > 0,7).", "type": "true-false", "options": [{"id": "8c0703ce-5f28-4c00-8829-2c43b858acde", "text": "Igaz", "isCorrect": true}, {"id": "ed19c66b-0f15-4ac3-8bed-83bd0225c7d9", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "89832cca-d766-4dbe-ba16-c405ac735dc6", "text": "Számítsd ki: 1,5 * 4 = ?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "6"}, {"id": "f0159533-0623-4b93-bd91-2c535fc4141a", "text": "Mennyi az 5/100 tizedes tört alakja?", "type": "multiple-choice", "options": [{"id": "511a2733-72fe-4745-9e35-69b18910b9a4", "text": "0,05", "isCorrect": true}, {"id": "2104f5cc-afe3-40c1-a5a7-04a7d51643b4", "text": "0,5", "isCorrect": false}, {"id": "4ea088e3-3827-4ee9-b068-4c73c1d8bd72", "text": "0,005", "isCorrect": false}, {"id": "bd707437-7791-4bf7-8697-767ce94c7534", "text": "5,0", "isCorrect": false}], "timeLimit": 15}, {"id": "1cc2145b-c545-4079-ae02-037fdd4ca273", "text": "Ha a tört számlálója és nevezője megegyezik (pl 8/8), a tört értéke 1.", "type": "true-false", "options": [{"id": "cda10980-509a-4e95-a386-20d19a3f1a44", "text": "Igaz", "isCorrect": true}, {"id": "839e407a-fb1e-42b1-bae4-f456abcf28c3", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "1158c065-b836-49df-879a-e57cf4ed2fc1", "text": "Mennyi a 4,8 / 4 osztás eredménye?", "type": "multiple-choice", "options": [{"id": "ce8fa3ef-ec40-48ba-b1f1-2bde407800ff", "text": "1,2", "isCorrect": true}, {"id": "c316313a-c2f6-4fe2-af87-dcf056766ca1", "text": "12", "isCorrect": false}, {"id": "ff8b853f-77f7-4682-bb79-6bdfceee1c00", "text": "0,12", "isCorrect": false}, {"id": "9c33bbcf-bc3e-48d6-b220-b8e5ad957360", "text": "1,4", "isCorrect": false}], "timeLimit": 15}]'::jsonb,
+        true,
+        NOW(),
+        NOW(),
+        NOW()
+    );
+
+INSERT INTO quizzes (id, teacher_id, title, description, subject, grade_level, topic, questions, is_published, published_at, created_at, updated_at)
+    VALUES (
+        '14fe6d2e-fa2e-4062-ac19-8187981dfa81',
+        '21feff02-016d-46e2-bb9d-c27495133b1b',
+        '60. óra: Összefoglalás',
+        'Átfogó ismétlő feladatmegoldás a törtekből a témazáró előtt.',
+        'Matematika',
+        '5. osztály',
+        'Törtek',
+        '[{"id": "6ba58213-2edc-4c9f-a6b2-f90cc2968bad", "text": "Melyik a legkisebb szám a következők közül: 1/2; 0,2; 3/4; 0,05?", "type": "multiple-choice", "options": [{"id": "c4178143-adf1-43fc-8258-f332f7fa2306", "text": "0,05", "isCorrect": true}, {"id": "5a61e47a-0ced-427a-bdc7-1a25d5377530", "text": "0,2", "isCorrect": false}, {"id": "265b76f8-63f9-42de-bda4-fdbc5ac2734b", "text": "1/2", "isCorrect": false}, {"id": "a1ecda0d-5e45-4ef4-971c-157dcc886dd6", "text": "3/4", "isCorrect": false}], "timeLimit": 15}, {"id": "5f35e10c-0fdb-4d73-a043-2ec600611d8d", "text": "Számítsd ki: 3/4 + 1/2 - 0,25 = ? (0,75 + 0,5 - 0,25)", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "1"}, {"id": "b4d4b42a-0b13-4572-a93a-07659696c9b5", "text": "Mennyi a 2,5 * 8 szorzás eredménye?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "20"}, {"id": "8ff0362e-eae5-414f-8b08-b6d180f99e59", "text": "Az 1/4 liter az pontosan 250 ml.", "type": "true-false", "options": [{"id": "b5fd1a48-f3f4-4b4d-b457-c4577387d465", "text": "Igaz", "isCorrect": true}, {"id": "5ff7aaa7-6e2e-4ff5-b517-01a7384c9fc8", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "5200e07f-0daa-4088-ab34-09bd373ab792", "text": "Mennyi a 15,6 / 3 eredménye?", "type": "multiple-choice", "options": [{"id": "c4bb8d09-64a1-4af1-a601-5183b195b2aa", "text": "5,2", "isCorrect": true}, {"id": "2fb33cde-cb53-4bb4-b750-676f8a4f1767", "text": "52", "isCorrect": false}, {"id": "a16a8080-139c-4f9a-a807-a88b25872d2d", "text": "5,3", "isCorrect": false}, {"id": "06bac1d8-06bb-4eac-8237-280fbd3b4688", "text": "4,2", "isCorrect": false}], "timeLimit": 15}, {"id": "2b085c16-65d3-4f32-ab05-4061400a671e", "text": "A 7/3 ál-tört nagyobb, mint 2 egész.", "type": "true-false", "options": [{"id": "31920d13-2a99-4736-bade-c307fbe110a8", "text": "Igaz", "isCorrect": true}, {"id": "159061c4-5bf2-4978-a2ab-a069088f6f24", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "96c02010-c7ce-4168-a150-507dc372d932", "text": "Mennyi 100-nak a 0,35 része?", "type": "multiple-choice", "options": [{"id": "a74c573c-83de-4a05-b7aa-3f248d33f775", "text": "35", "isCorrect": true}, {"id": "eafdaa5e-2f8a-4576-8272-33db432de411", "text": "3,5", "isCorrect": false}, {"id": "27af21f7-a088-4090-9b1b-4ab89feb9fb7", "text": "350", "isCorrect": false}, {"id": "d060e49a-34ab-438b-8c2d-c564e36e7074", "text": "0,35", "isCorrect": false}], "timeLimit": 15}]'::jsonb,
+        true,
+        NOW(),
+        NOW(),
+        NOW()
+    );
+
+INSERT INTO quizzes (id, teacher_id, title, description, subject, grade_level, topic, questions, is_published, published_at, created_at, updated_at)
+    VALUES (
+        '023ad335-ae74-4edb-a267-c4b2c14240fa',
+        '21feff02-016d-46e2-bb9d-c27495133b1b',
+        '61. óra: Témazáró dolgozat',
+        'Témazáró számonkérés a Törtek témakörből (10 kérdés).',
+        'Matematika',
+        '5. osztály',
+        'Törtek',
+        '[{"id": "f9a7dfb9-bc76-4aa3-850a-388ad15a7ac2", "text": "1. Melyik tört felel meg az 5/10 legegyszerűbb alakjának?", "type": "multiple-choice", "options": [{"id": "277b8fd1-cc27-4a80-9d16-68ae9f64018e", "text": "1/2", "isCorrect": true}, {"id": "e1fcdac9-c88c-4032-becf-ccd6d851793e", "text": "2/5", "isCorrect": false}, {"id": "556a788f-c234-46d5-8eb3-42f2cbb78a06", "text": "5/2", "isCorrect": false}, {"id": "131d7271-b8c9-4212-965c-7ccda52a0774", "text": "1/5", "isCorrect": false}], "timeLimit": 15}, {"id": "4c85a65b-3ba5-4150-9d3e-d41d7bb6d46a", "text": "2. Számítsd ki: 2/7 + 3/7 = ?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "5/7"}, {"id": "54a64f77-d00f-4897-b496-82e1b21dd3b5", "text": "3. Számítsd ki: 3/4 - 1/2 = ? (Közös nevezőre hozással)", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "1/4"}, {"id": "0ca96731-f4e6-4d82-b37f-798345011358", "text": "4. Számítsd ki: 2/5 * 3 = ?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "6/5"}, {"id": "0576ddd1-5f10-4a33-b576-917f9a7eae47", "text": "5. Számítsd ki: 6/7 / 3 = ?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "2/7"}, {"id": "8300dd76-8339-4b15-9fea-16e547044cf3", "text": "6. Írd át az 3/5 törtet tizedes tört alakba! (pl: 0,6)", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "0,6"}, {"id": "70bab0b1-15ec-4e4f-9246-036bf795241a", "text": "7. Számítsd ki: 4,25 + 3,8 = ?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "8,05"}, {"id": "57daf0e6-f0c1-4393-a9bf-a29f9cae8ddd", "text": "8. Számítsd ki: 1,5 * 6 = ?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "9"}, {"id": "2c7ebe4d-e87c-494c-99a0-1ce4157875b5", "text": "9. A 0,45 kerekített értéke tizedekre 0,5.", "type": "true-false", "options": [{"id": "937d134e-f033-4d8d-bddc-78c9b2ffd97f", "text": "Igaz", "isCorrect": true}, {"id": "5944f475-139d-485a-a99d-6545e0314f53", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "49ed0753-db2a-497b-a11a-c4688fc98929", "text": "10. Egy 20 fős osztály 1/4 része beteg. Hány tanuló beteg?", "type": "multiple-choice", "options": [{"id": "a05c6de0-d5e7-45ac-864d-4b0e881953df", "text": "5 tanuló", "isCorrect": true}, {"id": "3f171120-f699-43b2-923a-58bd684b2bde", "text": "4 tanuló", "isCorrect": false}, {"id": "59894353-b714-4e33-9da3-d48e114a2b9d", "text": "10 tanuló", "isCorrect": false}, {"id": "f244338c-cf8b-41db-9cca-ca229da4ae24", "text": "15 tanuló", "isCorrect": false}], "timeLimit": 15}]'::jsonb,
+        true,
+        NOW(),
+        NOW(),
+        NOW()
+    );
+
+INSERT INTO quizzes (id, teacher_id, title, description, subject, grade_level, topic, questions, is_published, published_at, created_at, updated_at)
+    VALUES (
+        '6505f38d-5304-4bad-b732-ea01b7f4efe9',
+        '21feff02-016d-46e2-bb9d-c27495133b1b',
+        '62. óra: Témazáró dolgozat értékelése',
+        'A Témazáró dolgozat feladatainak megbeszélése, hibák javítása.',
+        'Matematika',
+        '5. osztály',
+        'Törtek',
+        '[{"id": "2e5c93cd-24ba-4330-8ef5-12763e04fa52", "text": "Mire kell különösen figyelni törtek közös nevezőre hozásánál?", "type": "multiple-choice", "options": [{"id": "894451f2-7914-4f1c-95f4-47fd585c4a72", "text": "Arra, hogy a számlálót is ugyanazzal a számmal bővítsük, mint a nevezőt", "isCorrect": true}, {"id": "271958fb-f6e4-442d-b506-d5875e5f3da0", "text": "Csak a nevezőt kell megszorozni", "isCorrect": false}, {"id": "aaf61d65-a0f3-4096-903a-3b1ad21c213a", "text": "Csak a számlálót kell megszorozni", "isCorrect": false}, {"id": "12af3cad-41c3-4e02-8d24-04e6fe242d05", "text": "Nem kell bővíteni", "isCorrect": false}], "timeLimit": 15}, {"id": "429bf6c6-82f4-4faf-b6f4-10aabc545f5b", "text": "A tizedes törtek összeadásánál a tizedesvesszőknek pontosan egymás alá kell kerülniük.", "type": "true-false", "options": [{"id": "7c88d2e4-600c-44f9-a9bd-4306c5e9b99b", "text": "Igaz", "isCorrect": true}, {"id": "92e5a020-1e03-4ab1-a26f-f2002789635e", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "7245992c-cba6-4096-9fa2-d884ccccb66f", "text": "Melyik volt a leggyakoribb tévedés a tört osztásánál?", "type": "multiple-choice", "options": [{"id": "477d77c7-bd9a-40ed-9087-060791f91735", "text": "A számláló és nevező egyidejű osztása a szorzás helyett", "isCorrect": true}, {"id": "b0b2950a-39b2-4e12-b7c6-6e1cf8659a01", "text": "A számláló osztása amikor az osztható", "isCorrect": false}, {"id": "99b633a5-5a4a-488e-b2f0-dc5fe7df7c0d", "text": "A nevező szorzása amikor a számláló nem osztható", "isCorrect": false}, {"id": "028a7574-eb99-4213-a120-09c82e568e55", "text": "A művelet elvégzése", "isCorrect": false}], "timeLimit": 15}, {"id": "a243dcd8-083d-41eb-b4d9-a7d211cd8952", "text": "Mennyi a 0,5 + 1/2 eredménye?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "1"}, {"id": "75b344a4-559e-4e9f-b4f0-c76732273497", "text": "A hibák megbeszélése és javítása segíti a sikeres tanulást.", "type": "true-false", "options": [{"id": "df82ff92-7b30-4874-8f0b-60fff970bf4a", "text": "Igaz", "isCorrect": true}, {"id": "14761d05-65a7-43a1-aef8-d93083f5df05", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "e910f2e7-48cf-4482-823a-c1af044c6cea", "text": "Ha a témazáróban 50 pontból 45 pontot értél el, hány százalékot teljesítettél?", "type": "multiple-choice", "options": [{"id": "f226f053-3581-4bd8-b839-6ecfae237b08", "text": "90%", "isCorrect": true}, {"id": "32adac72-3838-4227-8b52-0dfb5d78223c", "text": "85%", "isCorrect": false}, {"id": "28a01712-9cdf-43fe-9aa8-bada13f1b3c6", "text": "80%", "isCorrect": false}, {"id": "67a801d1-ea3e-4933-8210-73fbdaab07c6", "text": "95%", "isCorrect": false}], "timeLimit": 15}, {"id": "553a634d-f245-4d07-b7bf-e746d6a96474", "text": "Számítsd ki a témazáró javító feladatát: 1 - 3/8 = ?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "5/8"}]'::jsonb,
+        true,
+        NOW(),
+        NOW(),
+        NOW()
+    );

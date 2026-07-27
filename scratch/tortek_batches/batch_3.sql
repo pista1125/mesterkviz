@@ -1,0 +1,79 @@
+INSERT INTO quizzes (id, teacher_id, title, description, subject, grade_level, topic, questions, is_published, published_at, created_at, updated_at)
+    VALUES (
+        '186a7cb2-354f-47ce-9458-aad59b16d9ab',
+        '21feff02-016d-46e2-bb9d-c27495133b1b',
+        '43. óra: Tört osztása pozitív egész számmal',
+        'Tört pozitív egész számmal való osztásának szabályai (számláló osztása vagy nevező szorzása).',
+        'Matematika',
+        '5. osztály',
+        'Törtek',
+        '[{"id": "fe108bfe-8e6d-469c-bc28-14e551962352", "text": "Hogyan osztunk meg egy törtet egy természetes számmal, ha a számláló osztható a számmal?", "type": "multiple-choice", "options": [{"id": "7313a614-1cb9-4c2c-8e62-c4dc1921c060", "text": "A számlálót elosztjuk a számmal, a nevező változatlan marad", "isCorrect": true}, {"id": "4e44a42b-040b-4ca1-9eb0-f02465c5167f", "text": "A nevezőt elosztjuk a számmal", "isCorrect": false}, {"id": "b09f5892-f50a-481c-937f-df6ef016e361", "text": "A számlálót és a nevezőt is elosztjuk a számmal", "isCorrect": false}, {"id": "8c5844e4-abfe-4de0-ac20-562a924f68d1", "text": "Megszorozzuk a számlálót", "isCorrect": false}], "timeLimit": 15}, {"id": "5f61f276-cea5-4dbf-8d17-c0ff73d56cb9", "text": "Hogyan osztunk meg egy törtet egy természetes számmal, ha a számláló NEM osztható a számmal?", "type": "multiple-choice", "options": [{"id": "9efa0cd9-0a02-4491-9dc0-b1e9a9e69ae0", "text": "A nevezőt megszorozzuk a számmal", "isCorrect": true}, {"id": "7ff23a32-1046-4ea2-8f2f-651f3e5d672d", "text": "A számlálót megszorozzuk a számmal", "isCorrect": false}, {"id": "1dcff6df-3fb1-4b2e-8ce7-43f3d1f6c2ad", "text": "Nem lehet elosztani", "isCorrect": false}, {"id": "86b9312b-24bc-44b8-b81e-79d5b58698ce", "text": "Kivonjuk a számot a nevezőből", "isCorrect": false}], "timeLimit": 15}, {"id": "0538bc24-1cd4-4b06-83ce-8d96d89e343a", "text": "Mennyi a 4/5 / 2 osztás eredménye? (A számlálót osztjuk)", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "2/5"}, {"id": "4097931d-058d-4ffd-9fa6-9f54c3b1d63b", "text": "Mennyi az 1/3 / 2 osztás eredménye? (A nevezőt szorozzuk)", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "1/6"}, {"id": "192bc1b4-9875-4034-bb78-4709830906da", "text": "Ha egy törtet osztunk 1-nél nagyobb egész számmal, a tört értéke csökken.", "type": "true-false", "options": [{"id": "55338b79-73c9-4487-8433-3240a9a5dc18", "text": "Igaz", "isCorrect": true}, {"id": "e0ed27f7-aeec-4fd4-916a-c9538a3e2538", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "5e7720af-10b8-40fc-9837-bc2efef3bb41", "text": "A 6/7 / 3 osztás eredménye 2/7.", "type": "true-false", "options": [{"id": "c093b86b-6085-433e-aab4-9a9c1bf369b5", "text": "Igaz", "isCorrect": true}, {"id": "9daaa3af-1230-409b-b5c2-0e8635f04c65", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "e7d02cee-cb2e-4d56-b946-e5a28682bfee", "text": "Mennyi a 3/4 / 3 osztás hányadosa?", "type": "multiple-choice", "options": [{"id": "8199ce8f-ea52-489f-b34a-14552a074136", "text": "1/4", "isCorrect": true}, {"id": "292300b5-b8c4-41b9-854c-52f2b613d6a8", "text": "3/12", "isCorrect": false}, {"id": "f4c37e89-84e6-482e-8a27-856d40b78b7c", "text": "9/4", "isCorrect": false}, {"id": "d76d5c12-5e54-48cf-9a2e-997503988e95", "text": "1/12", "isCorrect": false}], "timeLimit": 15}]'::jsonb,
+        true,
+        NOW(),
+        NOW(),
+        NOW()
+    );
+
+INSERT INTO quizzes (id, teacher_id, title, description, subject, grade_level, topic, questions, is_published, published_at, created_at, updated_at)
+    VALUES (
+        '3f66c034-bca9-4923-96f9-9a49fd3f1720',
+        '21feff02-016d-46e2-bb9d-c27495133b1b',
+        '44. óra: Törtek pozitív egész számmal való osztásának gyakorlása',
+        'Gyakorló feladatok és szöveges feladatok tört egész számmal való osztására.',
+        'Matematika',
+        '5. osztály',
+        'Törtek',
+        '[{"id": "c159c01c-3933-4e1c-bc43-774dad37a37a", "text": "Egy 4/5 méteres szalagot 4 egyenlő részre vágunk. Milyen hosszú egy-egy darab?", "type": "multiple-choice", "options": [{"id": "85833c32-9c27-4225-8b24-2a6685867ae1", "text": "1/5 méter", "isCorrect": true}, {"id": "dd666766-9c17-4a6e-b29a-9b1c45749db5", "text": "1/20 méter", "isCorrect": false}, {"id": "5a813707-d8d6-4bee-91ae-922405b9f695", "text": "4/20 méter", "isCorrect": false}, {"id": "04f6445c-8fd6-4b25-9e6c-10672df9c95c", "text": "2/5 méter", "isCorrect": false}], "timeLimit": 15}, {"id": "0b827a65-d85f-4b5a-953b-fa472980577b", "text": "Számítsd ki: 5/6 / 5 = ?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "1/6"}, {"id": "216d26bf-7d91-4117-b025-eb1cc3055fd9", "text": "Számítsd ki: 2/3 / 4 = ? (2/12 = 1/6)", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "1/6"}, {"id": "62ddd5e3-9357-4c8b-95be-5652ab372907", "text": "Az 3/8 / 2 osztás elvégezhető a nevező szorzásával: 3 / (8*2) = 3/16.", "type": "true-false", "options": [{"id": "9552be5d-a51c-4a41-9847-0d5b64df5321", "text": "Igaz", "isCorrect": true}, {"id": "3400d2ed-8464-4cbb-846e-f03e71b9953b", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "41e2058b-b782-4323-a055-fda26f94eeb6", "text": "Mennyi a 10/11 / 5 eredménye?", "type": "multiple-choice", "options": [{"id": "49823838-cfe6-4527-93e6-35524225a0aa", "text": "2/11", "isCorrect": true}, {"id": "580c9bfd-4695-40a6-a752-e0eb5a5b7f8f", "text": "50/11", "isCorrect": false}, {"id": "c2d67b2f-0014-44cb-b7a2-e8a593c97380", "text": "2/55", "isCorrect": false}, {"id": "7d39bd6f-f604-4688-bace-0011c1776162", "text": "10/55", "isCorrect": false}], "timeLimit": 15}, {"id": "545d297c-9f6b-4f77-a96c-b0023ac137a6", "text": "Törtet 0-val is lehet osztani.", "type": "true-false", "options": [{"id": "dfea20dd-f201-4f79-9d38-402be61e58b7", "text": "Igaz", "isCorrect": false}, {"id": "479d4e3f-dbe6-4a5f-af39-cb0ec6b6031c", "text": "Hamis", "isCorrect": true}], "timeLimit": 15}, {"id": "2e32c31d-f2f2-46eb-beaf-3021cccd6a72", "text": "Mennyi a 8/9 / 4 eredménye?", "type": "multiple-choice", "options": [{"id": "eef7c61f-c3ab-4526-ba0d-a44491e1145d", "text": "2/9", "isCorrect": true}, {"id": "4cf1e138-caaa-47b5-a45a-055563e113d5", "text": "32/9", "isCorrect": false}, {"id": "82aa1d73-e238-4035-91c1-19738b2b27ce", "text": "8/36", "isCorrect": false}, {"id": "1d7af9f6-ca26-4407-aba3-d5c4abf09c30", "text": "4/9", "isCorrect": false}], "timeLimit": 15}]'::jsonb,
+        true,
+        NOW(),
+        NOW(),
+        NOW()
+    );
+
+INSERT INTO quizzes (id, teacher_id, title, description, subject, grade_level, topic, questions, is_published, published_at, created_at, updated_at)
+    VALUES (
+        '08e0a30c-4db0-454a-9346-803bda716f24',
+        '21feff02-016d-46e2-bb9d-c27495133b1b',
+        '45. óra: Műveletek sorrendje, zárójelfelbontás',
+        'Műveleti sorrend és zárójelek használata törteket tartalmazó kifejezésekben.',
+        'Matematika',
+        '5. osztály',
+        'Törtek',
+        '[{"id": "b058ce43-6796-4b5d-92ce-03df3bfb09f1", "text": "Mennyi az 1/2 + 1/4 * 2 kifejezés értéke? (Először a szorzást!)", "type": "multiple-choice", "options": [{"id": "42e87f0d-238a-4fe8-ac67-df8be83112c9", "text": "1 egész (vagy 2/2)", "isCorrect": true}, {"id": "18ee1f03-dbf2-48e4-bba8-df5724393608", "text": "3/4", "isCorrect": false}, {"id": "84e6324d-adc6-4445-b1b3-5c5e22c84afe", "text": "1/4", "isCorrect": false}, {"id": "465695d6-4220-4309-b7c3-2840ed662c46", "text": "3/2", "isCorrect": false}], "timeLimit": 15}, {"id": "c3c7b112-75b0-4ca6-9e83-66029003a3e1", "text": "Számítsd ki: (1/3 + 2/3) * 5 = ?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "5"}, {"id": "158b87cf-278c-4c11-b9e0-f6e74e8aa850", "text": "Zárójel hiányában a szorzást és osztást előbb végezzük el, mint az összeadást és kivonást.", "type": "true-false", "options": [{"id": "9b9f0d1f-e150-41a2-9b90-950f77f888cb", "text": "Igaz", "isCorrect": true}, {"id": "581862ba-424f-4b18-82d2-0561fdacd9da", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "bf200009-6344-4a3f-805f-20a9f215fa5e", "text": "Mennyi a (3/4 - 1/4) / 2 kifejezés értéke?", "type": "multiple-choice", "options": [{"id": "45aecc83-d106-469c-9012-ace7df780350", "text": "1/4", "isCorrect": true}, {"id": "b7ec4123-4e92-484b-af45-343c4b66928a", "text": "1/2", "isCorrect": false}, {"id": "990bd8fe-6ce1-49b8-802c-6732e6e83bc5", "text": "2/4", "isCorrect": false}, {"id": "a7725501-3a3d-478f-aa2b-bd159e72d0c5", "text": "1/8", "isCorrect": false}], "timeLimit": 15}, {"id": "f2d19bbb-2bb3-4e94-afbd-faf0679ecf89", "text": "Számítsd ki: 3 * 1/6 + 1/2 = ? (3/6 + 1/2 = 1/2 + 1/2)", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "1"}, {"id": "b18ae278-bb05-493a-a3f3-1267289afc8f", "text": "A (1/2 + 1/3) * 6 kifejezésben a zárójel felbontható disztributivitással: 1/2 * 6 + 1/3 * 6 = 3 + 2 = 5.", "type": "true-false", "options": [{"id": "8b47c03c-994a-4b10-8cde-4baeff6f9997", "text": "Igaz", "isCorrect": true}, {"id": "de7a1fe0-8541-48c3-bee3-005afd73df0c", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "3f6059f9-87d8-4cfe-8847-7b266e88c231", "text": "Mennyi a 2 - 1/3 * 3 értéke?", "type": "multiple-choice", "options": [{"id": "07795aa5-701d-42b2-b568-330b3d2ee772", "text": "1", "isCorrect": true}, {"id": "1e2c6a9c-8e53-4686-98cf-f08072a7c9a4", "text": "5/3", "isCorrect": false}, {"id": "4f4c1714-c9d8-4d93-8f6d-2df345d8026d", "text": "0", "isCorrect": false}, {"id": "1755b6a0-316e-4151-b64f-a1e18e5edeba", "text": "2/3", "isCorrect": false}], "timeLimit": 15}]'::jsonb,
+        true,
+        NOW(),
+        NOW(),
+        NOW()
+    );
+
+INSERT INTO quizzes (id, teacher_id, title, description, subject, grade_level, topic, questions, is_published, published_at, created_at, updated_at)
+    VALUES (
+        '5f56ebf6-b1aa-482d-8466-e873ab85063a',
+        '21feff02-016d-46e2-bb9d-c27495133b1b',
+        '46. óra: A tanult műveletek, a műveleti sorrend használatának gyakorlása',
+        'Összetett törtszámítási feladatok gyakorlása.',
+        'Matematika',
+        '5. osztály',
+        'Törtek',
+        '[{"id": "50832008-44fe-4081-aa90-c0d55358959a", "text": "Számítsd ki: (4/5 - 1/5) * 10 = ?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "6"}, {"id": "05ab5108-0fbf-4a78-8a1a-49ddcd68df2a", "text": "Mennyi a 3/4 * 2 - 1/2 kifejezés értéke?", "type": "multiple-choice", "options": [{"id": "8abeb399-6f35-4c69-adbc-2e656cacf7b3", "text": "1", "isCorrect": true}, {"id": "3160460d-a830-42bc-bf5e-7f1d8ac36cd0", "text": "6/4", "isCorrect": false}, {"id": "13d10a4f-d27b-417e-8b0a-fe17f28afb55", "text": "1/2", "isCorrect": false}, {"id": "41a6448e-1da1-44aa-bf4f-dfa634164dfe", "text": "2", "isCorrect": false}], "timeLimit": 15}, {"id": "70191f74-e890-4433-8636-c5e4858a870d", "text": "Az (1 - 1/3) / 2 kifejezés értéke 1/3.", "type": "true-false", "options": [{"id": "f8c67e4e-adbf-4fd1-939a-6496d94f1662", "text": "Igaz", "isCorrect": true}, {"id": "5d1dde3e-4480-4e98-bf95-b652b31a89d0", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "84c7ebc2-7da4-4690-ad07-ade281f5c8e5", "text": "Számítsd ki: 1/2 * 4 + 2/3 * 3 = ?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "4"}, {"id": "f37bb11f-2d2b-4f85-b193-d32881774f55", "text": "Mennyi a 10 * (1/2 - 1/5) kifejezés értéke?", "type": "multiple-choice", "options": [{"id": "69eba0e6-7f63-457a-a22b-0575e7a5b55e", "text": "3", "isCorrect": true}, {"id": "5c720c6c-4769-49e8-ab67-e47460c9fd9a", "text": "5", "isCorrect": false}, {"id": "24ce11bb-e184-449c-aa27-89f3af94916d", "text": "2", "isCorrect": false}, {"id": "30af04d1-1f43-4a94-9166-fbee7888216d", "text": "1", "isCorrect": false}], "timeLimit": 15}, {"id": "9a80ad8a-4921-4793-9d0a-31d2ee03328c", "text": "Ha egy törthöz hozzáadunk 0-t, a tört értéke megduplázódik.", "type": "true-false", "options": [{"id": "07babe86-453e-4cfb-8542-0548e034e711", "text": "Igaz", "isCorrect": false}, {"id": "be5f35cb-e22d-4bb3-89e0-eeadd1d575f4", "text": "Hamis", "isCorrect": true}], "timeLimit": 15}, {"id": "eb04d73d-4eb9-4e78-8696-3fbc2a752ff0", "text": "Mennyi a 4/7 + 2/7 * 3 kifejezés értéke?", "type": "multiple-choice", "options": [{"id": "8006dfc2-ba9f-4ef3-8ae2-8d22037cf4a8", "text": "10/7 (vagy 1 egész 3/7)", "isCorrect": true}, {"id": "58608efc-f641-4a25-b44a-51d18493befd", "text": "18/7", "isCorrect": false}, {"id": "f561f752-5a9b-404a-ae6b-1e44292739bd", "text": "6/7", "isCorrect": false}, {"id": "c9357f8f-9f08-47ab-9d0d-aadd7486e0b6", "text": "12/7", "isCorrect": false}], "timeLimit": 15}]'::jsonb,
+        true,
+        NOW(),
+        NOW(),
+        NOW()
+    );
+
+INSERT INTO quizzes (id, teacher_id, title, description, subject, grade_level, topic, questions, is_published, published_at, created_at, updated_at)
+    VALUES (
+        'f2ae13ae-a852-4031-b690-3fd796b1dafc',
+        '21feff02-016d-46e2-bb9d-c27495133b1b',
+        '47. óra: Mit tanultunk eddig? Gyakoroljunk!',
+        'Ismétlés és átfogó gyakorlás a közönséges törtekből.',
+        'Matematika',
+        '5. osztály',
+        'Törtek',
+        '[{"id": "8046f8e7-9bb4-4cbb-9797-7999e413e1ba", "text": "Melyik tört felel meg a 12/18 legegyszerűbb alakjának?", "type": "multiple-choice", "options": [{"id": "2f32b3c2-2ff4-428a-832d-ee6b02a219d6", "text": "2/3", "isCorrect": true}, {"id": "db976c23-25c3-4a7a-a890-b522e9f1d190", "text": "6/9", "isCorrect": false}, {"id": "4649e396-730d-45f3-b5ab-fb23c0bf1874", "text": "3/4", "isCorrect": false}, {"id": "264fccf5-3191-4031-a5ac-a0f7d09e87bd", "text": "1/2", "isCorrect": false}], "timeLimit": 15}, {"id": "61feac99-5cb9-4b56-9874-2fe30fcbc9e9", "text": "Hány egészből áll a 15/4 vegyes tört alakban? Írd le a számlálót vagy a teljes alakot (3 egész 3/4)!", "type": "multiple-choice", "options": [{"id": "58fb869d-1d5c-4c46-a4b6-c76bd2c44cd9", "text": "3 egész 3/4", "isCorrect": true}, {"id": "cb15366c-12e6-4754-b814-77b109744211", "text": "3 egész 1/4", "isCorrect": false}, {"id": "ad4a7be4-a052-4990-8205-4f58d355b3b3", "text": "4 egész 1/4", "isCorrect": false}, {"id": "bd441353-08dc-4655-86b0-a9f39127dcb9", "text": "2 egész 3/4", "isCorrect": false}], "timeLimit": 15}, {"id": "e0e90d48-ee73-4275-87af-7b46605fe5b4", "text": "Számítsd ki: 3/5 + 4/5 = ? (Vegyes törtben vagy ál-törtben)", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "7/5"}, {"id": "0c9b1dea-49ce-4af0-8f78-68378501eb3f", "text": "A 2/3 * 6 szorzat értéke 4.", "type": "true-false", "options": [{"id": "fece7ea4-c9c7-4e3a-b53d-10765811eaf0", "text": "Igaz", "isCorrect": true}, {"id": "96bd3c11-cfa3-416d-a83b-833bae427f66", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "5d2f32e0-d3ec-458d-8e4a-ddd7989e4c0d", "text": "Számítsd ki: 8/9 / 2 = ?", "type": "text-input", "options": [], "timeLimit": 20, "correctAnswer": "4/9"}, {"id": "1887da7b-8c60-4558-a1c8-1644c7471bb2", "text": "A 4/5 nagyobb, mint a 3/4 (közös nevező: 20 -> 16/20 vs 15/20).", "type": "true-false", "options": [{"id": "57fdd7e1-9386-41ab-a17a-7e74544b2399", "text": "Igaz", "isCorrect": true}, {"id": "b086034b-e622-4bd3-9ec2-d6ee23ba8449", "text": "Hamis", "isCorrect": false}], "timeLimit": 15}, {"id": "d0e804a3-d3cc-4158-a54f-7bec3dd95ed0", "text": "Mennyi 30-nak az 2/5 része?", "type": "multiple-choice", "options": [{"id": "38eba8ce-667f-4556-8101-6466c586b1d9", "text": "12", "isCorrect": true}, {"id": "4f8d5cf3-e730-43e8-89fa-d6843481afe2", "text": "15", "isCorrect": false}, {"id": "023b25c2-c4cf-471a-863d-0169363888f7", "text": "6", "isCorrect": false}, {"id": "a5c29924-198f-489b-b983-c2f67fdb50c1", "text": "10", "isCorrect": false}], "timeLimit": 15}]'::jsonb,
+        true,
+        NOW(),
+        NOW(),
+        NOW()
+    );
