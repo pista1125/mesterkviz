@@ -4,13 +4,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Users, UserCircle } from 'lucide-react';
+import { UserCircle } from 'lucide-react';
 import { getStudentSessionId } from '@/types/quiz';
 import type { Room, AvatarData } from '@/types/quiz';
 import { AvatarSelector } from '@/components/quiz/AvatarSelector';
-import { Avatar } from '@/components/quiz/Avatar';
+import { findActiveRoomByCode, joinRoomParticipant } from '@/services/db';
 
 const JoinRoom = () => {
   const { code: urlCode } = useParams();
@@ -29,21 +28,20 @@ const JoinRoom = () => {
   }, [urlCode]);
 
   const findRoom = async (roomCode: string) => {
-    const { data, error } = await supabase
-      .from('rooms')
-      .select('*')
-      .eq('code', roomCode)
-      .in('status', ['waiting', 'active'])
-      .single();
+    try {
+      const foundRoom = await findActiveRoomByCode(roomCode);
+      if (!foundRoom) {
+        toast.error('Szoba nem található vagy már lezárult.');
+        setStep('code');
+        return;
+      }
 
-    if (error || !data) {
-      toast.error('Szoba nem található vagy már lezárult.');
+      setRoom(foundRoom);
+      setStep('name');
+    } catch (err: any) {
+      toast.error('Hiba a szoba keresésekor: ' + err.message);
       setStep('code');
-      return;
     }
-
-    setRoom(data as unknown as Room);
-    setStep('name');
   };
 
   const handleCodeSubmit = () => {
@@ -64,62 +62,22 @@ const JoinRoom = () => {
     const sessionId = getStudentSessionId();
     const finalAvatar = overrideAvatar || avatar;
 
-    // Check if already joined
-    const { data: existing } = await supabase
-      .from('room_participants')
-      .select('id, avatar')
-      .eq('room_id', room.id)
-      .eq('student_session_id', sessionId)
-      .maybeSingle();
+    try {
+      const participant = await joinRoomParticipant(
+        room.id,
+        name.trim(),
+        sessionId,
+        finalAvatar
+      );
 
-    if (existing) {
-      // Re-activate if they were kicked and update their data
-      const { error: updateError } = await supabase
-        .from('room_participants')
-        .update({
-          is_active: true,
-          student_name: name.trim(),
-          avatar: finalAvatar
-        } as any)
-        .eq('id', existing.id);
-
-      if (updateError) {
-        toast.error('Nem sikerült újracsatlakozni');
-        setJoining(false);
-        return;
-      }
-
-      // Already joined, go to play
-      sessionStorage.setItem('participant_id', existing.id);
+      sessionStorage.setItem('participant_id', participant.id);
       sessionStorage.setItem('student_name', name.trim());
       sessionStorage.setItem('student_avatar', JSON.stringify(finalAvatar));
+      setJoining(false);
       navigate(`/play/${room.id}`);
-      return;
-    }
-
-    const { data, error } = await supabase
-      .from('room_participants')
-      .insert({
-        room_id: room.id,
-        student_name: name.trim(),
-        student_session_id: sessionId,
-        avatar: finalAvatar,
-      })
-      .select()
-      .single();
-
-    setJoining(false);
-
-    if (error) {
-      toast.error('Nem sikerült csatlakozni: ' + error.message);
-      return;
-    }
-
-    if (data) {
-      sessionStorage.setItem('participant_id', data.id);
-      sessionStorage.setItem('student_name', name.trim());
-      sessionStorage.setItem('student_avatar', JSON.stringify(finalAvatar));
-      navigate(`/play/${room.id}`);
+    } catch (err: any) {
+      setJoining(false);
+      toast.error('Nem sikerült csatlakozni: ' + err.message);
     }
   };
 
@@ -138,7 +96,10 @@ const JoinRoom = () => {
               <div className="space-y-2">
                 <Label className="text-center block">Szobakód megadása</Label>
                 <Input
-                  type="text"
+                  type="tel"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  autoComplete="one-time-code"
                   placeholder="000000"
                   value={code}
                   onChange={(e) => {

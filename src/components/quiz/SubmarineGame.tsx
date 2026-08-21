@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, Zap, AlertTriangle, Trophy, XCircle } from 'lucide-react';
 import type { Room, RoomParticipant } from '@/types/quiz';
-import { supabase } from '@/integrations/supabase/client';
+import { updateRoom } from '@/services/db';
 import { Button } from '@/components/ui/button';
 
 interface SubmarineGameProps {
@@ -44,10 +44,10 @@ export const SubmarineGame: React.FC<SubmarineGameProps> = ({ room, participants
   useEffect(() => {
     if (isGameOver && room.status === 'active') {
       const autoEnd = async () => {
-        await supabase.from('rooms').update({ 
+        await updateRoom(room.id, { 
           status: 'completed', 
           ended_at: new Date().toISOString() 
-        }).eq('id', room.id);
+        });
       };
       autoEnd();
     }

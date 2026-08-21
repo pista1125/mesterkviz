@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { supabase } from '@/integrations/supabase/client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, ThumbsUp, Smile, Star, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { sendRoomReaction } from '@/services/db';
 
 const REACTIONS = [
     { emoji: '❤️', icon: Heart, color: 'text-red-500' },
@@ -20,23 +20,12 @@ interface ReactionButtonProps {
 
 export const ReactionButton = ({ roomId, className }: ReactionButtonProps) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [channel, setChannel] = useState<any>(null);
-
-    useEffect(() => {
-        const newChannel = supabase.channel(`reactions-${roomId}`).subscribe();
-        setChannel(newChannel);
-        return () => {
-            supabase.removeChannel(newChannel);
-        };
-    }, [roomId]);
 
     const sendReaction = async (emoji: string) => {
-        if (channel) {
-            await channel.send({
-                type: 'broadcast',
-                event: 'reaction',
-                payload: { emoji },
-            });
+        try {
+            await sendRoomReaction(roomId, emoji);
+        } catch (e) {
+            console.error('Error sending reaction:', e);
         }
         setIsOpen(false);
     };

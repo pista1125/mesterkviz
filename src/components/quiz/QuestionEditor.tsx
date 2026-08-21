@@ -5,8 +5,8 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Trash2, Plus, GripVertical, Image, Link, Upload, X } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
+import { storage } from '@/integrations/firebase/config';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { toast } from 'sonner';
 import type { QuizQuestion } from '@/types/quiz';
 import { ANSWER_COLORS } from '@/types/quiz';
@@ -70,24 +70,19 @@ export function QuestionEditor({ question, index, onChange, onDelete }: Question
     }
 
     setUploading(true);
-    const fileName = `${crypto.randomUUID()}.${file.name.split('.').pop()}`;
-    const { data, error } = await supabase.storage
-      .from('question-images')
-      .upload(fileName, file);
+    try {
+      const fileName = `${crypto.randomUUID()}.${file.name.split('.').pop()}`;
+      const imageRef = ref(storage, `question-images/${fileName}`);
+      await uploadBytes(imageRef, file);
+      const downloadUrl = await getDownloadURL(imageRef);
 
-    if (error) {
+      updateQuestion({ imageUrl: downloadUrl });
+      setUploading(false);
+      toast.success('Kép feltöltve!');
+    } catch (error: any) {
       toast.error('Hiba a feltöltéskor: ' + error.message);
       setUploading(false);
-      return;
     }
-
-    const { data: urlData } = supabase.storage
-      .from('question-images')
-      .getPublicUrl(data.path);
-
-    updateQuestion({ imageUrl: urlData.publicUrl });
-    setUploading(false);
-    toast.success('Kép feltöltve!');
   };
 
   const removeImage = () => {

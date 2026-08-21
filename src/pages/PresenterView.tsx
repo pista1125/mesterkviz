@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Square, SkipForward, Maximize, Minimize, Users, Trophy, BarChart3, Clock, UserCircle, CheckCircle2 } from 'lucide-react';
@@ -14,6 +13,17 @@ import { ReactionDisplay } from '@/components/quiz/ReactionDisplay';
 import { MathRenderer } from '@/components/quiz/MathRenderer';
 import { SubmarineGame } from '@/components/quiz/SubmarineGame';
 import { QuestionResultsChart } from '@/components/quiz/QuestionResultsChart';
+import {
+  getRoomById,
+  getQuizById,
+  getRoomParticipants,
+  getRoomAnswers,
+  subscribeToRoom,
+  subscribeToParticipants,
+  subscribeToAnswers,
+  updateRoom,
+  updateParticipant,
+} from '@/services/db';
 
 const COLORS = [
   { bg: 'bg-quiz-red', icon: '▲' },
@@ -42,22 +52,26 @@ const PresenterView = () => {
 
   const fetchRoomData = useCallback(async () => {
     if (!id || !user) return;
-    const { data: roomData } = await supabase.from('rooms').select('*').eq('id', id).single();
-    if (!roomData) { navigate('/dashboard'); return; }
+    try {
+      const roomData = await getRoomById(id);
+      if (!roomData) { navigate('/dashboard'); return; }
 
-    const rm = roomData as unknown as Room;
-    setRoom(rm);
+      setRoom(roomData);
 
-    const [quizRes, partRes, ansRes] = await Promise.all([
-      supabase.from('quizzes').select('*').eq('id', roomData.quiz_id).single(),
-      supabase.from('room_participants').select('*').eq('room_id', id).eq('is_active', true).order('joined_at'),
-      supabase.from('quiz_answers').select('*').eq('room_id', id).eq('session_number', rm.session_number),
-    ]);
+      const [quizData, partData, ansData] = await Promise.all([
+        getQuizById(roomData.quiz_id),
+        getRoomParticipants(id),
+        getRoomAnswers(id, roomData.session_number),
+      ]);
 
-    if (quizRes.data) setQuiz({ ...quizRes.data, questions: quizRes.data.questions as unknown as QuizQuestion[] } as Quiz);
-    if (partRes.data) setParticipants(partRes.data as unknown as RoomParticipant[]);
-    if (ansRes.data) setAnswers(ansRes.data as unknown as QuizAnswer[]);
-    setLoading(false);
+      if (quizData) setQuiz(quizData);
+      if (partData) setParticipants(partData.filter((p) => p.is_active));
+      if (ansData) setAnswers(ansData);
+    } catch (err: any) {
+      console.error('Error fetching presenter view data:', err);
+    } finally {
+      setLoading(false);
+    }
   }, [id, user, navigate]);
 
   useEffect(() => {
@@ -69,25 +83,27 @@ const PresenterView = () => {
   // Real-time
   useEffect(() => {
     if (!id) return;
-    const channel = supabase
-      .channel(`presenter-${id}`)
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'room_participants', filter: `room_id=eq.${id}` }, () => {
-        supabase.from('room_participants').select('*').eq('room_id', id).eq('is_active', true).order('joined_at').then(({ data }) => {
-          if (data) setParticipants(data as unknown as RoomParticipant[]);
-        });
-      })
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'quiz_answers', filter: `room_id=eq.${id}` }, () => {
-        supabase.from('quiz_answers').select('*').eq('room_id', id).then(({ data }) => {
-          if (data) setAnswers(data as unknown as QuizAnswer[]);
-        });
-      })
-      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'rooms', filter: `id=eq.${id}` }, (payload) => {
-        setRoom(payload.new as unknown as Room);
+    const unsubRoom = subscribeToRoom(id, (updatedRoom) => {
+      if (updatedRoom) {
+        setRoom(updatedRoom);
         setShowLeaderboard(false);
-      })
-      .subscribe();
-    return () => { supabase.removeChannel(channel); };
-  }, [id]);
+      }
+    });
+
+    const unsubParts = subscribeToParticipants(id, (updatedParts) => {
+      setParticipants(updatedParts.filter((p) => p.is_active));
+    });
+
+    const unsubAnswers = subscribeToAnswers(id, room?.session_number, (updatedAnswers) => {
+      setAnswers(updatedAnswers);
+    });
+
+    return () => {
+      unsubRoom();
+      unsubParts();
+      unsubAnswers();
+    };
+  }, [id, room?.session_number]);
 
   // Timer
   useEffect(() => {
@@ -143,46 +159,43 @@ const PresenterView = () => {
       });
     }, 1000);
 
-    // Update DB status immediately or after countdown? 
-    // Updating immediately keeps students in sync with the countdown since they listen for status change.
-    await supabase.from('rooms').update({ 
-      status: 'active', 
-      started_at: new Date().toISOString(), 
-      current_question_index: 0 
-    }).eq('id', room.id);
-    
-    toast.success('Kvíz elindítva!');
+    try {
+      await updateRoom(room.id, { 
+        status: 'active', 
+        started_at: new Date().toISOString(), 
+        current_question_index: 0 
+      });
+      toast.success('Kvíz elindítva!');
+    } catch (err: any) {
+      toast.error('Hiba az indításkor: ' + err.message);
+    }
   };
 
   const nextQuestion = async () => {
     if (!room || !quiz) return;
     const nextIndex = room.current_question_index + 1;
     if (nextIndex >= quiz.questions.length) {
-      await supabase.from('rooms').update({ status: 'completed', ended_at: new Date().toISOString() }).eq('id', room.id);
+      await updateRoom(room.id, { status: 'completed', ended_at: new Date().toISOString() });
       toast.success('Kvíz befejezve!');
       return;
     }
-    await supabase.from('rooms').update({ current_question_index: nextIndex }).eq('id', room.id);
+    await updateRoom(room.id, { current_question_index: nextIndex });
     setShowLeaderboard(false);
   };
 
   const endQuiz = async () => {
     if (!room) return;
-    await supabase.from('rooms').update({ status: 'completed', ended_at: new Date().toISOString() }).eq('id', room.id);
+    await updateRoom(room.id, { status: 'completed', ended_at: new Date().toISOString() });
     toast.success('Kvíz befejezve!');
   };
 
   const handleKickParticipant = async (participantId: string) => {
-    const { error } = await supabase
-      .from('room_participants')
-      .update({ is_active: false })
-      .eq('id', participantId);
-
-    if (error) {
-      toast.error('Hiba a résztvevő kitiltásakor');
-    } else {
+    try {
+      await updateParticipant(participantId, { is_active: false });
       toast.success('Résztvevő eltávolítva');
       setParticipants(prev => prev.filter(p => p.id !== participantId));
+    } catch (error: any) {
+      toast.error('Hiba a résztvevő kitiltásakor');
     }
   };
 

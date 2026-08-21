@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { subscribeToReactions } from '@/services/db';
 
 interface Reaction {
     id: string;
@@ -16,27 +16,23 @@ export const ReactionDisplay = ({ roomId }: ReactionDisplayProps) => {
     const [reactions, setReactions] = useState<Reaction[]>([]);
 
     useEffect(() => {
-        const channel = supabase.channel(`reactions-${roomId}`);
+        const unsubscribe = subscribeToReactions(roomId, (payload) => {
+            const newReaction = {
+                id: payload.id || Math.random().toString(36).substr(2, 9),
+                emoji: payload.emoji,
+                x: Math.random() * 80 + 10, // 10% to 90% of width
+            };
 
-        channel
-            .on('broadcast', { event: 'reaction' }, (payload) => {
-                const newReaction = {
-                    id: Math.random().toString(36).substr(2, 9),
-                    emoji: payload.payload.emoji,
-                    x: Math.random() * 80 + 10, // 10% to 90% of width
-                };
+            setReactions((prev) => [...prev, newReaction]);
 
-                setReactions((prev) => [...prev, newReaction]);
-
-                // Remove reaction after animation
-                setTimeout(() => {
-                    setReactions((prev) => prev.filter((r) => r.id !== newReaction.id));
-                }, 4000);
-            })
-            .subscribe();
+            // Remove reaction after animation
+            setTimeout(() => {
+                setReactions((prev) => prev.filter((r) => r.id !== newReaction.id));
+            }, 4000);
+        });
 
         return () => {
-            supabase.removeChannel(channel);
+            unsubscribe();
         };
     }, [roomId]);
 

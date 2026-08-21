@@ -9,11 +9,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Switch } from '@/components/ui/switch';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { ArrowLeft, Play } from 'lucide-react';
 import type { Quiz } from '@/types/quiz';
 import { generateRoomCode } from '@/types/quiz';
+import { getTeacherQuizzes, createRoom } from '@/services/db';
 
 const CreateRoom = () => {
   const { user, loading: authLoading } = useAuth();
@@ -38,15 +38,14 @@ const CreateRoom = () => {
   useEffect(() => {
     if (!user) return;
     const fetchQuizzes = async () => {
-      const { data } = await supabase
-        .from('quizzes')
-        .select('*')
-        .eq('teacher_id', user.id)
-        .order('updated_at', { ascending: false });
-      if (data) {
-        setQuizzes(data.map((q: any) => ({ ...q, questions: q.questions as any })));
+      try {
+        const data = await getTeacherQuizzes(user.id);
+        setQuizzes(data);
+      } catch (err: any) {
+        toast.error('Hiba a kvízek betöltésekor');
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
     fetchQuizzes();
   }, [user]);
@@ -58,13 +57,10 @@ const CreateRoom = () => {
     }
 
     setCreating(true);
+    const code = generateRoomCode();
 
-    // Generate a unique 6-digit code (retry on collision)
-    let code = generateRoomCode();
-    let retries = 0;
-
-    while (retries < 5) {
-      const { error } = await supabase.from('rooms').insert({
+    try {
+      const newRoomId = await createRoom({
         teacher_id: user.id,
         quiz_id: selectedQuizId,
         code,
@@ -74,40 +70,24 @@ const CreateRoom = () => {
         control_mode: controlMode,
         game_mode: gameMode,
         game_duration_seconds: gameDuration,
+        submarine_boosts: 0,
         time_limit_seconds: timeLimit,
         show_results_to_students: showResults,
         status: 'waiting',
         current_question_index: 0,
+        session_number: 1,
+        started_at: null,
+        ended_at: null,
+        created_at: new Date().toISOString(),
       });
 
-      if (!error) {
-        toast.success(`Szoba létrehozva! Kód: ${code}`);
-        // Find the room ID
-        const { data: room } = await supabase
-          .from('rooms')
-          .select('id')
-          .eq('code', code)
-          .single();
-        if (room) {
-          navigate(`/room/${room.id}`);
-        }
-        setCreating(false);
-        return;
-      }
-
-      if (error.code === '23505') {
-        // Unique constraint violation, retry with new code
-        code = generateRoomCode();
-        retries++;
-      } else {
-        toast.error('Hiba a szoba létrehozásakor: ' + error.message);
-        setCreating(false);
-        return;
-      }
+      toast.success(`Szoba létrehozva! Kód: ${code}`);
+      setCreating(false);
+      navigate(`/room/${newRoomId}`);
+    } catch (err: any) {
+      toast.error('Hiba a szoba létrehozásakor: ' + err.message);
+      setCreating(false);
     }
-
-    toast.error('Nem sikerült egyedi kódot generálni. Próbáld újra.');
-    setCreating(false);
   };
 
   if (authLoading || loading) {

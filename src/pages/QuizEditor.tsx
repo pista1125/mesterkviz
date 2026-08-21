@@ -11,7 +11,8 @@ import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { supabase } from '@/integrations/supabase/client';
+import { getQuizById, saveQuiz } from '@/services/db';
+import { requestGenerateQuiz } from '@/services/ai';
 import { toast } from 'sonner';
 import {
   Dialog,
@@ -73,27 +74,28 @@ const QuizEditor = () => {
 
     const fetchQuiz = async () => {
       setLoading(true);
-      const { data, error } = await supabase
-        .from('quizzes')
-        .select('*')
-        .eq('id', id)
-        .single();
+      try {
+        const data = await getQuizById(id!);
+        if (!data) {
+          toast.error('Kvíz nem található');
+          navigate('/dashboard');
+          return;
+        }
 
-      if (error || !data) {
-        toast.error('Kvíz nem található');
+        setTitle(data.title);
+        setDescription(data.description || '');
+        setSubject(data.subject || 'matematika');
+        setTopic((data as any).topic || '');
+        setGradeLevel(data.grade_level || '');
+        setQuestions((data.questions as unknown as QuizQuestion[]) || []);
+        setIsPublished(data.is_published);
+        setLastSaved(data.updated_at);
+      } catch (err: any) {
+        toast.error('Hiba a kvíz betöltésekor: ' + err.message);
         navigate('/dashboard');
-        return;
+      } finally {
+        setLoading(false);
       }
-
-      setTitle(data.title);
-      setDescription(data.description || '');
-      setSubject(data.subject || 'matematika');
-      setTopic((data as any).topic || '');
-      setGradeLevel(data.grade_level || '');
-      setQuestions((data.questions as unknown as QuizQuestion[]) || []);
-      setIsPublished(data.is_published);
-      setLastSaved(data.updated_at);
-      setLoading(false);
     };
 
     fetchQuiz();
@@ -113,6 +115,7 @@ const QuizEditor = () => {
     setSaving(true);
 
     const quizData = {
+      id: isEditing ? id : undefined,
       teacher_id: user.id,
       title: title.trim(),
       description: description.trim(),
@@ -124,26 +127,19 @@ const QuizEditor = () => {
       published_at: isPublished ? new Date().toISOString() : null,
     };
 
-    let error;
-    if (isEditing) {
-      ({ error } = await supabase.from('quizzes').update(quizData).eq('id', id!));
-    } else {
-      ({ error } = await supabase.from('quizzes').insert(quizData));
-    }
-
-    setSaving(false);
-
-    if (error) {
-      toast.error('Hiba a mentéskor: ' + error.message);
-    } else {
+    try {
+      const savedId = await saveQuiz(quizData);
+      setSaving(false);
       toast.success('Kvíz mentve!');
       if (!isEditing) {
         navigate('/dashboard');
       } else {
-        // Refresh last saved time after successful update
-        const { data: refreshed } = await supabase.from('quizzes').select('updated_at').eq('id', id!).single();
+        const refreshed = await getQuizById(savedId);
         if (refreshed) setLastSaved(refreshed.updated_at);
       }
+    } catch (err: any) {
+      setSaving(false);
+      toast.error('Hiba a mentéskor: ' + err.message);
     }
   };
 
@@ -166,27 +162,13 @@ const QuizEditor = () => {
     };
  
     try {
-      const { data, error } = await supabase.functions.invoke('rapid-handler', {
-        body: {
-          subject,
-          topic: aiPrompt.trim(),
-          numQuestions: aiQuestionCount,
-          gradeLevel,
-          selectedTypes: selectedAiTypes
-        },
+      const data = await requestGenerateQuiz({
+        subject,
+        topic: aiPrompt.trim(),
+        numQuestions: aiQuestionCount,
+        gradeLevel,
+        selectedTypes: selectedAiTypes,
       });
-
-      if (error) {
-        toast.error('Hiba az AI generálásnál: ' + error.message);
-        setGenerating(false);
-        return;
-      }
-
-      if (data?.error) {
-        toast.error(data.error);
-        setGenerating(false);
-        return;
-      }
 
       if (data.title && !title) setTitle(data.title);
       if (data.description && !description) setDescription(data.description);

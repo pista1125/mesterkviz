@@ -6,9 +6,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { ArrowLeft, Brain, Sparkles, Loader2 } from 'lucide-react';
+import { requestGenerateQuiz } from '@/services/ai';
+import { saveQuiz } from '@/services/db';
 
 const AIGenerate = () => {
   const { user, loading: authLoading } = useAuth();
@@ -35,44 +36,30 @@ const AIGenerate = () => {
     setGenerating(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke('rapid-handler', {
-        body: { subject, topic: topic.trim(), numQuestions, gradeLevel, includeTrueFalse },
+      const data = await requestGenerateQuiz({
+        subject,
+        topic: topic.trim(),
+        numQuestions,
+        gradeLevel,
+        includeTrueFalse,
       });
 
-      if (error) {
-        toast.error('Hiba az AI generálásnál: ' + error.message);
-        setGenerating(false);
-        return;
-      }
-
-      if (data?.error) {
-        toast.error(data.error);
-        setGenerating(false);
-        return;
-      }
-
-      // Save quiz to database
-      const { error: saveError } = await supabase.from('quizzes').insert({
+      // Save quiz to Firestore database
+      await saveQuiz({
         teacher_id: user.id,
         title: data.title,
         description: data.description,
         subject,
         topic: topic.trim(),
         grade_level: gradeLevel,
-        questions: JSON.parse(JSON.stringify(data.questions)),
+        questions: data.questions,
         is_published: false,
       });
 
-      if (saveError) {
-        toast.error('Hiba a mentéskor: ' + saveError.message);
-        setGenerating(false);
-        return;
-      }
-
       toast.success('Kvíz sikeresen generálva és mentve!');
       navigate('/dashboard');
-    } catch (e) {
-      toast.error('Váratlan hiba történt');
+    } catch (e: any) {
+      toast.error(e?.message || 'Váratlan hiba történt a generáláskor');
     } finally {
       setGenerating(false);
     }

@@ -1,51 +1,110 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import type { User, Session } from '@supabase/supabase-js';
+import { auth, db } from '@/integrations/firebase/config';
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut as fbSignOut,
+  onAuthStateChanged,
+  updateProfile,
+  User as FirebaseUser,
+} from 'firebase/auth';
+import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
+
+export interface AppUser {
+  id: string;
+  uid: string;
+  email: string | null;
+  displayName: string | null;
+  user_metadata?: {
+    display_name?: string;
+  };
+}
 
 export function useAuth() {
-  const [user, setUser] = useState<User | null>(null);
-  const [session, setSession] = useState<Session | null>(null);
+  const [user, setUser] = useState<AppUser | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Set up auth state listener FIRST
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      setUser(session?.user ?? null);
+    const unsubscribe = onAuthStateChanged(auth, async (fbUser: FirebaseUser | null) => {
+      if (fbUser) {
+        let displayName = fbUser.displayName;
+        if (!displayName) {
+          try {
+            const userDoc = await getDoc(doc(db, 'profiles', fbUser.uid));
+            if (userDoc.exists()) {
+              displayName = userDoc.data()?.display_name || null;
+            }
+          } catch (e) {
+            console.error('Error fetching profile:', e);
+          }
+        }
+
+        const appUser: AppUser = {
+          id: fbUser.uid,
+          uid: fbUser.uid,
+          email: fbUser.email,
+          displayName: displayName || fbUser.email?.split('@')[0] || 'Felhasználó',
+          user_metadata: {
+            display_name: displayName || fbUser.email?.split('@')[0] || 'Felhasználó',
+          },
+        };
+        setUser(appUser);
+      } else {
+        setUser(null);
+      }
       setLoading(false);
     });
 
-    // Then get the current session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
+    return () => unsubscribe();
   }, []);
 
   const signUp = async (email: string, password: string, displayName: string) => {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: window.location.origin,
-        data: { display_name: displayName },
-      },
-    });
-    return { error };
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const fbUser = userCredential.user;
+
+      await updateProfile(fbUser, { displayName });
+
+      // Save profile to Firestore
+      await setDoc(doc(db, 'profiles', fbUser.uid), {
+        id: fbUser.uid,
+        display_name: displayName,
+        email: email,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      });
+
+      const appUser: AppUser = {
+        id: fbUser.uid,
+        uid: fbUser.uid,
+        email: fbUser.email,
+        displayName,
+        user_metadata: { display_name: displayName },
+      };
+      setUser(appUser);
+      return { error: null };
+    } catch (error: any) {
+      return { error };
+    }
   };
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    return { error };
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      return { error: null };
+    } catch (error: any) {
+      return { error };
+    }
   };
 
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    return { error };
+    try {
+      await fbSignOut(auth);
+      return { error: null };
+    } catch (error: any) {
+      return { error };
+    }
   };
 
-  return { user, session, loading, signUp, signIn, signOut };
+  return { user, session: user ? { user } : null, loading, signUp, signIn, signOut };
 }

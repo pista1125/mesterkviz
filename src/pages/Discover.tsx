@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import {
   Dialog,
@@ -22,10 +21,10 @@ import { Switch } from "@/components/ui/switch";
 import { Play, Search, Loader2, ArrowLeft, CopyPlus, Settings2, Ghost } from 'lucide-react';
 import type { Quiz } from '@/types/quiz';
 import { generateRoomCode } from '@/types/quiz';
+import { getPublishedQuizzes, getAllProfiles, saveQuiz, createRoom } from '@/services/db';
 
 type PublicQuiz = Quiz & {
   profiles?: { display_name: string | null } | null;
-  // Supabase might return an array if relation is 1:N but here teacher_id -> profiles is N:1
 };
 
 const Discover = () => {
@@ -54,20 +53,29 @@ const Discover = () => {
     if (!user) return;
 
     const fetchPublicQuizzes = async () => {
-      // Fetch published quizzes not authored by the current user
-      const { data, error } = await supabase
-        .from('quizzes')
-        .select('*, profiles!teacher_id(display_name)')
-        .eq('is_published', true)
-        .neq('teacher_id', user.id)
-        .order('updated_at', { ascending: false });
+      try {
+        const [published, profilesMap] = await Promise.all([
+          getPublishedQuizzes(),
+          getAllProfiles(),
+        ]);
 
-      if (error) {
-        toast.error('Hiba a kvízek betöltésekor: ' + error.message);
-      } else if (data) {
-        setQuizzes(data as any[]);
+        // Filter out quizzes created by current user
+        const otherQuizzes = published
+          .filter((q) => q.teacher_id !== user.id)
+          .map((q) => ({
+            ...q,
+            profiles: {
+              display_name: profilesMap[q.teacher_id]?.display_name || 'Tanár',
+            },
+          }));
+
+        setQuizzes(otherQuizzes);
+      } catch (err: any) {
+        console.error('Error fetching public quizzes:', err);
+        toast.error('Hiba a kvízek betöltésekor: ' + err.message);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     fetchPublicQuizzes();
@@ -80,25 +88,20 @@ const Discover = () => {
     setCopying(quiz.id);
     const { id, created_at, updated_at, is_published, published_at, teacher_id, profiles, ...clonedData } = quiz;
     
-    // Set current user as new teacher, and make it private by default
-    const newQuiz = {
-      ...clonedData,
-      teacher_id: user.id,
-      is_published: false,
-      title: `${quiz.title} (Másolat)`
-    };
-
-    const { data, error } = await supabase.from('quizzes').insert(newQuiz).select('id').single();
-    
-    setCopying(null);
-    if (error) {
-      toast.error('Hiba a másoláskor: ' + error.message);
-    } else {
+    try {
+      const newQuizId = await saveQuiz({
+        ...clonedData,
+        teacher_id: user.id,
+        is_published: false,
+        title: `${quiz.title} (Másolat)`,
+      });
+      
+      setCopying(null);
       toast.success('Kvíz sikeresen a sajátjaid közé másolva!');
-      // Navigate to edit the new quiz
-      if (data?.id) {
-        navigate(`/quiz/${data.id}/edit`);
-      }
+      navigate(`/quiz/${newQuizId}/edit`);
+    } catch (err: any) {
+      setCopying(null);
+      toast.error('Hiba a másoláskor: ' + err.message);
     }
   };
 
@@ -106,51 +109,38 @@ const Discover = () => {
     if (!user || !quickStartQuiz) return;
 
     setStarting(true);
-    let code = generateRoomCode();
-    let retries = 0;
+    const code = generateRoomCode();
 
-    while (retries < 5) {
-      const { error } = await supabase.from('rooms').insert({
+    try {
+      const newRoomId = await createRoom({
         teacher_id: user.id,
         quiz_id: quickStartQuiz.id,
         code,
         class_name: quickStartQuiz.grade_level || '',
         grade: quickStartQuiz.grade_level || '',
+        notes: '',
         control_mode: controlMode,
         game_mode: gameMode,
         game_duration_seconds: gameDuration,
+        submarine_boosts: 0,
         time_limit_seconds: timeLimit,
         show_results_to_students: showResults,
         status: 'waiting',
         current_question_index: 0,
+        session_number: 1,
+        started_at: null,
+        ended_at: null,
+        created_at: new Date().toISOString(),
       });
 
-      if (!error) {
-        toast.success(`Szoba létrehozva! Kód: ${code}`);
-        const { data: room } = await supabase
-          .from('rooms')
-          .select('id')
-          .eq('code', code)
-          .single();
-        if (room) {
-          navigate(`/room/${room.id}`);
-        }
-        setStarting(false);
-        setQuickStartQuiz(null);
-        return;
-      }
-
-      if (error.code === '23505') {
-        code = generateRoomCode();
-        retries++;
-      } else {
-        toast.error('Hiba az indításkor: ' + error.message);
-        setStarting(false);
-        return;
-      }
+      toast.success(`Szoba létrehozva! Kód: ${code}`);
+      setStarting(false);
+      setQuickStartQuiz(null);
+      navigate(`/room/${newRoomId}`);
+    } catch (err: any) {
+      toast.error('Hiba az indításkor: ' + err.message);
+      setStarting(false);
     }
-    toast.error('Nem sikerült egyedi kódot generálni.');
-    setStarting(false);
   };
 
   const filteredQuizzes = quizzes.filter((q) => {

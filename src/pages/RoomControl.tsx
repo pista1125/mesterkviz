@@ -5,10 +5,20 @@ import { Navbar } from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Play, Square, SkipForward, Copy, Users, ArrowLeft, CheckCircle2, XCircle, Trophy, BarChart3, RefreshCw, Monitor } from 'lucide-react';
+import { Play, Square, SkipForward, Copy, Users, ArrowLeft, CheckCircle2, Trophy, BarChart3, RefreshCw, Monitor } from 'lucide-react';
 import type { Room, Quiz, QuizQuestion, RoomParticipant, QuizAnswer } from '@/types/quiz';
+import {
+  getRoomById,
+  getQuizById,
+  getRoomParticipants,
+  getRoomAnswers,
+  subscribeToRoom,
+  subscribeToParticipants,
+  subscribeToAnswers,
+  updateRoom,
+  updateParticipant,
+} from '@/services/db';
 
 const RoomControl = () => {
   const { id } = useParams();
@@ -24,33 +34,31 @@ const RoomControl = () => {
   const fetchRoomData = useCallback(async () => {
     if (!id || !user) return;
 
-    const { data: roomData } = await supabase
-      .from('rooms')
-      .select('*')
-      .eq('id', id)
-      .single();
+    try {
+      const roomData = await getRoomById(id);
+      if (!roomData) {
+        toast.error('Szoba nem található');
+        navigate('/dashboard');
+        return;
+      }
 
-    if (!roomData) {
-      toast.error('Szoba nem található');
-      navigate('/dashboard');
-      return;
+      setRoom(roomData);
+
+      const [quizData, partData, ansData] = await Promise.all([
+        getQuizById(roomData.quiz_id),
+        getRoomParticipants(id),
+        getRoomAnswers(id, roomData.session_number),
+      ]);
+
+      if (quizData) setQuiz(quizData);
+      if (partData) setParticipants(partData);
+      if (ansData) setAnswers(ansData);
+    } catch (err: any) {
+      console.error('Error fetching room control data:', err);
+      toast.error('Hiba az adatok betöltésekor');
+    } finally {
+      setLoading(false);
     }
-
-    const rm = roomData as unknown as Room;
-    setRoom(rm);
-
-    const [quizRes, partRes, ansRes] = await Promise.all([
-      supabase.from('quizzes').select('*').eq('id', roomData.quiz_id).single(),
-      supabase.from('room_participants').select('*').eq('room_id', id).order('joined_at'),
-      supabase.from('quiz_answers').select('*').eq('room_id', id).eq('session_number', rm.session_number),
-    ]);
-
-    if (quizRes.data) {
-      setQuiz({ ...quizRes.data, questions: quizRes.data.questions as unknown as QuizQuestion[] } as Quiz);
-    }
-    if (partRes.data) setParticipants(partRes.data as unknown as RoomParticipant[]);
-    if (ansRes.data) setAnswers(ansRes.data as unknown as QuizAnswer[]);
-    setLoading(false);
   }, [id, user, navigate]);
 
   useEffect(() => {
@@ -65,42 +73,38 @@ const RoomControl = () => {
   useEffect(() => {
     if (!id) return;
 
-    const channel = supabase
-      .channel(`room-${id}`)
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'room_participants', filter: `room_id=eq.${id}` }, () => {
-        supabase.from('room_participants').select('*').eq('room_id', id).order('joined_at').then(({ data }) => {
-          if (data) setParticipants(data as unknown as RoomParticipant[]);
-        });
-      })
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'quiz_answers', filter: `room_id=eq.${id}` }, () => {
-        // Re-fetch only current session answers
-        if (room) {
-          supabase.from('quiz_answers').select('*').eq('room_id', id).eq('session_number', room.session_number).then(({ data }) => {
-            if (data) setAnswers(data as unknown as QuizAnswer[]);
-          });
-        }
-      })
-      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'rooms', filter: `id=eq.${id}` }, (payload) => {
-        const newRoom = payload.new as unknown as Room;
-        setRoom(newRoom);
-        // Re-fetch answers for new session if session changed
-        supabase.from('quiz_answers').select('*').eq('room_id', id).eq('session_number', newRoom.session_number).then(({ data }) => {
-          if (data) setAnswers(data as unknown as QuizAnswer[]);
-        });
-      })
-      .subscribe();
+    const unsubRoom = subscribeToRoom(id, (updatedRoom) => {
+      if (updatedRoom) setRoom(updatedRoom);
+    });
 
-    return () => { supabase.removeChannel(channel); };
+    const unsubParts = subscribeToParticipants(id, (updatedParts) => {
+      setParticipants(updatedParts);
+    });
+
+    const unsubAnswers = subscribeToAnswers(id, room?.session_number, (updatedAnswers) => {
+      setAnswers(updatedAnswers);
+    });
+
+    return () => {
+      unsubRoom();
+      unsubParts();
+      unsubAnswers();
+    };
   }, [id, room?.session_number]);
 
   const startQuiz = async () => {
     if (!room) return;
-    await supabase
-      .from('rooms')
-      .update({ status: 'active', started_at: new Date().toISOString(), current_question_index: 0 })
-      .eq('id', room.id);
-    setShowLeaderboard(false);
-    toast.success('Kvíz elindítva!');
+    try {
+      await updateRoom(room.id, {
+        status: 'active',
+        started_at: new Date().toISOString(),
+        current_question_index: 0,
+      });
+      setShowLeaderboard(false);
+      toast.success('Kvíz elindítva!');
+    } catch (err: any) {
+      toast.error('Hiba az indításkor: ' + err.message);
+    }
   };
 
   const nextQuestion = async () => {
@@ -110,39 +114,49 @@ const RoomControl = () => {
       await endQuiz();
       return;
     }
-    await supabase
-      .from('rooms')
-      .update({ current_question_index: nextIndex })
-      .eq('id', room.id);
-    setShowLeaderboard(false);
+    try {
+      await updateRoom(room.id, { current_question_index: nextIndex });
+      setShowLeaderboard(false);
+    } catch (err: any) {
+      toast.error('Hiba a kérdésváltáskor: ' + err.message);
+    }
   };
 
   const endQuiz = async () => {
     if (!room) return;
-    await supabase
-      .from('rooms')
-      .update({ status: 'completed', ended_at: new Date().toISOString() })
-      .eq('id', room.id);
-    toast.success('Kvíz befejezve!');
+    try {
+      await updateRoom(room.id, {
+        status: 'completed',
+        ended_at: new Date().toISOString(),
+      });
+      toast.success('Kvíz befejezve!');
+    } catch (err: any) {
+      toast.error('Hiba a leállításkor: ' + err.message);
+    }
   };
 
   const restartRoom = async () => {
     if (!room) return;
     const newSession = (room.session_number || 1) + 1;
-    // Deactivate old participants instead of deleting
-    await supabase.from('room_participants').update({ is_active: false }).eq('room_id', room.id);
-    // Reset room state with incremented session number
-    await supabase.from('rooms').update({
-      status: 'waiting',
-      current_question_index: 0,
-      started_at: null,
-      ended_at: null,
-      session_number: newSession,
-    }).eq('id', room.id);
-    setAnswers([]);
-    setParticipants([]);
-    setShowLeaderboard(false);
-    toast.success('Szoba újraindítva! A diákok újra csatlakozhatnak.');
+    try {
+      for (const p of participants) {
+        await updateParticipant(p.id, { is_active: false });
+      }
+
+      await updateRoom(room.id, {
+        status: 'waiting',
+        current_question_index: 0,
+        started_at: null,
+        ended_at: null,
+        session_number: newSession,
+      });
+      setAnswers([]);
+      setParticipants([]);
+      setShowLeaderboard(false);
+      toast.success('Szoba újraindítva! A diákok újra csatlakozhatnak.');
+    } catch (err: any) {
+      toast.error('Hiba az újraindításkor: ' + err.message);
+    }
   };
 
   const copyCode = () => {
@@ -176,7 +190,6 @@ const RoomControl = () => {
   if (!room || !quiz) return null;
 
   const currentQuestion: QuizQuestion | undefined = quiz.questions[room.current_question_index];
-  const answersForCurrentQ = answers.filter((a) => a.question_index === room.current_question_index);
   const totalParticipants = participants.filter((p) => p.is_active).length;
   const leaderboard = getLeaderboard();
 
@@ -327,7 +340,6 @@ const RoomControl = () => {
                       })}
                     </div>
                   )}
-
                 </CardContent>
               </Card>
             )}

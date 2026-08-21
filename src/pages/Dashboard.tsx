@@ -6,11 +6,22 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Plus, Play, Trash2, Edit, Copy, Users, Brain, Search, RefreshCw, Settings2, Loader2, AlertTriangle, ArrowUpDown } from 'lucide-react';
 import type { Quiz, Room } from '@/types/quiz';
 import { generateRoomCode } from '@/types/quiz';
+import {
+  getTeacherQuizzes,
+  getTeacherRooms,
+  deleteQuiz as removeQuizFromDb,
+  createRoom,
+  updateRoom,
+  getRoomById,
+  deleteParticipant,
+  getRoomParticipants,
+} from '@/services/db';
+import { doc, deleteDoc } from 'firebase/firestore';
+import { db } from '@/integrations/firebase/config';
 import {
   Dialog,
   DialogContent,
@@ -57,33 +68,41 @@ const Dashboard = () => {
     if (!user) return;
 
     const fetchData = async () => {
-      const [quizRes, roomRes] = await Promise.all([
-        supabase.from('quizzes').select('*').eq('teacher_id', user.id).order('updated_at', { ascending: false }),
-        supabase.from('rooms').select('*, quizzes(title)').eq('teacher_id', user.id).order('created_at', { ascending: false }),
-      ]);
+      try {
+        const [fetchedQuizzes, fetchedRooms] = await Promise.all([
+          getTeacherQuizzes(user.id),
+          getTeacherRooms(user.id),
+        ]);
 
-      if (quizRes.data) {
-        setQuizzes(quizRes.data.map((q: any) => ({ ...q, questions: q.questions as any })));
-      }
-      if (roomRes.data) {
-        setRooms(roomRes.data.map((r: any) => ({
+        setQuizzes(fetchedQuizzes);
+
+        // Map quiz titles to rooms
+        const quizMap = new Map(fetchedQuizzes.map((q) => [q.id, q.title]));
+        const mappedRooms = fetchedRooms.map((r) => ({
           ...r,
-          quiz_title: r.quizzes?.title || 'Ismeretlen kvíz',
-        })));
+          quiz_title: quizMap.get(r.quiz_id) || 'Ismeretlen kvíz',
+        }));
+        // Sort rooms by created_at desc
+        mappedRooms.sort((a, b) => (b.created_at || '').localeCompare(a.created_at || ''));
+        setRooms(mappedRooms);
+      } catch (err: any) {
+        console.error('Error fetching dashboard data:', err);
+        toast.error('Hiba az adatok betöltésekor: ' + err.message);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     fetchData();
   }, [user]);
 
   const deleteQuiz = async (id: string) => {
-    const { error } = await supabase.from('quizzes').delete().eq('id', id);
-    if (error) {
-      toast.error('Hiba a törléskor: ' + error.message);
-    } else {
+    try {
+      await removeQuizFromDb(id);
       setQuizzes((prev) => prev.filter((q) => q.id !== id));
       toast.success('Kvíz törölve');
+    } catch (error: any) {
+      toast.error('Hiba a törléskor: ' + error.message);
     }
   };
 
@@ -96,39 +115,51 @@ const Dashboard = () => {
     const room = rooms.find((r) => r.id === roomId);
     if (!room) return;
     const newSession = ((room as any).session_number || 1) + 1;
-    await supabase.from('room_participants').update({ is_active: false }).eq('room_id', roomId);
-    await supabase.from('rooms').update({
-      status: 'waiting',
-      current_question_index: 0,
-      started_at: null,
-      ended_at: null,
-      session_number: newSession,
-    }).eq('id', roomId);
-    setRooms((prev) => prev.map((r) => r.id === roomId ? { ...r, status: 'waiting' as const } : r));
-    toast.success('Szoba újraindítva!');
+    
+    try {
+      const participants = await getRoomParticipants(roomId);
+      for (const p of participants) {
+        await deleteDoc(doc(db, 'room_participants', p.id));
+      }
+
+      await updateRoom(roomId, {
+        status: 'waiting',
+        current_question_index: 0,
+        started_at: null,
+        ended_at: null,
+        session_number: newSession,
+      });
+
+      setRooms((prev) => prev.map((r) => r.id === roomId ? { ...r, status: 'waiting' as const } : r));
+      toast.success('Szoba újraindítva!');
+    } catch (err: any) {
+      toast.error('Hiba az újraindításkor: ' + err.message);
+    }
   };
 
   const deleteRoom = async (id: string) => {
     if (!confirm('Biztosan törlöd ezt a szobát? Az összes kapcsolódó eredmény is törlődni fog.')) return;
 
-    const { error } = await supabase.from('rooms').delete().eq('id', id);
-    if (error) {
-      toast.error('Hiba a törléskor');
-    } else {
+    try {
+      await deleteDoc(doc(db, 'rooms', id));
       setRooms((prev) => prev.filter((r) => r.id !== id));
       toast.success('Szoba törölve');
+    } catch (error: any) {
+      toast.error('Hiba a törléskor');
     }
   };
 
   const deleteAllRooms = async () => {
     if (!confirm('Biztosan törlöd az ÖSSZES szobádat? Ez a művelet nem vonható vissza!')) return;
 
-    const { error } = await supabase.from('rooms').delete().eq('teacher_id', user?.id);
-    if (error) {
-      toast.error('Hiba a tömeges törléskor');
-    } else {
+    try {
+      for (const r of rooms) {
+        await deleteDoc(doc(db, 'rooms', r.id));
+      }
       setRooms([]);
       toast.success('Az összes szoba törölve');
+    } catch (error: any) {
+      toast.error('Hiba a tömeges törléskor');
     }
   };
 
@@ -136,51 +167,38 @@ const Dashboard = () => {
     if (!user || !quickStartQuiz) return;
 
     setStarting(true);
-    let code = generateRoomCode();
-    let retries = 0;
+    const code = generateRoomCode();
 
-    while (retries < 5) {
-      const { error } = await supabase.from('rooms').insert({
+    try {
+      const newRoomId = await createRoom({
         teacher_id: user.id,
         quiz_id: quickStartQuiz.id,
         code,
         class_name: quickStartQuiz.grade_level || '',
         grade: quickStartQuiz.grade_level || '',
+        notes: '',
         control_mode: controlMode,
         game_mode: gameMode,
         game_duration_seconds: gameDuration,
+        submarine_boosts: 0,
         time_limit_seconds: timeLimit,
         show_results_to_students: showResults,
         status: 'waiting',
         current_question_index: 0,
+        session_number: 1,
+        started_at: null,
+        ended_at: null,
+        created_at: new Date().toISOString(),
       });
 
-      if (!error) {
-        toast.success(`Szoba létrehozva! Kód: ${code}`);
-        const { data: room } = await supabase
-          .from('rooms')
-          .select('id')
-          .eq('code', code)
-          .single();
-        if (room) {
-          navigate(`/room/${room.id}`);
-        }
-        setStarting(false);
-        setQuickStartQuiz(null);
-        return;
-      }
-
-      if (error.code === '23505') {
-        code = generateRoomCode();
-        retries++;
-      } else {
-        toast.error('Hiba az indításkor: ' + error.message);
-        setStarting(false);
-        return;
-      }
+      toast.success(`Szoba létrehozva! Kód: ${code}`);
+      setStarting(false);
+      setQuickStartQuiz(null);
+      navigate(`/room/${newRoomId}`);
+    } catch (err: any) {
+      toast.error('Hiba az indításkor: ' + err.message);
+      setStarting(false);
     }
-    toast.error('Nem sikerült egyedi kódot generálni.');
-    setStarting(false);
   };
 
   const handleGradeChange = (grade: string | null) => {
@@ -198,14 +216,9 @@ const Dashboard = () => {
   ).sort((a, b) => a.localeCompare(b, 'hu', { numeric: true }));
 
   const filteredQuizzes = quizzes.filter((q) => {
-    // Grade filter
     if (selectedGrade && q.grade_level !== selectedGrade) return false;
-
-    // Topic filter
     const quizTopic = (q as any).topic || 'Általános / Nincs témakör';
     if (selectedTopic && quizTopic !== selectedTopic) return false;
-
-    // Search query filter
     if (!searchQuery) return true;
     const query = searchQuery.toLowerCase();
     return (

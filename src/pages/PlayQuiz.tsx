@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Clock, CheckCircle2, Users, Send, Trophy, Smile, Zap, BarChart3 } from 'lucide-react';
 import type { Room, Quiz, QuizQuestion, RoomParticipant, AvatarData, QuizAnswer } from '@/types/quiz';
@@ -12,6 +11,17 @@ import { Avatar } from '@/components/quiz/Avatar';
 import { AvatarSelector } from '@/components/quiz/AvatarSelector';
 import { ReactionButton } from '@/components/quiz/ReactionButton';
 import { MathRenderer } from '@/components/quiz/MathRenderer';
+import {
+  getRoomById,
+  getQuizById,
+  getRoomParticipants,
+  getRoomAnswers,
+  subscribeToRoom,
+  subscribeToParticipants,
+  updateRoom,
+  updateParticipant,
+  submitQuizAnswer,
+} from '@/services/db';
 import {
   Dialog,
   DialogContent,
@@ -114,35 +124,29 @@ const PlayQuiz = () => {
     if (!roomId) return;
 
     try {
-      const { data: roomData, error: roomError } = await supabase
-        .from('rooms')
-        .select('*')
-        .eq('id', roomId)
-        .single();
-
-      if (roomError || !roomData) {
+      const roomData = await getRoomById(roomId);
+      if (!roomData) {
         toast.error('Szoba nem található');
         navigate('/');
         return;
       }
 
-      const roomTyped = roomData as unknown as Room;
-      setRoom(roomTyped);
-      currentQIndexRef.current = roomTyped.current_question_index;
+      setRoom(roomData);
+      currentQIndexRef.current = roomData.current_question_index;
 
-      const [quizRes, partRes] = await Promise.all([
-        supabase.from('quizzes').select('*').eq('id', roomData.quiz_id).single(),
-        supabase.from('room_participants').select('*').eq('room_id', roomId),
+      const [quizData, partData] = await Promise.all([
+        getQuizById(roomData.quiz_id),
+        getRoomParticipants(roomId),
       ]);
 
-      if (quizRes.data) {
-        setQuiz({ ...quizRes.data, questions: quizRes.data.questions as unknown as QuizQuestion[] } as Quiz);
+      if (quizData) {
+        setQuiz(quizData);
       } else {
         toast.error('Kvíz adatok nem tölthetők be');
       }
 
-      if (partRes.data) {
-        setParticipants(partRes.data as unknown as RoomParticipant[]);
+      if (partData) {
+        setParticipants(partData);
       }
     } catch (err) {
       console.error('Error fetching room data:', err);
@@ -156,79 +160,77 @@ const PlayQuiz = () => {
   useEffect(() => {
     if (!roomId) return;
 
-    const channel = supabase
-      .channel(`play-${roomId}`)
-      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'rooms', filter: `id=eq.${roomId}` }, (payload) => {
-        const update = payload.new as Partial<Room>;
+    const unsubRoom = subscribeToRoom(roomId, (updatedRoom) => {
+      if (!updatedRoom) return;
 
-        setRoom(prev => {
-          if (!prev) return prev;
-          const updatedRoom = { ...prev, ...update } as Room;
+      setRoom(prev => {
+        if (!prev) return updatedRoom;
 
-          if (updatedRoom.current_question_index !== currentQIndexRef.current) {
-            currentQIndexRef.current = updatedRoom.current_question_index;
-            setAnswered(false);
-            setSelectedAnswer(null);
-            setTextAnswer('');
-            setAnswerCorrect(null);
-            setEarnedScore(0);
-            setQuestionStartTime(Date.now());
+        if (updatedRoom.current_question_index !== currentQIndexRef.current) {
+          currentQIndexRef.current = updatedRoom.current_question_index;
+          setAnswered(false);
+          setSelectedAnswer(null);
+          setTextAnswer('');
+          setAnswerCorrect(null);
+          setEarnedScore(0);
+          setQuestionStartTime(Date.now());
 
-            if (quiz && quiz.questions) {
-              const question = quiz.questions[updatedRoom.current_question_index];
-              if (question?.type === 'matching' && question.pairs) {
-                const leftItems = question.pairs.map(p => ({ id: p.id, text: p.left }));
-                const rightItems = question.pairs.map(p => ({ id: p.id, text: p.right }));
-                setMatchingState({
-                  leftSelected: null,
-                  rightSelected: null,
-                  completedLeft: [],
-                  completedRight: [],
-                  shuffledLeft: [...leftItems].sort(() => Math.random() - 0.5),
-                  shuffledRight: [...rightItems].sort(() => Math.random() - 0.5)
-                });
-              }
+          if (quiz && quiz.questions) {
+            const question = quiz.questions[updatedRoom.current_question_index];
+            if (question?.type === 'matching' && question.pairs) {
+              const leftItems = question.pairs.map(p => ({ id: p.id, text: p.left }));
+              const rightItems = question.pairs.map(p => ({ id: p.id, text: p.right }));
+              setMatchingState({
+                leftSelected: null,
+                rightSelected: null,
+                completedLeft: [],
+                completedRight: [],
+                shuffledLeft: [...leftItems].sort(() => Math.random() - 0.5),
+                shuffledRight: [...rightItems].sort(() => Math.random() - 0.5)
+              });
             }
           }
-
-          // Trigger countdown if status changes from 'waiting' to 'active'
-          if (prev.status === 'waiting' && updatedRoom.status === 'active') {
-            setShowStartCountdown(true);
-            setCountdownValue(3);
-            const cdInterval = setInterval(() => {
-              setCountdownValue(v => {
-                if (v <= 1) {
-                  clearInterval(cdInterval);
-                  setTimeout(() => setShowStartCountdown(false), 1000);
-                  return 0;
-                }
-                return v - 1;
-              });
-            }, 1000);
-          }
-
-          return updatedRoom;
-        });
-      })
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'room_participants', filter: `room_id=eq.${roomId}` }, (payload: any) => {
-        // Check if current participant was kicked
-        if (payload.new && payload.new.id === participantId && payload.new.is_active === false) {
-          toast.error('Ki lettél téve a szobából');
-          sessionStorage.removeItem('participant_id');
-          sessionStorage.removeItem('student_name');
-          sessionStorage.removeItem('student_avatar');
-          navigate('/join');
-          return;
         }
 
-        supabase.from('room_participants').select('*').eq('room_id', roomId).then(({ data }) => {
-          if (data) setParticipants(data as unknown as RoomParticipant[]);
-        });
-      })
-      .subscribe();
+        // Trigger countdown if status changes from 'waiting' to 'active'
+        if (prev.status === 'waiting' && updatedRoom.status === 'active') {
+          setShowStartCountdown(true);
+          setCountdownValue(3);
+          const cdInterval = setInterval(() => {
+            setCountdownValue(v => {
+              if (v <= 1) {
+                clearInterval(cdInterval);
+                setTimeout(() => setShowStartCountdown(false), 1000);
+                return 0;
+              }
+              return v - 1;
+            });
+          }, 1000);
+        }
 
-    return () => { supabase.removeChannel(channel); };
-  }, [roomId]);
+        return updatedRoom;
+      });
+    });
+
+    const unsubParts = subscribeToParticipants(roomId, (updatedParts) => {
+      // Check if current participant was kicked
+      const currentParticipant = updatedParts.find(p => p.id === participantId);
+      if (currentParticipant && currentParticipant.is_active === false) {
+        toast.error('Ki lettél téve a szobából');
+        sessionStorage.removeItem('participant_id');
+        sessionStorage.removeItem('student_name');
+        sessionStorage.removeItem('student_avatar');
+        navigate('/join');
+        return;
+      }
+      setParticipants(updatedParts);
+    });
+
+    return () => {
+      unsubRoom();
+      unsubParts();
+    };
+  }, [roomId, participantId, quiz]);
 
   // Timer countdown
   useEffect(() => {
@@ -278,22 +280,18 @@ const PlayQuiz = () => {
   // Check if already answered this question (non-submarine only)
   useEffect(() => {
     if (!room || !participantId || room.status !== 'active') return;
-    if (room.game_mode === 'submarine') return; // submarine uses its own flow
+    if (room.game_mode === 'submarine') return;
 
     const checkExistingAnswer = async () => {
-      const { data } = await supabase
-        .from('quiz_answers')
-        .select('*')
-        .eq('participant_id', participantId)
-        .eq('question_index', room.current_question_index)
-        .eq('room_id', room.id)
-        .eq('session_number', room.session_number)
-        .maybeSingle();
+      const answers = await getRoomAnswers(room.id, room.session_number);
+      const existing = answers.find(
+        (a) => a.participant_id === participantId && a.question_index === room.current_question_index
+      );
 
-      if (data) {
+      if (existing) {
         setAnswered(true);
-        setAnswerCorrect(data.is_correct);
-        setEarnedScore((data as any).score || 0);
+        setAnswerCorrect(existing.is_correct);
+        setEarnedScore((existing as any).score || 0);
       }
     };
     checkExistingAnswer();
@@ -304,12 +302,16 @@ const PlayQuiz = () => {
     if (!room || room.status !== 'completed' || !roomId) return;
 
     const fetchCompletedData = async () => {
-      const [ansRes, partRes] = await Promise.all([
-        supabase.from('quiz_answers').select('*').eq('room_id', roomId).eq('session_number', room.session_number),
-        supabase.from('room_participants').select('*').eq('room_id', roomId).eq('is_active', true),
-      ]);
-      if (ansRes.data) setCompletedAnswers(ansRes.data as unknown as QuizAnswer[]);
-      if (partRes.data) setParticipants(partRes.data as unknown as RoomParticipant[]);
+      try {
+        const [ansData, partData] = await Promise.all([
+          getRoomAnswers(roomId, room.session_number),
+          getRoomParticipants(roomId),
+        ]);
+        setCompletedAnswers(ansData);
+        setParticipants(partData.filter(p => p.is_active));
+      } catch (e) {
+        console.error('Error fetching completed answers:', e);
+      }
     };
     fetchCompletedData();
 
@@ -330,22 +332,20 @@ const PlayQuiz = () => {
   const handleSubmarineBoost = async () => {
     if (!room || !roomId) return;
     
-    // Increment boost in DB
-    const { error } = await supabase.rpc('increment_submarine_boost', { room_uuid: roomId });
-    
-    // If RPC doesn't exist, fallback to regular update (not atomic but better than nothing)
-    if (error) {
-      await supabase.from('rooms')
-        .update({ submarine_boosts: (room.submarine_boosts || 0) + 1 })
-        .eq('id', roomId);
-    }
+    try {
+      await updateRoom(roomId, {
+        submarine_boosts: (room.submarine_boosts || 0) + 1,
+      });
 
-    setSubmarineCorrectStore(0);
-    setShowBoostButton(false);
-    toast.success('🚀 TENGERALATTJÁRÓ FELGYORSÍTVA!', {
-      icon: '🚀',
-      duration: 2000
-    });
+      setSubmarineCorrectStore(0);
+      setShowBoostButton(false);
+      toast.success('🚀 TENGERALATTJÁRÓ FELGYORSÍTVA!', {
+        icon: '🚀',
+        duration: 2000
+      });
+    } catch (e) {
+      console.error('Error boosting submarine:', e);
+    }
   };
 
   const submitAnswer = async (optionId?: string) => {
@@ -385,18 +385,18 @@ const PlayQuiz = () => {
       ? (isCorrect ? 1000 : 0)
       : calculateScore(isCorrect, timeTaken, timeLimitMs);
 
-    const { error } = await supabase.from('quiz_answers').insert({
-      room_id: room.id,
-      participant_id: participantId,
-      question_index: dbQuestionIndex,
-      answer: JSON.parse(JSON.stringify(answerData)),
-      is_correct: isCorrect,
-      time_taken_ms: timeTaken,
-      score,
-      session_number: room.session_number,
-    } as any);
-
-    if (error) {
+    try {
+      await submitQuizAnswer({
+        room_id: room.id,
+        participant_id: participantId,
+        question_index: dbQuestionIndex,
+        answer: answerData,
+        is_correct: isCorrect,
+        time_taken_ms: timeTaken,
+        score,
+        session_number: room.session_number,
+      });
+    } catch (error) {
       toast.error('Hiba a válasz elküldésekor');
       return;
     }
@@ -476,20 +476,15 @@ const PlayQuiz = () => {
   const handleAvatarUpdate = async (newAvatar: AvatarData) => {
     if (!participantId) return;
 
-    const { error } = await supabase
-      .from('room_participants')
-      .update({ avatar: newAvatar } as any)
-      .eq('id', participantId);
-
-    if (error) {
+    try {
+      await updateParticipant(participantId, { avatar: newAvatar });
+      setCurrentAvatar(newAvatar);
+      sessionStorage.setItem('student_avatar', JSON.stringify(newAvatar));
+      setIsEditingAvatar(false);
+      toast.success('Avatár frissítve!');
+    } catch (error) {
       toast.error('Hiba az avatár frissítésekor');
-      return;
     }
-
-    setCurrentAvatar(newAvatar);
-    sessionStorage.setItem('student_avatar', JSON.stringify(newAvatar));
-    setIsEditingAvatar(false);
-    toast.success('Avatár frissítve!');
   };
 
   if (loading) {

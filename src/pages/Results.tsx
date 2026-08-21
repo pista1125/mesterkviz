@@ -7,11 +7,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { supabase } from '@/integrations/supabase/client';
 import { ArrowLeft, Download, Trophy, CheckCircle2, History } from 'lucide-react';
 import { Avatar } from '@/components/quiz/Avatar';
 import { Podium } from '@/components/quiz/Podium';
 import type { Room, Quiz, QuizQuestion, RoomParticipant, QuizAnswer } from '@/types/quiz';
+import { getRoomById, getQuizById, getRoomParticipants, getRoomAnswers } from '@/services/db';
 
 const Results = () => {
   const { roomId } = useParams();
@@ -28,28 +28,27 @@ const Results = () => {
     if (!roomId) return;
 
     const fetchData = async () => {
-      const { data: roomData } = await supabase
-        .from('rooms')
-        .select('*')
-        .eq('id', roomId)
-        .single();
+      try {
+        const roomData = await getRoomById(roomId);
+        if (!roomData) { navigate('/'); return; }
 
-      if (!roomData) { navigate('/'); return; }
+        setRoom(roomData);
+        setSelectedSession(roomData.session_number);
 
-      const rm = roomData as unknown as Room;
-      setRoom(rm);
-      setSelectedSession(rm.session_number);
+        const [quizData, partData, ansData] = await Promise.all([
+          getQuizById(roomData.quiz_id),
+          getRoomParticipants(roomId),
+          getRoomAnswers(roomId),
+        ]);
 
-      const [quizRes, partRes, ansRes] = await Promise.all([
-        supabase.from('quizzes').select('*').eq('id', roomData.quiz_id).single(),
-        supabase.from('room_participants').select('*').eq('room_id', roomId).order('joined_at'),
-        supabase.from('quiz_answers').select('*').eq('room_id', roomId).order('answered_at'),
-      ]);
-
-      if (quizRes.data) setQuiz({ ...quizRes.data, questions: quizRes.data.questions as unknown as QuizQuestion[] } as Quiz);
-      if (partRes.data) setAllParticipants(partRes.data as unknown as RoomParticipant[]);
-      if (ansRes.data) setAllAnswers(ansRes.data as unknown as QuizAnswer[]);
-      setLoading(false);
+        if (quizData) setQuiz(quizData);
+        if (partData) setAllParticipants(partData);
+        if (ansData) setAllAnswers(ansData);
+      } catch (err: any) {
+        console.error('Error fetching results:', err);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchData();
