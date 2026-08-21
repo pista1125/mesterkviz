@@ -11,6 +11,7 @@ import { toast } from 'sonner';
 import type { QuizQuestion } from '@/types/quiz';
 import { ANSWER_COLORS } from '@/types/quiz';
 import { MathRenderer } from '@/components/quiz/MathRenderer';
+import { GripVertical, Trash2, Image, X, Link, Upload, Plus } from 'lucide-react';
 
 interface QuestionEditorProps {
   question: QuizQuestion;
