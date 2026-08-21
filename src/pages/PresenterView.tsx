@@ -510,7 +510,7 @@ const PresenterView = () => {
               {currentQuestion.type === 'true-false' && (
                 <div className="grid gap-4 sm:grid-cols-2 py-4">
                   {['Igaz', 'Hamis'].map((text, i) => {
-                    const opt = currentQuestion.options.find(o => o.text === text);
+                    const opt = (currentQuestion.options || []).find(o => o.text === text);
                     const isCorrect = opt?.isCorrect;
                     const showCorrect = showResults;
 

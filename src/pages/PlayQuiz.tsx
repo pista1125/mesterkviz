@@ -363,7 +363,7 @@ const PlayQuiz = () => {
     let answerData: Record<string, unknown> = {};
 
     if ((question.type === 'multiple-choice' || question.type === 'true-false') && optionId) {
-      const selectedOption = question.options.find((o) => o.id === optionId);
+      const selectedOption = (question.options || []).find((o) => o.id === optionId);
       isCorrect = selectedOption?.isCorrect || false;
       answerData = { selectedOptionId: optionId };
       setSelectedAnswer(optionId);
@@ -650,7 +650,7 @@ const PlayQuiz = () => {
                 )}
                 {!answerCorrect && question.type === 'multiple-choice' && (
                   <div className="mt-2 text-sm italic opacity-90">
-                    A helyes válasz: <MathRenderer text={question.options.find(o => o.isCorrect)?.text || ''} className="inline-block" />
+                    A helyes válasz: <MathRenderer text={(question.options || []).find(o => o.isCorrect)?.text || ''} className="inline-block" />
                   </div>
                 )}
                 {earnedScore > 0 && (
@@ -827,13 +827,13 @@ const PlayQuiz = () => {
                   whileTap={!answered ? { scale: 0.98 } : {}}
                   onClick={() => {
                     if (answered) return;
-                    const opt = question.options.find(o => o.text === 'Igaz');
+                    const opt = (question.options || []).find(o => o.text === 'Igaz');
                     if (opt) submitAnswer(opt.id);
                     else toast.error('Hiba: Igaz válaszlehetőség nem található');
                   }}
                   disabled={answered}
                   className={`flex-1 max-w-sm h-32 rounded-2xl text-2xl font-bold text-primary-foreground transition-all bg-quiz-blue ${answered
-                    ? selectedAnswer === question.options.find(o => o.text === 'Igaz')?.id
+                    ? selectedAnswer === (question.options || []).find(o => o.text === 'Igaz')?.id
                       ? 'ring-4 ring-foreground/30'
                       : 'opacity-50'
                     : 'hover:brightness-110 active:brightness-90'
@@ -846,13 +846,13 @@ const PlayQuiz = () => {
                   whileTap={!answered ? { scale: 0.98 } : {}}
                   onClick={() => {
                     if (answered) return;
-                    const opt = question.options.find(o => o.text === 'Hamis');
+                    const opt = (question.options || []).find(o => o.text === 'Hamis');
                     if (opt) submitAnswer(opt.id);
                     else toast.error('Hiba: Hamis válaszlehetőség nem található');
                   }}
                   disabled={answered}
                   className={`flex-1 max-w-sm h-32 rounded-2xl text-2xl font-bold text-primary-foreground transition-all bg-quiz-red ${answered
-                    ? selectedAnswer === question.options.find(o => o.text === 'Hamis')?.id
+                    ? selectedAnswer === (question.options || []).find(o => o.text === 'Hamis')?.id
                       ? 'ring-4 ring-foreground/30'
                       : 'opacity-50'
                     : 'hover:brightness-110 active:brightness-90'

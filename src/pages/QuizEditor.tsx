@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/dialog";
 import { Plus, Save, ArrowLeft, Brain, Sparkles, Loader2, Search, Menu, X, ChevronRight, Hash, Trash2, AlertTriangle } from 'lucide-react';
 import type { QuizQuestion, Quiz } from '@/types/quiz';
-import { createEmptyQuestion } from '@/types/quiz';
+import { createEmptyQuestion, normalizeQuestion } from '@/types/quiz';
 
 const QuizEditor = () => {
   const { id } = useParams();
@@ -173,11 +173,11 @@ const QuizEditor = () => {
       if (data.title && !title) setTitle(data.title);
       if (data.description && !description) setDescription(data.description);
  
-      let newQuestions = JSON.parse(JSON.stringify(data.questions)) as QuizQuestion[];
+      let newQuestions = (data.questions || []).map(normalizeQuestion);
  
       // Shuffle multiple-choice options because AI puts correct answer first
       newQuestions = newQuestions.map(q => {
-        if (q.type === 'multiple-choice' && q.options) {
+        if (q.type === 'multiple-choice' && q.options && q.options.length > 0) {
           return {
             ...q,
             options: shuffleArray(q.options)
@@ -187,15 +187,19 @@ const QuizEditor = () => {
       });
 
       // If we only have one empty question, replace it. Otherwise append.
-      if (questions.length === 1 && !questions[0].text.trim() && questions[0].options.every(o => !o.text.trim())) {
+      if (
+        questions.length === 1 &&
+        !questions[0].text.trim() &&
+        (questions[0].options || []).every(o => !o.text.trim())
+      ) {
         setQuestions(newQuestions);
       } else {
         setQuestions([...questions, ...newQuestions]);
       }
 
       toast.success('AI generált kérdések hozzáadva!');
-    } catch (e) {
-      toast.error('Váratlan hiba történt');
+    } catch (e: any) {
+      toast.error(e?.message || 'Váratlan hiba történt');
     } finally {
       setGenerating(false);
     }

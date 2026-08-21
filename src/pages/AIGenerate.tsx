@@ -11,6 +11,8 @@ import { ArrowLeft, Brain, Sparkles, Loader2 } from 'lucide-react';
 import { requestGenerateQuiz } from '@/services/ai';
 import { saveQuiz } from '@/services/db';
 
+import { normalizeQuestion } from '@/types/quiz';
+
 const AIGenerate = () => {
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
@@ -44,15 +46,17 @@ const AIGenerate = () => {
         includeTrueFalse,
       });
 
+      const normalizedQuestions = (data.questions || []).map(normalizeQuestion);
+
       // Save quiz to Firestore database
       await saveQuiz({
         teacher_id: user.id,
-        title: data.title,
-        description: data.description,
+        title: data.title || `${topic.trim()} kvíz`,
+        description: data.description || '',
         subject,
         topic: topic.trim(),
         grade_level: gradeLevel,
-        questions: data.questions,
+        questions: normalizedQuestions,
         is_published: false,
       });
 

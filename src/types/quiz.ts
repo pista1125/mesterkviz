@@ -110,6 +110,53 @@ export const createEmptyQuestion = (): QuizQuestion => ({
   timeLimit: 15,
 });
 
+// Helper to normalize any partial / AI-generated question
+export const normalizeQuestion = (q: Partial<QuizQuestion>): QuizQuestion => {
+  const type = q.type || 'multiple-choice';
+  let options = Array.isArray(q.options) ? q.options.map(o => ({
+    id: o.id || crypto.randomUUID(),
+    text: o.text || '',
+    isCorrect: !!o.isCorrect,
+  })) : [];
+  let pairs = Array.isArray(q.pairs) ? q.pairs.map(p => ({
+    id: p.id || crypto.randomUUID(),
+    left: p.left || '',
+    right: p.right || '',
+  })) : [];
+
+  if (type === 'true-false') {
+    if (options.length !== 2 || !options.some(o => o.text === 'Igaz')) {
+      const isTrueCorrect = q.correctAnswer?.toLowerCase().includes('igaz') ||
+                            options.find(o => o.isCorrect)?.text === 'Igaz' ||
+                            true;
+      options = [
+        { id: crypto.randomUUID(), text: 'Igaz', isCorrect: isTrueCorrect },
+        { id: crypto.randomUUID(), text: 'Hamis', isCorrect: !isTrueCorrect },
+      ];
+    }
+  } else if (type === 'multiple-choice') {
+    if (options.length === 0) {
+      options = [
+        { id: crypto.randomUUID(), text: '', isCorrect: true },
+        { id: crypto.randomUUID(), text: '', isCorrect: false },
+        { id: crypto.randomUUID(), text: '', isCorrect: false },
+        { id: crypto.randomUUID(), text: '', isCorrect: false },
+      ];
+    }
+  }
+
+  return {
+    id: q.id || crypto.randomUUID(),
+    type,
+    text: q.text || '',
+    imageUrl: q.imageUrl || '',
+    options,
+    correctAnswer: q.correctAnswer || '',
+    pairs,
+    timeLimit: q.timeLimit || 15,
+  };
+};
+
 // Generate a 6-digit room code
 export const generateRoomCode = (): string => {
   return Math.floor(100000 + Math.random() * 900000).toString();

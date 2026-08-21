@@ -91,7 +91,7 @@ const Results = () => {
     const rows = sessionAnswers.map((ans) => {
       const participant = allParticipants.find((p) => p.id === ans.participant_id);
       const question = quiz?.questions[ans.question_index];
-      const answerText = (ans.answer as any)?.text || question?.options.find((o: any) => o.id === (ans.answer as any)?.selectedOptionId)?.text || '';
+      const answerText = (ans.answer as any)?.text || (question?.options || []).find((o: any) => o.id === (ans.answer as any)?.selectedOptionId)?.text || '';
       return [
         participant?.student_name || '',
         ans.question_index + 1,

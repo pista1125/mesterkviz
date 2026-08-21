@@ -29,13 +29,13 @@ export function QuestionEditor({ question, index, onChange, onDelete }: Question
   };
 
   const updateOption = (optionIndex: number, text: string) => {
-    const newOptions = [...question.options];
+    const newOptions = [...(question.options || [])];
     newOptions[optionIndex] = { ...newOptions[optionIndex], text };
     updateQuestion({ options: newOptions });
   };
 
   const setCorrectOption = (optionId: string) => {
-    const newOptions = question.options.map((opt) => ({
+    const newOptions = (question.options || []).map((opt) => ({
       ...opt,
       isCorrect: opt.id === optionId,
     }));
@@ -43,20 +43,22 @@ export function QuestionEditor({ question, index, onChange, onDelete }: Question
   };
 
   const addOption = () => {
-    if (question.options.length >= 6) return;
+    const opts = question.options || [];
+    if (opts.length >= 6) return;
     updateQuestion({
       options: [
-        ...question.options,
+        ...opts,
         { id: crypto.randomUUID(), text: '', isCorrect: false },
       ],
     });
   };
 
   const removeOption = (optionIndex: number) => {
-    if (question.options.length <= 2) return;
-    const newOptions = question.options.filter((_, i) => i !== optionIndex);
+    const opts = question.options || [];
+    if (opts.length <= 2) return;
+    const newOptions = opts.filter((_, i) => i !== optionIndex);
     if (!newOptions.some((o) => o.isCorrect)) {
-      newOptions[0].isCorrect = true;
+      if (newOptions[0]) newOptions[0].isCorrect = true;
     }
     updateQuestion({ options: newOptions });
   };
@@ -91,7 +93,8 @@ export function QuestionEditor({ question, index, onChange, onDelete }: Question
     setImageMode('none');
   };
 
-  const correctOptionId = question.options.find((o) => o.isCorrect)?.id || '';
+  const optionsList = question.options || [];
+  const correctOptionId = optionsList.find((o) => o.isCorrect)?.id || '';
 
   return (
     <Card className="border-l-4 border-l-primary">
@@ -281,7 +284,7 @@ export function QuestionEditor({ question, index, onChange, onDelete }: Question
             <Label>Helyes válasz kiválasztása</Label>
             <div className="flex gap-4">
               <Button
-                variant={question.options.find(o => o.text === 'Igaz')?.isCorrect ? 'default' : 'outline'}
+                variant={(question.options || []).find(o => o.text === 'Igaz')?.isCorrect ? 'default' : 'outline'}
                 className="flex-1 h-14 text-lg font-bold"
                 onClick={() => {
                   const options = [
@@ -294,7 +297,7 @@ export function QuestionEditor({ question, index, onChange, onDelete }: Question
                 Igaz
               </Button>
               <Button
-                variant={question.options.find(o => o.text === 'Hamis')?.isCorrect ? 'default' : 'outline'}
+                variant={(question.options || []).find(o => o.text === 'Hamis')?.isCorrect ? 'default' : 'outline'}
                 className="flex-1 h-14 text-lg font-bold"
                 onClick={() => {
                   const options = [
@@ -308,7 +311,7 @@ export function QuestionEditor({ question, index, onChange, onDelete }: Question
               </Button>
             </div>
             {/* Initialize options if not present or incorrect type */}
-            {(!question.options || question.options.length !== 2 || !['Igaz', 'Hamis'].includes(question.options[0].text)) && (
+            {(!question.options || question.options.length !== 2 || !['Igaz', 'Hamis'].includes(question.options[0]?.text || '')) && (
               <div className="text-xs text-muted-foreground italic">
                 Kérlek válassz egyet a fenti lehetőségek közül az inicializáláshoz.
               </div>
