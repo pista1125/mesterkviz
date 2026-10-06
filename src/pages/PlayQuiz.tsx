@@ -500,7 +500,10 @@ const PlayQuiz = () => {
       <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4 text-center">
         <h2 className="text-xl font-bold mb-2">Hiba történt</h2>
         <p className="text-muted-foreground mb-4">Nem sikerült betölteni a szoba vagy a kvíz adatait.</p>
-        <Button onClick={() => navigate('/')}>Vissza a főoldalra</Button>
+        <div className="flex gap-3">
+          <Button variant="outline" onClick={() => { setLoading(true); fetchRoomData(); }}>Újrapróbálás</Button>
+          <Button onClick={() => navigate('/')}>Vissza a főoldalra</Button>
+        </div>
       </div>
     );
   }
