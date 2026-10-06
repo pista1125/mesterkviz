@@ -66,13 +66,18 @@ export const SubmarineGame: React.FC<SubmarineGameProps> = ({ room, participants
   const gameProgress = Math.min(100, (elapsedTime / totalDuration) * 100);
   
   // Visual positions (0 to 100% of viewport width)
-  // Submarine stays in a steady position on the right
-  const subPos = 75; 
-  // Shark approaches from the left based on safety distance
-  // If safety is 60m (max), shark is far away (diff of ~50%)
-  // If safety is 0m, shark is touching the sub
-  const safetyOffset = (currentSafety / 120) * 50; 
-  const sharkPos = Math.max(5, subPos - 15 - safetyOffset);
+  // Submarine stays in a steady position on the right (width: 20%)
+  const subPos = 70; 
+  // Submarine visible tail (propeller) starts at subPos + 2%
+  // Shark width is 35%, visible mouth/snout (eleje) reaches sharkPos + 33.5%
+  // When distance runs out (currentSafety === 0m), the front of the shark meets the back of the submarine:
+  // sharkTouchPos + 33.5% = subPos + 2% => sharkTouchPos = (70 + 2) - 33.5 = 38.5%
+  const sharkTouchPos = (subPos + 2) - 33.5;
+  const baseDistance = 120;
+  const maxSafetyOffset = 35;
+  const safetyRatio = Math.max(0, currentSafety / baseDistance);
+  const safetyOffset = safetyRatio * maxSafetyOffset;
+  const sharkPos = Math.max(-5, sharkTouchPos - safetyOffset);
 
   return (
     <div className="relative h-[600px] w-full overflow-hidden rounded-3xl bg-slate-900 shadow-2xl ring-4 ring-slate-800">
@@ -146,7 +151,6 @@ export const SubmarineGame: React.FC<SubmarineGameProps> = ({ room, participants
           }}
           style={{ 
             width: '35%', 
-            maxWidth: '500px'
           }}
         >
           <img 
@@ -175,7 +179,6 @@ export const SubmarineGame: React.FC<SubmarineGameProps> = ({ room, participants
           }}
           style={{ 
             width: '20%', 
-            maxWidth: '280px'
           }}
         >
           <div className="relative">
