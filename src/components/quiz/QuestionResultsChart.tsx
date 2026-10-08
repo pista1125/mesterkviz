@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { motion, AnimatePresence } from 'framer-motion';
+import { CheckCircle2 } from 'lucide-react';
 import type { QuizQuestion, QuizAnswer } from '@/types/quiz';
 import { MathRenderer } from './MathRenderer';
 
@@ -20,6 +21,164 @@ const COLORS = [
 ];
 
 const ICON_MAP = ['▲', '◆', '●', '■', '★', '♦'];
+
+const TextInputResults: React.FC<{
+  question: QuizQuestion;
+  answers: QuizAnswer[];
+}> = ({ question, answers }) => {
+  const [isRevealed, setIsRevealed] = useState(false);
+
+  useEffect(() => {
+    setIsRevealed(false);
+    const timer = setTimeout(() => {
+      setIsRevealed(true);
+    }, 2200);
+
+    return () => clearTimeout(timer);
+  }, [question.id]);
+
+  // Group case-insensitively while preserving original text
+  const countsMap = new Map<string, { display: string; count: number }>();
+  answers.forEach((a) => {
+    const rawVal = ((a.answer as any)?.text || '').trim();
+    if (!rawVal) return;
+    const lower = rawVal.toLowerCase();
+    if (countsMap.has(lower)) {
+      countsMap.get(lower)!.count += 1;
+    } else {
+      countsMap.set(lower, { display: rawVal, count: 1 });
+    }
+  });
+
+  const normalizedCorrect = (question.correctAnswer || '').trim().toLowerCase();
+
+  const data = Array.from(countsMap.values())
+    .map((item) => ({
+      text: item.display,
+      count: item.count,
+      isCorrect: item.display.trim().toLowerCase() === normalizedCorrect,
+    }))
+    .sort((a, b) => b.count - a.count);
+
+  const hasCorrectAnswerInSubmissions = data.some((d) => d.isCorrect);
+
+  return (
+    <div className="bg-card rounded-2xl p-6 shadow-md border border-border/50 bg-gradient-to-b from-card to-muted/10">
+      <div className="flex items-center justify-between mb-6">
+        <h3 className="text-sm font-bold font-display text-muted-foreground uppercase tracking-wider">
+          Szöveges válaszok
+        </h3>
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary font-bold text-xs uppercase tracking-tight">
+          {answers.length} diák válaszolt
+        </span>
+      </div>
+
+      {data.length === 0 ? (
+        <div className="py-8 text-center text-muted-foreground">
+          <p className="text-base font-medium">Nem érkezett beküldött válasz.</p>
+          {isRevealed && question.correctAnswer && (
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-quiz-green/10 border border-quiz-green/30 text-quiz-green font-bold"
+            >
+              <span>A helyes válasz:</span>
+              <MathRenderer text={question.correctAnswer} />
+            </motion.div>
+          )}
+        </div>
+      ) : (
+        <>
+          <div className="flex flex-wrap items-center justify-center gap-4 py-2">
+            {data.map((item, i) => {
+              const isItemCorrect = item.isCorrect;
+              return (
+                <motion.div
+                  key={item.text}
+                  layout
+                  initial={{ opacity: 0, scale: 0.8, y: 15 }}
+                  animate={{
+                    opacity: isRevealed ? (isItemCorrect ? 1 : 0.3) : 1,
+                    scale: isRevealed ? (isItemCorrect ? 1.08 : 0.95) : 1,
+                    y: 0,
+                  }}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 350,
+                    damping: 24,
+                    delay: isRevealed ? (isItemCorrect ? 0.05 : 0) : i * 0.05,
+                  }}
+                  className={`relative flex min-w-[150px] max-w-[280px] flex-col items-center justify-center rounded-2xl px-6 py-5 shadow-md border-2 transition-all duration-500 ${
+                    isRevealed && isItemCorrect
+                      ? 'bg-quiz-green/15 border-quiz-green text-foreground shadow-[0_0_25px_rgba(34,197,94,0.35)] ring-4 ring-quiz-green/20'
+                      : isRevealed
+                      ? 'bg-card/40 border-border/40 text-muted-foreground'
+                      : 'bg-card border-border/80 hover:border-primary/40 text-card-foreground'
+                  }`}
+                >
+                  {/* Top-right count badge */}
+                  <div
+                    className={`absolute -top-3 -right-3 flex h-7 min-w-7 items-center justify-center rounded-full px-2 text-xs font-black shadow-lg transition-all duration-300 ${
+                      isRevealed && isItemCorrect
+                        ? 'bg-quiz-green text-white scale-110 shadow-quiz-green/40'
+                        : 'bg-primary text-primary-foreground'
+                    }`}
+                  >
+                    {item.count}
+                  </div>
+
+                  {/* Answer content */}
+                  <div className="flex flex-col items-center justify-center gap-1.5 w-full">
+                    <div
+                      className={`text-xl md:text-2xl font-bold tracking-tight text-center break-words max-w-full ${
+                        isRevealed && isItemCorrect ? 'text-quiz-green font-black' : ''
+                      }`}
+                    >
+                      <MathRenderer text={item.text} />
+                    </div>
+
+                    {/* Animated green checkmark badge */}
+                    <AnimatePresence>
+                      {isRevealed && isItemCorrect && (
+                        <motion.div
+                          initial={{ scale: 0, rotate: -45, opacity: 0 }}
+                          animate={{ scale: 1, rotate: 0, opacity: 1 }}
+                          transition={{ type: 'spring', stiffness: 450, damping: 15 }}
+                          className="flex items-center gap-1 text-quiz-green font-extrabold text-sm mt-1"
+                        >
+                          <CheckCircle2 className="h-5 w-5 text-quiz-green" />
+                          <span>Helyes</span>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Reveal banner when nobody answered correctly */}
+          <AnimatePresence>
+            {isRevealed && !hasCorrectAnswerInSubmissions && question.correctAnswer && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                className="mt-6 flex flex-col items-center justify-center p-4 rounded-2xl bg-quiz-green/10 border-2 border-quiz-green/40 shadow-sm max-w-md mx-auto text-center"
+              >
+                <span className="text-xs uppercase font-extrabold tracking-wider text-quiz-green mb-1">
+                  A helyes válasz
+                </span>
+                <div className="text-2xl font-black text-foreground">
+                  <MathRenderer text={question.correctAnswer} />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </>
+      )}
+    </div>
+  );
+};
 
 export const QuestionResultsChart: React.FC<QuestionResultsChartProps> = ({
   question,
@@ -112,57 +271,7 @@ export const QuestionResultsChart: React.FC<QuestionResultsChartProps> = ({
           </div>
         </div>
       ) : question.type === 'text-input' ? (
-        <div className="bg-card rounded-xl p-4 shadow-md border border-border/50">
-          <h3 className="text-sm font-bold text-center mb-4 font-display text-muted-foreground uppercase tracking-wider">Szöveges válaszok</h3>
-          <div className="space-y-3">
-            {(() => {
-              const counts: Record<string, number> = {};
-              answers.forEach((a) => {
-                const val = ((a.answer as any).text || '').trim();
-                if (val) counts[val] = (counts[val] || 0) + 1;
-              });
-
-              const data = Object.entries(counts)
-                .map(([text, count]) => ({
-                  text,
-                  count,
-                  isCorrect: text.toLowerCase() === (question.correctAnswer || '').toLowerCase(),
-                }))
-                .sort((a, b) => b.count - a.count)
-                .slice(0, 5);
-
-              if (data.length === 0) return <p className="text-center text-muted-foreground py-4 text-sm">Nincsenek válaszok</p>;
-
-              const maxCount = Math.max(...data.map(d => d.count));
-
-              return data.map((item, i) => (
-                <motion.div 
-                  key={i} 
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="relative"
-                >
-                  <div className="flex justify-between items-center mb-0.5 px-1 text-xs">
-                    <span className="font-bold flex items-center gap-1.5">
-                      <MathRenderer text={item.text} />
-                      {item.isCorrect && <span className="text-quiz-green font-black">✓</span>}
-                    </span>
-                    <span className="font-black text-primary">{item.count}</span>
-                  </div>
-                  <div className="h-4 w-full bg-muted rounded-full overflow-hidden border border-border/50">
-                    <motion.div 
-                      initial={{ width: 0 }}
-                      animate={{ width: `${(item.count / maxCount) * 100}%` }}
-                      transition={{ duration: 0.8, ease: "easeOut" }}
-                      className={`h-full ${item.isCorrect ? 'bg-quiz-green shadow-[0_0_8px_rgba(34,197,94,0.3)]' : 'bg-primary/70'}`}
-                    />
-                  </div>
-                </motion.div>
-              ));
-            })()}
-          </div>
-        </div>
+        <TextInputResults question={question} answers={answers} />
       ) : question.type === 'matching' ? (
         <div className="bg-card rounded-xl p-4 shadow-md border border-border/50 max-w-sm mx-auto">
           <h3 className="text-sm font-bold text-center mb-3 font-display text-muted-foreground uppercase tracking-wider">Párosítás sikere</h3>

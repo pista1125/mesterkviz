@@ -448,26 +448,14 @@ const PresenterView = () => {
                 </div>
               )}
 
-              {/* Text Input Answer */}
-              {currentQuestion.type === 'text-input' && (
-                <div className="flex flex-col items-center justify-center space-y-4 py-6">
-                  <div className="relative w-full max-w-lg overflow-hidden rounded-2xl bg-card p-8 shadow-inner border-2 border-dashed border-muted-foreground/20">
-                    <p className="text-center text-muted-foreground mb-4">A válasz helye</p>
-                    <AnimatePresence>
-                      {showResults && (
-                        <motion.div
-                          initial={{ y: 20, opacity: 0 }}
-                          animate={{ y: 0, opacity: 1 }}
-                          className="flex flex-col items-center gap-4"
-                        >
-                          <Badge className="bg-quiz-green hover:bg-quiz-green py-1 px-4 text-lg">Helyes válasz</Badge>
-                          <div className="text-4xl font-black text-primary">
-                            <MathRenderer text={currentQuestion.correctAnswer || ''} />
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+              {/* Text Input Waiting State */}
+              {currentQuestion.type === 'text-input' && !showResults && (
+                <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
+                  <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-3 shadow-inner">
+                    <span className="text-2xl animate-pulse">✍️</span>
                   </div>
+                  <p className="font-semibold text-lg text-foreground/80">A diákok válaszolnak...</p>
+                  <p className="text-xs text-muted-foreground mt-1">A beküldött válaszok az idő lejárta után jelennek meg</p>
                 </div>
               )}
 
