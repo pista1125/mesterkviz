@@ -225,16 +225,20 @@ const PresenterView = () => {
   const showResults = timer === 0 || allAnswered;
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col bg-background relative overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/40 via-background to-[#030712]">
+      {/* Ambient glowing blobs for premium game show aesthetic */}
+      <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-500/15 blur-[140px] rounded-full" />
+      <div className="pointer-events-none absolute -bottom-32 -right-32 w-[600px] h-[450px] bg-indigo-600/10 blur-[130px] rounded-full" />
+
       {/* Top bar */}
-      <div className="flex items-center justify-between border-b bg-card px-4 py-2">
+      <div className="flex items-center justify-between border-b border-border/70 bg-card/85 backdrop-blur-md px-4 py-2.5 z-10 shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="font-display text-2xl font-black tracking-widest text-primary">{room.code}</div>
+          <div className="font-display text-2xl font-black tracking-widest text-primary drop-shadow-[0_0_15px_rgba(37,99,235,0.4)]">{room.code}</div>
           <Badge variant={room.status === 'active' ? 'default' : 'outline'}>
             {room.status === 'waiting' ? 'Várakozik' : room.status === 'active' ? 'Aktív' : 'Befejezett'}
           </Badge>
-          <div className="flex items-center gap-1 text-sm text-muted-foreground">
-            <Users className="h-4 w-4" />
+          <div className="flex items-center gap-1.5 text-sm text-muted-foreground font-semibold">
+            <Users className="h-4 w-4 text-secondary" />
             {totalParticipants}
           </div>
         </div>
@@ -380,27 +384,27 @@ const PresenterView = () => {
               <motion.div key={`q-${room.current_question_index}`} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="w-full max-w-4xl">
               {/* Timer and progress */}
               <div className="mb-4 flex items-center justify-between">
-                <span className="font-display text-lg text-muted-foreground">
+                <span className="font-display text-lg text-blue-200/90 font-bold">
                   {room.current_question_index + 1} / {quiz.questions.length}
                 </span>
-                <div className={`flex items-center gap-2 font-display text-3xl font-bold ${timer <= 5 ? 'text-destructive animate-pulse' : 'text-foreground'}`}>
-                  <Clock className="h-7 w-7" /> {timer}s
+                <div className={`flex items-center gap-2 font-display text-3xl font-black ${timer <= 5 ? 'text-destructive animate-pulse' : 'text-foreground'}`}>
+                  <Clock className="h-7 w-7 text-secondary" /> {timer}s
                 </div>
-                <span className="text-sm text-muted-foreground">
+                <span className="text-sm text-blue-200/80 font-semibold">
                   {answersForCurrentQ.length}/{totalParticipants} válaszolt
                 </span>
               </div>
 
               {/* Question */}
-              <div className="mb-4 rounded-2xl bg-card p-6 text-center shadow-lg border border-border/50">
-                <h2 className="font-display text-xl font-bold text-card-foreground md:text-3xl">
+              <div className="mb-6 rounded-2xl bg-card/95 backdrop-blur-md p-6 text-center shadow-2xl border border-primary/20">
+                <h2 className="font-display text-xl font-bold text-card-foreground md:text-3xl leading-snug">
                   <MathRenderer text={currentQuestion.text} />
                 </h2>
                 {currentQuestion.imageUrl && (
                   <img
                     src={currentQuestion.imageUrl}
                     alt="Kérdés kép"
-                    className="mx-auto mt-6 max-h-64 rounded-xl object-contain"
+                    className="mx-auto mt-6 max-h-64 rounded-xl object-contain shadow-md"
                   />
                 )}
               </div>
@@ -529,24 +533,28 @@ const PresenterView = () => {
           )}
 
           {room.status === 'completed' && (
-            <motion.div key="completed" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full">
-              <h2 className="font-display text-4xl font-black mb-12 text-center">Kvíz befejezve!</h2>
+            <motion.div key="completed" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full max-w-4xl mx-auto flex flex-col items-center justify-center py-1 sm:py-2">
+              <div className="text-center mb-2 sm:mb-4">
+                <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-black text-white drop-shadow-sm">
+                  Kvíz befejezve!
+                </h2>
+              </div>
               {leaderboard.length > 0 ? (
                 <Podium winners={leaderboard.slice(0, 3) as any} />
               ) : (
-                <div className="text-center">
-                  <Trophy className="mx-auto mb-6 h-24 w-24 text-accent opacity-20" />
-                  <p className="text-xl text-muted-foreground">Nincsenek eredmények</p>
+                <div className="text-center py-8">
+                  <Trophy className="mx-auto mb-4 h-16 w-16 text-accent opacity-20" />
+                  <p className="text-lg text-muted-foreground">Nincsenek eredmények</p>
                 </div>
               )}
               <AnimatePresence>
                 {showRanglistaCompleted && (
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mt-8 flex justify-center"
+                    className="mt-3 sm:mt-5 flex justify-center"
                   >
-                    <Button size="lg" className="font-bold" onClick={() => navigate(`/results/${room.id}`)}>
+                    <Button size="lg" className="font-bold shadow-lg" onClick={() => navigate(`/results/${room.id}`)}>
                       <BarChart3 className="mr-2 h-5 w-5" />
                       Ranglista megtekintése
                     </Button>

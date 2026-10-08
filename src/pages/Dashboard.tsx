@@ -278,12 +278,15 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/30 via-background to-[#030712]">
+      {/* Ambient glowing blobs */}
+      <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[450px] bg-blue-500/10 blur-[140px] rounded-full" />
+      <div className="pointer-events-none absolute top-1/3 -right-32 w-[500px] h-[400px] bg-indigo-600/10 blur-[130px] rounded-full" />
       <Navbar />
-      <div className="container mx-auto px-4 py-8">
+      <div className="container relative z-10 mx-auto px-4 py-8">
         {/* Top Header Row */}
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-          <h1 className="font-display text-2xl font-bold text-foreground">Vezérlőpult</h1>
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+          <h1 className="font-display text-3xl font-extrabold tracking-tight text-foreground drop-shadow-sm">Vezérlőpult</h1>
           <div className="flex flex-wrap items-center gap-2">
             <Button size="sm" asChild>
               <Link to="/quiz/new">

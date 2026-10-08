@@ -512,9 +512,9 @@ const PlayQuiz = () => {
     // Waiting Room
     if (room.status === 'waiting') {
       return (
-        <div className="flex flex-1 flex-col items-center justify-center bg-gradient-to-br from-primary/20 via-background to-secondary/20 p-4">
+        <div className="flex flex-1 flex-col items-center justify-center p-4 z-10">
           <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary shadow-lg shadow-primary/30">
               <Zap className="h-8 w-8 text-primary-foreground" />
             </div>
             <h1 className="font-display text-3xl font-bold text-foreground">Várakozás...</h1>
@@ -547,25 +547,25 @@ const PlayQuiz = () => {
     if (room.status === 'completed') {
       const leaderboard = getLeaderboard();
       return (
-        <div className="flex flex-1 flex-col items-center justify-center bg-gradient-to-br from-quiz-green/20 via-background to-primary/10 p-4">
-          <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="w-full max-w-4xl">
-            <h1 className="font-display text-3xl font-bold text-center mb-6">Kvíz vége!</h1>
+        <div className="flex flex-1 flex-col items-center justify-center p-2 sm:p-4 z-10 w-full">
+          <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="w-full max-w-3xl flex flex-col items-center">
+            <h1 className="font-display text-2xl sm:text-3xl font-black text-center mb-2 sm:mb-4 text-white">Kvíz vége!</h1>
             {leaderboard.length > 0 ? (
               <Podium winners={leaderboard.slice(0, 3) as any} />
             ) : (
-              <div className="text-center py-12">
-                <Trophy className="mx-auto mb-4 h-16 w-16 text-accent opacity-30" />
-                <p className="text-muted-foreground">Nincsenek eredmények</p>
+              <div className="text-center py-8">
+                <Trophy className="mx-auto mb-3 h-14 w-14 text-accent opacity-30" />
+                <p className="text-muted-foreground text-sm">Nincsenek eredmények</p>
               </div>
             )}
             <AnimatePresence>
               {showRanglistaBtn && (
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mt-8 flex flex-col items-center gap-3"
+                  className="mt-3 sm:mt-5 flex flex-col items-center gap-2"
                 >
-                  <Button size="lg" className="font-bold" onClick={() => navigate(`/results/${room.id}`)}>
+                  <Button size="lg" className="font-bold shadow-lg" onClick={() => navigate(`/results/${room.id}`)}>
                     <BarChart3 className="mr-2 h-5 w-5" />
                     Ranglista megtekintése
                   </Button>
@@ -622,15 +622,15 @@ const PlayQuiz = () => {
             exit={{ opacity: 0, x: -50 }}
             className="flex flex-1 flex-col"
           >
-            <div className="mb-6 rounded-xl bg-card p-6 text-center shadow-sm">
-              <h2 className="font-display text-xl font-bold text-card-foreground md:text-2xl">
+            <div className="mb-6 rounded-2xl bg-card/95 backdrop-blur-md p-6 text-center shadow-xl border border-primary/20">
+              <h2 className="font-display text-xl font-bold text-card-foreground md:text-2xl leading-snug">
                 <MathRenderer text={question.text} />
               </h2>
               {question.imageUrl && (
                 <img
                   src={question.imageUrl}
                   alt="Kérdés kép"
-                  className="mx-auto mt-4 max-h-48 rounded-lg object-contain"
+                  className="mx-auto mt-4 max-h-48 rounded-xl object-contain shadow-md"
                 />
               )}
             </div>
@@ -872,10 +872,13 @@ const PlayQuiz = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
-      {/* Top Bar - Only in active or completed(?) rooms, or show always? */}
-      {/* We'll show a modified top bar for waiting state too for consistency */}
-      <div className="flex items-center justify-between border-b bg-card px-4 py-3">
+    <div className="flex min-h-screen flex-col bg-background relative overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/40 via-background to-[#030712]">
+      {/* Ambient glowing blobs */}
+      <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[450px] bg-blue-500/15 blur-[130px] rounded-full" />
+      <div className="pointer-events-none absolute -bottom-32 -left-32 w-[500px] h-[400px] bg-indigo-600/10 blur-[120px] rounded-full" />
+
+      {/* Top Bar */}
+      <div className="flex items-center justify-between border-b border-border/70 bg-card/85 backdrop-blur-md px-4 py-3 z-10 shadow-sm">
         {room.status === 'active' ? (
           <>
             <div className="text-sm text-muted-foreground">

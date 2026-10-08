@@ -130,9 +130,12 @@ const Results = () => {
   if (!room || !quiz) return null;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/30 via-background to-[#030712]">
+      {/* Ambient glowing blobs */}
+      <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[450px] bg-blue-500/10 blur-[140px] rounded-full" />
+      <div className="pointer-events-none absolute top-1/3 -right-32 w-[500px] h-[400px] bg-indigo-600/10 blur-[130px] rounded-full" />
       <Navbar />
-      <div className="container mx-auto px-4 py-8">
+      <div className="container relative z-10 mx-auto px-4 py-8">
         <div className="mb-6 flex items-center gap-4">
           <Button variant="ghost" size="sm" onClick={() => navigate(isTeacher ? '/dashboard' : '/')}>
             <ArrowLeft className="mr-1 h-4 w-4" />
@@ -181,7 +184,7 @@ const Results = () => {
 
         {/* Top 3 Podium */}
         {currentSessionResults.length > 0 && (
-          <div className="mb-12">
+          <div className="mb-8">
             <Podium winners={currentSessionResults.slice(0, 3) as any} />
           </div>
         )}

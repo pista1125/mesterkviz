@@ -18,7 +18,7 @@ export function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 border-b bg-card/80 backdrop-blur-md">
+    <nav className="sticky top-0 z-50 border-b border-border/70 bg-card/85 backdrop-blur-md shadow-sm">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-background border p-1 border-primary/20 shadow-sm overflow-hidden">

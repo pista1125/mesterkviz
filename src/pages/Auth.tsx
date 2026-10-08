@@ -58,10 +58,13 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/30 via-background to-[#030712]">
+      {/* Ambient glowing blobs */}
+      <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[450px] bg-blue-500/10 blur-[140px] rounded-full" />
+      <div className="pointer-events-none absolute top-1/3 -right-32 w-[500px] h-[400px] bg-indigo-600/10 blur-[130px] rounded-full" />
       <Navbar />
-      <div className="container mx-auto flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-8">
-        <Card className="w-full max-w-md shadow-lg">
+      <div className="container relative z-10 mx-auto flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-8">
+        <Card className="w-full max-w-md shadow-2xl border-border/80">
           <CardHeader className="text-center">
             <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-background border p-1.5 border-primary/20 shadow-sm overflow-hidden">
               <img src="/favicon.ico" alt="KvízMester" className="h-full w-full object-contain" />

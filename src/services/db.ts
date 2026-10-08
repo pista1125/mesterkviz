@@ -48,6 +48,37 @@ export const getPublishedQuizzes = async (): Promise<Quiz[]> => {
   return items.sort((a, b) => (b.created_at || '').localeCompare(a.created_at || ''));
 };
 
+export const getAllTopicsByGrade = async (): Promise<Record<string, string[]>> => {
+  try {
+    const snap = await getDocs(collection(db, 'quizzes'));
+    const gradeTopicsMap: Record<string, Set<string>> = {};
+    snap.docs.forEach((d) => {
+      const data = d.data();
+      const grade = data.grade_level;
+      const topic = data.topic;
+      if (grade && typeof grade === 'string' && topic && typeof topic === 'string') {
+        const trimmed = topic.trim();
+        if (trimmed && trimmed !== 'Általános / Nincs témakör') {
+          if (!gradeTopicsMap[grade]) {
+            gradeTopicsMap[grade] = new Set();
+          }
+          gradeTopicsMap[grade].add(trimmed);
+        }
+      }
+    });
+    const result: Record<string, string[]> = {};
+    for (const [grade, set] of Object.entries(gradeTopicsMap)) {
+      result[grade] = Array.from(set).sort((a, b) =>
+        a.localeCompare(b, 'hu', { numeric: true, sensitivity: 'base' })
+      );
+    }
+    return result;
+  } catch (err) {
+    console.error('Error fetching topics by grade:', err);
+    return {};
+  }
+};
+
 export const saveQuiz = async (quizData: Partial<Quiz> & { id?: string }): Promise<string> => {
   const now = new Date().toISOString();
   if (quizData.id) {

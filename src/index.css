@@ -6,89 +6,90 @@
 
 @layer base {
   :root {
-    --background: 260 20% 97%;
-    --foreground: 260 25% 10%;
+    /* Premium Deep Sapphire & Royal Blue game theme */
+    --background: 224 71% 7%; /* Deep Sapphire Blue #050b14 */
+    --foreground: 210 40% 98%; /* Crisp White #f8fafc */
 
-    --card: 0 0% 100%;
-    --card-foreground: 260 25% 10%;
+    --card: 224 50% 11%; /* Elevated Navy Card #0e172a */
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 260 25% 10%;
+    --popover: 224 50% 11%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 262 83% 58%;
+    --primary: 217 91% 60%; /* Vibrant Royal Blue #2563eb */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 199 89% 48%;
+    --secondary: 199 89% 48%; /* Cyan / Sky Accent #0ea5e9 */
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 260 10% 93%;
-    --muted-foreground: 260 10% 45%;
+    --muted: 224 40% 16%; /* #142038 */
+    --muted-foreground: 215 25% 68%; /* Light Slate-Blue #94a3b8 */
 
-    --accent: 25 95% 53%;
+    --accent: 25 95% 53%; /* Energy Orange #f97316 */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 260 15% 88%;
-    --input: 260 15% 88%;
-    --ring: 262 83% 58%;
+    --border: 224 35% 19%; /* #192742 */
+    --input: 224 35% 19%;
+    --ring: 217 91% 60%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 260 20% 97%;
-    --sidebar-foreground: 260 25% 10%;
-    --sidebar-primary: 262 83% 58%;
+    --sidebar-background: 224 71% 7%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 217 91% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 260 10% 93%;
-    --sidebar-accent-foreground: 260 25% 10%;
-    --sidebar-border: 260 15% 88%;
-    --sidebar-ring: 262 83% 58%;
+    --sidebar-accent: 224 40% 16%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 224 35% 19%;
+    --sidebar-ring: 217 91% 60%;
 
     /* Kahoot-style quiz answer colors */
     --quiz-red: 0 80% 55%;
-    --quiz-blue: 220 85% 55%;
+    --quiz-blue: 217 91% 60%;
     --quiz-yellow: 45 95% 50%;
     --quiz-green: 142 70% 45%;
   }
 
   .dark {
-    --background: 260 25% 8%;
-    --foreground: 260 10% 95%;
+    --background: 224 71% 7%;
+    --foreground: 210 40% 98%;
 
-    --card: 260 25% 12%;
-    --card-foreground: 260 10% 95%;
+    --card: 224 50% 11%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 260 25% 12%;
-    --popover-foreground: 260 10% 95%;
+    --popover: 224 50% 11%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 262 83% 65%;
+    --primary: 217 91% 60%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 199 89% 55%;
+    --secondary: 199 89% 48%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 260 15% 18%;
-    --muted-foreground: 260 10% 60%;
+    --muted: 224 40% 16%;
+    --muted-foreground: 215 25% 68%;
 
     --accent: 25 95% 58%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 62% 30%;
+    --destructive: 0 62% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 260 15% 20%;
-    --input: 260 15% 20%;
-    --ring: 262 83% 65%;
+    --border: 224 35% 19%;
+    --input: 224 35% 19%;
+    --ring: 217 91% 60%;
 
-    --sidebar-background: 260 25% 10%;
-    --sidebar-foreground: 260 10% 95%;
-    --sidebar-primary: 262 83% 65%;
+    --sidebar-background: 224 71% 7%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 217 91% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 260 15% 18%;
-    --sidebar-accent-foreground: 260 10% 95%;
-    --sidebar-border: 260 15% 20%;
-    --sidebar-ring: 262 83% 65%;
+    --sidebar-accent: 224 40% 16%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 224 35% 19%;
+    --sidebar-ring: 217 91% 60%;
   }
 }
 
@@ -100,6 +101,9 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Space Grotesk', sans-serif;
+    background-image: radial-gradient(ellipse 90% 60% at 50% -15%, rgba(37, 99, 235, 0.28), rgba(5, 11, 20, 0));
+    background-attachment: fixed;
+    min-height: 100vh;
   }
 
   h1, h2, h3, h4, h5, h6 {

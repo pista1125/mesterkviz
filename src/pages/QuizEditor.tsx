@@ -11,7 +11,7 @@ import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { getQuizById, saveQuiz } from '@/services/db';
+import { getQuizById, saveQuiz, getAllTopicsByGrade } from '@/services/db';
 import { requestGenerateQuiz } from '@/services/ai';
 import { toast } from 'sonner';
 import {
@@ -36,6 +36,9 @@ const QuizEditor = () => {
   const [description, setDescription] = useState('');
   const [subject, setSubject] = useState('matematika');
   const [topic, setTopic] = useState('');
+  const [isCustomTopic, setIsCustomTopic] = useState(false);
+  const [customTopicInput, setCustomTopicInput] = useState('');
+  const [topicsByGrade, setTopicsByGrade] = useState<Record<string, string[]>>({});
   const [aiPrompt, setAiPrompt] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
   const [questions, setQuestions] = useState<QuizQuestion[]>([createEmptyQuestion()]);
@@ -59,12 +62,26 @@ const QuizEditor = () => {
   }, [user, authLoading, navigate]);
 
   useEffect(() => {
+    const loadAllTopics = async () => {
+      try {
+        const data = await getAllTopicsByGrade();
+        setTopicsByGrade(data);
+      } catch (err) {
+        console.error('Failed to load topics by grade:', err);
+      }
+    };
+    loadAllTopics();
+  }, []);
+
+  useEffect(() => {
     if (!isEditing || !user) {
       // Reset form for new quiz
       setTitle('');
       setDescription('');
       setSubject('matematika');
       setTopic('');
+      setIsCustomTopic(false);
+      setCustomTopicInput('');
       setGradeLevel('');
       setQuestions([createEmptyQuestion()]);
       setIsPublished(false);
@@ -86,6 +103,8 @@ const QuizEditor = () => {
         setDescription(data.description || '');
         setSubject(data.subject || 'matematika');
         setTopic((data as any).topic || '');
+        setIsCustomTopic(false);
+        setCustomTopicInput('');
         setGradeLevel(data.grade_level || '');
         setQuestions((data.questions as unknown as QuizQuestion[]) || []);
         setIsPublished(data.is_published);
@@ -101,6 +120,29 @@ const QuizEditor = () => {
     fetchQuiz();
   }, [id, isEditing, user, navigate]);
 
+  const handleGradeChange = (newGrade: string) => {
+    setGradeLevel(newGrade);
+    setIsCustomTopic(false);
+    setCustomTopicInput('');
+
+    if (!newGrade) {
+      setTopic('');
+      return;
+    }
+
+    const newGradeTopics = topicsByGrade[newGrade] || [];
+    if (topic && !newGradeTopics.includes(topic)) {
+      setTopic('');
+    }
+  };
+
+  const availableTopics = Array.from(
+    new Set([
+      ...(gradeLevel ? (topicsByGrade[gradeLevel] || []) : []),
+      ...(gradeLevel && topic && !isCustomTopic ? [topic] : []),
+    ])
+  ).sort((a, b) => a.localeCompare(b, 'hu', { numeric: true, sensitivity: 'base' }));
+
   const handleSave = async () => {
     if (!user) return;
     if (!title.trim()) {
@@ -111,6 +153,12 @@ const QuizEditor = () => {
       toast.error('Adj hozzá legalább egy kérdést!');
       return;
     }
+    if (isCustomTopic && !customTopicInput.trim()) {
+      toast.error('Add meg az új témakör nevét, vagy válassz a listából!');
+      return;
+    }
+
+    const finalTopic = isCustomTopic ? customTopicInput.trim() : topic.trim();
 
     setSaving(true);
 
@@ -120,7 +168,7 @@ const QuizEditor = () => {
       title: title.trim(),
       description: description.trim(),
       subject,
-      topic: topic.trim(),
+      topic: finalTopic,
       grade_level: gradeLevel,
       questions: JSON.parse(JSON.stringify(questions)),
       is_published: isPublished,
@@ -131,11 +179,30 @@ const QuizEditor = () => {
       const savedId = await saveQuiz(quizData);
       setSaving(false);
       toast.success('Kvíz mentve!');
+
+      // Add to local grade topics immediately so it's cached in UI
+      if (gradeLevel && finalTopic) {
+        setTopicsByGrade((prev) => {
+          const list = prev[gradeLevel] || [];
+          if (!list.includes(finalTopic)) {
+            return {
+              ...prev,
+              [gradeLevel]: [...list, finalTopic].sort((a, b) =>
+                a.localeCompare(b, 'hu', { numeric: true, sensitivity: 'base' })
+              ),
+            };
+          }
+          return prev;
+        });
+        setTopic(finalTopic);
+      }
+
       if (!isEditing) {
         navigate('/dashboard');
       } else {
         const refreshed = await getQuizById(savedId);
         if (refreshed) setLastSaved(refreshed.updated_at);
+        setIsCustomTopic(false);
       }
     } catch (err: any) {
       setSaving(false);
@@ -539,7 +606,7 @@ const QuizEditor = () => {
                   <div className="space-y-2">
                     <Label>Tantárgy</Label>
                     <select
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
                     >
@@ -554,20 +621,14 @@ const QuizEditor = () => {
                     </select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="quiz-topic-input">Kvíz témaköre (Mentett adat)</Label>
-                    <Input
-                      id="quiz-topic-input"
-                      value={topic}
-                      onChange={(e) => setTopic(e.target.value)}
-                      placeholder="pl. Törtek, Összeadás..."
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Évfolyam</Label>
+                    <Label htmlFor="quiz-grade-select" className="flex items-center gap-1.5">
+                      Évfolyam <span className="text-primary font-semibold">*</span>
+                    </Label>
                     <select
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      id="quiz-grade-select"
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                       value={gradeLevel}
-                      onChange={(e) => setGradeLevel(e.target.value)}
+                      onChange={(e) => handleGradeChange(e.target.value)}
                     >
                       <option value="">Válassz évfolyamot...</option>
                       {[...Array(12)].map((_, i) => (
@@ -577,6 +638,144 @@ const QuizEditor = () => {
                       ))}
                       <option value="Egyéb">Egyéb</option>
                     </select>
+                  </div>
+                  <div className="space-y-2 sm:col-span-2">
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="quiz-topic-select" className="flex items-center gap-2">
+                        Kvíz témaköre
+                        {gradeLevel && (
+                          <Badge variant="secondary" className="text-xs font-normal">
+                            {gradeLevel}
+                          </Badge>
+                        )}
+                      </Label>
+                      {gradeLevel && !isCustomTopic && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setIsCustomTopic(true);
+                            setCustomTopicInput('');
+                            setTopic('');
+                          }}
+                          className="text-xs text-primary hover:underline flex items-center gap-1 font-medium transition-colors"
+                        >
+                          <Plus className="h-3.5 w-3.5" /> Új témakör rögzítése
+                        </button>
+                      )}
+                    </div>
+
+                    {!gradeLevel ? (
+                      <div>
+                        <select
+                          id="quiz-topic-select"
+                          disabled
+                          className="flex h-10 w-full rounded-md border border-input/40 bg-muted/30 px-3 py-2 text-sm text-muted-foreground cursor-not-allowed opacity-60"
+                          value=""
+                          onChange={() => {}}
+                        >
+                          <option value="">🔒 Előbb válassz évfolyamot a témakörök megjelenítéséhez...</option>
+                        </select>
+                        <p className="mt-1.5 text-xs text-muted-foreground">
+                          A választható témakörök az évfolyamhoz igazodnak. Kérlek, először válaszd ki a fenti évfolyamot!
+                        </p>
+                      </div>
+                    ) : isCustomTopic ? (
+                      <div className="rounded-xl border border-primary/40 bg-primary/5 p-4 space-y-2.5 transition-all">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-semibold text-primary flex items-center gap-1.5">
+                            <Sparkles className="h-3.5 w-3.5" />
+                            Új témakör rögzítése ({gradeLevel})
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setIsCustomTopic(false);
+                              setCustomTopicInput('');
+                              setTopic('');
+                            }}
+                            className="text-xs text-muted-foreground hover:text-foreground underline"
+                          >
+                            Vissza a meglévő témakörökhöz
+                          </button>
+                        </div>
+                        <div className="flex gap-2">
+                          <Input
+                            id="custom-topic-input"
+                            value={customTopicInput}
+                            onChange={(e) => {
+                              setCustomTopicInput(e.target.value);
+                              setTopic(e.target.value);
+                            }}
+                            placeholder={`pl. Törtek, Hatványozás, Geometria (${gradeLevel})...`}
+                            autoFocus
+                            className="bg-background border-primary/40 focus-visible:ring-primary"
+                          />
+                          <Button
+                            type="button"
+                            variant="secondary"
+                            size="sm"
+                            onClick={() => {
+                              setIsCustomTopic(false);
+                              setCustomTopicInput('');
+                              setTopic('');
+                            }}
+                          >
+                            Mégse
+                          </Button>
+                        </div>
+                        <p className="text-[11px] text-muted-foreground">
+                          Írd be a kívánt témakört! A kvíz mentésekor ez a témakör rögzítésre kerül és a jövőben választható lesz a(z) {gradeLevel} számára.
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="space-y-1.5">
+                        <select
+                          id="quiz-topic-select"
+                          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                          value={topic}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            if (val === '__NEW__') {
+                              setIsCustomTopic(true);
+                              setCustomTopicInput('');
+                              setTopic('');
+                            } else {
+                              setTopic(val);
+                            }
+                          }}
+                        >
+                          <option value="">
+                            {availableTopics.length > 0
+                              ? `-- Válassz témakört (${availableTopics.length} elérhető) --`
+                              : `-- Még nincs mentett témakör ehhez az évfolyamhoz --`}
+                          </option>
+                          {availableTopics.map((t) => (
+                            <option key={t} value={t}>
+                              {t}
+                            </option>
+                          ))}
+                          <option value="__NEW__" className="font-semibold text-primary">
+                            ➕ Új témakör rögzítése...
+                          </option>
+                        </select>
+                        {availableTopics.length === 0 && (
+                          <p className="text-xs text-muted-foreground mt-1">
+                            Ehhez az évfolyamhoz még nem rögzítettek témakört.{' '}
+                            <button
+                              type="button"
+                              className="text-primary underline font-medium"
+                              onClick={() => {
+                                setIsCustomTopic(true);
+                                setCustomTopicInput('');
+                                setTopic('');
+                              }}
+                            >
+                              Kattints ide új témakör megadásához!
+                            </button>
+                          </p>
+                        )}
+                      </div>
+                    )}
                   </div>
                   <div className="flex items-center gap-3 sm:col-span-2">
                     <Switch checked={isPublished} onCheckedChange={setIsPublished} />

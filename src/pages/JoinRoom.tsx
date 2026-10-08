@@ -82,8 +82,11 @@ const JoinRoom = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-primary/10 via-background to-secondary/10 p-4">
-      <Card className="w-full max-w-md shadow-xl">
+    <div className="flex min-h-screen items-center justify-center bg-background relative overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/30 via-background to-[#030712] p-4">
+      {/* Ambient glowing blobs */}
+      <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-blue-500/15 blur-[120px] rounded-full" />
+      <div className="pointer-events-none absolute -bottom-20 -right-20 w-[400px] h-[300px] bg-indigo-600/10 blur-[100px] rounded-full" />
+      <Card className="w-full max-w-md shadow-2xl border-border/80 relative z-10">
         <CardHeader className="text-center">
           <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-background border p-1.5 border-primary/20 shadow-sm overflow-hidden">
             <img src="/favicon.ico" alt="KvízMester" className="h-full w-full object-contain" />
