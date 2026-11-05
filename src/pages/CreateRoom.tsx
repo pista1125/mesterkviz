@@ -23,7 +23,6 @@ const CreateRoom = () => {
   const [className, setClassName] = useState('');
   const [grade, setGrade] = useState('');
   const [notes, setNotes] = useState('');
-  const [controlMode, setControlMode] = useState<'auto' | 'manual'>('auto');
   const [gameMode, setGameMode] = useState<'classic' | 'submarine'>('classic');
   const [gameDuration, setGameDuration] = useState(300); // 5 minutes in seconds
   const [timeLimit, setTimeLimit] = useState(15);
@@ -67,7 +66,7 @@ const CreateRoom = () => {
         class_name: className,
         grade,
         notes,
-        control_mode: controlMode,
+        control_mode: gameMode === 'submarine' ? 'auto' : 'manual',
         game_mode: gameMode,
         game_duration_seconds: gameDuration,
         submarine_boosts: 0,
@@ -187,29 +186,9 @@ const CreateRoom = () => {
           {/* Quiz Control */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Vezérlés</CardTitle>
+              <CardTitle className="text-lg">Játékmód</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="space-y-3">
-                <Label>Kérdésvezérlés módja</Label>
-                <RadioGroup value={controlMode} onValueChange={(v) => setControlMode(v as 'auto' | 'manual')}>
-                  <div className="flex items-center space-x-3 rounded-lg border p-3">
-                    <RadioGroupItem value="auto" id="auto" />
-                    <label htmlFor="auto" className="cursor-pointer">
-                      <div className="font-medium">Automatikus</div>
-                      <div className="text-sm text-muted-foreground">Diákok saját tempóban haladnak</div>
-                    </label>
-                  </div>
-                  <div className="flex items-center space-x-3 rounded-lg border p-3">
-                    <RadioGroupItem value="manual" id="manual" />
-                    <label htmlFor="manual" className="cursor-pointer">
-                      <div className="font-medium">Manuális</div>
-                      <div className="text-sm text-muted-foreground">Tanár vezérli a kérdésváltást</div>
-                    </label>
-                  </div>
-                </RadioGroup>
-              </div>
-
               <div className="space-y-3">
                 <Label className="text-base font-bold">Különleges játékmódok</Label>
                 <RadioGroup value={gameMode} onValueChange={(v) => setGameMode(v as 'classic' | 'submarine')}>

@@ -13,8 +13,9 @@ import { ReactionDisplay } from '@/components/quiz/ReactionDisplay';
 import { MathRenderer } from '@/components/quiz/MathRenderer';
 import { SubmarineGame } from '@/components/quiz/SubmarineGame';
 import { QuestionResultsChart } from '@/components/quiz/QuestionResultsChart';
+import { QRCodeDisplay } from '@/components/quiz/QRCodeDisplay';
 import { cn } from '@/lib/utils';
-import { MATCHING_PAIR_COLORS } from './PlayQuiz';
+import { MATCHING_PAIR_COLORS } from '@/types/quiz';
 import {
   getRoomById,
   getQuizById,
@@ -107,18 +108,34 @@ const PresenterView = () => {
     };
   }, [id, room?.session_number]);
 
+  const answersForCurrentQ = answers.filter(
+    (a) => a.question_index === room?.current_question_index && (a as any).session_number === room?.session_number
+  );
+  const totalParticipants = participants.length;
+  const allAnswered = totalParticipants > 0 && answersForCurrentQ.length >= totalParticipants;
+
   // Timer
   useEffect(() => {
     if (!room || room.status !== 'active' || !quiz || showStartCountdown) return;
+    if (allAnswered) {
+      setTimer(0);
+      return;
+    }
     const question = quiz.questions[room.current_question_index];
     if (!question) return;
     const timeLimit = question.timeLimit || room.time_limit_seconds || 15;
     setTimer(timeLimit);
     const interval = setInterval(() => {
-      setTimer((prev) => { if (prev <= 1) { clearInterval(interval); return 0; } return prev - 1; });
+      setTimer((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - 1;
+      });
     }, 1000);
     return () => clearInterval(interval);
-  }, [room?.current_question_index, room?.status, showStartCountdown]);
+  }, [room?.current_question_index, room?.status, showStartCountdown, allAnswered]);
 
   // Show Ranglista button after podium animation when completed
   useEffect(() => {
@@ -220,10 +237,7 @@ const PresenterView = () => {
   }
 
   const currentQuestion: QuizQuestion | undefined = quiz.questions[room.current_question_index];
-  const answersForCurrentQ = answers.filter((a) => a.question_index === room.current_question_index && (a as any).session_number === room.session_number);
-  const totalParticipants = participants.length;
   const leaderboard = getLeaderboard();
-  const allAnswered = totalParticipants > 0 && answersForCurrentQ.length >= totalParticipants;
   const showResults = timer === 0 || allAnswered;
 
   return (
@@ -276,9 +290,27 @@ const PresenterView = () => {
         <AnimatePresence mode="wait">
           {room.status === 'waiting' && (
             <motion.div key="waiting" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full max-w-5xl">
-              <div className="text-center mb-12">
-                <div className="font-display text-8xl font-black tracking-widest text-primary">{room.code}</div>
-                <p className="mt-4 text-2xl text-muted-foreground">Várakozás a diákokra...</p>
+              <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 mb-12 bg-card/60 backdrop-blur-md p-8 rounded-3xl border border-primary/20 shadow-2xl">
+                <div className="text-center md:text-left space-y-3">
+                  <span className="text-xs font-black uppercase tracking-widest text-muted-foreground">Csatlakozási Szobakód</span>
+                  <div className="font-display text-7xl md:text-8xl font-black tracking-widest text-primary drop-shadow-[0_0_25px_rgba(37,99,235,0.4)]">
+                    {room.code}
+                  </div>
+                  <p className="text-xl md:text-2xl text-muted-foreground font-semibold">
+                    Várakozás a diákokra...
+                  </p>
+                  <p className="text-sm text-muted-foreground/80 font-medium max-w-xs">
+                    Nyisd meg a weboldalt és írd be a kódot, vagy egyszerűen szkenneld be a QR-kódot a telefonoddal!
+                  </p>
+                </div>
+
+                <div className="shrink-0 flex flex-col items-center">
+                  <QRCodeDisplay
+                    code={room.code}
+                    size={200}
+                    subtitle="Szkenneld be a kameráddal a gyors belépéshez!"
+                  />
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 pl-4 pr-4">

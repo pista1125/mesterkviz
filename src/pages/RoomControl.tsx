@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
+import { QRCodeDisplay } from '@/components/quiz/QRCodeDisplay';
 import { Play, Square, SkipForward, Copy, Users, ArrowLeft, CheckCircle2, Trophy, BarChart3, RefreshCw, Monitor } from 'lucide-react';
 import type { Room, Quiz, QuizQuestion, RoomParticipant, QuizAnswer } from '@/types/quiz';
 import {
@@ -272,12 +273,25 @@ const RoomControl = () => {
           {/* Current Question / Leaderboard */}
           <div className="lg:col-span-2">
             {room.status === 'waiting' && (
-              <Card>
-                <CardContent className="py-16 text-center">
-                  <div className="font-display text-6xl font-black tracking-widest text-primary">{room.code}</div>
-                  <p className="mt-4 text-lg text-muted-foreground">
-                    Várakozás a diákokra... Oszd meg a szobakódot!
-                  </p>
+              <Card className="border-border/80 shadow-md overflow-hidden">
+                <CardContent className="py-10 px-6 flex flex-col md:flex-row items-center justify-around gap-8 text-center md:text-left">
+                  <div className="space-y-3 max-w-sm">
+                    <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Csatlakozási kód</span>
+                    <div className="font-display text-6xl font-black tracking-widest text-primary drop-shadow-[0_0_20px_rgba(37,99,235,0.3)]">
+                      {room.code}
+                    </div>
+                    <p className="text-base text-muted-foreground">
+                      Várakozás a diákokra... Oszd meg a szobakódot vagy mutasd fel a QR-kódot!
+                    </p>
+                  </div>
+
+                  <div className="flex flex-col items-center">
+                    <QRCodeDisplay
+                      code={room.code}
+                      size={180}
+                      subtitle="Olvasd be a kameráddal a gyors belépéshez!"
+                    />
+                  </div>
                 </CardContent>
               </Card>
             )}

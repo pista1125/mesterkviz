@@ -171,3 +171,69 @@ export const ANSWER_COLORS = [
   { bg: 'bg-quiz-yellow', hover: 'hover:bg-quiz-yellow/90', icon: '●' },
   { bg: 'bg-quiz-green', hover: 'hover:bg-quiz-green/90', icon: '■' },
 ] as const;
+
+
+export interface MatchingUserPair {
+  leftId: string;
+  rightId: string;
+  colorIndex: number;
+}
+
+export const MATCHING_PAIR_COLORS = [
+  {
+    name: 'blue',
+    bg: 'bg-blue-500/15 dark:bg-blue-500/20',
+    border: 'border-blue-500',
+    text: 'text-blue-600 dark:text-blue-400',
+    badge: 'bg-blue-600 text-white',
+    ring: 'ring-2 ring-blue-500/50',
+  },
+  {
+    name: 'emerald',
+    bg: 'bg-emerald-500/15 dark:bg-emerald-500/20',
+    border: 'border-emerald-500',
+    text: 'text-emerald-600 dark:text-emerald-400',
+    badge: 'bg-emerald-600 text-white',
+    ring: 'ring-2 ring-emerald-500/50',
+  },
+  {
+    name: 'amber',
+    bg: 'bg-amber-500/15 dark:bg-amber-500/20',
+    border: 'border-amber-500',
+    text: 'text-amber-600 dark:text-amber-400',
+    badge: 'bg-amber-600 text-white',
+    ring: 'ring-2 ring-amber-500/50',
+  },
+  {
+    name: 'purple',
+    bg: 'bg-purple-500/15 dark:bg-purple-500/20',
+    border: 'border-purple-500',
+    text: 'text-purple-600 dark:text-purple-400',
+    badge: 'bg-purple-600 text-white',
+    ring: 'ring-2 ring-purple-500/50',
+  },
+  {
+    name: 'rose',
+    bg: 'bg-rose-500/15 dark:bg-rose-500/20',
+    border: 'border-rose-500',
+    text: 'text-rose-600 dark:text-rose-400',
+    badge: 'bg-rose-600 text-white',
+    ring: 'ring-2 ring-rose-500/50',
+  },
+  {
+    name: 'cyan',
+    bg: 'bg-cyan-500/15 dark:bg-cyan-500/20',
+    border: 'border-cyan-500',
+    text: 'text-cyan-600 dark:text-cyan-400',
+    badge: 'bg-cyan-600 text-white',
+    ring: 'ring-2 ring-cyan-500/50',
+  },
+  {
+    name: 'orange',
+    bg: 'bg-orange-500/15 dark:bg-orange-500/20',
+    border: 'border-orange-500',
+    text: 'text-orange-600 dark:text-orange-400',
+    badge: 'bg-orange-600 text-white',
+    ring: 'ring-2 ring-orange-500/50',
+  },
+];

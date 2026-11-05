@@ -4,11 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import { Clock, CheckCircle2, Users, Send, Trophy, Smile, Zap, BarChart3, Sparkles, Check } from 'lucide-react';
+import { Clock, CheckCircle2, Users, Send, Trophy, Smile, Zap, BarChart3, Sparkles, Check, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { isNormalizedMatch } from '@/lib/textNormalization';
 import { requestEvaluateAnswer } from '@/services/ai';
-import type { Room, Quiz, QuizQuestion, RoomParticipant, AvatarData, QuizAnswer } from '@/types/quiz';
+import { type Room, type Quiz, type QuizQuestion, type RoomParticipant, type AvatarData, type QuizAnswer, type MatchingUserPair, MATCHING_PAIR_COLORS } from '@/types/quiz';
 import { Podium } from '@/components/quiz/Podium';
 import { Avatar } from '@/components/quiz/Avatar';
 import { AvatarSelector } from '@/components/quiz/AvatarSelector';
@@ -21,6 +21,7 @@ import {
   getRoomAnswers,
   subscribeToRoom,
   subscribeToParticipants,
+  subscribeToAnswers,
   updateRoom,
   updateParticipant,
   submitQuizAnswer,
@@ -47,70 +48,7 @@ const calculateScore = (isCorrect: boolean, timeTakenMs: number, timeLimitMs: nu
   return Math.round(100 + timeRatio * 900);
 };
 
-export interface MatchingUserPair {
-  leftId: string;
-  rightId: string;
-  colorIndex: number;
-}
 
-export const MATCHING_PAIR_COLORS = [
-  {
-    name: 'blue',
-    bg: 'bg-blue-500/15 dark:bg-blue-500/20',
-    border: 'border-blue-500',
-    text: 'text-blue-600 dark:text-blue-400',
-    badge: 'bg-blue-600 text-white',
-    ring: 'ring-2 ring-blue-500/50',
-  },
-  {
-    name: 'emerald',
-    bg: 'bg-emerald-500/15 dark:bg-emerald-500/20',
-    border: 'border-emerald-500',
-    text: 'text-emerald-600 dark:text-emerald-400',
-    badge: 'bg-emerald-600 text-white',
-    ring: 'ring-2 ring-emerald-500/50',
-  },
-  {
-    name: 'amber',
-    bg: 'bg-amber-500/15 dark:bg-amber-500/20',
-    border: 'border-amber-500',
-    text: 'text-amber-600 dark:text-amber-400',
-    badge: 'bg-amber-600 text-white',
-    ring: 'ring-2 ring-amber-500/50',
-  },
-  {
-    name: 'purple',
-    bg: 'bg-purple-500/15 dark:bg-purple-500/20',
-    border: 'border-purple-500',
-    text: 'text-purple-600 dark:text-purple-400',
-    badge: 'bg-purple-600 text-white',
-    ring: 'ring-2 ring-purple-500/50',
-  },
-  {
-    name: 'rose',
-    bg: 'bg-rose-500/15 dark:bg-rose-500/20',
-    border: 'border-rose-500',
-    text: 'text-rose-600 dark:text-rose-400',
-    badge: 'bg-rose-600 text-white',
-    ring: 'ring-2 ring-rose-500/50',
-  },
-  {
-    name: 'cyan',
-    bg: 'bg-cyan-500/15 dark:bg-cyan-500/20',
-    border: 'border-cyan-500',
-    text: 'text-cyan-600 dark:text-cyan-400',
-    badge: 'bg-cyan-600 text-white',
-    ring: 'ring-2 ring-cyan-500/50',
-  },
-  {
-    name: 'orange',
-    bg: 'bg-orange-500/15 dark:bg-orange-500/20',
-    border: 'border-orange-500',
-    text: 'text-orange-600 dark:text-orange-400',
-    badge: 'bg-orange-600 text-white',
-    ring: 'ring-2 ring-orange-500/50',
-  },
-];
 
 const PlayQuiz = () => {
   const { roomId } = useParams();
@@ -129,7 +67,9 @@ const PlayQuiz = () => {
   const [isEvaluatingAi, setIsEvaluatingAi] = useState(false);
   const [evaluationSource, setEvaluationSource] = useState<'exact' | 'normalized' | 'ai' | null>(null);
   const [aiReason, setAiReason] = useState<string | null>(null);
-  const [timer, setTimer] = useState(0);
+  const [timer, setTimer] = useState(15);
+  const [roomAnswers, setRoomAnswers] = useState<QuizAnswer[]>([]);
+  const [isTimeout, setIsTimeout] = useState(false);
   const [showStartCountdown, setShowStartCountdown] = useState(false);
   const [countdownValue, setCountdownValue] = useState(3);
   const [questionStartTime, setQuestionStartTime] = useState(0);
@@ -167,6 +107,7 @@ const PlayQuiz = () => {
   // Which slot in the queue we're currently on (monotonically increasing → unique DB key)
   const globalSubmarineAnswerIndex = useRef(0);
   const currentQIndexRef = useRef(-1);
+  const hasAnsweredRef = useRef(false);
 
   // Helper: generate a shuffled array of indices 0..n-1
   const shuffleIndices = (n: number): number[] => {
@@ -180,6 +121,16 @@ const PlayQuiz = () => {
 
   // The real quiz question to display for submarine mode
   const submarineActualQIndex = submarineQueue[0] ?? 0;
+
+  const isSubmarine = room?.game_mode === 'submarine';
+  const currentQIndex = isSubmarine ? submarineActualQIndex : (room?.current_question_index ?? 0);
+  const currentQAnswers = roomAnswers.filter(
+    (a) => a.question_index === currentQIndex && (a as any).session_number === (room?.session_number || 1)
+  );
+  const activeParticipants = participants.filter((p) => p.is_active);
+  const totalActiveParticipants = activeParticipants.length;
+  const allAnswered = totalActiveParticipants > 0 && currentQAnswers.length >= totalActiveParticipants;
+  const isRevealed = isSubmarine ? answered : (timer === 0 || allAnswered);
 
   const participantId = sessionStorage.getItem('participant_id');
   const studentName = sessionStorage.getItem('student_name');
@@ -240,7 +191,9 @@ const PlayQuiz = () => {
 
         if (updatedRoom.current_question_index !== currentQIndexRef.current) {
           currentQIndexRef.current = updatedRoom.current_question_index;
+          hasAnsweredRef.current = false;
           setAnswered(false);
+          setIsTimeout(false);
           setSelectedAnswer(null);
           setTextAnswer('');
           setAnswerCorrect(null);
@@ -252,10 +205,13 @@ const PlayQuiz = () => {
           setMatchingSummary(null);
 
           if (quiz && quiz.questions) {
-            const question = quiz.questions[updatedRoom.current_question_index];
-            if (question?.type === 'matching' && question.pairs) {
-              const leftItems = question.pairs.map(p => ({ id: p.id, text: p.left }));
-              const rightItems = question.pairs.map(p => ({ id: p.id, text: p.right }));
+            const nextQ = quiz.questions[updatedRoom.current_question_index];
+            const nextTime = nextQ?.timeLimit || updatedRoom.time_limit_seconds || 15;
+            setTimer(nextTime);
+
+            if (nextQ?.type === 'matching' && nextQ.pairs) {
+              const leftItems = nextQ.pairs.map(p => ({ id: p.id, text: p.left }));
+              const rightItems = nextQ.pairs.map(p => ({ id: p.id, text: p.right }));
               setMatchingState({
                 selectedSide: null,
                 selectedId: null,
@@ -301,17 +257,56 @@ const PlayQuiz = () => {
       setParticipants(updatedParts);
     });
 
+    const unsubAnswers = subscribeToAnswers(roomId, room?.session_number, (answers) => {
+      setRoomAnswers(answers);
+    });
+
     return () => {
       unsubRoom();
       unsubParts();
+      unsubAnswers();
     };
-  }, [roomId, participantId, quiz]);
+  }, [roomId, participantId, quiz, room?.session_number]);
 
-  // Timer countdown
+  // Handle timeout strictly when clock ticks to 0 without an answer
+  const handleTimeout = async () => {
+    if (hasAnsweredRef.current) return;
+    if (!room || !quiz || !participantId) return;
+
+    hasAnsweredRef.current = true;
+    setAnswered(true);
+    setIsTimeout(true);
+    setAnswerCorrect(false);
+    setEarnedScore(0);
+
+    const dbQuestionIndex = isSubmarine ? globalSubmarineAnswerIndex.current : room.current_question_index;
+
+    try {
+      await submitQuizAnswer({
+        room_id: room.id,
+        participant_id: participantId,
+        question_index: dbQuestionIndex,
+        answer: { timeout: true },
+        is_correct: false,
+        time_taken_ms: null,
+        score: 0,
+        session_number: room.session_number,
+      });
+    } catch (err) {
+      console.error('Error recording timeout answer:', err);
+    }
+  };
+
+  // Timer countdown: ONLY ticks down, and triggers timeout when the clock NATURALLY reaches 0
   useEffect(() => {
     if (!room || room.status !== 'active' || !quiz || showStartCountdown) return;
     const question = quiz.questions[room.current_question_index];
     if (!question) return;
+
+    if (allAnswered && !isSubmarine) {
+      setTimer(0);
+      return;
+    }
 
     const timeLimit = question.timeLimit || room.time_limit_seconds || 15;
     setTimer(timeLimit);
@@ -319,18 +314,30 @@ const PlayQuiz = () => {
 
     const interval = setInterval(() => {
       setTimer((prev) => {
-        if (prev <= 1) { clearInterval(interval); return 0; }
+        if (prev <= 1) {
+          clearInterval(interval);
+          // Clock naturally reached 0: check if current participant hasn't answered yet
+          if (!hasAnsweredRef.current) {
+            const currentQ = quiz.questions[room.current_question_index];
+            if (currentQ?.type === 'matching') {
+              submitAnswer();
+            } else {
+              handleTimeout();
+            }
+          }
+          return 0;
+        }
         return prev - 1;
       });
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [room?.current_question_index, room?.status, showStartCountdown]);
+  }, [room?.current_question_index, room?.status, showStartCountdown, allAnswered, isSubmarine]);
 
   // Initial matching setup
   useEffect(() => {
     if (quiz && room && room.status === 'active' && matchingState.shuffledLeft.length === 0) {
-      const qIdx = room.game_mode === 'submarine' ? submarineActualQIndex : room.current_question_index;
+      const qIdx = isSubmarine ? submarineActualQIndex : room.current_question_index;
       const question = quiz.questions[qIdx];
       if (question?.type === 'matching' && question.pairs) {
         const leftItems = question.pairs.map(p => ({ id: p.id, text: p.left }));
@@ -344,18 +351,7 @@ const PlayQuiz = () => {
         });
       }
     }
-  }, [quiz, room?.current_question_index, room?.status, matchingState.shuffledLeft.length]);
-
-  // Auto-submit matching when timer expires
-  useEffect(() => {
-    if (timer === 0 && !answered && room?.status === 'active' && quiz && !showStartCountdown) {
-      const qIdx = room.game_mode === 'submarine' ? submarineActualQIndex : room.current_question_index;
-      const question = quiz.questions[qIdx];
-      if (question?.type === 'matching') {
-        submitAnswer();
-      }
-    }
-  }, [timer, answered, room?.status, quiz, showStartCountdown]);
+  }, [quiz, room?.current_question_index, room?.status, matchingState.shuffledLeft.length, isSubmarine]);
 
   // Initialize submarine queue when quiz loads in submarine mode
   useEffect(() => {
@@ -375,9 +371,15 @@ const PlayQuiz = () => {
       );
 
       if (existing) {
+        hasAnsweredRef.current = true;
         setAnswered(true);
         setAnswerCorrect(existing.is_correct);
         setEarnedScore((existing as any).score || 0);
+        if ((existing.answer as any)?.timeout) {
+          setIsTimeout(true);
+        } else {
+          setIsTimeout(false);
+        }
         if ((existing.answer as any)?.correctPairs !== undefined) {
           setMatchingSummary({
             correctPairs: (existing.answer as any).correctPairs,
@@ -441,7 +443,11 @@ const PlayQuiz = () => {
   };
 
   const submitAnswer = async (optionId?: string) => {
-    if (!room || !quiz || !participantId || answered || isEvaluatingAi) return;
+    if (!room || !quiz || !participantId || hasAnsweredRef.current || isEvaluatingAi) return;
+
+    hasAnsweredRef.current = true;
+    setAnswered(true);
+    setIsTimeout(false);
 
     const isSubmarine = room.game_mode === 'submarine';
     // For submarine: use the current front of the shuffled queue as the actual question
@@ -483,7 +489,7 @@ const PlayQuiz = () => {
             questionText: question.text,
             studentAnswer: trimmed,
             correctAnswer: question.correctAnswer || '',
-            gradeLevel: quiz.gradeLevel,
+            gradeLevel: quiz.grade_level,
           });
           isCorrect = Boolean(aiResult.isCorrect);
           evalSource = 'ai';
@@ -550,11 +556,12 @@ const PlayQuiz = () => {
         ai_reason: aiExplanation,
       });
     } catch (error) {
+      hasAnsweredRef.current = false;
+      setAnswered(false);
       toast.error('Hiba a válasz elküldésekor');
       return;
     }
 
-    setAnswered(true);
     setAnswerCorrect(isCorrect);
     setEarnedScore(score);
     setEvaluationSource(evalSource || null);
@@ -852,8 +859,65 @@ const PlayQuiz = () => {
               )}
             </div>
 
-            {/* Answer Feedback */}
-            {answered && (
+            {/* Waiting for other players / time to expire */}
+            {answered && !isRevealed && !isSubmarine && (
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                className="mb-6 rounded-2xl border border-primary/30 bg-card/90 backdrop-blur-md p-6 text-center shadow-xl flex flex-col items-center justify-center space-y-3"
+              >
+                <div className="relative flex items-center justify-center">
+                  <div className="absolute h-14 w-14 rounded-full bg-primary/20 animate-ping" />
+                  <div className="relative h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center border border-primary/40">
+                    <Loader2 className="h-6 w-6 text-primary animate-spin" />
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-xl font-black text-foreground">
+                    {isEvaluatingAi ? 'AI ellenőrzi a választ... ✨' : 'Válaszod rögzítve! ✨'}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {isEvaluatingAi ? 'A mesterséges intelligencia értékeli a válaszodat...' : 'Várakozás a többiekre és az idő lejártára...'}
+                  </p>
+                </div>
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-muted/80 text-muted-foreground text-xs font-semibold border border-border/50">
+                  <Users className="h-3.5 w-3.5 text-primary" />
+                  <span>
+                    {currentQAnswers.length} / {totalActiveParticipants} diák válaszolt már
+                  </span>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Timeout Feedback (when timer expired without answering) */}
+            {isRevealed && isTimeout && (
+              <motion.div
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                className="mb-4 rounded-xl p-4 text-center text-primary-foreground shadow-lg bg-destructive"
+              >
+                <div className="text-lg font-bold flex items-center justify-center gap-2">
+                  <Clock className="h-5 w-5" />
+                  <span>⏰ Lejárt az idő!</span>
+                </div>
+                <div className="text-sm opacity-90 mt-1">
+                  Nem küldtél be választ a megadott időn belül (0 pont)
+                </div>
+                {question.type === 'text-input' && (
+                  <div className="mt-2 text-sm italic opacity-90">
+                    A helyes válasz: <MathRenderer text={question.correctAnswer || ''} className="inline-block" />
+                  </div>
+                )}
+                {question.type === 'multiple-choice' && (
+                  <div className="mt-2 text-sm italic opacity-90">
+                    A helyes válasz: <MathRenderer text={(question.options || []).find(o => o.isCorrect)?.text || ''} className="inline-block" />
+                  </div>
+                )}
+              </motion.div>
+            )}
+
+            {/* Answer Feedback (when round is revealed) */}
+            {isRevealed && answered && !isTimeout && (
               <motion.div
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -969,22 +1033,48 @@ const PlayQuiz = () => {
                 {question.options.map((option, i) => {
                   const color = COLORS[i % COLORS.length];
                   const isSelected = selectedAnswer === option.id;
+                  const isLocked = answered || timer === 0;
+
+                  let stateClass = color.bg;
+                  if (isRevealed) {
+                    if (option.isCorrect) {
+                      stateClass = 'bg-quiz-green ring-4 ring-white/50 shadow-lg';
+                    } else if (isSelected && !option.isCorrect) {
+                      stateClass = 'bg-destructive opacity-80';
+                    } else {
+                      stateClass = `${color.bg} opacity-30`;
+                    }
+                  } else if (answered) {
+                    if (isSelected) {
+                      stateClass = `${color.bg} ring-4 ring-white/60 brightness-110`;
+                    } else {
+                      stateClass = `${color.bg} opacity-40`;
+                    }
+                  } else if (timer === 0) {
+                    stateClass = `${color.bg} opacity-30 cursor-not-allowed`;
+                  } else {
+                    stateClass = `${color.bg} hover:brightness-110 active:brightness-90`;
+                  }
+
                   return (
                     <motion.button
                       key={option.id}
-                      whileHover={!answered ? { scale: 1.02 } : {}}
-                      whileTap={!answered ? { scale: 0.98 } : {}}
-                      onClick={() => !answered && submitAnswer(option.id)}
-                      disabled={answered}
-                      className={`flex items-center gap-4 rounded-xl p-5 text-left text-lg font-bold text-primary-foreground transition-all ${color.bg} ${answered
-                        ? isSelected
-                          ? 'ring-4 ring-foreground/30'
-                          : 'opacity-50'
-                        : 'hover:brightness-110 active:brightness-90'
-                        }`}
+                      whileHover={!isLocked ? { scale: 1.02 } : {}}
+                      whileTap={!isLocked ? { scale: 0.98 } : {}}
+                      onClick={() => !isLocked && submitAnswer(option.id)}
+                      disabled={isLocked}
+                      className={cn(
+                        "flex items-center gap-4 rounded-xl p-5 text-left text-lg font-bold text-primary-foreground transition-all",
+                        stateClass
+                      )}
                     >
                       <span className="text-2xl">{color.icon}</span>
-                      <MathRenderer text={option.text || `Válasz ${i + 1}`} />
+                      <div className="flex-1">
+                        <MathRenderer text={option.text || `Válasz ${i + 1}`} />
+                      </div>
+                      {isRevealed && option.isCorrect && (
+                        <CheckCircle2 className="h-6 w-6 text-white shrink-0" />
+                      )}
                     </motion.button>
                   );
                 })}
@@ -996,13 +1086,13 @@ const PlayQuiz = () => {
               <div className="flex flex-1 flex-col items-center justify-center space-y-4">
                 <div className="w-full max-w-md space-y-2">
                   <Input
-                    placeholder="Írd be a választ..."
+                    placeholder={timer === 0 && !answered ? "Lejárt az idő" : "Írd be a választ..."}
                     value={textAnswer}
                     onChange={(e) => setTextAnswer(e.target.value)}
-                    disabled={answered || isEvaluatingAi}
+                    disabled={answered || isEvaluatingAi || timer === 0}
                     className="h-14 text-center text-xl font-bold"
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter' && textAnswer.trim() && !answered && !isEvaluatingAi) {
+                      if (e.key === 'Enter' && textAnswer.trim() && !answered && !isEvaluatingAi && timer > 0) {
                         submitAnswer();
                       }
                     }}
@@ -1010,7 +1100,7 @@ const PlayQuiz = () => {
                   <Button
                     className="w-full h-12 text-lg font-bold"
                     onClick={() => submitAnswer()}
-                    disabled={answered || isEvaluatingAi || !textAnswer.trim()}
+                    disabled={answered || isEvaluatingAi || !textAnswer.trim() || timer === 0}
                   >
                     {isEvaluatingAi ? (
                       <>
@@ -1049,19 +1139,21 @@ const PlayQuiz = () => {
                         <motion.button
                           key={item.id}
                           type="button"
-                          whileHover={!answered ? { scale: 1.01 } : {}}
-                          whileTap={!answered ? { scale: 0.99 } : {}}
-                          onClick={() => handleItemClick('left', item.id)}
+                          whileHover={!answered && timer > 0 ? { scale: 1.01 } : {}}
+                          whileTap={!answered && timer > 0 ? { scale: 0.99 } : {}}
+                          onClick={() => !answered && timer > 0 && handleItemClick('left', item.id)}
+                          disabled={answered || timer === 0}
                           className={cn(
                             "relative w-full rounded-2xl p-4 text-center font-medium transition-all shadow-sm flex flex-col items-center justify-center min-h-[72px] border-2",
                             isSelected && "ring-4 ring-primary border-primary bg-primary/10 shadow-md",
                             !isSelected && pairColor && cn(pairColor.bg, pairColor.border, pairColor.ring),
                             !isSelected && !pairColor && "bg-card border-border hover:border-primary/50 text-card-foreground",
-                            answered && pair && (isPairCorrect ? "border-quiz-green bg-quiz-green/15" : "border-destructive bg-destructive/15")
+                            isRevealed && pair && (isPairCorrect ? "border-quiz-green bg-quiz-green/15" : "border-destructive bg-destructive/15"),
+                            timer === 0 && !answered && "opacity-50 cursor-not-allowed"
                           )}
                         >
                           {/* Pair number badge */}
-                          {pair && !answered && (
+                          {pair && (!isRevealed || !answered) && (
                             <span className={cn(
                               "absolute -top-2.5 -left-2 px-2 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider shadow-sm",
                               pairColor?.badge
@@ -1071,7 +1163,7 @@ const PlayQuiz = () => {
                           )}
 
                           {/* Reveal badge */}
-                          {answered && pair && (
+                          {isRevealed && answered && pair && (
                             <span className={cn(
                               "absolute -top-2.5 -left-2 px-2 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider shadow-sm flex items-center gap-1",
                               isPairCorrect ? "bg-quiz-green text-white" : "bg-destructive text-white"
@@ -1085,7 +1177,7 @@ const PlayQuiz = () => {
                           </div>
 
                           {/* Show correct answer if wrong after answered */}
-                          {answered && pair && !isPairCorrect && correctRight && (
+                          {isRevealed && answered && pair && !isPairCorrect && correctRight && (
                             <div className="mt-1.5 text-xs text-quiz-green font-semibold">
                               Helyes párja: <MathRenderer text={correctRight} className="inline-block" />
                             </div>
@@ -1110,19 +1202,21 @@ const PlayQuiz = () => {
                         <motion.button
                           key={item.id}
                           type="button"
-                          whileHover={!answered ? { scale: 1.01 } : {}}
-                          whileTap={!answered ? { scale: 0.99 } : {}}
-                          onClick={() => handleItemClick('right', item.id)}
+                          whileHover={!answered && timer > 0 ? { scale: 1.01 } : {}}
+                          whileTap={!answered && timer > 0 ? { scale: 0.99 } : {}}
+                          onClick={() => !answered && timer > 0 && handleItemClick('right', item.id)}
+                          disabled={answered || timer === 0}
                           className={cn(
                             "relative w-full rounded-2xl p-4 text-center font-medium transition-all shadow-sm flex flex-col items-center justify-center min-h-[72px] border-2",
                             isSelected && "ring-4 ring-primary border-primary bg-primary/10 shadow-md",
                             !isSelected && pairColor && cn(pairColor.bg, pairColor.border, pairColor.ring),
                             !isSelected && !pairColor && "bg-card border-border hover:border-primary/50 text-card-foreground",
-                            answered && pair && (isPairCorrect ? "border-quiz-green bg-quiz-green/15" : "border-destructive bg-destructive/15")
+                            isRevealed && pair && (isPairCorrect ? "border-quiz-green bg-quiz-green/15" : "border-destructive bg-destructive/15"),
+                            timer === 0 && !answered && "opacity-50 cursor-not-allowed"
                           )}
                         >
                           {/* Pair number badge */}
-                          {pair && !answered && (
+                          {pair && (!isRevealed || !answered) && (
                             <span className={cn(
                               "absolute -top-2.5 -right-2 px-2 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider shadow-sm",
                               pairColor?.badge
@@ -1132,7 +1226,7 @@ const PlayQuiz = () => {
                           )}
 
                           {/* Reveal badge */}
-                          {answered && pair && (
+                          {isRevealed && answered && pair && (
                             <span className={cn(
                               "absolute -top-2.5 -right-2 px-2 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider shadow-sm flex items-center gap-1",
                               isPairCorrect ? "bg-quiz-green text-white" : "bg-destructive text-white"
@@ -1151,7 +1245,7 @@ const PlayQuiz = () => {
                 </div>
 
                 {/* Submit button / instructions */}
-                {!answered && (
+                {!answered && timer > 0 && (
                   <div className="pt-2 flex flex-col items-center justify-center">
                     {matchingState.userPairs.length === (question.pairs?.length || 0) ? (
                       <Button
@@ -1171,48 +1265,65 @@ const PlayQuiz = () => {
               </div>
             )}
             {/* True/False Answer */}
-            {question.type === 'true-false' && (
-              <div className="flex flex-1 gap-4 items-center justify-center">
-                <motion.button
-                  whileHover={!answered ? { scale: 1.02 } : {}}
-                  whileTap={!answered ? { scale: 0.98 } : {}}
-                  onClick={() => {
-                    if (answered) return;
-                    const opt = (question.options || []).find(o => o.text === 'Igaz');
-                    if (opt) submitAnswer(opt.id);
-                    else toast.error('Hiba: Igaz válaszlehetőség nem található');
-                  }}
-                  disabled={answered}
-                  className={`flex-1 max-w-sm h-32 rounded-2xl text-2xl font-bold text-primary-foreground transition-all bg-quiz-blue ${answered
-                    ? selectedAnswer === (question.options || []).find(o => o.text === 'Igaz')?.id
-                      ? 'ring-4 ring-foreground/30'
-                      : 'opacity-50'
-                    : 'hover:brightness-110 active:brightness-90'
-                    }`}
-                >
-                  Igaz
-                </motion.button>
-                <motion.button
-                  whileHover={!answered ? { scale: 1.02 } : {}}
-                  whileTap={!answered ? { scale: 0.98 } : {}}
-                  onClick={() => {
-                    if (answered) return;
-                    const opt = (question.options || []).find(o => o.text === 'Hamis');
-                    if (opt) submitAnswer(opt.id);
-                    else toast.error('Hiba: Hamis válaszlehetőség nem található');
-                  }}
-                  disabled={answered}
-                  className={`flex-1 max-w-sm h-32 rounded-2xl text-2xl font-bold text-primary-foreground transition-all bg-quiz-red ${answered
-                    ? selectedAnswer === (question.options || []).find(o => o.text === 'Hamis')?.id
-                      ? 'ring-4 ring-foreground/30'
-                      : 'opacity-50'
-                    : 'hover:brightness-110 active:brightness-90'
-                    }`}
-                >
-                  Hamis
-                </motion.button>
-              </div>
-            )}
+            {question.type === 'true-false' && (() => {
+              const igazOpt = (question.options || []).find(o => o.text === 'Igaz');
+              const hamisOpt = (question.options || []).find(o => o.text === 'Hamis');
+              const isLocked = answered || timer === 0;
+
+              const getTFClass = (opt: typeof igazOpt, defaultBg: string) => {
+                const isSelected = selectedAnswer === opt?.id;
+                if (isRevealed) {
+                  if (opt?.isCorrect) return 'bg-quiz-green ring-4 ring-white/50 shadow-lg';
+                  if (isSelected && !opt?.isCorrect) return 'bg-destructive opacity-80';
+                  return `${defaultBg} opacity-30`;
+                }
+                if (answered) {
+                  if (isSelected) return `${defaultBg} ring-4 ring-white/60 brightness-110`;
+                  return `${defaultBg} opacity-40`;
+                }
+                if (timer === 0) return `${defaultBg} opacity-30 cursor-not-allowed`;
+                return `${defaultBg} hover:brightness-110 active:brightness-90`;
+              };
+
+              return (
+                <div className="flex flex-1 gap-4 items-center justify-center">
+                  <motion.button
+                    whileHover={!isLocked ? { scale: 1.02 } : {}}
+                    whileTap={!isLocked ? { scale: 0.98 } : {}}
+                    onClick={() => {
+                      if (isLocked) return;
+                      if (igazOpt) submitAnswer(igazOpt.id);
+                      else toast.error('Hiba: Igaz válaszlehetőség nem található');
+                    }}
+                    disabled={isLocked}
+                    className={cn(
+                      "flex-1 max-w-sm h-32 rounded-2xl text-2xl font-bold text-primary-foreground transition-all flex items-center justify-center gap-2",
+                      getTFClass(igazOpt, 'bg-quiz-blue')
+                    )}
+                  >
+                    <span>Igaz</span>
+                    {isRevealed && igazOpt?.isCorrect && <CheckCircle2 className="h-6 w-6 text-white" />}
+                  </motion.button>
+                  <motion.button
+                    whileHover={!isLocked ? { scale: 1.02 } : {}}
+                    whileTap={!isLocked ? { scale: 0.98 } : {}}
+                    onClick={() => {
+                      if (isLocked) return;
+                      if (hamisOpt) submitAnswer(hamisOpt.id);
+                      else toast.error('Hiba: Hamis válaszlehetőség nem található');
+                    }}
+                    disabled={isLocked}
+                    className={cn(
+                      "flex-1 max-w-sm h-32 rounded-2xl text-2xl font-bold text-primary-foreground transition-all flex items-center justify-center gap-2",
+                      getTFClass(hamisOpt, 'bg-quiz-red')
+                    )}
+                  >
+                    <span>Hamis</span>
+                    {isRevealed && hamisOpt?.isCorrect && <CheckCircle2 className="h-6 w-6 text-white" />}
+                  </motion.button>
+                </div>
+              );
+            })()}
           </motion.div>
         </AnimatePresence>
       </div>

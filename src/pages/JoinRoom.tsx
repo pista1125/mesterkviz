@@ -5,7 +5,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { UserCircle } from 'lucide-react';
+import { UserCircle, QrCode } from 'lucide-react';
+import { QRScannerModal } from '@/components/quiz/QRScannerModal';
 import { getStudentSessionId } from '@/types/quiz';
 import type { Room, AvatarData } from '@/types/quiz';
 import { Avatar } from '@/components/quiz/Avatar';
@@ -15,18 +16,33 @@ import { findActiveRoomByCode, joinRoomParticipant } from '@/services/db';
 const JoinRoom = () => {
   const { code: urlCode } = useParams();
   const navigate = useNavigate();
-  const [code, setCode] = useState(urlCode || '');
+
+  // Extract code from either route param or query param (?code=123456)
+  const getInitialCode = () => {
+    if (urlCode) return urlCode;
+    try {
+      const search = window.location.hash.split('?')[1] || window.location.search;
+      const params = new URLSearchParams(search);
+      return params.get('code') || '';
+    } catch {
+      return '';
+    }
+  };
+
+  const initialCode = getInitialCode();
+  const [code, setCode] = useState(initialCode);
+  const [isQrScannerOpen, setIsQrScannerOpen] = useState(false);
   const [name, setName] = useState('');
   const [room, setRoom] = useState<Room | null>(null);
   const [joining, setJoining] = useState(false);
-  const [step, setStep] = useState<'code' | 'name' | 'avatar'>(!urlCode ? 'code' : 'name');
+  const [step, setStep] = useState<'code' | 'name' | 'avatar'>(!initialCode ? 'code' : 'name');
   const [avatar, setAvatar] = useState<AvatarData>({ character: '🐻', accessory: 'none' });
 
   useEffect(() => {
-    if (urlCode) {
-      findRoom(urlCode);
+    if (initialCode) {
+      findRoom(initialCode);
     }
-  }, [urlCode]);
+  }, [initialCode]);
 
   const findRoom = async (roomCode: string) => {
     try {
@@ -118,8 +134,36 @@ const JoinRoom = () => {
               <Button className="w-full" size="lg" onClick={handleCodeSubmit} disabled={code.length !== 6}>
                 Tovább
               </Button>
+
+              <div className="relative my-2">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-border" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-card px-2 text-muted-foreground font-semibold">vagy</span>
+                </div>
+              </div>
+
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full h-12 text-sm font-bold flex items-center justify-center gap-2 border-primary/40 hover:border-primary hover:bg-primary/5 transition-all shadow-sm"
+                onClick={() => setIsQrScannerOpen(true)}
+              >
+                <QrCode className="h-5 w-5 text-primary" />
+                QR kód beolvasása kamerával
+              </Button>
             </div>
           )}
+
+          <QRScannerModal
+            open={isQrScannerOpen}
+            onOpenChange={setIsQrScannerOpen}
+            onScanSuccess={(scannedCode) => {
+              setCode(scannedCode);
+              findRoom(scannedCode);
+            }}
+          />
 
           {step === 'name' && (
             <div className="space-y-4">
@@ -142,16 +186,6 @@ const JoinRoom = () => {
                   autoFocus
                 />
               </div>
-              {/* Belépés gomb azonnali csatlakozáshoz alapértelmezett avatárral */}
-              <Button
-                className="w-full text-base font-bold h-12 shadow-md hover:brightness-105 active:scale-[0.99] transition-all"
-                size="lg"
-                onClick={() => handleJoin()}
-                disabled={joining || !name.trim()}
-              >
-                {joining ? 'Belépés folyamatban...' : 'Belépés a kvízbe'}
-              </Button>
-
               {/* Opcionális avatár testreszabás */}
               <Button
                 type="button"
@@ -168,6 +202,16 @@ const JoinRoom = () => {
                 <div className="flex items-center gap-1.5 font-bold">
                   <Avatar avatar={avatar} size="sm" className="h-8 w-8 text-lg rounded-lg border shadow-xs" />
                 </div>
+              </Button>
+
+              {/* Belépés gomb azonnali csatlakozáshoz alapértelmezett avatárral */}
+              <Button
+                className="w-full text-base font-bold h-12 shadow-md hover:brightness-105 active:scale-[0.99] transition-all"
+                size="lg"
+                onClick={() => handleJoin()}
+                disabled={joining || !name.trim()}
+              >
+                {joining ? 'Belépés folyamatban...' : 'Belépés a kvízbe'}
               </Button>
 
               <Button
