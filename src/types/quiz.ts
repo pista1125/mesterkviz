@@ -78,6 +78,8 @@ export interface QuizAnswer {
   room_id: string;
   participant_id: string;
   question_index: number;
+  actual_question_index?: number;
+  question_id?: string;
   answer: Record<string, unknown>;
   is_correct: boolean | null;
   time_taken_ms: number | null;

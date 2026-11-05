@@ -279,6 +279,9 @@ const PlayQuiz = () => {
     setAnswerCorrect(false);
     setEarnedScore(0);
 
+    const isSubmarine = room.game_mode === 'submarine';
+    const actualQIndex = isSubmarine ? submarineActualQIndex : room.current_question_index;
+    const currentQ = quiz.questions[actualQIndex];
     const dbQuestionIndex = isSubmarine ? globalSubmarineAnswerIndex.current : room.current_question_index;
 
     try {
@@ -286,7 +289,9 @@ const PlayQuiz = () => {
         room_id: room.id,
         participant_id: participantId,
         question_index: dbQuestionIndex,
-        answer: { timeout: true },
+        actual_question_index: actualQIndex,
+        question_id: currentQ?.id,
+        answer: { timeout: true, actualQuestionIndex: actualQIndex, questionId: currentQ?.id },
         is_correct: false,
         time_taken_ms: null,
         score: 0,
@@ -470,7 +475,12 @@ const PlayQuiz = () => {
     if ((question.type === 'multiple-choice' || question.type === 'true-false') && optionId) {
       const selectedOption = (question.options || []).find((o) => o.id === optionId);
       isCorrect = selectedOption?.isCorrect || false;
-      answerData = { selectedOptionId: optionId };
+      answerData = {
+        selectedOptionId: optionId,
+        selectedOptionText: selectedOption?.text || '',
+        actualQuestionIndex: questionIndex,
+        questionId: question.id,
+      };
       setSelectedAnswer(optionId);
     } else if (question.type === 'text-input') {
       const trimmed = textAnswer.trim();
@@ -547,7 +557,13 @@ const PlayQuiz = () => {
         room_id: room.id,
         participant_id: participantId,
         question_index: dbQuestionIndex,
-        answer: answerData,
+        actual_question_index: questionIndex,
+        question_id: question.id,
+        answer: {
+          ...answerData,
+          actualQuestionIndex: questionIndex,
+          questionId: question.id,
+        },
         is_correct: isCorrect,
         time_taken_ms: timeTaken,
         score,
