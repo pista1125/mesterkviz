@@ -613,6 +613,9 @@ const QuizEditor = () => {
                       <option value="matematika">Matematika</option>
                       <option value="magyar">Magyar nyelv</option>
                       <option value="természettudomány">Természettudomány</option>
+                      <option value="biológia">Biológia</option>
+                      <option value="fizika">Fizika</option>
+                      <option value="kémia">Kémia</option>
                       <option value="történelem">Történelem</option>
                       <option value="földrajz">Földrajz</option>
                       <option value="informatika">Informatika</option>

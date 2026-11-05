@@ -243,7 +243,7 @@ const Discover = () => {
                       : 'bg-card hover:bg-accent border border-border/50 text-muted-foreground'}
                   `}
                 >
-                  {grade === 'Összes' ? 'Összes' : grade.split('.')[0]}
+                  {grade}
                 </button>
               );
             })}
