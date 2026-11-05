@@ -3,19 +3,34 @@ import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Navbar } from '@/components/Navbar';
-import { Users, Brain, BarChart3, Gamepad2, Sparkles, ArrowRight, Trophy, Zap, Play, CheckCircle2 } from 'lucide-react';
+import { Users, Brain, BarChart3, Gamepad2, Sparkles, ArrowRight, Trophy, Zap, Play, CheckCircle2, QrCode } from 'lucide-react';
+import { QRScannerModal } from '@/components/quiz/QRScannerModal';
 
 const Index = () => {
   const [digits, setDigits] = useState<string[]>(Array(6).fill(''));
+  const [isQrScannerOpen, setIsQrScannerOpen] = useState(false);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const navigate = useNavigate();
 
   const code = digits.join('');
 
   useEffect(() => {
+    // Check if URL has ?code=123456
+    try {
+      const search = window.location.hash.split('?')[1] || window.location.search;
+      const params = new URLSearchParams(search);
+      const urlCode = params.get('code');
+      if (urlCode && /^\d{6}$/.test(urlCode)) {
+        navigate(`/join/${urlCode}`);
+        return;
+      }
+    } catch {
+      // Ignore URL parsing errors
+    }
+
     // Focus first box on load
     inputRefs.current[0]?.focus();
-  }, []);
+  }, [navigate]);
 
   const handleJoin = () => {
     if (code.length === 6) {
@@ -191,9 +206,41 @@ const Index = () => {
                     <span>Belépés a Szobába</span>
                     <ArrowRight className="w-5 h-5" />
                   </Button>
+
+                  {/* Divider */}
+                  <div className="relative my-3.5">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-slate-200 dark:border-slate-800" />
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                      <span className="bg-white/95 dark:bg-slate-950/95 px-2 text-muted-foreground font-semibold text-[11px]">
+                        vagy
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* QR Code Scanner Button */}
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full h-11 text-sm font-bold flex items-center justify-center gap-2 border-violet-300/80 dark:border-violet-700/80 hover:border-violet-500 hover:bg-violet-50 dark:hover:bg-violet-950/40 text-violet-700 dark:text-violet-300 transition-all rounded-xl shadow-xs cursor-pointer"
+                    onClick={() => setIsQrScannerOpen(true)}
+                  >
+                    <QrCode className="h-4.5 w-4.5 text-violet-600 dark:text-violet-400" />
+                    <span>QR kód beolvasása kamerával</span>
+                  </Button>
                 </div>
               </div>
             </motion.div>
+
+            {/* QR Scanner Modal */}
+            <QRScannerModal
+              open={isQrScannerOpen}
+              onOpenChange={setIsQrScannerOpen}
+              onScanSuccess={(scannedCode) => {
+                navigate(`/join/${scannedCode}`);
+              }}
+            />
 
             {/* Quick trust / feature pills */}
             <motion.div
@@ -291,5 +338,3 @@ const Index = () => {
 };
 
 export default Index;
-
-

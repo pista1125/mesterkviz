@@ -1,15 +1,17 @@
 import { describe, it, expect } from 'vitest';
-import { extractRoomCodeFromText, getJoinUrl } from '@/lib/qrUtils';
+import { extractRoomCodeFromText, getJoinUrl, isLocalhost } from '@/lib/qrUtils';
 
 describe('QR Utilities', () => {
   it('extracts room code from full hash URL', () => {
     expect(extractRoomCodeFromText('http://localhost:8080/#/join/164536')).toBe('164536');
+    expect(extractRoomCodeFromText('http://10.134.67.50:8080/#/join/164536?code=164536')).toBe('164536');
     expect(extractRoomCodeFromText('https://mesterkviz.web.app/#/join/654321')).toBe('654321');
   });
 
   it('extracts room code from query parameters', () => {
     expect(extractRoomCodeFromText('https://mesterkviz.web.app/#/join?code=123456')).toBe('123456');
     expect(extractRoomCodeFromText('http://localhost:8080/join?code=987654')).toBe('987654');
+    expect(extractRoomCodeFromText('http://10.134.67.50:8080/?code=554433')).toBe('554433');
   });
 
   it('extracts standalone 6-digit room code', () => {
@@ -23,9 +25,14 @@ describe('QR Utilities', () => {
     expect(extractRoomCodeFromText('12345')).toBeNull();
   });
 
-  it('generates join url containing the code', () => {
+  it('generates join url containing the code and slash before hash', () => {
     const url = getJoinUrl('164536');
-    expect(url).toContain('#/join/164536');
+    expect(url).toContain('/#/join/164536');
+    expect(url).toContain('code=164536');
+  });
+
+  it('supports custom base URL', () => {
+    const custom = getJoinUrl('164536', { customBaseUrl: 'https://kviz.iskola.hu' });
+    expect(custom).toBe('https://kviz.iskola.hu/#/join/164536?code=164536');
   });
 });
-

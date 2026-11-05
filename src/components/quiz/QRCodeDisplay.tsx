@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { Copy, Check, Maximize2 } from 'lucide-react';
+import { Copy, Check, Maximize2, Wifi, Globe } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { getJoinUrl } from '@/lib/qrUtils';
+import { getJoinUrl, isLocalhost, getProductionJoinUrl, getLocalDevIp } from '@/lib/qrUtils';
 import {
   Dialog,
   DialogContent,
@@ -31,7 +31,13 @@ export const QRCodeDisplay: React.FC<QRCodeDisplayProps> = ({
 }) => {
   const [copied, setCopied] = useState(false);
   const [isEnlarged, setIsEnlarged] = useState(false);
-  const joinUrl = getJoinUrl(code);
+  const [preferProd, setPreferProd] = useState(false);
+
+  const localIp = getLocalDevIp();
+  const prodUrl = getProductionJoinUrl(code);
+  const onLocal = isLocalhost();
+
+  const joinUrl = getJoinUrl(code, { preferProduction: preferProd });
 
   const handleCopyLink = async (e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
@@ -47,7 +53,37 @@ export const QRCodeDisplay: React.FC<QRCodeDisplayProps> = ({
 
   return (
     <>
-      <div className={cn("flex flex-col items-center gap-3", className)}>
+      <div className={cn("flex flex-col items-center gap-2.5", className)}>
+        {/* Localhost dev mode URL switcher */}
+        {onLocal && prodUrl && (
+          <div className="flex items-center gap-1 p-0.5 rounded-lg bg-muted/80 border text-[11px] mb-0.5">
+            <button
+              type="button"
+              onClick={() => setPreferProd(false)}
+              className={cn(
+                "flex items-center gap-1 px-2 py-0.5 rounded-md font-medium transition-all cursor-pointer",
+                !preferProd ? "bg-background text-foreground shadow-xs font-semibold" : "text-muted-foreground hover:text-foreground"
+              )}
+              title={localIp ? `Helyi Wi-Fi: ${localIp}` : 'Helyi gép'}
+            >
+              <Wifi className="h-3 w-3 text-emerald-500" />
+              <span>Wi-Fi {localIp ? `(${localIp})` : ''}</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setPreferProd(true)}
+              className={cn(
+                "flex items-center gap-1 px-2 py-0.5 rounded-md font-medium transition-all cursor-pointer",
+                preferProd ? "bg-background text-foreground shadow-xs font-semibold" : "text-muted-foreground hover:text-foreground"
+              )}
+              title="Éles, internetes cím"
+            >
+              <Globe className="h-3 w-3 text-blue-500" />
+              <span>Éles web</span>
+            </button>
+          </div>
+        )}
+
         {/* QR Code Card */}
         <div
           onClick={() => showEnlarge && setIsEnlarged(true)}
@@ -84,7 +120,7 @@ export const QRCodeDisplay: React.FC<QRCodeDisplayProps> = ({
             variant="outline"
             size="sm"
             onClick={handleCopyLink}
-            className="text-xs h-8 gap-1.5 rounded-full px-3.5 font-medium border-border/80 hover:bg-accent"
+            className="text-xs h-7.5 gap-1.5 rounded-full px-3 font-medium border-border/80 hover:bg-accent"
           >
             {copied ? (
               <>
@@ -114,7 +150,34 @@ export const QRCodeDisplay: React.FC<QRCodeDisplayProps> = ({
               </p>
             </DialogHeader>
 
-            <div className="bg-white p-6 rounded-3xl shadow-2xl border-4 border-primary/20 my-4">
+            {onLocal && prodUrl && (
+              <div className="flex items-center gap-1 p-1 rounded-lg bg-muted border text-xs">
+                <button
+                  type="button"
+                  onClick={() => setPreferProd(false)}
+                  className={cn(
+                    "flex items-center gap-1 px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer",
+                    !preferProd ? "bg-background text-foreground shadow-xs font-bold" : "text-muted-foreground"
+                  )}
+                >
+                  <Wifi className="h-3.5 w-3.5 text-emerald-500" />
+                  <span>Helyi Wi-Fi {localIp ? `(${localIp})` : ''}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPreferProd(true)}
+                  className={cn(
+                    "flex items-center gap-1 px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer",
+                    preferProd ? "bg-background text-foreground shadow-xs font-bold" : "text-muted-foreground"
+                  )}
+                >
+                  <Globe className="h-3.5 w-3.5 text-blue-500" />
+                  <span>Éles weboldal</span>
+                </button>
+              </div>
+            )}
+
+            <div className="bg-white p-6 rounded-3xl shadow-2xl border-4 border-primary/20 my-3">
               <QRCodeSVG
                 value={joinUrl}
                 size={280}
@@ -124,7 +187,7 @@ export const QRCodeDisplay: React.FC<QRCodeDisplayProps> = ({
             </div>
 
             <div className="flex flex-col items-center gap-2 w-full">
-              <div className="font-mono text-xs text-muted-foreground break-all px-3 py-1.5 rounded-lg bg-muted/60 border w-full max-w-sm">
+              <div className="font-mono text-[11px] text-muted-foreground break-all px-3 py-1.5 rounded-lg bg-muted/60 border w-full max-w-sm">
                 {joinUrl}
               </div>
               <Button
@@ -144,4 +207,3 @@ export const QRCodeDisplay: React.FC<QRCodeDisplayProps> = ({
     </>
   );
 };
-
