@@ -4,7 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import { Clock, CheckCircle2, Users, Send, Trophy, Smile, Zap, BarChart3, Sparkles } from 'lucide-react';
+import { Clock, CheckCircle2, Users, Send, Trophy, Smile, Zap, BarChart3, Sparkles, Check } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { isNormalizedMatch } from '@/lib/textNormalization';
 import { requestEvaluateAnswer } from '@/services/ai';
 import type { Room, Quiz, QuizQuestion, RoomParticipant, AvatarData, QuizAnswer } from '@/types/quiz';
@@ -46,6 +47,71 @@ const calculateScore = (isCorrect: boolean, timeTakenMs: number, timeLimitMs: nu
   return Math.round(100 + timeRatio * 900);
 };
 
+export interface MatchingUserPair {
+  leftId: string;
+  rightId: string;
+  colorIndex: number;
+}
+
+export const MATCHING_PAIR_COLORS = [
+  {
+    name: 'blue',
+    bg: 'bg-blue-500/15 dark:bg-blue-500/20',
+    border: 'border-blue-500',
+    text: 'text-blue-600 dark:text-blue-400',
+    badge: 'bg-blue-600 text-white',
+    ring: 'ring-2 ring-blue-500/50',
+  },
+  {
+    name: 'emerald',
+    bg: 'bg-emerald-500/15 dark:bg-emerald-500/20',
+    border: 'border-emerald-500',
+    text: 'text-emerald-600 dark:text-emerald-400',
+    badge: 'bg-emerald-600 text-white',
+    ring: 'ring-2 ring-emerald-500/50',
+  },
+  {
+    name: 'amber',
+    bg: 'bg-amber-500/15 dark:bg-amber-500/20',
+    border: 'border-amber-500',
+    text: 'text-amber-600 dark:text-amber-400',
+    badge: 'bg-amber-600 text-white',
+    ring: 'ring-2 ring-amber-500/50',
+  },
+  {
+    name: 'purple',
+    bg: 'bg-purple-500/15 dark:bg-purple-500/20',
+    border: 'border-purple-500',
+    text: 'text-purple-600 dark:text-purple-400',
+    badge: 'bg-purple-600 text-white',
+    ring: 'ring-2 ring-purple-500/50',
+  },
+  {
+    name: 'rose',
+    bg: 'bg-rose-500/15 dark:bg-rose-500/20',
+    border: 'border-rose-500',
+    text: 'text-rose-600 dark:text-rose-400',
+    badge: 'bg-rose-600 text-white',
+    ring: 'ring-2 ring-rose-500/50',
+  },
+  {
+    name: 'cyan',
+    bg: 'bg-cyan-500/15 dark:bg-cyan-500/20',
+    border: 'border-cyan-500',
+    text: 'text-cyan-600 dark:text-cyan-400',
+    badge: 'bg-cyan-600 text-white',
+    ring: 'ring-2 ring-cyan-500/50',
+  },
+  {
+    name: 'orange',
+    bg: 'bg-orange-500/15 dark:bg-orange-500/20',
+    border: 'border-orange-500',
+    text: 'text-orange-600 dark:text-orange-400',
+    badge: 'bg-orange-600 text-white',
+    ring: 'ring-2 ring-orange-500/50',
+  },
+];
+
 const PlayQuiz = () => {
   const { roomId } = useParams();
   const navigate = useNavigate();
@@ -68,20 +134,21 @@ const PlayQuiz = () => {
   const [countdownValue, setCountdownValue] = useState(3);
   const [questionStartTime, setQuestionStartTime] = useState(0);
   const [matchingState, setMatchingState] = useState<{
-    leftSelected: string | null,
-    rightSelected: string | null,
-    completedLeft: string[],
-    completedRight: string[],
-    shuffledLeft: { id: string, text: string }[],
-    shuffledRight: { id: string, text: string }[]
+    selectedSide: 'left' | 'right' | null;
+    selectedId: string | null;
+    userPairs: MatchingUserPair[];
+    shuffledLeft: { id: string; text: string }[];
+    shuffledRight: { id: string; text: string }[];
   }>({
-    leftSelected: null,
-    rightSelected: null,
-    completedLeft: [],
-    completedRight: [],
+    selectedSide: null,
+    selectedId: null,
+    userPairs: [],
     shuffledLeft: [],
-    shuffledRight: []
+    shuffledRight: [],
   });
+  const matchingStateRef = useRef(matchingState);
+  matchingStateRef.current = matchingState;
+  const [matchingSummary, setMatchingSummary] = useState<{ correctPairs: number; totalPairs: number } | null>(null);
   const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
   const [isEditingAvatar, setIsEditingAvatar] = useState(false);
   const [currentAvatar, setCurrentAvatar] = useState<AvatarData>(() => {
@@ -182,6 +249,7 @@ const PlayQuiz = () => {
           setIsEvaluatingAi(false);
           setEvaluationSource(null);
           setAiReason(null);
+          setMatchingSummary(null);
 
           if (quiz && quiz.questions) {
             const question = quiz.questions[updatedRoom.current_question_index];
@@ -189,12 +257,11 @@ const PlayQuiz = () => {
               const leftItems = question.pairs.map(p => ({ id: p.id, text: p.left }));
               const rightItems = question.pairs.map(p => ({ id: p.id, text: p.right }));
               setMatchingState({
-                leftSelected: null,
-                rightSelected: null,
-                completedLeft: [],
-                completedRight: [],
+                selectedSide: null,
+                selectedId: null,
+                userPairs: [],
                 shuffledLeft: [...leftItems].sort(() => Math.random() - 0.5),
-                shuffledRight: [...rightItems].sort(() => Math.random() - 0.5)
+                shuffledRight: [...rightItems].sort(() => Math.random() - 0.5),
               });
             }
           }
@@ -263,21 +330,32 @@ const PlayQuiz = () => {
   // Initial matching setup
   useEffect(() => {
     if (quiz && room && room.status === 'active' && matchingState.shuffledLeft.length === 0) {
-      const question = quiz.questions[room.current_question_index];
+      const qIdx = room.game_mode === 'submarine' ? submarineActualQIndex : room.current_question_index;
+      const question = quiz.questions[qIdx];
       if (question?.type === 'matching' && question.pairs) {
         const leftItems = question.pairs.map(p => ({ id: p.id, text: p.left }));
         const rightItems = question.pairs.map(p => ({ id: p.id, text: p.right }));
         setMatchingState({
-          leftSelected: null,
-          rightSelected: null,
-          completedLeft: [],
-          completedRight: [],
+          selectedSide: null,
+          selectedId: null,
+          userPairs: [],
           shuffledLeft: [...leftItems].sort(() => Math.random() - 0.5),
-          shuffledRight: [...rightItems].sort(() => Math.random() - 0.5)
+          shuffledRight: [...rightItems].sort(() => Math.random() - 0.5),
         });
       }
     }
-  }, [quiz, room?.current_question_index]);
+  }, [quiz, room?.current_question_index, room?.status, matchingState.shuffledLeft.length]);
+
+  // Auto-submit matching when timer expires
+  useEffect(() => {
+    if (timer === 0 && !answered && room?.status === 'active' && quiz && !showStartCountdown) {
+      const qIdx = room.game_mode === 'submarine' ? submarineActualQIndex : room.current_question_index;
+      const question = quiz.questions[qIdx];
+      if (question?.type === 'matching') {
+        submitAnswer();
+      }
+    }
+  }, [timer, answered, room?.status, quiz, showStartCountdown]);
 
   // Initialize submarine queue when quiz loads in submarine mode
   useEffect(() => {
@@ -300,6 +378,12 @@ const PlayQuiz = () => {
         setAnswered(true);
         setAnswerCorrect(existing.is_correct);
         setEarnedScore((existing as any).score || 0);
+        if ((existing.answer as any)?.correctPairs !== undefined) {
+          setMatchingSummary({
+            correctPairs: (existing.answer as any).correctPairs,
+            totalPairs: (existing.answer as any).totalPairs,
+          });
+        }
       }
     };
     checkExistingAnswer();
@@ -421,15 +505,36 @@ const PlayQuiz = () => {
       };
     } else if (question.type === 'matching') {
       const totalPairs = question.pairs?.length || 0;
-      const correctPairs = matchingState.completedLeft.length;
-      isCorrect = correctPairs === totalPairs;
-      answerData = { correctPairs, totalPairs };
+      const userPairs = matchingStateRef.current.userPairs;
+      const correctPairs = userPairs.filter(p => p.leftId === p.rightId).length;
+      isCorrect = totalPairs > 0 && correctPairs === totalPairs;
+
+      let proportionalScore = 0;
+      if (totalPairs > 0 && correctPairs > 0) {
+        if (isSubmarine) {
+          proportionalScore = Math.round(1000 * (correctPairs / totalPairs));
+        } else {
+          const maxPossible = calculateScore(true, timeTaken, timeLimitMs);
+          proportionalScore = Math.round(maxPossible * (correctPairs / totalPairs));
+        }
+      }
+
+      answerData = {
+        correctPairs,
+        totalPairs,
+        pairs: userPairs.map(p => ({
+          leftId: p.leftId,
+          rightId: p.rightId,
+          isCorrect: p.leftId === p.rightId,
+        })),
+      };
+      setMatchingSummary({ correctPairs, totalPairs });
     }
     
-    // Scoring logic for submarine mode: fixed 1000 per correct
-    const score = isSubmarine 
-      ? (isCorrect ? 1000 : 0)
-      : calculateScore(isCorrect, timeTaken, timeLimitMs);
+    // Calculate final score
+    const score = question.type === 'matching'
+      ? (answerData.correctPairs ? (isSubmarine ? Math.round(1000 * ((answerData.correctPairs as number) / (answerData.totalPairs as number))) : Math.round(calculateScore(true, timeTaken, timeLimitMs) * ((answerData.correctPairs as number) / (answerData.totalPairs as number)))) : 0)
+      : (isSubmarine ? (isCorrect ? 1000 : 0) : calculateScore(isCorrect, timeTaken, timeLimitMs));
 
     try {
       await submitQuizAnswer({
@@ -493,37 +598,96 @@ const PlayQuiz = () => {
         setIsEvaluatingAi(false);
         setEvaluationSource(null);
         setAiReason(null);
+        setMatchingSummary(null);
       }, 2000);
     }
   };
 
-  const handleMatch = (leftId: string, rightId: string) => {
-    if (leftId === rightId) {
-      toast.success('Helyes pár!');
-      setMatchingState(prev => {
-        const newState = {
-          ...prev,
-          leftSelected: null,
-          rightSelected: null,
-          completedLeft: [...prev.completedLeft, leftId],
-          completedRight: [...prev.completedRight, rightId]
-        };
+  const handleItemClick = (side: 'left' | 'right', id: string) => {
+    if (answered) return;
 
-        // Auto submit if all pairs are finished
-        const qIdx = room?.game_mode === 'submarine' ? submarineActualQIndex : room!.current_question_index;
-        const question = quiz?.questions[qIdx];
-        if (question?.pairs && newState.completedLeft.length === question.pairs.length) {
-          setTimeout(() => {
-            submitAnswer();
-          }, 500);
+    setMatchingState((prev) => {
+      // Check if this item is already in a pair
+      const existingPairIndex = prev.userPairs.findIndex((p) =>
+        side === 'left' ? p.leftId === id : p.rightId === id
+      );
+
+      // If clicked item is already paired:
+      if (existingPairIndex !== -1) {
+        // If an item on the OPPOSITE side is currently selected: re-pair it!
+        if (prev.selectedSide && prev.selectedSide !== side && prev.selectedId) {
+          const updatedPairs = prev.userPairs.filter((_, idx) => idx !== existingPairIndex);
+          const cleanedPairs = updatedPairs.filter((p) =>
+            prev.selectedSide === 'left' ? p.leftId !== prev.selectedId : p.rightId !== prev.selectedId
+          );
+
+          const usedColors = new Set(cleanedPairs.map((p) => p.colorIndex));
+          let colorIndex = 0;
+          while (usedColors.has(colorIndex)) colorIndex++;
+
+          const newPair: MatchingUserPair = {
+            leftId: side === 'left' ? id : prev.selectedId,
+            rightId: side === 'right' ? id : prev.selectedId,
+            colorIndex,
+          };
+
+          return {
+            ...prev,
+            selectedSide: null,
+            selectedId: null,
+            userPairs: [...cleanedPairs, newPair],
+          };
         }
 
-        return newState;
-      });
-    } else {
-      toast.error('Nem egyezik!');
-      setMatchingState(prev => ({ ...prev, leftSelected: null, rightSelected: null }));
-    }
+        // Otherwise unpair this item and select it
+        const updatedPairs = prev.userPairs.filter((_, idx) => idx !== existingPairIndex);
+        return {
+          ...prev,
+          selectedSide: side,
+          selectedId: id,
+          userPairs: updatedPairs,
+        };
+      }
+
+      // If item is not in a pair:
+      if (!prev.selectedSide || !prev.selectedId) {
+        return {
+          ...prev,
+          selectedSide: side,
+          selectedId: id,
+        };
+      }
+
+      // If clicked item on the SAME side:
+      if (prev.selectedSide === side) {
+        if (prev.selectedId === id) {
+          return { ...prev, selectedSide: null, selectedId: null };
+        }
+        return { ...prev, selectedSide: side, selectedId: id };
+      }
+
+      // Clicked on opposite side: form a new pair!
+      const cleanedPairs = prev.userPairs.filter((p) =>
+        prev.selectedSide === 'left' ? p.leftId !== prev.selectedId : p.rightId !== prev.selectedId
+      );
+
+      const usedColors = new Set(cleanedPairs.map((p) => p.colorIndex));
+      let colorIndex = 0;
+      while (usedColors.has(colorIndex)) colorIndex++;
+
+      const newPair: MatchingUserPair = {
+        leftId: side === 'left' ? id : prev.selectedId,
+        rightId: side === 'right' ? id : prev.selectedId,
+        colorIndex,
+      };
+
+      return {
+        ...prev,
+        selectedSide: null,
+        selectedId: null,
+        userPairs: [...cleanedPairs, newPair],
+      };
+    });
   };
 
   const handleAvatarUpdate = async (newAvatar: AvatarData) => {
@@ -693,11 +857,31 @@ const PlayQuiz = () => {
               <motion.div
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className={`mb-4 rounded-xl p-4 text-center text-primary-foreground ${answerCorrect ? 'bg-quiz-green' : 'bg-destructive'
-                  }`}
+                className={cn(
+                  "mb-4 rounded-xl p-4 text-center text-primary-foreground shadow-lg transition-colors",
+                  question.type === 'matching'
+                    ? matchingSummary && matchingSummary.correctPairs === matchingSummary.totalPairs
+                      ? "bg-quiz-green"
+                      : matchingSummary && matchingSummary.correctPairs > 0
+                        ? "bg-amber-600"
+                        : "bg-destructive"
+                    : answerCorrect
+                      ? "bg-quiz-green"
+                      : "bg-destructive"
+                )}
               >
                 <div className="text-lg font-bold">
-                  {answerCorrect ? '✓ Helyes válasz!' : '✗ Helytelen válasz'}
+                  {question.type === 'matching' ? (
+                    matchingSummary && matchingSummary.correctPairs === matchingSummary.totalPairs ? (
+                      `✓ Hibátlan párosítás! Mind a(z) ${matchingSummary.totalPairs} pár helyes!`
+                    ) : matchingSummary && matchingSummary.correctPairs > 0 ? (
+                      `Részben helyes: ${matchingSummary.correctPairs}/${matchingSummary.totalPairs} pár lett jó!`
+                    ) : (
+                      `✗ Helytelen párosítás: 0/${matchingSummary?.totalPairs || 0} pár lett jó`
+                    )
+                  ) : (
+                    answerCorrect ? '✓ Helyes válasz!' : '✗ Helytelen válasz'
+                  )}
                 </div>
                 {evaluationSource === 'ai' && (
                   <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-black/20 backdrop-blur-sm border border-white/20">
@@ -845,53 +1029,145 @@ const PlayQuiz = () => {
 
             {/* Matching Answer */}
             {question.type === 'matching' && (
-              <div className="grid flex-1 grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <h3 className="mb-2 text-center font-display font-bold">Bal oldal</h3>
-                  {matchingState.shuffledLeft.map((item) => {
-                    const isCompleted = matchingState.completedLeft.includes(item.id);
-                    const isSelected = matchingState.leftSelected === item.id;
-                    return (
-                      <Button
-                        key={item.id}
-                        variant={isSelected ? "default" : isCompleted ? "secondary" : "outline"}
-                        className={`w-full h-auto py-4 text-lg font-medium transition-all ${isCompleted ? 'opacity-50 cursor-default' : ''}`}
-                        onClick={() => {
-                          if (answered || isCompleted) return;
-                          setMatchingState(prev => ({ ...prev, leftSelected: item.id }));
-                          if (matchingState.rightSelected) {
-                            handleMatch(item.id, matchingState.rightSelected);
-                          }
-                        }}
-                      >
-                        <MathRenderer text={item.text} />
-                      </Button>
-                    );
-                  })}
+              <div className="flex flex-1 flex-col space-y-4">
+                <div className="grid flex-1 grid-cols-2 gap-3 sm:gap-4">
+                  {/* Left Column */}
+                  <div className="space-y-2.5">
+                    <h3 className="mb-2 text-center font-display text-sm font-bold uppercase tracking-wider text-muted-foreground">
+                      Bal oldal
+                    </h3>
+                    {matchingState.shuffledLeft.map((item) => {
+                      const pair = matchingState.userPairs.find((p) => p.leftId === item.id);
+                      const isSelected = matchingState.selectedSide === 'left' && matchingState.selectedId === item.id;
+                      const pairColor = pair ? MATCHING_PAIR_COLORS[pair.colorIndex % MATCHING_PAIR_COLORS.length] : null;
+                      const isPairCorrect = pair ? pair.leftId === pair.rightId : false;
+
+                      // Correct partner text for reveal
+                      const correctRight = question.pairs?.find((p) => p.id === item.id)?.right;
+
+                      return (
+                        <motion.button
+                          key={item.id}
+                          type="button"
+                          whileHover={!answered ? { scale: 1.01 } : {}}
+                          whileTap={!answered ? { scale: 0.99 } : {}}
+                          onClick={() => handleItemClick('left', item.id)}
+                          className={cn(
+                            "relative w-full rounded-2xl p-4 text-center font-medium transition-all shadow-sm flex flex-col items-center justify-center min-h-[72px] border-2",
+                            isSelected && "ring-4 ring-primary border-primary bg-primary/10 shadow-md",
+                            !isSelected && pairColor && cn(pairColor.bg, pairColor.border, pairColor.ring),
+                            !isSelected && !pairColor && "bg-card border-border hover:border-primary/50 text-card-foreground",
+                            answered && pair && (isPairCorrect ? "border-quiz-green bg-quiz-green/15" : "border-destructive bg-destructive/15")
+                          )}
+                        >
+                          {/* Pair number badge */}
+                          {pair && !answered && (
+                            <span className={cn(
+                              "absolute -top-2.5 -left-2 px-2 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider shadow-sm",
+                              pairColor?.badge
+                            )}>
+                              {pair.colorIndex + 1}. pár
+                            </span>
+                          )}
+
+                          {/* Reveal badge */}
+                          {answered && pair && (
+                            <span className={cn(
+                              "absolute -top-2.5 -left-2 px-2 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider shadow-sm flex items-center gap-1",
+                              isPairCorrect ? "bg-quiz-green text-white" : "bg-destructive text-white"
+                            )}>
+                              {isPairCorrect ? "✓ Helyes" : "✗ Hibás"}
+                            </span>
+                          )}
+
+                          <div className="text-base sm:text-lg font-bold">
+                            <MathRenderer text={item.text} />
+                          </div>
+
+                          {/* Show correct answer if wrong after answered */}
+                          {answered && pair && !isPairCorrect && correctRight && (
+                            <div className="mt-1.5 text-xs text-quiz-green font-semibold">
+                              Helyes párja: <MathRenderer text={correctRight} className="inline-block" />
+                            </div>
+                          )}
+                        </motion.button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Right Column */}
+                  <div className="space-y-2.5">
+                    <h3 className="mb-2 text-center font-display text-sm font-bold uppercase tracking-wider text-muted-foreground">
+                      Jobb oldal
+                    </h3>
+                    {matchingState.shuffledRight.map((item) => {
+                      const pair = matchingState.userPairs.find((p) => p.rightId === item.id);
+                      const isSelected = matchingState.selectedSide === 'right' && matchingState.selectedId === item.id;
+                      const pairColor = pair ? MATCHING_PAIR_COLORS[pair.colorIndex % MATCHING_PAIR_COLORS.length] : null;
+                      const isPairCorrect = pair ? pair.leftId === pair.rightId : false;
+
+                      return (
+                        <motion.button
+                          key={item.id}
+                          type="button"
+                          whileHover={!answered ? { scale: 1.01 } : {}}
+                          whileTap={!answered ? { scale: 0.99 } : {}}
+                          onClick={() => handleItemClick('right', item.id)}
+                          className={cn(
+                            "relative w-full rounded-2xl p-4 text-center font-medium transition-all shadow-sm flex flex-col items-center justify-center min-h-[72px] border-2",
+                            isSelected && "ring-4 ring-primary border-primary bg-primary/10 shadow-md",
+                            !isSelected && pairColor && cn(pairColor.bg, pairColor.border, pairColor.ring),
+                            !isSelected && !pairColor && "bg-card border-border hover:border-primary/50 text-card-foreground",
+                            answered && pair && (isPairCorrect ? "border-quiz-green bg-quiz-green/15" : "border-destructive bg-destructive/15")
+                          )}
+                        >
+                          {/* Pair number badge */}
+                          {pair && !answered && (
+                            <span className={cn(
+                              "absolute -top-2.5 -right-2 px-2 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider shadow-sm",
+                              pairColor?.badge
+                            )}>
+                              {pair.colorIndex + 1}. pár
+                            </span>
+                          )}
+
+                          {/* Reveal badge */}
+                          {answered && pair && (
+                            <span className={cn(
+                              "absolute -top-2.5 -right-2 px-2 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider shadow-sm flex items-center gap-1",
+                              isPairCorrect ? "bg-quiz-green text-white" : "bg-destructive text-white"
+                            )}>
+                              {isPairCorrect ? "✓ Helyes" : "✗ Hibás"}
+                            </span>
+                          )}
+
+                          <div className="text-base sm:text-lg font-bold">
+                            <MathRenderer text={item.text} />
+                          </div>
+                        </motion.button>
+                      );
+                    })}
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <h3 className="mb-2 text-center font-display font-bold">Jobb oldal</h3>
-                  {matchingState.shuffledRight.map((item) => {
-                    const isCompleted = matchingState.completedRight.includes(item.id);
-                    const isSelected = matchingState.rightSelected === item.id;
-                    return (
+
+                {/* Submit button / instructions */}
+                {!answered && (
+                  <div className="pt-2 flex flex-col items-center justify-center">
+                    {matchingState.userPairs.length === (question.pairs?.length || 0) ? (
                       <Button
-                        key={item.id}
-                        variant={isSelected ? "default" : isCompleted ? "secondary" : "outline"}
-                        className={`w-full h-auto py-4 text-lg font-medium transition-all ${isCompleted ? 'opacity-50 cursor-default' : ''}`}
-                        onClick={() => {
-                          if (answered || isCompleted) return;
-                          setMatchingState(prev => ({ ...prev, rightSelected: item.id }));
-                          if (matchingState.leftSelected) {
-                            handleMatch(matchingState.leftSelected, item.id);
-                          }
-                        }}
+                        size="lg"
+                        className="w-full max-w-sm h-12 text-base font-bold bg-quiz-green hover:bg-quiz-green/90 text-white shadow-lg shadow-quiz-green/20 animate-pulse"
+                        onClick={() => submitAnswer()}
                       >
-                        <MathRenderer text={item.text} />
+                        <Check className="mr-2 h-5 w-5" /> Párosítás beküldése
                       </Button>
-                    );
-                  })}
-                </div>
+                    ) : (
+                      <div className="text-xs text-muted-foreground bg-muted/60 px-4 py-2 rounded-full font-medium">
+                        Kattints egy elemre, majd a párjára ({matchingState.userPairs.length}/{(question.pairs?.length || 0)} pár kész)
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             )}
             {/* True/False Answer */}

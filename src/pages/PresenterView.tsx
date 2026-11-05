@@ -13,6 +13,8 @@ import { ReactionDisplay } from '@/components/quiz/ReactionDisplay';
 import { MathRenderer } from '@/components/quiz/MathRenderer';
 import { SubmarineGame } from '@/components/quiz/SubmarineGame';
 import { QuestionResultsChart } from '@/components/quiz/QuestionResultsChart';
+import { cn } from '@/lib/utils';
+import { MATCHING_PAIR_COLORS } from './PlayQuiz';
 import {
   getRoomById,
   getQuizById,
@@ -468,31 +470,61 @@ const PresenterView = () => {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-3">
                     <h3 className="text-center font-display font-bold text-muted-foreground">Bal oldal</h3>
-                    {(currentQuestion.pairs || []).map((pair) => (
-                      <motion.div
-                        key={pair.id}
-                        animate={showResults ? { borderColor: 'rgb(34, 197, 94)', backgroundColor: 'rgba(34, 197, 94, 0.05)' } : {}}
-                        className="rounded-xl border bg-card p-4 text-center font-bold shadow-sm transition-colors"
-                      >
-                        <MathRenderer text={pair.left} />
-                      </motion.div>
-                    ))}
+                    {(currentQuestion.pairs || []).map((pair, idx) => {
+                      const color = MATCHING_PAIR_COLORS[idx % MATCHING_PAIR_COLORS.length];
+                      return (
+                        <motion.div
+                          key={pair.id}
+                          className={cn(
+                            "relative rounded-xl border bg-card p-4 text-center font-bold shadow-sm transition-all",
+                            showResults && color && cn(color.bg, color.border, "border-2")
+                          )}
+                        >
+                          {showResults && color && (
+                            <span
+                              className={cn(
+                                "absolute -top-2.5 -left-2 px-2 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider shadow-sm",
+                                color.badge
+                              )}
+                            >
+                              {idx + 1}. pár
+                            </span>
+                          )}
+                          <MathRenderer text={pair.left} />
+                        </motion.div>
+                      );
+                    })}
                   </div>
                   <div className="space-y-3">
                     <h3 className="text-center font-display font-bold text-muted-foreground">Jobb oldal</h3>
-                    {(currentQuestion.pairs || []).map((pair) => (
-                      <motion.div
-                        key={pair.id}
-                        animate={showResults ? { borderColor: 'rgb(34, 197, 94)', backgroundColor: 'rgba(34, 197, 94, 0.05)' } : {}}
-                        className="rounded-xl border bg-card p-4 text-center font-bold shadow-sm transition-colors"
-                      >
-                        <MathRenderer text={pair.right} />
-                      </motion.div>
-                    ))}
+                    {(currentQuestion.pairs || []).map((pair, idx) => {
+                      const color = MATCHING_PAIR_COLORS[idx % MATCHING_PAIR_COLORS.length];
+                      return (
+                        <motion.div
+                          key={pair.id}
+                          className={cn(
+                            "relative rounded-xl border bg-card p-4 text-center font-bold shadow-sm transition-all",
+                            showResults && color && cn(color.bg, color.border, "border-2")
+                          )}
+                        >
+                          {showResults && color && (
+                            <span
+                              className={cn(
+                                "absolute -top-2.5 -right-2 px-2 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider shadow-sm",
+                                color.badge
+                              )}
+                            >
+                              {idx + 1}. pár
+                            </span>
+                          )}
+                          <MathRenderer text={pair.right} />
+                        </motion.div>
+                      );
+                    })}
                   </div>
                   {showResults && (
                     <div className="col-span-full text-center">
-                      <p className="text-sm text-quiz-green font-bold">A párok sorrendben vannak feltüntetve</p>
+                      <p className="text-sm text-quiz-green font-bold">A helyes párok azonos színnel és számozással vannak jelölve</p>
                     </div>
                   )}
                 </div>
