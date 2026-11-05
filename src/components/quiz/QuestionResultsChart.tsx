@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Sparkles } from 'lucide-react';
+import { isNormalizedMatch } from '@/lib/textNormalization';
 import type { QuizQuestion, QuizAnswer } from '@/types/quiz';
 import { MathRenderer } from './MathRenderer';
 
@@ -37,26 +38,36 @@ const TextInputResults: React.FC<{
     return () => clearTimeout(timer);
   }, [question.id]);
 
-  // Group case-insensitively while preserving original text
-  const countsMap = new Map<string, { display: string; count: number }>();
+  // Group case-insensitively while preserving original text and evaluation results
+  const countsMap = new Map<string, { display: string; count: number; isCorrect: boolean; hasAi: boolean }>();
   answers.forEach((a) => {
     const rawVal = ((a.answer as any)?.text || '').trim();
     if (!rawVal) return;
     const lower = rawVal.toLowerCase();
+    const isAnsCorrect = Boolean(a.is_correct);
+    const isAi = (a as any).evaluation_source === 'ai' || (a.answer as any)?.evaluation_source === 'ai';
+
     if (countsMap.has(lower)) {
-      countsMap.get(lower)!.count += 1;
+      const entry = countsMap.get(lower)!;
+      entry.count += 1;
+      if (isAnsCorrect) entry.isCorrect = true;
+      if (isAi) entry.hasAi = true;
     } else {
-      countsMap.set(lower, { display: rawVal, count: 1 });
+      countsMap.set(lower, {
+        display: rawVal,
+        count: 1,
+        isCorrect: isAnsCorrect || isNormalizedMatch(rawVal, question.correctAnswer),
+        hasAi: isAi,
+      });
     }
   });
-
-  const normalizedCorrect = (question.correctAnswer || '').trim().toLowerCase();
 
   const data = Array.from(countsMap.values())
     .map((item) => ({
       text: item.display,
       count: item.count,
-      isCorrect: item.display.trim().toLowerCase() === normalizedCorrect,
+      isCorrect: item.isCorrect,
+      hasAi: item.hasAi,
     }))
     .sort((a, b) => b.count - a.count);
 
@@ -144,10 +155,15 @@ const TextInputResults: React.FC<{
                           initial={{ scale: 0, rotate: -45, opacity: 0 }}
                           animate={{ scale: 1, rotate: 0, opacity: 1 }}
                           transition={{ type: 'spring', stiffness: 450, damping: 15 }}
-                          className="flex items-center gap-1 text-quiz-green font-extrabold text-sm mt-1"
+                          className="flex items-center gap-1.5 text-quiz-green font-extrabold text-sm mt-1"
                         >
                           <CheckCircle2 className="h-5 w-5 text-quiz-green" />
                           <span>Helyes</span>
+                          {item.hasAi && (
+                            <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-bold bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 border border-yellow-500/30">
+                              <Sparkles className="h-2.5 w-2.5" /> AI
+                            </span>
+                          )}
                         </motion.div>
                       )}
                     </AnimatePresence>

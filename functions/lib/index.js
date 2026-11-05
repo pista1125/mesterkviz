@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateQuiz = void 0;
+exports.evaluateAnswer = exports.generateQuiz = void 0;
 const https_1 = require("firebase-functions/v2/https");
 const admin = __importStar(require("firebase-admin"));
 admin.initializeApp();
@@ -172,6 +172,104 @@ Tartsd be a kért kérdésszámot (${numQuestions}) és ha a témakörben speci�
     catch (e) {
         console.error("generateQuiz error:", e);
         res.status(500).json({ error: e instanceof Error ? e.message : "Ismeretlen hiba" });
+    }
+});
+exports.evaluateAnswer = (0, https_1.onRequest)({
+    cors: true,
+    region: "europe-west1",
+    timeoutSeconds: 30,
+    memory: "256MiB",
+}, async (req, res) => {
+    if (req.method === "OPTIONS") {
+        res.status(204).send("");
+        return;
+    }
+    try {
+        const { questionText, studentAnswer, correctAnswer, gradeLevel } = req.body || {};
+        if (!studentAnswer || !correctAnswer) {
+            res.status(200).json({
+                isCorrect: false,
+                reason: "Hiányzó diákválasz vagy megoldókulcs.",
+            });
+            return;
+        }
+        const rawKey = process.env.OPENAI_API_KEY || "";
+        const OPENAI_API_KEY = rawKey.replace(/[^\x20-\x7E]/g, "").trim();
+        if (!OPENAI_API_KEY) {
+            console.error("OPENAI_API_KEY hiányzik a functions/.env fájlból");
+            res.status(200).json({
+                isCorrect: false,
+                reason: "AI szolgáltatás nincs konfigurálva.",
+            });
+            return;
+        }
+        const systemPrompt = `Te egy szigorú, de igazságos magyar oktatási AI tanársegéd vagy, aki diákok szabad szöveges válaszait értékeli ki egy iskolai kvízben.
+
+FELADAT:
+Döntsd el, hogy a diák által megadott válasz (studentAnswer) helyesnek vagy elfogadhatónak tekinthető-e a kérdés (questionText) és a hivatalos megoldókulcs (correctAnswer) alapján.
+
+SZABÁLYOK:
+1. SZINONIMÁK ÉS KIFEJEZÉSEK: Fogadd el a szinonimákat, rokon értelmű szavakat és köznyelvi alakokat (pl. "autó" = "kocsi" = "gépkocsi", "kerékpár" = "bicikli").
+2. MÉRTÉKEGYSÉGEK ÉS ÁTVÁLTÁSOK: Fogadd el a matematikailag vagy fizikailag egyenértékű kifejezéseket (pl. "20 dm" = "2 m" = "200 cm", "0.5 kg" = "500 g", "fél liter" = "0.5 l" = "5 dl").
+3. KISEBB ELÍRÁSOK: 1-2 betűs elütést, ha a szó egyértelműen beazonosítható és nem téveszthető össze más szakmai fogalommal, fogadj el (pl. "fotoszintesis" -> "fotoszintézis").
+4. SZEMÉLYNEVEK ÉS TÖRTÉNELMI FOGALMAK: Ha a diák válasza egyértelműen azonosítja a keresett személyt, fogalmat vagy eseményt (pl. "Petőfi" a "Petőfi Sándor"-ra, "II. vh" a "második világháború"-ra), fogadd el, hacsak a kérdés nem kér kifejezetten teljes nevet.
+5. FORMÁTUMOK: Fogadd el az eltérő írásmódokat, dátumformátumokat és központozást (pl. "1945. május 8." = "1945 május 8").
+6. TARTALMI HIBÁK: Ha a diák válasza tartalmilag hibás, téves tényt állít vagy más fogalmat jelöl, az isCorrect értéke MINDIG false legyen!
+
+KIMENETI FORMÁTUM (Kizárólag érvényes JSON):
+{
+  "isCorrect": true,
+  "reason": "1 mondatos rövid magyar magyarázat a döntésről."
+}`;
+        const userPrompt = `Kérdés: ${questionText || "Nincs külön megadva"}
+Hivatalos megoldás: ${correctAnswer}
+Diák válasza: ${studentAnswer}
+${gradeLevel ? `Évfolyam/korosztály: ${gradeLevel}` : ""}`;
+        const response = await fetch("https://api.openai.com/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${OPENAI_API_KEY}`,
+            },
+            body: JSON.stringify({
+                model: "gpt-4o-mini",
+                temperature: 0.1,
+                messages: [
+                    { role: "system", content: systemPrompt },
+                    { role: "user", content: userPrompt },
+                ],
+                response_format: { type: "json_object" },
+            }),
+        });
+        if (!response.ok) {
+            console.error("OpenAI API hiba a válasz ellenőrzésekor:", response.status);
+            res.status(200).json({
+                isCorrect: false,
+                reason: "AI kiértékelési hiba (OpenAI nem elérhető).",
+            });
+            return;
+        }
+        const data = await response.json();
+        const content = data.choices?.[0]?.message?.content;
+        if (!content) {
+            res.status(200).json({
+                isCorrect: false,
+                reason: "Az AI nem adott választ.",
+            });
+            return;
+        }
+        const result = JSON.parse(content);
+        res.status(200).json({
+            isCorrect: Boolean(result.isCorrect),
+            reason: result.reason || (result.isCorrect ? "AI által elfogadva" : "AI által elutasítva"),
+        });
+    }
+    catch (e) {
+        console.error("evaluateAnswer hiba:", e);
+        res.status(200).json({
+            isCorrect: false,
+            reason: "Hiba történt az AI ellenőrzés közben.",
+        });
     }
 });
 //# sourceMappingURL=index.js.map

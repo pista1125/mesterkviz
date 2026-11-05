@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import { UserCircle } from 'lucide-react';
 import { getStudentSessionId } from '@/types/quiz';
 import type { Room, AvatarData } from '@/types/quiz';
+import { Avatar } from '@/components/quiz/Avatar';
 import { AvatarSelector } from '@/components/quiz/AvatarSelector';
 import { findActiveRoomByCode, joinRoomParticipant } from '@/services/db';
 
@@ -141,16 +142,40 @@ const JoinRoom = () => {
                   autoFocus
                 />
               </div>
+              {/* Belépés gomb azonnali csatlakozáshoz alapértelmezett avatárral */}
               <Button
-                className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
+                className="w-full text-base font-bold h-12 shadow-md hover:brightness-105 active:scale-[0.99] transition-all"
                 size="lg"
-                onClick={() => setStep('avatar')}
+                onClick={() => handleJoin()}
                 disabled={joining || !name.trim()}
               >
-                <UserCircle className="mr-2 h-5 w-5" />
-                Avatár választása
+                {joining ? 'Belépés folyamatban...' : 'Belépés a kvízbe'}
               </Button>
-              <Button variant="ghost" size="sm" className="w-full" onClick={() => { setStep('code'); setRoom(null); }}>
+
+              {/* Opcionális avatár testreszabás */}
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full h-12 border-dashed flex items-center justify-between px-4 hover:border-primary/60 transition-colors"
+                onClick={() => setStep('avatar')}
+                disabled={joining}
+              >
+                <div className="flex items-center gap-2">
+                  <UserCircle className="h-5 w-5 text-muted-foreground" />
+                  <span className="text-sm font-medium">Avatár választása</span>
+                  <span className="text-xs text-muted-foreground">(opcionális)</span>
+                </div>
+                <div className="flex items-center gap-1.5 font-bold">
+                  <Avatar avatar={avatar} size="sm" className="h-8 w-8 text-lg rounded-lg border shadow-xs" />
+                </div>
+              </Button>
+
+              <Button
+                variant="ghost"
+                size="sm"
+                className="w-full text-muted-foreground hover:text-foreground"
+                onClick={() => { setStep('code'); setRoom(null); }}
+              >
                 Másik szobakód
               </Button>
             </div>
@@ -165,6 +190,7 @@ const JoinRoom = () => {
                 <div className="text-sm font-medium">Lépés 3/3 - Avatár választása</div>
               </div>
               <AvatarSelector
+                initialAvatar={avatar}
                 onSelect={(selectedAvatar) => {
                   setAvatar(selectedAvatar);
                   handleJoin(selectedAvatar);

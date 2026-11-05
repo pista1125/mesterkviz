@@ -57,3 +57,48 @@ export const requestGenerateQuiz = async (params: GenerateQuizParams): Promise<G
 
   return data as GeneratedQuizResponse;
 };
+
+
+export interface EvaluateAnswerParams {
+  questionText: string;
+  studentAnswer: string;
+  correctAnswer: string;
+  gradeLevel?: string;
+}
+
+export interface EvaluateAnswerResponse {
+  isCorrect: boolean;
+  reason?: string;
+}
+
+export const requestEvaluateAnswer = async (
+  params: EvaluateAnswerParams
+): Promise<EvaluateAnswerResponse> => {
+  const FUNCTION_URL =
+    import.meta.env.VITE_FIREBASE_EVALUATE_ANSWER_URL ||
+    'https://europe-west1-mesterkviz-f52ce.cloudfunctions.net/evaluateAnswer';
+
+  try {
+    const response = await fetch(FUNCTION_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params),
+    });
+
+    if (!response.ok) {
+      console.warn(`evaluateAnswer request failed with status ${response.status}`);
+      return { isCorrect: false, reason: 'AI kiértékelési hiba' };
+    }
+
+    const data = await response.json();
+    return {
+      isCorrect: Boolean(data?.isCorrect),
+      reason: data?.reason || '',
+    };
+  } catch (err) {
+    console.error('Error calling evaluateAnswer function:', err);
+    return { isCorrect: false, reason: 'Hálózati hiba az AI kiértékelés során' };
+  }
+};

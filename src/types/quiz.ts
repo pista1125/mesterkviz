@@ -84,6 +84,8 @@ export interface QuizAnswer {
   score: number;
   session_number: number;
   answered_at: string;
+  evaluation_source?: 'exact' | 'normalized' | 'ai';
+  ai_reason?: string;
 }
 
 // Helper to generate a student session ID

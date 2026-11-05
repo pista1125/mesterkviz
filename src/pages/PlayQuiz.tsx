@@ -4,7 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import { Clock, CheckCircle2, Users, Send, Trophy, Smile, Zap, BarChart3 } from 'lucide-react';
+import { Clock, CheckCircle2, Users, Send, Trophy, Smile, Zap, BarChart3, Sparkles } from 'lucide-react';
+import { isNormalizedMatch } from '@/lib/textNormalization';
+import { requestEvaluateAnswer } from '@/services/ai';
 import type { Room, Quiz, QuizQuestion, RoomParticipant, AvatarData, QuizAnswer } from '@/types/quiz';
 import { Podium } from '@/components/quiz/Podium';
 import { Avatar } from '@/components/quiz/Avatar';
@@ -58,6 +60,9 @@ const PlayQuiz = () => {
   const [answered, setAnswered] = useState(false);
   const [answerCorrect, setAnswerCorrect] = useState<boolean | null>(null);
   const [earnedScore, setEarnedScore] = useState(0);
+  const [isEvaluatingAi, setIsEvaluatingAi] = useState(false);
+  const [evaluationSource, setEvaluationSource] = useState<'exact' | 'normalized' | 'ai' | null>(null);
+  const [aiReason, setAiReason] = useState<string | null>(null);
   const [timer, setTimer] = useState(0);
   const [showStartCountdown, setShowStartCountdown] = useState(false);
   const [countdownValue, setCountdownValue] = useState(3);
@@ -174,6 +179,9 @@ const PlayQuiz = () => {
           setAnswerCorrect(null);
           setEarnedScore(0);
           setQuestionStartTime(Date.now());
+          setIsEvaluatingAi(false);
+          setEvaluationSource(null);
+          setAiReason(null);
 
           if (quiz && quiz.questions) {
             const question = quiz.questions[updatedRoom.current_question_index];
@@ -349,7 +357,7 @@ const PlayQuiz = () => {
   };
 
   const submitAnswer = async (optionId?: string) => {
-    if (!room || !quiz || !participantId || answered) return;
+    if (!room || !quiz || !participantId || answered || isEvaluatingAi) return;
 
     const isSubmarine = room.game_mode === 'submarine';
     // For submarine: use the current front of the shuffled queue as the actual question
@@ -362,23 +370,61 @@ const PlayQuiz = () => {
     let isCorrect = false;
     let answerData: Record<string, unknown> = {};
 
+    // Freeze response time immediately when submit is triggered
+    const timeTaken = Date.now() - questionStartTime;
+    const timeLimitMs = (question.timeLimit || room.time_limit_seconds || 15) * 1000;
+
+    let evalSource: 'exact' | 'normalized' | 'ai' | undefined = undefined;
+    let aiExplanation: string | undefined = undefined;
+
     if ((question.type === 'multiple-choice' || question.type === 'true-false') && optionId) {
       const selectedOption = (question.options || []).find((o) => o.id === optionId);
       isCorrect = selectedOption?.isCorrect || false;
       answerData = { selectedOptionId: optionId };
       setSelectedAnswer(optionId);
     } else if (question.type === 'text-input') {
-      isCorrect = textAnswer.trim().toLowerCase() === (question.correctAnswer || '').trim().toLowerCase();
-      answerData = { text: textAnswer.trim() };
+      const trimmed = textAnswer.trim();
+      const isExact = trimmed.toLowerCase() === (question.correctAnswer || '').trim().toLowerCase();
+
+      if (isExact) {
+        isCorrect = true;
+        evalSource = 'exact';
+      } else if (isNormalizedMatch(trimmed, question.correctAnswer)) {
+        isCorrect = true;
+        evalSource = 'normalized';
+      } else {
+        setIsEvaluatingAi(true);
+        try {
+          const aiResult = await requestEvaluateAnswer({
+            questionText: question.text,
+            studentAnswer: trimmed,
+            correctAnswer: question.correctAnswer || '',
+            gradeLevel: quiz.gradeLevel,
+          });
+          isCorrect = Boolean(aiResult.isCorrect);
+          evalSource = 'ai';
+          aiExplanation = aiResult.reason;
+        } catch (err) {
+          console.error('Error during AI answer evaluation:', err);
+          isCorrect = false;
+          evalSource = 'ai';
+          aiExplanation = 'AI kiértékelési hiba, alapértelmezetten elutasítva.';
+        } finally {
+          setIsEvaluatingAi(false);
+        }
+      }
+
+      answerData = {
+        text: trimmed,
+        evaluation_source: evalSource,
+        ai_reason: aiExplanation,
+      };
     } else if (question.type === 'matching') {
       const totalPairs = question.pairs?.length || 0;
       const correctPairs = matchingState.completedLeft.length;
       isCorrect = correctPairs === totalPairs;
       answerData = { correctPairs, totalPairs };
     }
-
-    const timeTaken = Date.now() - questionStartTime;
-    const timeLimitMs = (question.timeLimit || room.time_limit_seconds || 15) * 1000;
     
     // Scoring logic for submarine mode: fixed 1000 per correct
     const score = isSubmarine 
@@ -395,6 +441,8 @@ const PlayQuiz = () => {
         time_taken_ms: timeTaken,
         score,
         session_number: room.session_number,
+        evaluation_source: evalSource,
+        ai_reason: aiExplanation,
       });
     } catch (error) {
       toast.error('Hiba a válasz elküldésekor');
@@ -404,6 +452,8 @@ const PlayQuiz = () => {
     setAnswered(true);
     setAnswerCorrect(isCorrect);
     setEarnedScore(score);
+    setEvaluationSource(evalSource || null);
+    setAiReason(aiExplanation || null);
 
     // Submarine progress tracking for boost
     if (isSubmarine && isCorrect) {
@@ -440,6 +490,9 @@ const PlayQuiz = () => {
         setAnswerCorrect(null);
         setEarnedScore(0);
         setQuestionStartTime(Date.now());
+        setIsEvaluatingAi(false);
+        setEvaluationSource(null);
+        setAiReason(null);
       }, 2000);
     }
   };
@@ -646,6 +699,16 @@ const PlayQuiz = () => {
                 <div className="text-lg font-bold">
                   {answerCorrect ? '✓ Helyes válasz!' : '✗ Helytelen válasz'}
                 </div>
+                {evaluationSource === 'ai' && (
+                  <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-black/20 backdrop-blur-sm border border-white/20">
+                    <Sparkles className="h-3.5 w-3.5 text-yellow-300" />
+                    <span>
+                      {answerCorrect
+                        ? 'AI által jóváhagyva: Elfogadva ✨'
+                        : 'AI által ellenőrizve: Nem fogadható el 🤖'}
+                    </span>
+                  </div>
+                )}
                 {!answerCorrect && question.type === 'text-input' && (
                   <div className="mt-2 text-sm italic opacity-90">
                     A helyes válasz: <MathRenderer text={question.correctAnswer || ''} className="inline-block" />
@@ -752,10 +815,10 @@ const PlayQuiz = () => {
                     placeholder="Írd be a választ..."
                     value={textAnswer}
                     onChange={(e) => setTextAnswer(e.target.value)}
-                    disabled={answered}
+                    disabled={answered || isEvaluatingAi}
                     className="h-14 text-center text-xl font-bold"
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter' && textAnswer.trim() && !answered) {
+                      if (e.key === 'Enter' && textAnswer.trim() && !answered && !isEvaluatingAi) {
                         submitAnswer();
                       }
                     }}
@@ -763,9 +826,18 @@ const PlayQuiz = () => {
                   <Button
                     className="w-full h-12 text-lg font-bold"
                     onClick={() => submitAnswer()}
-                    disabled={answered || !textAnswer.trim()}
+                    disabled={answered || isEvaluatingAi || !textAnswer.trim()}
                   >
-                    <Send className="mr-2 h-5 w-5" /> Beküldés
+                    {isEvaluatingAi ? (
+                      <>
+                        <Sparkles className="mr-2 h-5 w-5 animate-spin text-yellow-300" />
+                        AI ellenőrzi a választ...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="mr-2 h-5 w-5" /> Beküldés
+                      </>
+                    )}
                   </Button>
                 </div>
               </div>

@@ -271,10 +271,15 @@ export const submitQuizAnswer = async (
   const snap = await getDocs(q);
   const now = new Date().toISOString();
 
+  // Strip undefined properties to avoid Firestore errors
+  const cleanAnswerData = Object.fromEntries(
+    Object.entries(answerData).filter(([_, v]) => v !== undefined)
+  );
+
   if (!snap.empty) {
     const existingDoc = snap.docs[0];
     await updateDoc(existingDoc.ref, {
-      ...answerData,
+      ...cleanAnswerData,
       answered_at: now,
     });
     return existingDoc.id;
@@ -282,10 +287,10 @@ export const submitQuizAnswer = async (
 
   const docRef = doc(collection(db, 'quiz_answers'));
   const newAnswer: QuizAnswer = {
-    ...answerData,
+    ...cleanAnswerData,
     id: docRef.id,
     answered_at: now,
-  };
+  } as QuizAnswer;
   await setDoc(docRef, newAnswer);
   return docRef.id;
 };
