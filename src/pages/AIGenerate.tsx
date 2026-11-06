@@ -6,9 +6,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
+import { Switch } from '@/components/ui/switch';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { ArrowLeft, Brain, Sparkles, Loader2, Plus } from 'lucide-react';
+import { ArrowLeft, Brain, Sparkles, Loader2, Plus, Shapes } from 'lucide-react';
 import { requestGenerateQuiz } from '@/services/ai';
 import { saveQuiz, getAllTopicsByGrade } from '@/services/db';
 
@@ -25,6 +26,7 @@ const AIGenerate = () => {
   const [numQuestions, setNumQuestions] = useState(5);
   const [gradeLevel, setGradeLevel] = useState('');
   const [includeTrueFalse, setIncludeTrueFalse] = useState(true);
+  const [generateSvg, setGenerateSvg] = useState(false);
   const [generating, setGenerating] = useState(false);
 
   useEffect(() => {
@@ -88,6 +90,7 @@ const AIGenerate = () => {
         numQuestions,
         gradeLevel,
         includeTrueFalse,
+        generateSvg,
       });
 
       const normalizedQuestions = (data.questions || []).map(normalizeQuestion);
@@ -352,6 +355,25 @@ const AIGenerate = () => {
                 <Label htmlFor="includeTrueFalse" className="cursor-pointer">
                   Igaz/Hamis kérdések bevonása
                 </Label>
+              </div>
+
+              <div className="flex items-start justify-between rounded-md border p-3 bg-muted/20 hover:bg-muted/30 transition-colors">
+                <div className="space-y-1 pr-3">
+                  <div className="flex items-center gap-1.5">
+                    <Shapes className="h-4 w-4 text-primary" />
+                    <Label htmlFor="generateSvg" className="font-medium cursor-pointer text-sm">
+                      Szemléltető SVG ábrák generálása
+                    </Label>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Az AI vektorgrafikus ábrát (geometria, koordináták, diagramok, alakzatok) készít azon kérdésekhez, ahol a szemléltetés segít.
+                  </p>
+                </div>
+                <Switch
+                  id="generateSvg"
+                  checked={generateSvg}
+                  onCheckedChange={setGenerateSvg}
+                />
               </div>
 
               <Button

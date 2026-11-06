@@ -5,6 +5,7 @@ export interface GenerateQuizParams {
   gradeLevel?: string;
   selectedTypes?: string[];
   includeTrueFalse?: boolean;
+  generateSvg?: boolean;
 }
 
 export interface GeneratedQuizResponse {
@@ -36,6 +37,7 @@ export const requestGenerateQuiz = async (params: GenerateQuizParams): Promise<G
       numQuestions: params.numQuestions,
       gradeLevel: params.gradeLevel,
       selectedTypes,
+      generateSvg: params.generateSvg ?? false,
     }),
   });
 

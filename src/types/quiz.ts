@@ -55,7 +55,9 @@ export interface Room {
   submarine_boosts: number;
   game_duration_seconds: number;
   time_limit_seconds: number;
-  show_results_to_students: boolean;
+  has_time_limit?: boolean;
+  time_limit_mode?: 'quiz_preset' | 'unified' | 'unlimited';
+  show_results_to_students?: boolean;
   current_question_index: number;
   session_number: number;
   started_at: string | null;
@@ -149,11 +151,18 @@ export const normalizeQuestion = (q: Partial<QuizQuestion>): QuizQuestion => {
     }
   }
 
+  let imageUrl = q.imageUrl || '';
+  if (imageUrl && (imageUrl.startsWith('<svg') || imageUrl.includes('<svg'))) {
+    const svgMatch = imageUrl.match(/<svg[\s\S]*<\/svg>/i);
+    const svgCode = svgMatch ? svgMatch[0] : imageUrl;
+    imageUrl = `data:image/svg+xml;utf8,${encodeURIComponent(svgCode)}`;
+  }
+
   return {
     id: q.id || crypto.randomUUID(),
     type,
     text: q.text || '',
-    imageUrl: q.imageUrl || '',
+    imageUrl,
     options,
     correctAnswer: q.correctAnswer || '',
     pairs,
@@ -239,3 +248,29 @@ export const MATCHING_PAIR_COLORS = [
     ring: 'ring-2 ring-orange-500/50',
   },
 ];
+
+export const isRoomUnlimitedTime = (
+  room?: Pick<Room, 'time_limit_mode' | 'has_time_limit' | 'time_limit_seconds'> | null
+): boolean => {
+  if (!room) return false;
+  if (room.time_limit_mode === 'unlimited') return true;
+  if (room.has_time_limit === false) return true;
+  if (room.time_limit_seconds === 0) return true;
+  return false;
+};
+
+export const getQuestionEffectiveTimeLimit = (
+  room?: Pick<Room, 'time_limit_mode' | 'has_time_limit' | 'time_limit_seconds'> | null,
+  question?: Pick<QuizQuestion, 'timeLimit'> | null
+): number => {
+  if (!room) return question?.timeLimit || 15;
+  if (isRoomUnlimitedTime(room)) return 999;
+
+  // Unified mode forces all questions to use room.time_limit_seconds
+  if (room.time_limit_mode === 'unified' && room.time_limit_seconds && room.time_limit_seconds > 0) {
+    return room.time_limit_seconds;
+  }
+
+  // Quiz preset mode (or legacy default) respects each question's individual time limit
+  return question?.timeLimit || (room.time_limit_seconds && room.time_limit_seconds > 0 ? room.time_limit_seconds : 15);
+};

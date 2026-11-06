@@ -4,11 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import { Clock, CheckCircle2, Users, Send, Trophy, Smile, Zap, BarChart3, Sparkles, Check, Loader2 } from 'lucide-react';
+import { Clock, CheckCircle2, Users, Send, Trophy, Smile, Zap, BarChart3, Sparkles, Check, Loader2, Infinity as LucideInfinity } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { isNormalizedMatch } from '@/lib/textNormalization';
 import { requestEvaluateAnswer } from '@/services/ai';
-import { type Room, type Quiz, type QuizQuestion, type RoomParticipant, type AvatarData, type QuizAnswer, type MatchingUserPair, MATCHING_PAIR_COLORS } from '@/types/quiz';
+import { type Room, type Quiz, type QuizQuestion, type RoomParticipant, type AvatarData, type QuizAnswer, type MatchingUserPair, MATCHING_PAIR_COLORS, isRoomUnlimitedTime, getQuestionEffectiveTimeLimit } from '@/types/quiz';
 import { Podium } from '@/components/quiz/Podium';
 import { Avatar } from '@/components/quiz/Avatar';
 import { AvatarSelector } from '@/components/quiz/AvatarSelector';
@@ -44,6 +44,7 @@ const COLORS = [
 
 const calculateScore = (isCorrect: boolean, timeTakenMs: number, timeLimitMs: number): number => {
   if (!isCorrect) return 0;
+  if (!timeLimitMs || timeLimitMs <= 0) return 1000;
   const timeRatio = Math.max(0, 1 - timeTakenMs / timeLimitMs);
   return Math.round(100 + timeRatio * 900);
 };
@@ -130,7 +131,9 @@ const PlayQuiz = () => {
   const activeParticipants = participants.filter((p) => p.is_active);
   const totalActiveParticipants = activeParticipants.length;
   const allAnswered = totalActiveParticipants > 0 && currentQAnswers.length >= totalActiveParticipants;
-  const isRevealed = isSubmarine ? answered : (timer === 0 || allAnswered);
+  const hasTimeLimit = !isRoomUnlimitedTime(room);
+  const isTimedOut = hasTimeLimit && timer === 0;
+  const isRevealed = isSubmarine ? answered : (isTimedOut || allAnswered || (!hasTimeLimit && answered));
 
   const participantId = sessionStorage.getItem('participant_id');
   const studentName = sessionStorage.getItem('student_name');
@@ -206,7 +209,7 @@ const PlayQuiz = () => {
 
           if (quiz && quiz.questions) {
             const nextQ = quiz.questions[updatedRoom.current_question_index];
-            const nextTime = nextQ?.timeLimit || updatedRoom.time_limit_seconds || 15;
+            const nextTime = getQuestionEffectiveTimeLimit(updatedRoom, nextQ);
             setTimer(nextTime);
 
             if (nextQ?.type === 'matching' && nextQ.pairs) {
@@ -308,12 +311,20 @@ const PlayQuiz = () => {
     const question = quiz.questions[room.current_question_index];
     if (!question) return;
 
+    const hasTL = !isRoomUnlimitedTime(room);
+
     if (allAnswered && !isSubmarine) {
-      setTimer(0);
+      if (hasTL) setTimer(0);
       return;
     }
 
-    const timeLimit = question.timeLimit || room.time_limit_seconds || 15;
+    if (!hasTL) {
+      setTimer(999);
+      setQuestionStartTime(Date.now());
+      return;
+    }
+
+    const timeLimit = getQuestionEffectiveTimeLimit(room, question);
     setTimer(timeLimit);
     setQuestionStartTime(Date.now());
 
@@ -337,7 +348,7 @@ const PlayQuiz = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [room?.current_question_index, room?.status, showStartCountdown, allAnswered, isSubmarine]);
+  }, [room?.current_question_index, room?.status, showStartCountdown, allAnswered, isSubmarine, room?.time_limit_seconds, room?.has_time_limit, room?.time_limit_mode]);
 
   // Initial matching setup
   useEffect(() => {
@@ -467,7 +478,9 @@ const PlayQuiz = () => {
 
     // Freeze response time immediately when submit is triggered
     const timeTaken = Date.now() - questionStartTime;
-    const timeLimitMs = (question.timeLimit || room.time_limit_seconds || 15) * 1000;
+    const hasTL = !isRoomUnlimitedTime(room);
+    const effectiveSec = hasTL ? getQuestionEffectiveTimeLimit(room, question) : 0;
+    const timeLimitMs = effectiveSec * 1000;
 
     let evalSource: 'exact' | 'normalized' | 'ai' | undefined = undefined;
     let aiExplanation: string | undefined = undefined;
@@ -1049,7 +1062,7 @@ const PlayQuiz = () => {
                 {question.options.map((option, i) => {
                   const color = COLORS[i % COLORS.length];
                   const isSelected = selectedAnswer === option.id;
-                  const isLocked = answered || timer === 0;
+                  const isLocked = answered || isTimedOut;
 
                   let stateClass = color.bg;
                   if (isRevealed) {
@@ -1066,7 +1079,7 @@ const PlayQuiz = () => {
                     } else {
                       stateClass = `${color.bg} opacity-40`;
                     }
-                  } else if (timer === 0) {
+                  } else if (isTimedOut) {
                     stateClass = `${color.bg} opacity-30 cursor-not-allowed`;
                   } else {
                     stateClass = `${color.bg} hover:brightness-110 active:brightness-90`;
@@ -1102,13 +1115,13 @@ const PlayQuiz = () => {
               <div className="flex flex-1 flex-col items-center justify-center space-y-4">
                 <div className="w-full max-w-md space-y-2">
                   <Input
-                    placeholder={timer === 0 && !answered ? "Lejárt az idő" : "Írd be a választ..."}
+                    placeholder={isTimedOut && !answered ? "Lejárt az idő" : "Írd be a választ..."}
                     value={textAnswer}
                     onChange={(e) => setTextAnswer(e.target.value)}
-                    disabled={answered || isEvaluatingAi || timer === 0}
+                    disabled={answered || isEvaluatingAi || isTimedOut}
                     className="h-14 text-center text-xl font-bold"
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter' && textAnswer.trim() && !answered && !isEvaluatingAi && timer > 0) {
+                      if (e.key === 'Enter' && textAnswer.trim() && !answered && !isEvaluatingAi && (!hasTimeLimit || timer > 0)) {
                         submitAnswer();
                       }
                     }}
@@ -1116,7 +1129,7 @@ const PlayQuiz = () => {
                   <Button
                     className="w-full h-12 text-lg font-bold"
                     onClick={() => submitAnswer()}
-                    disabled={answered || isEvaluatingAi || !textAnswer.trim() || timer === 0}
+                    disabled={answered || isEvaluatingAi || !textAnswer.trim() || isTimedOut}
                   >
                     {isEvaluatingAi ? (
                       <>
@@ -1155,17 +1168,17 @@ const PlayQuiz = () => {
                         <motion.button
                           key={item.id}
                           type="button"
-                          whileHover={!answered && timer > 0 ? { scale: 1.01 } : {}}
-                          whileTap={!answered && timer > 0 ? { scale: 0.99 } : {}}
-                          onClick={() => !answered && timer > 0 && handleItemClick('left', item.id)}
-                          disabled={answered || timer === 0}
+                          whileHover={!answered && (!hasTimeLimit || timer > 0) ? { scale: 1.01 } : {}}
+                          whileTap={!answered && (!hasTimeLimit || timer > 0) ? { scale: 0.99 } : {}}
+                          onClick={() => !answered && (!hasTimeLimit || timer > 0) && handleItemClick('left', item.id)}
+                          disabled={answered || isTimedOut}
                           className={cn(
                             "relative w-full rounded-2xl p-4 text-center font-medium transition-all shadow-sm flex flex-col items-center justify-center min-h-[72px] border-2",
                             isSelected && "ring-4 ring-primary border-primary bg-primary/10 shadow-md",
                             !isSelected && pairColor && cn(pairColor.bg, pairColor.border, pairColor.ring),
                             !isSelected && !pairColor && "bg-card border-border hover:border-primary/50 text-card-foreground",
                             isRevealed && pair && (isPairCorrect ? "border-quiz-green bg-quiz-green/15" : "border-destructive bg-destructive/15"),
-                            timer === 0 && !answered && "opacity-50 cursor-not-allowed"
+                            isTimedOut && !answered && "opacity-50 cursor-not-allowed"
                           )}
                         >
                           {/* Pair number badge */}
@@ -1218,17 +1231,17 @@ const PlayQuiz = () => {
                         <motion.button
                           key={item.id}
                           type="button"
-                          whileHover={!answered && timer > 0 ? { scale: 1.01 } : {}}
-                          whileTap={!answered && timer > 0 ? { scale: 0.99 } : {}}
-                          onClick={() => !answered && timer > 0 && handleItemClick('right', item.id)}
-                          disabled={answered || timer === 0}
+                          whileHover={!answered && (!hasTimeLimit || timer > 0) ? { scale: 1.01 } : {}}
+                          whileTap={!answered && (!hasTimeLimit || timer > 0) ? { scale: 0.99 } : {}}
+                          onClick={() => !answered && (!hasTimeLimit || timer > 0) && handleItemClick('right', item.id)}
+                          disabled={answered || isTimedOut}
                           className={cn(
                             "relative w-full rounded-2xl p-4 text-center font-medium transition-all shadow-sm flex flex-col items-center justify-center min-h-[72px] border-2",
                             isSelected && "ring-4 ring-primary border-primary bg-primary/10 shadow-md",
                             !isSelected && pairColor && cn(pairColor.bg, pairColor.border, pairColor.ring),
                             !isSelected && !pairColor && "bg-card border-border hover:border-primary/50 text-card-foreground",
                             isRevealed && pair && (isPairCorrect ? "border-quiz-green bg-quiz-green/15" : "border-destructive bg-destructive/15"),
-                            timer === 0 && !answered && "opacity-50 cursor-not-allowed"
+                            isTimedOut && !answered && "opacity-50 cursor-not-allowed"
                           )}
                         >
                           {/* Pair number badge */}
@@ -1284,7 +1297,7 @@ const PlayQuiz = () => {
             {question.type === 'true-false' && (() => {
               const igazOpt = (question.options || []).find(o => o.text === 'Igaz');
               const hamisOpt = (question.options || []).find(o => o.text === 'Hamis');
-              const isLocked = answered || timer === 0;
+              const isLocked = answered || isTimedOut;
 
               const getTFClass = (opt: typeof igazOpt, defaultBg: string) => {
                 const isSelected = selectedAnswer === opt?.id;
@@ -1297,7 +1310,7 @@ const PlayQuiz = () => {
                   if (isSelected) return `${defaultBg} ring-4 ring-white/60 brightness-110`;
                   return `${defaultBg} opacity-40`;
                 }
-                if (timer === 0) return `${defaultBg} opacity-30 cursor-not-allowed`;
+                if (isTimedOut) return `${defaultBg} opacity-30 cursor-not-allowed`;
                 return `${defaultBg} hover:brightness-110 active:brightness-90`;
               };
 
@@ -1359,9 +1372,9 @@ const PlayQuiz = () => {
             <div className="text-sm text-muted-foreground">
               {room.current_question_index + 1}/{quiz.questions.length}
             </div>
-            <div className={`flex items-center gap-2 font-display text-xl font-bold ${timer <= 5 ? 'text-destructive' : 'text-foreground'}`}>
+            <div className={`flex items-center gap-2 font-display text-xl font-bold ${hasTimeLimit && timer <= 5 ? 'text-destructive' : 'text-foreground'}`}>
               <Clock className="h-5 w-5" />
-              {timer}s
+              {hasTimeLimit ? `${timer}s` : <LucideInfinity className="h-5 w-5 text-primary" />}
             </div>
           </>
         ) : (

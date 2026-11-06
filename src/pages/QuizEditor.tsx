@@ -22,7 +22,7 @@ import {
   DialogFooter,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { Plus, Save, ArrowLeft, Brain, Sparkles, Loader2, Search, Menu, X, ChevronRight, Hash, Trash2, AlertTriangle } from 'lucide-react';
+import { Plus, Save, ArrowLeft, Brain, Sparkles, Loader2, Search, Menu, X, ChevronRight, Hash, Trash2, AlertTriangle, Shapes } from 'lucide-react';
 import type { QuizQuestion, Quiz } from '@/types/quiz';
 import { createEmptyQuestion, normalizeQuestion } from '@/types/quiz';
 
@@ -50,6 +50,7 @@ const QuizEditor = () => {
   const [isDeleteAllOpen, setIsDeleteAllOpen] = useState(false);
   const [aiQuestionCount, setAiQuestionCount] = useState<number>(5);
   const [selectedAiTypes, setSelectedAiTypes] = useState<string[]>(['multiple-choice', 'true-false', 'text-input', 'matching']);
+  const [aiGenerateSvg, setAiGenerateSvg] = useState<boolean>(false);
   const [lastSaved, setLastSaved] = useState<string | null>(null);
 
   // Sidebar and navigation states
@@ -235,6 +236,7 @@ const QuizEditor = () => {
         numQuestions: aiQuestionCount,
         gradeLevel,
         selectedTypes: selectedAiTypes,
+        generateSvg: aiGenerateSvg,
       });
 
       if (data.title && !title) setTitle(data.title);
@@ -579,6 +581,25 @@ const QuizEditor = () => {
                         </div>
                       ))}
                     </div>
+                  </div>
+
+                  <div className="flex items-center justify-between rounded-lg border border-primary/20 bg-background/80 p-3 mt-1 shadow-xs">
+                    <div className="space-y-0.5 pr-4">
+                      <div className="flex items-center gap-2">
+                        <Shapes className="h-4 w-4 text-primary" />
+                        <label htmlFor="ai-generate-svg" className="text-sm font-medium cursor-pointer">
+                          Szemléltető ábrák és diagramok generálása (SVG)
+                        </label>
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Az AI tiszta vektorgrafikus ábrát készít azon kérdésekhez, ahol szükséges (pl. geometria, alakzatok, grafikonok)
+                      </p>
+                    </div>
+                    <Switch
+                      id="ai-generate-svg"
+                      checked={aiGenerateSvg}
+                      onCheckedChange={setAiGenerateSvg}
+                    />
                   </div>
                 </div>
               </div>

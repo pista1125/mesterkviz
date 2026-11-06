@@ -5,8 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Square, SkipForward, Maximize, Minimize, Users, Trophy, BarChart3, Clock, UserCircle, CheckCircle2 } from 'lucide-react';
-import type { Room, Quiz, QuizQuestion, RoomParticipant, QuizAnswer, AvatarData } from '@/types/quiz';
+import { Play, Square, SkipForward, Maximize, Minimize, Users, Trophy, BarChart3, Clock, UserCircle, CheckCircle2, Infinity as LucideInfinity } from 'lucide-react';
+import { type Room, type Quiz, type QuizQuestion, type RoomParticipant, type QuizAnswer, type AvatarData, MATCHING_PAIR_COLORS, isRoomUnlimitedTime, getQuestionEffectiveTimeLimit } from '@/types/quiz';
 import { Avatar } from '@/components/quiz/Avatar';
 import { Podium } from '@/components/quiz/Podium';
 import { ReactionDisplay } from '@/components/quiz/ReactionDisplay';
@@ -15,7 +15,6 @@ import { SubmarineGame } from '@/components/quiz/SubmarineGame';
 import { QuestionResultsChart } from '@/components/quiz/QuestionResultsChart';
 import { QRCodeDisplay } from '@/components/quiz/QRCodeDisplay';
 import { cn } from '@/lib/utils';
-import { MATCHING_PAIR_COLORS } from '@/types/quiz';
 import {
   getRoomById,
   getQuizById,
@@ -117,13 +116,21 @@ const PresenterView = () => {
   // Timer
   useEffect(() => {
     if (!room || room.status !== 'active' || !quiz || showStartCountdown) return;
+    const hasTL = !isRoomUnlimitedTime(room);
+
     if (allAnswered) {
-      setTimer(0);
+      if (hasTL) setTimer(0);
       return;
     }
     const question = quiz.questions[room.current_question_index];
     if (!question) return;
-    const timeLimit = question.timeLimit || room.time_limit_seconds || 15;
+
+    if (!hasTL) {
+      setTimer(999);
+      return;
+    }
+
+    const timeLimit = getQuestionEffectiveTimeLimit(room, question);
     setTimer(timeLimit);
     const interval = setInterval(() => {
       setTimer((prev) => {
@@ -135,7 +142,7 @@ const PresenterView = () => {
       });
     }, 1000);
     return () => clearInterval(interval);
-  }, [room?.current_question_index, room?.status, showStartCountdown, allAnswered]);
+  }, [room?.current_question_index, room?.status, showStartCountdown, allAnswered, room?.time_limit_seconds, room?.has_time_limit, room?.time_limit_mode]);
 
   // Show Ranglista button after podium animation when completed
   useEffect(() => {
@@ -238,7 +245,8 @@ const PresenterView = () => {
 
   const currentQuestion: QuizQuestion | undefined = quiz.questions[room.current_question_index];
   const leaderboard = getLeaderboard();
-  const showResults = timer === 0 || allAnswered;
+  const hasTimeLimit = !isRoomUnlimitedTime(room);
+  const showResults = (hasTimeLimit && timer === 0) || allAnswered;
 
   return (
     <div className="flex min-h-screen flex-col bg-background relative overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/40 via-background to-[#030712]">
@@ -421,8 +429,9 @@ const PresenterView = () => {
                 <span className="font-display text-lg text-blue-200/90 font-bold">
                   {room.current_question_index + 1} / {quiz.questions.length}
                 </span>
-                <div className={`flex items-center gap-2 font-display text-3xl font-black ${timer <= 5 ? 'text-destructive animate-pulse' : 'text-foreground'}`}>
-                  <Clock className="h-7 w-7 text-secondary" /> {timer}s
+                <div className={`flex items-center gap-2 font-display text-3xl font-black ${hasTimeLimit && timer <= 5 ? 'text-destructive animate-pulse' : 'text-foreground'}`}>
+                  <Clock className="h-7 w-7 text-secondary" />
+                  {hasTimeLimit ? `${timer}s` : <LucideInfinity className="h-7 w-7 text-primary" />}
                 </div>
                 <span className="text-sm text-blue-200/80 font-semibold">
                   {answersForCurrentQ.length}/{totalParticipants} válaszolt

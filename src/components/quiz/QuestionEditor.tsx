@@ -135,12 +135,12 @@ export function QuestionEditor({ question, index, onChange, onDelete }: Question
           </Label>
 
           {question.imageUrl ? (
-            <div className="relative inline-block">
+            <div className="relative inline-flex flex-col items-center justify-center rounded-lg border border-border/80 bg-muted/40 p-2 min-w-[200px] max-w-sm shadow-xs">
               <img
                 src={question.imageUrl}
                 alt="Kérdés kép"
-                className="max-h-48 rounded-lg border object-contain"
-                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                className="h-44 w-auto max-w-full rounded-md object-contain mx-auto"
+                onError={() => { console.warn('Kép betöltési figyelmeztetés:', question.imageUrl?.slice(0, 50)); }}
               />
               <Button
                 size="sm"
