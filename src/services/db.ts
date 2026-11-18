@@ -394,10 +394,19 @@ export const answerDocId = (a: Pick<QuizAnswer, 'room_id' | 'participant_id' | '
 export const submitQuizAnswer = async (
   answerData: Omit<QuizAnswer, 'id' | 'answered_at'>
 ): Promise<string> => {
-  // Strip undefined properties to avoid Firestore errors
-  const cleanAnswerData = Object.fromEntries(
-    Object.entries(answerData).filter(([, v]) => v !== undefined)
-  );
+  // A Firestore nem fogad el undefined értéket (beágyazott objektumban sem) → rekurzívan kiszűrjük
+  const stripUndefined = (value: unknown): unknown => {
+    if (Array.isArray(value)) return value.map(stripUndefined);
+    if (value && typeof value === 'object' && Object.getPrototypeOf(value) === Object.prototype) {
+      return Object.fromEntries(
+        Object.entries(value as Record<string, unknown>)
+          .filter(([, v]) => v !== undefined)
+          .map(([k, v]) => [k, stripUndefined(v)])
+      );
+    }
+    return value;
+  };
+  const cleanAnswerData = stripUndefined(answerData) as Record<string, unknown>;
 
   const id = answerDocId(answerData);
   const ref = doc(db, 'quiz_answers', id);

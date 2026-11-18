@@ -589,7 +589,7 @@ const PlayQuiz = () => {
         grading = 'pending';
         setIsEvaluatingAi(true);
       }
-      answerData = { text: trimmed, evaluation_source: evalSource };
+      answerData = evalSource ? { text: trimmed, evaluation_source: evalSource } : { text: trimmed };
     } else if (question.type === 'matching') {
       const totalPairs = question.pairs?.length || 0;
       const userPairs = matchingStateRef.current.userPairs;
