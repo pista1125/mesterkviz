@@ -1,40 +1,142 @@
 rules_version = '2';
+
+// KvízMester Firestore biztonsági szabályok
+//
+// Szereplők:
+//  - Tanár: e-mail/jelszóval bejelentkezett felhasználó (NEM névtelen).
+//  - Diák:  névtelen (anonymous) Firebase felhasználó. A résztvevő-dokumentum azonosítója
+//           `${roomId}_${uid}`, így mindenki csak a sajátját írhatja.
+//  - Szerver (Cloud Functions, admin SDK): a szabályokat megkerüli – ő véglegesíti a pontokat.
+//
+// Olvasás: a kvízjáték adatai (szoba, résztvevők, válaszok) nyilvánosan olvashatók maradnak,
+// mert az eredményoldalt a diákok is megnyitják. Az írás az, ami szigorúan védett.
+
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Profiles
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isTeacher() {
+      return signedIn() && request.auth.token.firebase.sign_in_provider != 'anonymous';
+    }
+
+    function roomPath(roomId) {
+      return /databases/$(database)/documents/rooms/$(roomId);
+    }
+
+    function isRoomTeacher(roomId) {
+      return signedIn() && get(roomPath(roomId)).data.teacher_id == request.auth.uid;
+    }
+
+    function changedKeys() {
+      return request.resource.data.diff(resource.data).affectedKeys();
+    }
+
+    // ---------------------------------------------------------------
     match /profiles/{userId} {
       allow read: if true;
-      allow write: if request.auth != null && request.auth.uid == userId;
+      allow write: if isTeacher() && request.auth.uid == userId;
     }
 
-    // Quizzes
+    // ---------------------------------------------------------------
     match /quizzes/{quizId} {
       allow read: if true;
-      allow create: if request.auth != null && request.resource.data.teacher_id == request.auth.uid;
-      allow update, delete: if request.auth != null && resource.data.teacher_id == request.auth.uid;
+      allow create: if isTeacher() && request.resource.data.teacher_id == request.auth.uid;
+      allow update, delete: if isTeacher() && resource.data.teacher_id == request.auth.uid;
     }
 
-    // Rooms
+    // ---------------------------------------------------------------
     match /rooms/{roomId} {
       allow read: if true;
-      allow create: if request.auth != null;
-      allow update: if true;
-      allow delete: if request.auth != null && resource.data.teacher_id == request.auth.uid;
+      allow create: if isTeacher() && request.resource.data.teacher_id == request.auth.uid;
 
-      // Reactions subcollection
+      // A szobát csak a tulajdonos tanár módosíthatja. Kivétel: tengeralattjáró módban
+      // a diák pontosan eggyel növelheti a boost-számlálót (mást nem írhat).
+      allow update: if (isTeacher() && resource.data.teacher_id == request.auth.uid)
+        || (signedIn()
+            && resource.data.status == 'active'
+            && changedKeys().hasOnly(['submarine_boosts'])
+            && request.resource.data.submarine_boosts == resource.data.get('submarine_boosts', 0) + 1);
+
+      allow delete: if isTeacher() && resource.data.teacher_id == request.auth.uid;
+
       match /reactions/{reactionId} {
-        allow read, write: if true;
+        allow read: if true;
+        allow create: if signedIn()
+          && request.resource.data.keys().hasOnly(['emoji', 'created_at'])
+          && request.resource.data.emoji is string
+          && request.resource.data.emoji.size() <= 16;
+        allow update: if false;
+        allow delete: if isRoomTeacher(roomId);
       }
     }
 
-    // Room participants
+    // ---------------------------------------------------------------
     match /room_participants/{participantId} {
-      allow read, write: if true;
+      allow read: if true;
+
+      // Diák csatlakozás: csak a saját uid-jához tartozó dokumentumot hozhatja létre.
+      allow create: if signedIn()
+        && participantId == request.resource.data.room_id + '_' + request.auth.uid
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.get('kicked', false) == false
+        && request.resource.data.student_name is string
+        && request.resource.data.student_name.size() > 0
+        && request.resource.data.student_name.size() <= 40
+        && exists(roomPath(request.resource.data.room_id));
+
+      // A diák a saját (nem kitiltott) adatából csak nevet, avatárt, aktív állapotot és
+      // szívverést módosíthat. A szoba tanára bármit (pl. kitiltás).
+      allow update: if (signedIn()
+            && resource.data.get('uid', '') == request.auth.uid
+            && resource.data.get('kicked', false) == false
+            && changedKeys().hasOnly(['student_name', 'avatar', 'is_active', 'last_seen'])
+            && request.resource.data.student_name is string
+            && request.resource.data.student_name.size() <= 40)
+        || isRoomTeacher(resource.data.room_id);
+
+      allow delete: if isRoomTeacher(resource.data.room_id);
     }
 
-    // Quiz answers
+    // ---------------------------------------------------------------
     match /quiz_answers/{answerId} {
-      allow read, write: if true;
+      allow read: if true;
+
+      // Válasz: csak a saját nevében, csak aktív szobába, csak EGYSZER (frissítés nincs),
+      // és csak a determinisztikus azonosítóval (szoba_munkamenet_résztvevő_kérdés).
+      // A végleges pontot a szerver (gradeAnswer függvény) írja.
+      allow create: if signedIn()
+        && request.resource.data.participant_id == request.resource.data.room_id + '_' + request.auth.uid
+        && answerId == request.resource.data.room_id
+            + '_s' + string(request.resource.data.session_number)
+            + '_' + request.resource.data.participant_id
+            + '_q' + string(request.resource.data.question_index)
+        && request.resource.data.get('grading', 'client') in ['client', 'pending']
+        && get(roomPath(request.resource.data.room_id)).data.status == 'active'
+        && get(/databases/$(database)/documents/room_participants/$(request.resource.data.participant_id)).data.get('kicked', false) == false;
+
+      // Utólagos módosítás / törlés: csak a szoba tanára (pl. kézi felülbírálás)
+      allow update, delete: if isRoomTeacher(resource.data.room_id);
+    }
+
+    // ---------------------------------------------------------------
+    // Szerveridő-szinkron segéddokumentum (mindenki csak a sajátját)
+    match /clock_sync/{uid} {
+      allow read, write: if signedIn() && request.auth.uid == uid;
+    }
+
+    // ---------------------------------------------------------------
+    // Kliens oldali hibanapló (csak írható, olvasni csak a konzolból lehet)
+    match /client_errors/{errorId} {
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['message', 'stack', 'url', 'route', 'user_agent', 'uid', 'kind', 'created_at', 'app_version'])
+        && request.resource.data.message is string
+        && request.resource.data.message.size() <= 2000
+        && request.resource.data.get('stack', '') is string
+        && request.resource.data.get('stack', '').size() <= 8000;
+      allow read, update, delete: if false;
     }
   }
 }

@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Square, SkipForward, Maximize, Minimize, Users, Trophy, BarChart3, Clock, UserCircle, CheckCircle2, Infinity as LucideInfinity } from 'lucide-react';
-import { type Room, type Quiz, type QuizQuestion, type RoomParticipant, type QuizAnswer, type AvatarData, MATCHING_PAIR_COLORS, isRoomUnlimitedTime, getQuestionEffectiveTimeLimit } from '@/types/quiz';
+import { type Room, type Quiz, type QuizQuestion, type RoomParticipant, type QuizAnswer, type AvatarData, MATCHING_PAIR_COLORS, ANSWER_COLORS, isRoomUnlimitedTime, getQuestionEffectiveTimeLimit } from '@/types/quiz';
 import { Avatar } from '@/components/quiz/Avatar';
 import { Podium } from '@/components/quiz/Podium';
 import { ReactionDisplay } from '@/components/quiz/ReactionDisplay';
@@ -24,17 +24,16 @@ import {
   subscribeToParticipants,
   subscribeToAnswers,
   updateRoom,
-  updateParticipant,
+  kickParticipant,
+  startRoomQuiz,
+  goToQuestion,
 } from '@/services/db';
+import { useRoomAuthority } from '@/hooks/useRoomAuthority';
+import { syncServerClock, isServerClockSynced } from '@/lib/serverClock';
+import { getQuestionStartLocal, useNow } from '@/lib/questionTimer';
+import { ConnectionBanner } from '@/components/quiz/ConnectionBanner';
 
-const COLORS = [
-  { bg: 'bg-quiz-red', icon: '▲' },
-  { bg: 'bg-quiz-blue', icon: '◆' },
-  { bg: 'bg-quiz-yellow', icon: '●' },
-  { bg: 'bg-quiz-green', icon: '■' },
-  { bg: 'bg-primary', icon: '★' },
-  { bg: 'bg-secondary', icon: '♦' },
-];
+const COLORS = ANSWER_COLORS;
 
 const PresenterView = () => {
   const { id } = useParams();
@@ -50,7 +49,8 @@ const PresenterView = () => {
   const [showRanglistaCompleted, setShowRanglistaCompleted] = useState(false);
   const [showStartCountdown, setShowStartCountdown] = useState(false);
   const [countdownValue, setCountdownValue] = useState(3);
-  const [timer, setTimer] = useState(0);
+  const [fromCache, setFromCache] = useState(false);
+  const [clockSynced, setClockSynced] = useState(isServerClockSynced());
 
   const fetchRoomData = useCallback(async () => {
     if (!id || !user) return;
@@ -82,15 +82,31 @@ const PresenterView = () => {
 
   useEffect(() => { fetchRoomData(); }, [fetchRoomData]);
 
+  // Szerveridő-szinkron (a kérdés lejárta szerveridőhöz kötött)
+  useEffect(() => {
+    if (!user) return;
+    const sync = () => syncServerClock().then(() => setClockSynced(isServerClockSynced()));
+    sync();
+    const onVis = () => { if (document.visibilityState === 'visible') sync(); };
+    document.addEventListener('visibilitychange', onVis);
+    return () => document.removeEventListener('visibilitychange', onVis);
+  }, [user]);
+
   // Real-time
   useEffect(() => {
     if (!id) return;
     const unsubRoom = subscribeToRoom(id, (updatedRoom) => {
       if (updatedRoom) {
-        setRoom(updatedRoom);
-        setShowLeaderboard(false);
+        setRoom((prev) => {
+          // Csak kérdésváltáskor / állapotváltáskor zárjuk be a ranglistát,
+          // ne minden szoba-frissítésnél (az összesítők is a szobába íródnak)
+          if (!prev || prev.current_question_index !== updatedRoom.current_question_index || prev.status !== updatedRoom.status) {
+            setShowLeaderboard(false);
+          }
+          return updatedRoom;
+        });
       }
-    });
+    }, setFromCache);
 
     const unsubParts = subscribeToParticipants(id, (updatedParts) => {
       setParticipants(updatedParts.filter((p) => p.is_active));
@@ -108,41 +124,33 @@ const PresenterView = () => {
   }, [id, room?.session_number]);
 
   const answersForCurrentQ = answers.filter(
-    (a) => a.question_index === room?.current_question_index && (a as any).session_number === room?.session_number
+    (a) => a.question_index === room?.current_question_index && (a.session_number || 1) === (room?.session_number || 1)
   );
+  // "Hány diák válaszolt / mindenki válaszolt-e" – csak az online diákokat számolva,
+  // és az eredményt a szobába is beírja a diákok telefonjai számára.
+  const authority = useRoomAuthority(room, participants, answers, !!user && room?.status !== 'completed');
   const totalParticipants = participants.length;
-  const allAnswered = totalParticipants > 0 && answersForCurrentQ.length >= totalParticipants;
+  const allAnswered = room?.status === 'active' && authority.allAnswered;
 
-  // Timer
+  // Időzítő: a szerveren rögzített kérdésindulásból számolva (mindenkinél ugyanaz)
+  const [localStart, setLocalStart] = useState<{ key: string; at: number } | null>(null);
+  const questionKey = `${room?.session_number || 1}:${room?.current_question_index ?? 0}`;
+  const timerActive = room?.status === 'active' && !showStartCountdown && room?.game_mode !== 'submarine';
   useEffect(() => {
-    if (!room || room.status !== 'active' || !quiz || showStartCountdown) return;
-    const hasTL = !isRoomUnlimitedTime(room);
-
-    if (allAnswered) {
-      if (hasTL) setTimer(0);
-      return;
-    }
-    const question = quiz.questions[room.current_question_index];
-    if (!question) return;
-
-    if (!hasTL) {
-      setTimer(999);
-      return;
-    }
-
-    const timeLimit = getQuestionEffectiveTimeLimit(room, question);
-    setTimer(timeLimit);
-    const interval = setInterval(() => {
-      setTimer((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [room?.current_question_index, room?.status, showStartCountdown, allAnswered, room?.time_limit_seconds, room?.has_time_limit, room?.time_limit_mode]);
+    if (timerActive) setLocalStart({ key: questionKey, at: Date.now() });
+  }, [timerActive, questionKey]);
+  const hasTimeLimitNow = !isRoomUnlimitedTime(room);
+  const currentQ = quiz?.questions[room?.current_question_index ?? 0];
+  const timeLimitSec = currentQ ? getQuestionEffectiveTimeLimit(room, currentQ) : 15;
+  const startAt = (clockSynced ? getQuestionStartLocal(room) : null) ?? (localStart?.key === questionKey ? localStart.at : null);
+  const nowMs = useNow(500, !!timerActive && hasTimeLimitNow);
+  const timer = !hasTimeLimitNow
+    ? 999
+    : allAnswered
+      ? 0
+      : startAt === null
+        ? timeLimitSec
+        : Math.min(timeLimitSec, Math.max(0, Math.ceil((startAt + timeLimitSec * 1000 - nowMs) / 1000)));
 
   // Show Ranglista button after podium animation when completed
   useEffect(() => {
@@ -186,11 +194,7 @@ const PresenterView = () => {
     }, 1000);
 
     try {
-      await updateRoom(room.id, { 
-        status: 'active', 
-        started_at: new Date().toISOString(), 
-        current_question_index: 0 
-      });
+      await startRoomQuiz(room.id);
       toast.success('Kvíz elindítva!');
     } catch (err: any) {
       toast.error('Hiba az indításkor: ' + err.message);
@@ -200,24 +204,32 @@ const PresenterView = () => {
   const nextQuestion = async () => {
     if (!room || !quiz) return;
     const nextIndex = room.current_question_index + 1;
-    if (nextIndex >= quiz.questions.length) {
-      await updateRoom(room.id, { status: 'completed', ended_at: new Date().toISOString() });
-      toast.success('Kvíz befejezve!');
-      return;
+    try {
+      if (nextIndex >= quiz.questions.length) {
+        await updateRoom(room.id, { status: 'completed', ended_at: new Date().toISOString() });
+        toast.success('Kvíz befejezve!');
+        return;
+      }
+      await goToQuestion(room.id, nextIndex);
+      setShowLeaderboard(false);
+    } catch (err: any) {
+      toast.error('Hiba a kérdésváltáskor: ' + err.message);
     }
-    await updateRoom(room.id, { current_question_index: nextIndex });
-    setShowLeaderboard(false);
   };
 
   const endQuiz = async () => {
     if (!room) return;
-    await updateRoom(room.id, { status: 'completed', ended_at: new Date().toISOString() });
-    toast.success('Kvíz befejezve!');
+    try {
+      await updateRoom(room.id, { status: 'completed', ended_at: new Date().toISOString() });
+      toast.success('Kvíz befejezve!');
+    } catch (err: any) {
+      toast.error('Hiba a leállításkor: ' + err.message);
+    }
   };
 
   const handleKickParticipant = async (participantId: string) => {
     try {
-      await updateParticipant(participantId, { is_active: false });
+      await kickParticipant(participantId);
       toast.success('Résztvevő eltávolítva');
       setParticipants(prev => prev.filter(p => p.id !== participantId));
     } catch (error: any) {
@@ -434,7 +446,7 @@ const PresenterView = () => {
                   {hasTimeLimit ? `${timer}s` : <LucideInfinity className="h-7 w-7 text-primary" />}
                 </div>
                 <span className="text-sm text-blue-200/80 font-semibold">
-                  {answersForCurrentQ.length}/{totalParticipants} válaszolt
+                  {authority.answered}/{authority.total} válaszolt
                 </span>
               </div>
 
@@ -641,6 +653,8 @@ const PresenterView = () => {
 
       {/* Real-time Reactions Overlay */}
       <ReactionDisplay roomId={id!} />
+
+      <ConnectionBanner fromCache={fromCache} />
     </div>
   );
 };

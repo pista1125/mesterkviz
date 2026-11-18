@@ -3,7 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, Sparkles } from 'lucide-react';
 import { isNormalizedMatch } from '@/lib/textNormalization';
-import type { QuizQuestion, QuizAnswer } from '@/types/quiz';
+import { type QuizQuestion, type QuizAnswer, getAnswerColor } from '@/types/quiz';
 import { MathRenderer } from './MathRenderer';
 
 interface QuestionResultsChartProps {
@@ -11,17 +11,6 @@ interface QuestionResultsChartProps {
   answers: QuizAnswer[];
   showResults: boolean;
 }
-
-const COLORS = [
-  '#ea384c', // quiz-red
-  '#0ea5e9', // quiz-blue
-  '#facc15', // quiz-yellow
-  '#22c55e', // quiz-green
-  '#8B5CF6', // primary
-  '#D946EF', // secondary
-];
-
-const ICON_MAP = ['▲', '◆', '●', '■', '★', '♦'];
 
 const TextInputResults: React.FC<{
   question: QuizQuestion;
@@ -72,6 +61,7 @@ const TextInputResults: React.FC<{
     .sort((a, b) => b.count - a.count);
 
   const hasCorrectAnswerInSubmissions = data.some((d) => d.isCorrect);
+  const pendingCount = answers.filter((a) => a.grading === 'pending').length;
 
   return (
     <div className="bg-card rounded-2xl p-6 shadow-md border border-border/50 bg-gradient-to-b from-card to-muted/10">
@@ -79,9 +69,16 @@ const TextInputResults: React.FC<{
         <h3 className="text-sm font-bold font-display text-muted-foreground uppercase tracking-wider">
           Szöveges válaszok
         </h3>
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary font-bold text-xs uppercase tracking-tight">
-          {answers.length} diák válaszolt
-        </span>
+        <div className="flex items-center gap-2">
+          {pendingCount > 0 && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-yellow-500/15 text-yellow-600 dark:text-yellow-400 font-bold text-xs">
+              <Sparkles className="h-3 w-3 animate-pulse" /> {pendingCount} AI-ellenőrzés alatt
+            </span>
+          )}
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary font-bold text-xs uppercase tracking-tight">
+            {answers.length} diák válaszolt
+          </span>
+        </div>
       </div>
 
       {data.length === 0 ? (
@@ -215,12 +212,13 @@ export const QuestionResultsChart: React.FC<QuestionResultsChartProps> = ({
           <div className="h-44 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={question.options.map((opt, index) => {
-                const count = answers.filter((a) => (a.answer as any).selectedOptionId === opt.id).length;
+                const count = answers.filter((a) => (a.answer as any)?.selectedOptionId === opt.id).length;
+                const color = getAnswerColor(question, opt, index);
                 return {
                   name: opt.text,
                   count,
-                  color: COLORS[index % COLORS.length],
-                  icon: ICON_MAP[index % ICON_MAP.length],
+                  color: color.fill,
+                  icon: color.icon,
                   isCorrect: opt.isCorrect,
                 };
               })}>
@@ -267,11 +265,13 @@ export const QuestionResultsChart: React.FC<QuestionResultsChartProps> = ({
                 />
                 <Bar dataKey="count" animationDuration={1000}>
                   {question.options.map((opt, index) => (
-                    <Cell 
-                      key={`cell-${index}`} 
-                      fill={COLORS[index % COLORS.length]} 
-                      style={{ 
-                        filter: opt.isCorrect ? 'none' : 'grayscale(20%) brightness(95%)',
+                    <Cell
+                      key={`cell-${index}`}
+                      // CSS változóból jön a szín (style-ban, mert SVG attribútumban a var() nem működik),
+                      // így pontosan megegyezik a válaszgombok színével.
+                      style={{
+                        fill: getAnswerColor(question, opt, index).fill,
+                        opacity: opt.isCorrect ? 1 : 0.55,
                         transition: 'all 0.3s ease'
                       }}
                     />

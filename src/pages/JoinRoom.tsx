@@ -6,12 +6,12 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { UserCircle, QrCode } from 'lucide-react';
-import { QRScannerModal } from '@/components/quiz/QRScannerModal';
-import { getStudentSessionId } from '@/types/quiz';
+import { QRScannerModal } from '@/components/quiz/LazyQRScannerModal';
 import type { Room, AvatarData } from '@/types/quiz';
 import { Avatar } from '@/components/quiz/Avatar';
 import { AvatarSelector } from '@/components/quiz/AvatarSelector';
-import { findActiveRoomByCode, joinRoomParticipant } from '@/services/db';
+import { findActiveRoomByCode, joinRoomParticipant, getParticipant, participantDocId, KickedFromRoomError } from '@/services/db';
+import { ensureStudentIdentity } from '@/lib/identity';
 
 const JoinRoom = () => {
   const { code: urlCode } = useParams();
@@ -39,9 +39,12 @@ const JoinRoom = () => {
   const [avatar, setAvatar] = useState<AvatarData>({ character: '🐻', accessory: 'none' });
 
   useEffect(() => {
+    // Azonosítás előre elindítva, hogy a csatlakozás gyors legyen
+    ensureStudentIdentity().catch(() => {});
     if (initialCode) {
       findRoom(initialCode);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialCode]);
 
   const findRoom = async (roomCode: string) => {
@@ -54,6 +57,25 @@ const JoinRoom = () => {
       }
 
       setRoom(foundRoom);
+
+      // Visszatérő diák (frissítés, bezárt fül, újraszkennelt QR): ha már aktív résztvevő
+      // ebben a szobában, egyenesen visszavisszük a játékba.
+      try {
+        const uid = await ensureStudentIdentity();
+        const existing = await getParticipant(participantDocId(foundRoom.id, uid));
+        if (existing && existing.is_active && !existing.kicked) {
+          toast.success(`Üdv újra, ${existing.student_name}!`);
+          navigate(`/play/${foundRoom.id}`);
+          return;
+        }
+        if (existing && !existing.kicked) {
+          setName(existing.student_name || '');
+          if (existing.avatar) setAvatar(existing.avatar);
+        }
+      } catch (e) {
+        console.warn('Visszatérő diák ellenőrzése sikertelen:', e);
+      }
+
       setStep('name');
     } catch (err: any) {
       toast.error('Hiba a szoba keresésekor: ' + err.message);
@@ -76,14 +98,14 @@ const JoinRoom = () => {
     }
 
     setJoining(true);
-    const sessionId = getStudentSessionId();
     const finalAvatar = overrideAvatar || avatar;
 
     try {
+      const uid = await ensureStudentIdentity();
       const participant = await joinRoomParticipant(
         room.id,
         name.trim(),
-        sessionId,
+        uid,
         finalAvatar
       );
 
@@ -94,6 +116,10 @@ const JoinRoom = () => {
       navigate(`/play/${room.id}`);
     } catch (err: any) {
       setJoining(false);
+      if (err instanceof KickedFromRoomError) {
+        toast.error(err.message);
+        return;
+      }
       toast.error('Nem sikerült csatlakozni: ' + err.message);
     }
   };
@@ -101,8 +127,8 @@ const JoinRoom = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background relative overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/30 via-background to-[#030712] p-4">
       {/* Ambient glowing blobs */}
-      <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-blue-500/15 blur-[120px] rounded-full" />
-      <div className="pointer-events-none absolute -bottom-20 -right-20 w-[400px] h-[300px] bg-indigo-600/10 blur-[100px] rounded-full" />
+      <div className="pointer-events-none absolute hidden md:block -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-blue-500/15 blur-[120px] rounded-full" />
+      <div className="pointer-events-none absolute hidden md:block -bottom-20 -right-20 w-[400px] h-[300px] bg-indigo-600/10 blur-[100px] rounded-full" />
       <Card className="w-full max-w-md shadow-2xl border-border/80 relative z-10">
         <CardHeader className="text-center">
           <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-background border p-1.5 border-primary/20 shadow-sm overflow-hidden">

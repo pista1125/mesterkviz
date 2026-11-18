@@ -26,7 +26,8 @@ export function useAuth() {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (fbUser: FirebaseUser | null) => {
-      if (fbUser) {
+      // A névtelen (anonymous) bejelentkezés a diákoké – tanárként nem kezeljük.
+      if (fbUser && !fbUser.isAnonymous) {
         let displayName = fbUser.displayName;
         if (!displayName) {
           try {

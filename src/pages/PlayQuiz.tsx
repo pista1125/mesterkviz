@@ -1,31 +1,39 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import { Clock, CheckCircle2, Users, Send, Trophy, Smile, Zap, BarChart3, Sparkles, Check, Loader2, Infinity as LucideInfinity } from 'lucide-react';
+import { Clock, CheckCircle2, Users, Send, Trophy, Zap, BarChart3, Sparkles, Check, Loader2, Infinity as LucideInfinity } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { isNormalizedMatch } from '@/lib/textNormalization';
-import { requestEvaluateAnswer } from '@/services/ai';
-import { type Room, type Quiz, type QuizQuestion, type RoomParticipant, type AvatarData, type QuizAnswer, type MatchingUserPair, MATCHING_PAIR_COLORS, isRoomUnlimitedTime, getQuestionEffectiveTimeLimit } from '@/types/quiz';
+import { type Room, type Quiz, type RoomParticipant, type AvatarData, type QuizAnswer, type MatchingUserPair, MATCHING_PAIR_COLORS, ANSWER_COLORS, isRoomUnlimitedTime, getQuestionEffectiveTimeLimit } from '@/types/quiz';
 import { Podium } from '@/components/quiz/Podium';
 import { Avatar } from '@/components/quiz/Avatar';
 import { AvatarSelector } from '@/components/quiz/AvatarSelector';
 import { ReactionButton } from '@/components/quiz/ReactionButton';
 import { MathRenderer } from '@/components/quiz/MathRenderer';
+import { ConnectionBanner } from '@/components/quiz/ConnectionBanner';
 import {
   getRoomById,
   getQuizById,
   getRoomParticipants,
   getRoomAnswers,
+  getParticipant,
+  getParticipantAnswers,
+  participantDocId,
+  answerDocId,
   subscribeToRoom,
-  subscribeToParticipants,
-  subscribeToAnswers,
-  updateRoom,
+  subscribeToParticipant,
+  subscribeToAnswerDoc,
+  incrementSubmarineBoost,
   updateParticipant,
+  touchParticipant,
   submitQuizAnswer,
 } from '@/services/db';
+import { ensureStudentIdentity } from '@/lib/identity';
+import { syncServerClock, isServerClockSynced } from '@/lib/serverClock';
+import { getQuestionStartLocal, useNow, HEARTBEAT_INTERVAL_MS } from '@/lib/questionTimer';
 import {
   Dialog,
   DialogContent,
@@ -33,14 +41,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-const COLORS = [
-  { bg: 'bg-quiz-red', icon: '▲', label: 'A' },
-  { bg: 'bg-quiz-blue', icon: '◆', label: 'B' },
-  { bg: 'bg-quiz-yellow', icon: '●', label: 'C' },
-  { bg: 'bg-quiz-green', icon: '■', label: 'D' },
-  { bg: 'bg-primary', icon: '★', label: 'E' },
-  { bg: 'bg-secondary', icon: '♦', label: 'F' },
-];
+const COLORS = ANSWER_COLORS;
 
 const calculateScore = (isCorrect: boolean, timeTakenMs: number, timeLimitMs: number): number => {
   if (!isCorrect) return 0;
@@ -49,8 +50,36 @@ const calculateScore = (isCorrect: boolean, timeTakenMs: number, timeLimitMs: nu
   return Math.round(100 + timeRatio * 900);
 };
 
+// Helper: generate a shuffled array of indices 0..n-1
+const shuffleIndices = (n: number): number[] => {
+  const arr = Array.from({ length: n }, (_, i) => i);
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+};
 
+type MatchingState = {
+  selectedSide: 'left' | 'right' | null;
+  selectedId: string | null;
+  userPairs: MatchingUserPair[];
+  shuffledLeft: { id: string; text: string }[];
+  shuffledRight: { id: string; text: string }[];
+};
+const EMPTY_MATCHING: MatchingState = { selectedSide: null, selectedId: null, userPairs: [], shuffledLeft: [], shuffledRight: [] };
 
+/*
+ * Diák játékoldal.
+ *
+ * Stabilitási alapelvek:
+ *  - Azonosítás névtelen Firebase bejelentkezéssel → frissítés / alvás után ugyanaz a résztvevő.
+ *  - A kérdés lejárta a SZERVER-időbélyegből számolódik → mindenkinél egyszerre jár le,
+ *    és a későn érkező / visszatérő diák a valódi hátralévő időt látja.
+ *  - A diák csak a szoba dokumentumot, a saját résztvevő- és a saját válasz-dokumentumát
+ *    figyeli (nem az egész osztály összes válaszát) → kevesebb újrarajzolás gyenge telefonon.
+ *  - A válasz azonnal mentődik; a szabad szöveges választ a szerver (AI) értékeli utólag.
+ */
 const PlayQuiz = () => {
   const { roomId } = useParams();
   const navigate = useNavigate();
@@ -60,33 +89,28 @@ const PlayQuiz = () => {
   const [completedAnswers, setCompletedAnswers] = useState<QuizAnswer[]>([]);
   const [showRanglistaBtn, setShowRanglistaBtn] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [participantId, setParticipantId] = useState<string | null>(null);
+  const [studentName, setStudentName] = useState<string | null>(() => sessionStorage.getItem('student_name'));
+  const [fromCache, setFromCache] = useState(false);
+  const [clockSynced, setClockSynced] = useState(isServerClockSynced());
+
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [textAnswer, setTextAnswer] = useState('');
   const [answered, setAnswered] = useState(false);
   const [answerCorrect, setAnswerCorrect] = useState<boolean | null>(null);
   const [earnedScore, setEarnedScore] = useState(0);
   const [isEvaluatingAi, setIsEvaluatingAi] = useState(false);
+  const [gradingDelayed, setGradingDelayed] = useState(false);
   const [evaluationSource, setEvaluationSource] = useState<'exact' | 'normalized' | 'ai' | null>(null);
   const [aiReason, setAiReason] = useState<string | null>(null);
-  const [timer, setTimer] = useState(15);
-  const [roomAnswers, setRoomAnswers] = useState<QuizAnswer[]>([]);
   const [isTimeout, setIsTimeout] = useState(false);
+  const [answerDocReady, setAnswerDocReady] = useState(false);
   const [showStartCountdown, setShowStartCountdown] = useState(false);
   const [countdownValue, setCountdownValue] = useState(3);
-  const [questionStartTime, setQuestionStartTime] = useState(0);
-  const [matchingState, setMatchingState] = useState<{
-    selectedSide: 'left' | 'right' | null;
-    selectedId: string | null;
-    userPairs: MatchingUserPair[];
-    shuffledLeft: { id: string; text: string }[];
-    shuffledRight: { id: string; text: string }[];
-  }>({
-    selectedSide: null,
-    selectedId: null,
-    userPairs: [],
-    shuffledLeft: [],
-    shuffledRight: [],
-  });
+  const textAnswerRef = useRef('');
+  textAnswerRef.current = textAnswer;
+
+  const [matchingState, setMatchingState] = useState<MatchingState>(EMPTY_MATCHING);
   const matchingStateRef = useRef(matchingState);
   matchingStateRef.current = matchingState;
   const [matchingSummary, setMatchingSummary] = useState<{ correctPairs: number; totalPairs: number } | null>(null);
@@ -105,51 +129,104 @@ const PlayQuiz = () => {
   const [showBoostButton, setShowBoostButton] = useState(false);
   // Infinite random queue: holds actual quiz question indices in shuffled order
   const [submarineQueue, setSubmarineQueue] = useState<number[]>([]);
-  // Which slot in the queue we're currently on (monotonically increasing → unique DB key)
-  const globalSubmarineAnswerIndex = useRef(0);
-  const currentQIndexRef = useRef(-1);
-  const hasAnsweredRef = useRef(false);
+  // Hányadik tengeralattjáró-kérdésnél tart a diák (= a válasz egyedi DB-kulcsa)
+  const [submarineStep, setSubmarineStep] = useState(0);
+  const [submarineReady, setSubmarineReady] = useState(false);
+  const countedCorrectRef = useRef<Set<string>>(new Set());
 
-  // Helper: generate a shuffled array of indices 0..n-1
-  const shuffleIndices = (n: number): number[] => {
-    const arr = Array.from({ length: n }, (_, i) => i);
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
+  const hasAnsweredRef = useRef(false);
+  const roomRef = useRef<Room | null>(null);
+  const quizRef = useRef<Quiz | null>(null);
+  quizRef.current = quiz;
+
+  // --- Aktuális kérdés ---
+  const isSubmarine = room?.game_mode === 'submarine';
+  const submarineActualQIndex = submarineQueue[0] ?? 0;
+  const currentQIndex = isSubmarine ? submarineActualQIndex : (room?.current_question_index ?? 0);
+  const currentQuestion = quiz?.questions[currentQIndex];
+  const sessionNumber = room?.session_number || 1;
+  const dbQuestionIndex = isSubmarine ? submarineStep : (room?.current_question_index ?? 0);
+  const questionKey = `${isSubmarine ? 'sub' : 'q'}:${sessionNumber}:${dbQuestionIndex}`;
+  const questionKeyRef = useRef(questionKey);
+  questionKeyRef.current = questionKey;
+  const currentAnswerId =
+    room && participantId && (!isSubmarine || submarineReady)
+      ? answerDocId({ room_id: room.id, session_number: sessionNumber, participant_id: participantId, question_index: dbQuestionIndex })
+      : null;
+
+  // --- Időzítés (szerveridőhöz kötve) ---
+  const hasTimeLimit = !isRoomUnlimitedTime(room);
+  const timeLimitSec = currentQuestion ? getQuestionEffectiveTimeLimit(room, currentQuestion) : 15;
+  const timerActive = room?.status === 'active' && !showStartCountdown;
+  const [localStart, setLocalStart] = useState<{ key: string; at: number } | null>(null);
+  useEffect(() => {
+    if (!timerActive) return;
+    setLocalStart({ key: questionKey, at: Date.now() });
+  }, [timerActive, questionKey]);
+  const serverStart = !isSubmarine && clockSynced ? getQuestionStartLocal(room) : null;
+  const localStartAt = localStart?.key === questionKey ? localStart.at : null;
+  const questionStartAt = serverStart ?? localStartAt;
+  const now = useNow(500, !!timerActive && hasTimeLimit);
+  const deadline = hasTimeLimit && questionStartAt !== null ? questionStartAt + timeLimitSec * 1000 : null;
+  const timer = !hasTimeLimit
+    ? 999
+    : deadline === null
+      ? timeLimitSec
+      : Math.min(timeLimitSec, Math.max(0, Math.ceil((deadline - now) / 1000)));
+  const deadlinePassed = !!timerActive && deadline !== null && now >= deadline;
+
+  // A "mindenki válaszolt" jelzést és a számlálót a tanári gép írja a szobába
+  const allAnswered = !isSubmarine && room?.all_answered_index != null && room.all_answered_index === room.current_question_index;
+  const isRevealed = isSubmarine ? answered : (deadlinePassed || allAnswered || (!hasTimeLimit && answered));
+  // Zárolás: lejárt az idő, vagy már felfedték az eredményt (pl. visszatérő diáknál)
+  const isTimedOut = deadlinePassed || (isRevealed && !answered);
+  const stats = room?.answer_stats;
+  const statsMatch = !!stats && stats.question_index === room?.current_question_index && stats.session_number === sessionNumber;
+  const answeredCountDisplay = statsMatch ? stats!.answered : (answered ? 1 : 0);
+  const totalDisplay = statsMatch ? stats!.total : (room?.participant_count ?? 0);
+  const waitingParticipantCount = room?.participant_count ?? participants.length;
+
+  // --- Állapot visszaállítása új kérdésnél ---
+  const resetQuestionState = () => {
+    hasAnsweredRef.current = false;
+    textAnswerRef.current = '';
+    setAnswered(false);
+    setIsTimeout(false);
+    setSelectedAnswer(null);
+    setTextAnswer('');
+    setAnswerCorrect(null);
+    setEarnedScore(0);
+    setIsEvaluatingAi(false);
+    setGradingDelayed(false);
+    setEvaluationSource(null);
+    setAiReason(null);
+    setMatchingSummary(null);
+    setMatchingState(EMPTY_MATCHING);
+    setAnswerDocReady(false);
   };
 
-  // The real quiz question to display for submarine mode
-  const submarineActualQIndex = submarineQueue[0] ?? 0;
+  const startCountdown = () => {
+    setShowStartCountdown(true);
+    setCountdownValue(3);
+    let v = 3;
+    const cdInterval = setInterval(() => {
+      v -= 1;
+      setCountdownValue(Math.max(v, 0));
+      if (v <= 0) {
+        clearInterval(cdInterval);
+        setTimeout(() => setShowStartCountdown(false), 1000);
+      }
+    }, 1000);
+  };
 
-  const isSubmarine = room?.game_mode === 'submarine';
-  const currentQIndex = isSubmarine ? submarineActualQIndex : (room?.current_question_index ?? 0);
-  const currentQAnswers = roomAnswers.filter(
-    (a) => a.question_index === currentQIndex && (a as any).session_number === (room?.session_number || 1)
-  );
-  const activeParticipants = participants.filter((p) => p.is_active);
-  const totalActiveParticipants = activeParticipants.length;
-  const allAnswered = totalActiveParticipants > 0 && currentQAnswers.length >= totalActiveParticipants;
-  const hasTimeLimit = !isRoomUnlimitedTime(room);
-  const isTimedOut = hasTimeLimit && timer === 0;
-  const isRevealed = isSubmarine ? answered : (isTimedOut || allAnswered || (!hasTimeLimit && answered));
-
-  const participantId = sessionStorage.getItem('participant_id');
-  const studentName = sessionStorage.getItem('student_name');
-
-  useEffect(() => {
-    if (!participantId) {
-      navigate('/join');
-      return;
-    }
-    fetchRoomData();
-  }, [roomId]);
-
-  const fetchRoomData = async () => {
+  // --- Betöltés: azonosítás, szoba, résztvevő, kvíz ---
+  const fetchRoomData = useCallback(async () => {
     if (!roomId) return;
-
+    setLoading(true);
     try {
+      const uid = await ensureStudentIdentity();
+      syncServerClock().then(() => setClockSynced(isServerClockSynced()));
+
       const roomData = await getRoomById(roomId);
       if (!roomData) {
         toast.error('Szoba nem található');
@@ -157,22 +234,37 @@ const PlayQuiz = () => {
         return;
       }
 
+      // Résztvevő feloldása: új (uid-alapú) azonosító, vagy régi munkamenet-azonosító
+      let p = await getParticipant(participantDocId(roomId, uid));
+      if (!p) {
+        const legacy = sessionStorage.getItem('participant_id');
+        if (legacy) {
+          const lp = await getParticipant(legacy);
+          if (lp && lp.room_id === roomId) p = lp;
+        }
+      }
+      if (!p || p.kicked || !p.is_active) {
+        if (p?.kicked) toast.error('A tanár kitiltott ebből a szobából.');
+        navigate(roomData.code && roomData.status !== 'completed' ? `/join/${roomData.code}` : '/join');
+        return;
+      }
+
+      setParticipantId(p.id);
+      setStudentName(p.student_name);
+      if (p.avatar) setCurrentAvatar(p.avatar);
+      try {
+        sessionStorage.setItem('participant_id', p.id);
+        sessionStorage.setItem('student_name', p.student_name);
+      } catch { /* privát mód */ }
+
+      roomRef.current = roomData;
       setRoom(roomData);
-      currentQIndexRef.current = roomData.current_question_index;
 
-      const [quizData, partData] = await Promise.all([
-        getQuizById(roomData.quiz_id),
-        getRoomParticipants(roomId),
-      ]);
-
+      const quizData = await getQuizById(roomData.quiz_id);
       if (quizData) {
         setQuiz(quizData);
       } else {
         toast.error('Kvíz adatok nem tölthetők be');
-      }
-
-      if (partData) {
-        setParticipants(partData);
       }
     } catch (err) {
       console.error('Error fetching room data:', err);
@@ -180,232 +272,195 @@ const PlayQuiz = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [roomId, navigate]);
 
-  // Real-time subscription
   useEffect(() => {
-    if (!roomId) return;
+    fetchRoomData();
+  }, [fetchRoomData]);
 
-    const unsubRoom = subscribeToRoom(roomId, (updatedRoom) => {
-      if (!updatedRoom) return;
+  // --- Valós idejű figyelők: szoba + saját résztvevő ---
+  useEffect(() => {
+    if (!roomId || !participantId) return;
 
-      setRoom(prev => {
-        if (!prev) return updatedRoom;
-
-        if (updatedRoom.current_question_index !== currentQIndexRef.current) {
-          currentQIndexRef.current = updatedRoom.current_question_index;
-          hasAnsweredRef.current = false;
-          setAnswered(false);
-          setIsTimeout(false);
-          setSelectedAnswer(null);
-          setTextAnswer('');
-          setAnswerCorrect(null);
-          setEarnedScore(0);
-          setQuestionStartTime(Date.now());
-          setIsEvaluatingAi(false);
-          setEvaluationSource(null);
-          setAiReason(null);
-          setMatchingSummary(null);
-
-          if (quiz && quiz.questions) {
-            const nextQ = quiz.questions[updatedRoom.current_question_index];
-            const nextTime = getQuestionEffectiveTimeLimit(updatedRoom, nextQ);
-            setTimer(nextTime);
-
-            if (nextQ?.type === 'matching' && nextQ.pairs) {
-              const leftItems = nextQ.pairs.map(p => ({ id: p.id, text: p.left }));
-              const rightItems = nextQ.pairs.map(p => ({ id: p.id, text: p.right }));
-              setMatchingState({
-                selectedSide: null,
-                selectedId: null,
-                userPairs: [],
-                shuffledLeft: [...leftItems].sort(() => Math.random() - 0.5),
-                shuffledRight: [...rightItems].sort(() => Math.random() - 0.5),
-              });
-            }
-          }
-        }
-
-        // Trigger countdown if status changes from 'waiting' to 'active'
-        if (prev.status === 'waiting' && updatedRoom.status === 'active') {
-          setShowStartCountdown(true);
-          setCountdownValue(3);
-          const cdInterval = setInterval(() => {
-            setCountdownValue(v => {
-              if (v <= 1) {
-                clearInterval(cdInterval);
-                setTimeout(() => setShowStartCountdown(false), 1000);
-                return 0;
-              }
-              return v - 1;
-            });
-          }, 1000);
-        }
-
-        return updatedRoom;
-      });
-    });
-
-    const unsubParts = subscribeToParticipants(roomId, (updatedParts) => {
-      // Check if current participant was kicked
-      const currentParticipant = updatedParts.find(p => p.id === participantId);
-      if (currentParticipant && currentParticipant.is_active === false) {
-        toast.error('Ki lettél téve a szobából');
-        sessionStorage.removeItem('participant_id');
-        sessionStorage.removeItem('student_name');
-        sessionStorage.removeItem('student_avatar');
-        navigate('/join');
-        return;
+    const unsubRoom = subscribeToRoom(roomId, (updated) => {
+      if (!updated) return;
+      const prev = roomRef.current;
+      roomRef.current = updated;
+      if (prev) {
+        const questionChanged =
+          updated.current_question_index !== prev.current_question_index ||
+          (updated.session_number || 1) !== (prev.session_number || 1);
+        if (questionChanged && updated.game_mode !== 'submarine') resetQuestionState();
+        if (prev.status === 'waiting' && updated.status === 'active') startCountdown();
       }
-      setParticipants(updatedParts);
-    });
+      setRoom(updated);
+    }, setFromCache);
 
-    const unsubAnswers = subscribeToAnswers(roomId, room?.session_number, (answers) => {
-      setRoomAnswers(answers);
+    const unsubMe = subscribeToParticipant(participantId, (p, cached) => {
+      if (cached) return; // offline gyorsítótár-adat alapján nem dobjuk ki a diákot
+      if (!p || p.is_active === false) {
+        toast.error(p?.kicked ? 'Ki lettél téve a szobából' : 'A tanár újraindította a szobát – csatlakozz újra!');
+        try { sessionStorage.removeItem('participant_id'); } catch { /* */ }
+        const code = roomRef.current?.code;
+        navigate(code ? `/join/${code}` : '/join');
+      }
     });
 
     return () => {
       unsubRoom();
-      unsubParts();
-      unsubAnswers();
+      unsubMe();
     };
-  }, [roomId, participantId, quiz, room?.session_number]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [roomId, participantId]);
 
-  // Handle timeout strictly when clock ticks to 0 without an answer
-  const handleTimeout = async () => {
-    if (hasAnsweredRef.current) return;
-    if (!room || !quiz || !participantId) return;
+  // --- Szívverés + visszatérés kezelése (telefon feloldása) ---
+  useEffect(() => {
+    if (!participantId) return;
+    const beat = () => {
+      if (document.visibilityState !== 'visible') return;
+      touchParticipant(participantId).catch((e) => console.warn('[Heartbeat] sikertelen:', e));
+    };
+    beat();
+    const iv = setInterval(beat, HEARTBEAT_INTERVAL_MS);
+    const onVis = () => {
+      if (document.visibilityState === 'visible') {
+        beat();
+        syncServerClock().then(() => setClockSynced(isServerClockSynced()));
+      }
+    };
+    document.addEventListener('visibilitychange', onVis);
+    return () => {
+      clearInterval(iv);
+      document.removeEventListener('visibilitychange', onVis);
+    };
+  }, [participantId]);
 
-    hasAnsweredRef.current = true;
-    setAnswered(true);
-    setIsTimeout(true);
-    setAnswerCorrect(false);
-    setEarnedScore(0);
+  // --- Saját válasz-dokumentum figyelése: visszaállítás frissítés után + szerveres pontozás ---
+  useEffect(() => {
+    if (!currentAnswerId || room?.status !== 'active') return;
+    setAnswerDocReady(false);
+    const unsub = subscribeToAnswerDoc(currentAnswerId, (a) => {
+      setAnswerDocReady(true);
+      if (!a) return;
+      hasAnsweredRef.current = true;
+      setAnswered(true);
+      const ans = (a.answer || {}) as Record<string, unknown>;
+      setIsTimeout(!!ans.timeout);
+      if (typeof ans.selectedOptionId === 'string') setSelectedAnswer(ans.selectedOptionId);
+      if (typeof ans.text === 'string' && !textAnswerRef.current) setTextAnswer(ans.text);
+      if (typeof ans.correctPairs === 'number') {
+        setMatchingSummary({ correctPairs: ans.correctPairs, totalPairs: Number(ans.totalPairs) || 0 });
+      }
+      if (a.grading === 'pending') {
+        setIsEvaluatingAi(true);
+        setAnswerCorrect(null);
+        return;
+      }
+      setIsEvaluatingAi(false);
+      setAnswerCorrect(!!a.is_correct);
+      setEarnedScore(a.score || 0);
+      setEvaluationSource((a.evaluation_source || (ans.evaluation_source as QuizAnswer['evaluation_source']) || null) ?? null);
+      setAiReason(a.ai_reason || null);
 
-    const isSubmarine = room.game_mode === 'submarine';
-    const actualQIndex = isSubmarine ? submarineActualQIndex : room.current_question_index;
-    const currentQ = quiz.questions[actualQIndex];
-    const dbQuestionIndex = isSubmarine ? globalSubmarineAnswerIndex.current : room.current_question_index;
+      if (roomRef.current?.game_mode === 'submarine' && a.is_correct && !countedCorrectRef.current.has(a.id)) {
+        countedCorrectRef.current.add(a.id);
+        setSubmarineCorrectStore((c) => c + 1);
+      }
+    });
+    return unsub;
+  }, [currentAnswerId, room?.status]);
 
-    try {
-      await submitQuizAnswer({
-        room_id: room.id,
-        participant_id: participantId,
-        question_index: dbQuestionIndex,
-        actual_question_index: actualQIndex,
-        question_id: currentQ?.id,
-        answer: { timeout: true, actualQuestionIndex: actualQIndex, questionId: currentQ?.id },
-        is_correct: false,
-        time_taken_ms: null,
-        score: 0,
-        session_number: room.session_number,
-      });
-    } catch (err) {
-      console.error('Error recording timeout answer:', err);
+  // Ha az AI-ellenőrzés sokáig tart, jelezzük a diáknak
+  useEffect(() => {
+    if (!isEvaluatingAi) {
+      setGradingDelayed(false);
+      return;
     }
+    const t = setTimeout(() => setGradingDelayed(true), 20000);
+    return () => clearTimeout(t);
+  }, [isEvaluatingAi, questionKey]);
+
+  // --- Lejárt az idő ---
+  useEffect(() => {
+    if (!deadlinePassed || !answerDocReady || hasAnsweredRef.current) return;
+    if (!currentQuestion || room?.status !== 'active') return;
+    if (currentQuestion.type === 'matching') {
+      submitAnswer();
+    } else if (currentQuestion.type === 'text-input' && textAnswerRef.current.trim()) {
+      // A diák már begépelt valamit, csak nem nyomta meg a Beküldést → ne vesszen el
+      submitAnswer();
+    } else {
+      handleTimeout();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deadlinePassed, answerDocReady, questionKey]);
+
+  // --- Párosítás előkészítése ---
+  useEffect(() => {
+    if (!quiz || !room || room.status !== 'active' || matchingState.shuffledLeft.length > 0) return;
+    const question = quiz.questions[currentQIndex];
+    if (question?.type === 'matching' && question.pairs) {
+      const leftItems = question.pairs.map(p => ({ id: p.id, text: p.left }));
+      const rightItems = question.pairs.map(p => ({ id: p.id, text: p.right }));
+      setMatchingState({
+        selectedSide: null,
+        selectedId: null,
+        userPairs: [],
+        shuffledLeft: [...leftItems].sort(() => Math.random() - 0.5),
+        shuffledRight: [...rightItems].sort(() => Math.random() - 0.5),
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quiz, room?.status, matchingState.shuffledLeft.length, questionKey]);
+
+  // --- Tengeralattjáró: sor előkészítése, folytatás frissítés után ---
+  useEffect(() => {
+    if (!quiz || !room || room.game_mode !== 'submarine' || !participantId) return;
+    let cancelled = false;
+    setSubmarineReady(false);
+    (async () => {
+      let startStep = 0;
+      try {
+        const mine = await getParticipantAnswers(room.id, participantId, room.session_number || 1);
+        startStep = mine.reduce((m, a) => Math.max(m, (a.question_index ?? -1) + 1), 0);
+      } catch (e) {
+        console.warn('Korábbi tengeralattjáró-válaszok lekérése sikertelen:', e);
+      }
+      if (cancelled) return;
+      setSubmarineStep(startStep);
+      setSubmarineQueue(shuffleIndices(quiz.questions.length));
+      setSubmarineReady(true);
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quiz?.id, room?.game_mode, room?.session_number, participantId]);
+
+  const advanceSubmarine = () => {
+    const q = quizRef.current;
+    if (!q) return;
+    resetQuestionState();
+    setSubmarineQueue(prev => {
+      const next = prev.slice(1);
+      return next.length < 3 ? [...next, ...shuffleIndices(q.questions.length)] : next;
+    });
+    setSubmarineStep(s => s + 1);
   };
 
-  // Timer countdown: ONLY ticks down, and triggers timeout when the clock NATURALLY reaches 0
+  // Tengeralattjáró: válasz (és értékelés) után automatikusan jön a következő kérdés.
+  // Ha az AI-értékelés elakad, 15 mp után akkor is továbblépünk.
   useEffect(() => {
-    if (!room || room.status !== 'active' || !quiz || showStartCountdown) return;
-    const question = quiz.questions[room.current_question_index];
-    if (!question) return;
+    if (!isSubmarine || !answered || room?.status !== 'active') return;
+    const ready = isTimeout || answerCorrect !== null;
+    const t = setTimeout(advanceSubmarine, ready ? 2000 : 15000);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSubmarine, answered, answerCorrect, isTimeout, submarineStep, room?.status]);
 
-    const hasTL = !isRoomUnlimitedTime(room);
-
-    if (allAnswered && !isSubmarine) {
-      if (hasTL) setTimer(0);
-      return;
-    }
-
-    if (!hasTL) {
-      setTimer(999);
-      setQuestionStartTime(Date.now());
-      return;
-    }
-
-    const timeLimit = getQuestionEffectiveTimeLimit(room, question);
-    setTimer(timeLimit);
-    setQuestionStartTime(Date.now());
-
-    const interval = setInterval(() => {
-      setTimer((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          // Clock naturally reached 0: check if current participant hasn't answered yet
-          if (!hasAnsweredRef.current) {
-            const currentQ = quiz.questions[room.current_question_index];
-            if (currentQ?.type === 'matching') {
-              submitAnswer();
-            } else {
-              handleTimeout();
-            }
-          }
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [room?.current_question_index, room?.status, showStartCountdown, allAnswered, isSubmarine, room?.time_limit_seconds, room?.has_time_limit, room?.time_limit_mode]);
-
-  // Initial matching setup
   useEffect(() => {
-    if (quiz && room && room.status === 'active' && matchingState.shuffledLeft.length === 0) {
-      const qIdx = isSubmarine ? submarineActualQIndex : room.current_question_index;
-      const question = quiz.questions[qIdx];
-      if (question?.type === 'matching' && question.pairs) {
-        const leftItems = question.pairs.map(p => ({ id: p.id, text: p.left }));
-        const rightItems = question.pairs.map(p => ({ id: p.id, text: p.right }));
-        setMatchingState({
-          selectedSide: null,
-          selectedId: null,
-          userPairs: [],
-          shuffledLeft: [...leftItems].sort(() => Math.random() - 0.5),
-          shuffledRight: [...rightItems].sort(() => Math.random() - 0.5),
-        });
-      }
-    }
-  }, [quiz, room?.current_question_index, room?.status, matchingState.shuffledLeft.length, isSubmarine]);
-
-  // Initialize submarine queue when quiz loads in submarine mode
-  useEffect(() => {
-    if (!quiz || !room || room.game_mode !== 'submarine' || submarineQueue.length > 0) return;
-    setSubmarineQueue(shuffleIndices(quiz.questions.length));
-  }, [quiz, room?.game_mode]);
-
-  // Check if already answered this question (non-submarine only)
-  useEffect(() => {
-    if (!room || !participantId || room.status !== 'active') return;
-    if (room.game_mode === 'submarine') return;
-
-    const checkExistingAnswer = async () => {
-      const answers = await getRoomAnswers(room.id, room.session_number);
-      const existing = answers.find(
-        (a) => a.participant_id === participantId && a.question_index === room.current_question_index
-      );
-
-      if (existing) {
-        hasAnsweredRef.current = true;
-        setAnswered(true);
-        setAnswerCorrect(existing.is_correct);
-        setEarnedScore((existing as any).score || 0);
-        if ((existing.answer as any)?.timeout) {
-          setIsTimeout(true);
-        } else {
-          setIsTimeout(false);
-        }
-        if ((existing.answer as any)?.correctPairs !== undefined) {
-          setMatchingSummary({
-            correctPairs: (existing.answer as any).correctPairs,
-            totalPairs: (existing.answer as any).totalPairs,
-          });
-        }
-      }
-    };
-    checkExistingAnswer();
-  }, [room?.current_question_index, participantId, room?.status, room?.game_mode]);
+    if (submarineCorrectStore >= 3) setShowBoostButton(true);
+  }, [submarineCorrectStore]);
 
   // Fetch answers and show Ranglista button when quiz is completed
   useEffect(() => {
@@ -428,6 +483,7 @@ const PlayQuiz = () => {
     // Show Ranglista button after podium animation finishes (~5s)
     const timer = setTimeout(() => setShowRanglistaBtn(true), 5500);
     return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [room?.status, roomId]);
 
   const getLeaderboard = () => {
@@ -440,13 +496,9 @@ const PlayQuiz = () => {
   };
 
   const handleSubmarineBoost = async () => {
-    if (!room || !roomId) return;
-    
+    if (!roomId) return;
     try {
-      await updateRoom(roomId, {
-        submarine_boosts: (room.submarine_boosts || 0) + 1,
-      });
-
+      await incrementSubmarineBoost(roomId);
       setSubmarineCorrectStore(0);
       setShowBoostButton(false);
       toast.success('🚀 TENGERALATTJÁRÓ FELGYORSÍTVA!', {
@@ -458,32 +510,55 @@ const PlayQuiz = () => {
     }
   };
 
+  // Lejárt idő rögzítése (0 pont)
+  const handleTimeout = async () => {
+    if (hasAnsweredRef.current || !room || !participantId || !currentQuestion) return;
+    hasAnsweredRef.current = true;
+    setAnswered(true);
+    setIsTimeout(true);
+    setAnswerCorrect(false);
+    setEarnedScore(0);
+
+    try {
+      await submitQuizAnswer({
+        room_id: room.id,
+        participant_id: participantId,
+        question_index: dbQuestionIndex,
+        actual_question_index: currentQIndex,
+        question_id: currentQuestion.id,
+        answer: { timeout: true, actualQuestionIndex: currentQIndex, questionId: currentQuestion.id },
+        is_correct: false,
+        time_taken_ms: null,
+        score: 0,
+        session_number: sessionNumber,
+        grading: 'client',
+      });
+    } catch (err) {
+      console.error('Error recording timeout answer:', err);
+    }
+  };
+
   const submitAnswer = async (optionId?: string) => {
-    if (!room || !quiz || !participantId || hasAnsweredRef.current || isEvaluatingAi) return;
+    if (!room || !quiz || !participantId || hasAnsweredRef.current) return;
+    if (isSubmarine && !submarineReady) return;
+    const question = currentQuestion;
+    if (!question) return;
+
+    const keyAtSubmit = questionKey;
+    const isStillSameQuestion = () => questionKeyRef.current === keyAtSubmit;
 
     hasAnsweredRef.current = true;
     setAnswered(true);
     setIsTimeout(false);
 
-    const isSubmarine = room.game_mode === 'submarine';
-    // For submarine: use the current front of the shuffled queue as the actual question
-    const questionIndex = isSubmarine ? submarineActualQIndex : room.current_question_index;
-    // Unique DB key: for submarine, use the global monotonic counter
-    const dbQuestionIndex = isSubmarine ? globalSubmarineAnswerIndex.current : room.current_question_index;
-    const question = quiz.questions[questionIndex];
-    if (!question) return;
+    // Válaszidő a (szerveridőhöz igazított) kérdésindulástól. A végleges pontot a szerver számolja.
+    const timeTaken = Math.max(0, Date.now() - (questionStartAt ?? Date.now()));
+    const timeLimitMs = hasTimeLimit ? timeLimitSec * 1000 : 0;
 
-    let isCorrect = false;
+    let isCorrect: boolean | null = false;
     let answerData: Record<string, unknown> = {};
-
-    // Freeze response time immediately when submit is triggered
-    const timeTaken = Date.now() - questionStartTime;
-    const hasTL = !isRoomUnlimitedTime(room);
-    const effectiveSec = hasTL ? getQuestionEffectiveTimeLimit(room, question) : 0;
-    const timeLimitMs = effectiveSec * 1000;
-
     let evalSource: 'exact' | 'normalized' | 'ai' | undefined = undefined;
-    let aiExplanation: string | undefined = undefined;
+    let grading: 'client' | 'pending' = 'client';
 
     if ((question.type === 'multiple-choice' || question.type === 'true-false') && optionId) {
       const selectedOption = (question.options || []).find((o) => o.id === optionId);
@@ -491,14 +566,16 @@ const PlayQuiz = () => {
       answerData = {
         selectedOptionId: optionId,
         selectedOptionText: selectedOption?.text || '',
-        actualQuestionIndex: questionIndex,
-        questionId: question.id,
       };
       setSelectedAnswer(optionId);
     } else if (question.type === 'text-input') {
-      const trimmed = textAnswer.trim();
+      const trimmed = textAnswerRef.current.trim();
+      if (!trimmed) {
+        hasAnsweredRef.current = false;
+        setAnswered(false);
+        return;
+      }
       const isExact = trimmed.toLowerCase() === (question.correctAnswer || '').trim().toLowerCase();
-
       if (isExact) {
         isCorrect = true;
         evalSource = 'exact';
@@ -506,48 +583,18 @@ const PlayQuiz = () => {
         isCorrect = true;
         evalSource = 'normalized';
       } else {
+        // Nem egyezik szó szerint → a szerver AI-jal értékeli. A válasz azonnal mentődik,
+        // a diák nem ragad be a beküldésnél.
+        isCorrect = null;
+        grading = 'pending';
         setIsEvaluatingAi(true);
-        try {
-          const aiResult = await requestEvaluateAnswer({
-            questionText: question.text,
-            studentAnswer: trimmed,
-            correctAnswer: question.correctAnswer || '',
-            gradeLevel: quiz.grade_level,
-          });
-          isCorrect = Boolean(aiResult.isCorrect);
-          evalSource = 'ai';
-          aiExplanation = aiResult.reason;
-        } catch (err) {
-          console.error('Error during AI answer evaluation:', err);
-          isCorrect = false;
-          evalSource = 'ai';
-          aiExplanation = 'AI kiértékelési hiba, alapértelmezetten elutasítva.';
-        } finally {
-          setIsEvaluatingAi(false);
-        }
       }
-
-      answerData = {
-        text: trimmed,
-        evaluation_source: evalSource,
-        ai_reason: aiExplanation,
-      };
+      answerData = { text: trimmed, evaluation_source: evalSource };
     } else if (question.type === 'matching') {
       const totalPairs = question.pairs?.length || 0;
       const userPairs = matchingStateRef.current.userPairs;
       const correctPairs = userPairs.filter(p => p.leftId === p.rightId).length;
       isCorrect = totalPairs > 0 && correctPairs === totalPairs;
-
-      let proportionalScore = 0;
-      if (totalPairs > 0 && correctPairs > 0) {
-        if (isSubmarine) {
-          proportionalScore = Math.round(1000 * (correctPairs / totalPairs));
-        } else {
-          const maxPossible = calculateScore(true, timeTaken, timeLimitMs);
-          proportionalScore = Math.round(maxPossible * (correctPairs / totalPairs));
-        }
-      }
-
       answerData = {
         correctPairs,
         totalPairs,
@@ -559,84 +606,50 @@ const PlayQuiz = () => {
       };
       setMatchingSummary({ correctPairs, totalPairs });
     }
-    
-    // Calculate final score
-    const score = question.type === 'matching'
-      ? (answerData.correctPairs ? (isSubmarine ? Math.round(1000 * ((answerData.correctPairs as number) / (answerData.totalPairs as number))) : Math.round(calculateScore(true, timeTaken, timeLimitMs) * ((answerData.correctPairs as number) / (answerData.totalPairs as number)))) : 0)
-      : (isSubmarine ? (isCorrect ? 1000 : 0) : calculateScore(isCorrect, timeTaken, timeLimitMs));
+
+    // Ideiglenes pontszám (a szerver felülírja a véglegessel)
+    let score = 0;
+    if (question.type === 'matching') {
+      const cp = answerData.correctPairs as number;
+      const tp = answerData.totalPairs as number;
+      if (cp && tp) {
+        score = isSubmarine
+          ? Math.round(1000 * (cp / tp))
+          : Math.round(calculateScore(true, timeTaken, timeLimitMs) * (cp / tp));
+      }
+    } else if (isCorrect) {
+      score = isSubmarine ? 1000 : calculateScore(true, timeTaken, timeLimitMs);
+    }
 
     try {
       await submitQuizAnswer({
         room_id: room.id,
         participant_id: participantId,
         question_index: dbQuestionIndex,
-        actual_question_index: questionIndex,
+        actual_question_index: currentQIndex,
         question_id: question.id,
         answer: {
           ...answerData,
-          actualQuestionIndex: questionIndex,
+          actualQuestionIndex: currentQIndex,
           questionId: question.id,
         },
         is_correct: isCorrect,
         time_taken_ms: timeTaken,
         score,
-        session_number: room.session_number,
+        session_number: sessionNumber,
         evaluation_source: evalSource,
-        ai_reason: aiExplanation,
+        grading,
       });
     } catch (error) {
-      hasAnsweredRef.current = false;
-      setAnswered(false);
-      toast.error('Hiba a válasz elküldésekor');
-      return;
-    }
-
-    setAnswerCorrect(isCorrect);
-    setEarnedScore(score);
-    setEvaluationSource(evalSource || null);
-    setAiReason(aiExplanation || null);
-
-    // Submarine progress tracking for boost
-    if (isSubmarine && isCorrect) {
-      const newCorrectCount = submarineCorrectStore + 1;
-      setSubmarineCorrectStore(newCorrectCount);
-      if (newCorrectCount >= 3) {
-        setShowBoostButton(true);
+      console.error('Error submitting answer:', error);
+      if (isStillSameQuestion()) {
+        hasAnsweredRef.current = false;
+        setAnswered(false);
+        setIsEvaluatingAi(false);
+        toast.error('Hiba a válasz elküldésekor, próbáld újra!');
       }
     }
-
-    // Auto progress logic
-    if (room.control_mode === 'auto' || isSubmarine) {
-      setTimeout(() => {
-        if (isSubmarine) {
-          // Advance the global answer index (unique DB key)
-          globalSubmarineAnswerIndex.current += 1;
-          // Pop the front of the queue; refill with a new shuffled batch if running low
-          setSubmarineQueue(prev => {
-            const next = prev.slice(1);
-            if (next.length < 3) {
-              return [...next, ...shuffleIndices(quiz.questions.length)];
-            }
-            return next;
-          });
-        } else {
-          const nextIndex = (room.current_question_index + 1) % quiz.questions.length;
-          currentQIndexRef.current = nextIndex;
-          setRoom((prev) => prev ? { ...prev, current_question_index: nextIndex } : prev);
-        }
-        
-        setAnswered(false);
-        setSelectedAnswer(null);
-        setTextAnswer('');
-        setAnswerCorrect(null);
-        setEarnedScore(0);
-        setQuestionStartTime(Date.now());
-        setIsEvaluatingAi(false);
-        setEvaluationSource(null);
-        setAiReason(null);
-        setMatchingSummary(null);
-      }, 2000);
-    }
+    // Az eredményt (helyes-e, pontszám) a saját válasz-dokumentum figyelője állítja be.
   };
 
   const handleItemClick = (side: 'left' | 'right', id: string) => {
@@ -775,7 +788,7 @@ const PlayQuiz = () => {
             <div className="mt-6 font-display text-5xl font-black tracking-widest text-primary animate-pulse-slow">{room.code}</div>
             <div className="mt-6 flex items-center justify-center gap-2 text-muted-foreground">
               <Users className="h-5 w-5" />
-              <span>{participants.length} résztvevő</span>
+              <span>{waitingParticipantCount} résztvevő</span>
             </div>
             {studentName && (
               <div className="mt-4 flex flex-col items-center gap-3">
@@ -875,7 +888,7 @@ const PlayQuiz = () => {
             exit={{ opacity: 0, x: -50 }}
             className="flex flex-1 flex-col"
           >
-            <div className="mb-6 rounded-2xl bg-card/95 backdrop-blur-md p-6 text-center shadow-xl border border-primary/20">
+            <div className="mb-6 rounded-2xl bg-card/95 md:backdrop-blur-md p-6 text-center shadow-xl border border-primary/20">
               <h2 className="font-display text-xl font-bold text-card-foreground md:text-2xl leading-snug">
                 <MathRenderer text={question.text} />
               </h2>
@@ -889,11 +902,11 @@ const PlayQuiz = () => {
             </div>
 
             {/* Waiting for other players / time to expire */}
-            {answered && !isRevealed && !isSubmarine && (
+            {answered && !isSubmarine && !isTimeout && (!isRevealed || answerCorrect === null) && (
               <motion.div
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="mb-6 rounded-2xl border border-primary/30 bg-card/90 backdrop-blur-md p-6 text-center shadow-xl flex flex-col items-center justify-center space-y-3"
+                className="mb-6 rounded-2xl border border-primary/30 bg-card/90 md:backdrop-blur-md p-6 text-center shadow-xl flex flex-col items-center justify-center space-y-3"
               >
                 <div className="relative flex items-center justify-center">
                   <div className="absolute h-14 w-14 rounded-full bg-primary/20 animate-ping" />
@@ -903,16 +916,20 @@ const PlayQuiz = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-black text-foreground">
-                    {isEvaluatingAi ? 'AI ellenőrzi a választ... ✨' : 'Válaszod rögzítve! ✨'}
+                    {isEvaluatingAi ? (gradingDelayed ? 'Az ellenőrzés késik… ⏳' : 'AI ellenőrzi a választ... ✨') : 'Válaszod rögzítve! ✨'}
                   </h3>
                   <p className="text-sm text-muted-foreground mt-1">
-                    {isEvaluatingAi ? 'A mesterséges intelligencia értékeli a válaszodat...' : 'Várakozás a többiekre és az idő lejártára...'}
+                    {isEvaluatingAi
+                      ? (gradingDelayed
+                        ? 'A válaszod el van mentve, az értékelés hamarosan megjelenik (a tanár is látja).'
+                        : 'A válaszod el van mentve, a mesterséges intelligencia értékeli...')
+                      : 'Várakozás a többiekre és az idő lejártára...'}
                   </p>
                 </div>
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-muted/80 text-muted-foreground text-xs font-semibold border border-border/50">
                   <Users className="h-3.5 w-3.5 text-primary" />
                   <span>
-                    {currentQAnswers.length} / {totalActiveParticipants} diák válaszolt már
+                    {answeredCountDisplay} / {totalDisplay} diák válaszolt már
                   </span>
                 </div>
               </motion.div>
@@ -946,7 +963,7 @@ const PlayQuiz = () => {
             )}
 
             {/* Answer Feedback (when round is revealed) */}
-            {isRevealed && answered && !isTimeout && (
+            {isRevealed && answered && !isTimeout && answerCorrect !== null && (
               <motion.div
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -977,7 +994,7 @@ const PlayQuiz = () => {
                   )}
                 </div>
                 {evaluationSource === 'ai' && (
-                  <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-black/20 backdrop-blur-sm border border-white/20">
+                  <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-black/20 md:backdrop-blur-sm border border-white/20">
                     <Sparkles className="h-3.5 w-3.5 text-yellow-300" />
                     <span>
                       {answerCorrect
@@ -1006,7 +1023,7 @@ const PlayQuiz = () => {
             )}
 
             {room.game_mode === 'submarine' && (
-              <div className="sticky top-0 z-30 -mx-4 mb-6 bg-background/80 p-4 backdrop-blur-md border-b">
+              <div className="sticky top-0 z-30 -mx-4 mb-6 bg-background/80 p-4 md:backdrop-blur-md border-b">
                 <div className="flex flex-col items-center gap-4">
                   <div className="flex gap-4">
                     {[...Array(3)].map((_, i) => (
@@ -1064,7 +1081,7 @@ const PlayQuiz = () => {
                   const isSelected = selectedAnswer === option.id;
                   const isLocked = answered || isTimedOut;
 
-                  let stateClass = color.bg;
+                  let stateClass: string = color.bg;
                   if (isRevealed) {
                     if (option.isCorrect) {
                       stateClass = 'bg-quiz-green ring-4 ring-white/50 shadow-lg';
@@ -1121,7 +1138,7 @@ const PlayQuiz = () => {
                     disabled={answered || isEvaluatingAi || isTimedOut}
                     className="h-14 text-center text-xl font-bold"
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter' && textAnswer.trim() && !answered && !isEvaluatingAi && (!hasTimeLimit || timer > 0)) {
+                      if (e.key === 'Enter' && textAnswer.trim() && !answered && !isEvaluatingAi && !isTimedOut) {
                         submitAnswer();
                       }
                     }}
@@ -1168,9 +1185,9 @@ const PlayQuiz = () => {
                         <motion.button
                           key={item.id}
                           type="button"
-                          whileHover={!answered && (!hasTimeLimit || timer > 0) ? { scale: 1.01 } : {}}
-                          whileTap={!answered && (!hasTimeLimit || timer > 0) ? { scale: 0.99 } : {}}
-                          onClick={() => !answered && (!hasTimeLimit || timer > 0) && handleItemClick('left', item.id)}
+                          whileHover={!answered && !isTimedOut ? { scale: 1.01 } : {}}
+                          whileTap={!answered && !isTimedOut ? { scale: 0.99 } : {}}
+                          onClick={() => !answered && !isTimedOut && handleItemClick('left', item.id)}
                           disabled={answered || isTimedOut}
                           className={cn(
                             "relative w-full rounded-2xl p-4 text-center font-medium transition-all shadow-sm flex flex-col items-center justify-center min-h-[72px] border-2",
@@ -1231,9 +1248,9 @@ const PlayQuiz = () => {
                         <motion.button
                           key={item.id}
                           type="button"
-                          whileHover={!answered && (!hasTimeLimit || timer > 0) ? { scale: 1.01 } : {}}
-                          whileTap={!answered && (!hasTimeLimit || timer > 0) ? { scale: 0.99 } : {}}
-                          onClick={() => !answered && (!hasTimeLimit || timer > 0) && handleItemClick('right', item.id)}
+                          whileHover={!answered && !isTimedOut ? { scale: 1.01 } : {}}
+                          whileTap={!answered && !isTimedOut ? { scale: 0.99 } : {}}
+                          onClick={() => !answered && !isTimedOut && handleItemClick('right', item.id)}
                           disabled={answered || isTimedOut}
                           className={cn(
                             "relative w-full rounded-2xl p-4 text-center font-medium transition-all shadow-sm flex flex-col items-center justify-center min-h-[72px] border-2",
@@ -1274,7 +1291,7 @@ const PlayQuiz = () => {
                 </div>
 
                 {/* Submit button / instructions */}
-                {!answered && timer > 0 && (
+                {!answered && !isTimedOut && (
                   <div className="pt-2 flex flex-col items-center justify-center">
                     {matchingState.userPairs.length === (question.pairs?.length || 0) ? (
                       <Button
@@ -1362,11 +1379,11 @@ const PlayQuiz = () => {
   return (
     <div className="flex min-h-screen flex-col bg-background relative overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/40 via-background to-[#030712]">
       {/* Ambient glowing blobs */}
-      <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[450px] bg-blue-500/15 blur-[130px] rounded-full" />
-      <div className="pointer-events-none absolute -bottom-32 -left-32 w-[500px] h-[400px] bg-indigo-600/10 blur-[120px] rounded-full" />
+      <div className="pointer-events-none absolute hidden md:block -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[450px] bg-blue-500/15 blur-[130px] rounded-full" />
+      <div className="pointer-events-none absolute hidden md:block -bottom-32 -left-32 w-[500px] h-[400px] bg-indigo-600/10 blur-[120px] rounded-full" />
 
       {/* Top Bar */}
-      <div className="flex items-center justify-between border-b border-border/70 bg-card/85 backdrop-blur-md px-4 py-3 z-10 shadow-sm">
+      <div className="flex items-center justify-between border-b border-border/70 bg-card/85 md:backdrop-blur-md px-4 py-3 z-10 shadow-sm">
         {room.status === 'active' ? (
           <>
             <div className="text-sm text-muted-foreground">
@@ -1400,6 +1417,8 @@ const PlayQuiz = () => {
 
       {/* Reaction FAB */}
       <ReactionButton roomId={roomId!} className="fixed bottom-6 right-6 z-40" />
+
+      <ConnectionBanner fromCache={fromCache} />
 
       {/* Avatar Modal */}
       <Dialog open={isAvatarModalOpen} onOpenChange={setIsAvatarModalOpen}>

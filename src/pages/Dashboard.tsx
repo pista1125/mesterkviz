@@ -221,6 +221,9 @@ const Dashboard = () => {
         started_at: null,
         ended_at: null,
         session_number: newSession,
+        all_answered_index: null,
+        answer_stats: null,
+        participant_count: 0,
       });
 
       setRooms((prev) =>

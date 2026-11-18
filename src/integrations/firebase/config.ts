@@ -25,6 +25,8 @@ const firebaseConfig = {
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 export const auth = getAuth(app);
+// Megjegyzés: szándékosan az alapértelmezett (memória) gyorsítótár. A tartós IndexedDB-s
+// gyorsítótár egyes Safari-verziókon maga is okozhat elakadást, és nagyobb csomagot jelent.
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 export const functions = getFunctions(app, 'europe-west1');

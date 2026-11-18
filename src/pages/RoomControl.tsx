@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { QRCodeDisplay } from '@/components/quiz/QRCodeDisplay';
 import { Play, Square, SkipForward, Copy, Users, ArrowLeft, CheckCircle2, Trophy, BarChart3, RefreshCw, Monitor } from 'lucide-react';
-import type { Room, Quiz, QuizQuestion, RoomParticipant, QuizAnswer } from '@/types/quiz';
+import { ANSWER_COLORS, type Room, type Quiz, type QuizQuestion, type RoomParticipant, type QuizAnswer } from '@/types/quiz';
 import {
   getRoomById,
   getQuizById,
@@ -19,7 +19,11 @@ import {
   subscribeToAnswers,
   updateRoom,
   updateParticipant,
+  startRoomQuiz,
+  goToQuestion,
 } from '@/services/db';
+import { useRoomAuthority } from '@/hooks/useRoomAuthority';
+import { syncServerClock } from '@/lib/serverClock';
 
 const RoomControl = () => {
   const { id } = useParams();
@@ -93,14 +97,16 @@ const RoomControl = () => {
     };
   }, [id, room?.session_number]);
 
+  // Szerveridő-szinkron (jelenlét-számításhoz) + összesítők karbantartása a diákok számára
+  useEffect(() => {
+    if (user) syncServerClock();
+  }, [user]);
+  useRoomAuthority(room, participants, answers, !!user && room?.status !== 'completed');
+
   const startQuiz = async () => {
     if (!room) return;
     try {
-      await updateRoom(room.id, {
-        status: 'active',
-        started_at: new Date().toISOString(),
-        current_question_index: 0,
-      });
+      await startRoomQuiz(room.id);
       setShowLeaderboard(false);
       toast.success('Kvíz elindítva!');
     } catch (err: any) {
@@ -116,7 +122,7 @@ const RoomControl = () => {
       return;
     }
     try {
-      await updateRoom(room.id, { current_question_index: nextIndex });
+      await goToQuestion(room.id, nextIndex);
       setShowLeaderboard(false);
     } catch (err: any) {
       toast.error('Hiba a kérdésváltáskor: ' + err.message);
@@ -141,7 +147,7 @@ const RoomControl = () => {
     const newSession = (room.session_number || 1) + 1;
     try {
       for (const p of participants) {
-        await updateParticipant(p.id, { is_active: false });
+        await updateParticipant(p.id, { is_active: false, kicked: false });
       }
 
       await updateRoom(room.id, {
@@ -150,6 +156,9 @@ const RoomControl = () => {
         started_at: null,
         ended_at: null,
         session_number: newSession,
+        all_answered_index: null,
+        answer_stats: null,
+        participant_count: 0,
       });
       setAnswers([]);
       setParticipants([]);
@@ -344,11 +353,10 @@ const RoomControl = () => {
                   {currentQuestion.type === 'multiple-choice' && (
                     <div className="grid gap-3 sm:grid-cols-2">
                       {currentQuestion.options.map((opt, i) => {
-                        const colors = ['bg-quiz-red', 'bg-quiz-blue', 'bg-quiz-yellow', 'bg-quiz-green'];
                         return (
                           <div
                             key={opt.id}
-                            className={`flex items-center justify-between rounded-lg p-4 text-primary-foreground ${colors[i % 4]}`}
+                            className={`flex items-center justify-between rounded-lg p-4 text-primary-foreground ${ANSWER_COLORS[i % ANSWER_COLORS.length].bg}`}
                           >
                             <span className="font-medium">{opt.text || `Válasz ${i + 1}`}</span>
                             {opt.isCorrect && <CheckCircle2 className="h-5 w-5" />}

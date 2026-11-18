@@ -9,14 +9,27 @@ import {
   deleteDoc,
   query,
   where,
-  orderBy,
   limit,
   onSnapshot,
   serverTimestamp,
-  Unsubscribe,
+  increment,
+  Timestamp,
+  type DocumentSnapshot,
+  type Unsubscribe,
 } from 'firebase/firestore';
 import { db } from '@/integrations/firebase/config';
 import type { Quiz, Room, RoomParticipant, QuizAnswer } from '@/types/quiz';
+
+// Hibakezelő a valós idejű figyelőkhöz. Hiba esetén a Firestore leállítja a figyelőt;
+// így legalább látszik a konzolban / a hibanaplóban, miért nem jön több frissítés.
+const logSnapshotError = (label: string) => (error: Error) => {
+  console.error(`[Firestore] ${label} figyelő hiba:`, error);
+};
+
+const tsToMillis = (v: unknown): number | null => (v instanceof Timestamp ? v.toMillis() : null);
+
+/** A kérdés-visszaszámlálás hossza a kvíz indulásakor (3-2-1-RAJT!) */
+export const START_COUNTDOWN_MS = 4000;
 
 // ----------------------------------------------------
 // QUIZZES
@@ -104,11 +117,21 @@ export const deleteQuiz = async (quizId: string): Promise<void> => {
 // ----------------------------------------------------
 // ROOMS
 // ----------------------------------------------------
+const toRoom = (snap: DocumentSnapshot): Room => {
+  // 'estimate': a tanár saját, még el nem küldött serverTimestamp() írása is kapjon értéket
+  const data = snap.data({ serverTimestamps: 'estimate' }) || {};
+  return {
+    id: snap.id,
+    ...data,
+    question_started_at_ms: tsToMillis(data.question_started_at),
+  } as Room;
+};
+
 export const getRoomById = async (roomId: string): Promise<Room | null> => {
   const docRef = doc(db, 'rooms', roomId);
   const snap = await getDoc(docRef);
   if (!snap.exists()) return null;
-  return { id: snap.id, ...snap.data() } as Room;
+  return toRoom(snap);
 };
 
 export const findActiveRoomByCode = async (code: string): Promise<Room | null> => {
@@ -120,8 +143,7 @@ export const findActiveRoomByCode = async (code: string): Promise<Room | null> =
   );
   const snap = await getDocs(q);
   if (snap.empty) return null;
-  const docSnap = snap.docs[0];
-  return { id: docSnap.id, ...docSnap.data() } as Room;
+  return toRoom(snap.docs[0]);
 };
 
 export const getTeacherRooms = async (teacherId: string): Promise<Room[]> => {
@@ -130,7 +152,7 @@ export const getTeacherRooms = async (teacherId: string): Promise<Room[]> => {
     where('teacher_id', '==', teacherId)
   );
   const snap = await getDocs(q);
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as Room));
+  return snap.docs.map(toRoom);
 };
 
 export const createRoom = async (roomData: Omit<Room, 'id'>): Promise<string> => {
@@ -146,75 +168,149 @@ export const createRoom = async (roomData: Omit<Room, 'id'>): Promise<string> =>
 
 export const updateRoom = async (roomId: string, updates: Partial<Room>): Promise<void> => {
   const docRef = doc(db, 'rooms', roomId);
-  await updateDoc(docRef, updates);
+  // A kliens oldalon számolt mezőket soha ne írjuk vissza
+  const { question_started_at_ms, ...rest } = updates;
+  await updateDoc(docRef, rest);
 };
 
-export const subscribeToRoom = (roomId: string, callback: (room: Room | null) => void): Unsubscribe => {
-  return onSnapshot(doc(db, 'rooms', roomId), (snap) => {
-    if (!snap.exists()) {
-      callback(null);
-    } else {
-      callback({ id: snap.id, ...snap.data() } as Room);
-    }
+/** Kvíz indítása: a kérdés indulási ideje SZERVERIDŐ, így minden eszköz ugyanakkor látja lejárni. */
+export const startRoomQuiz = async (roomId: string): Promise<void> => {
+  await updateDoc(doc(db, 'rooms', roomId), {
+    status: 'active',
+    started_at: new Date().toISOString(),
+    current_question_index: 0,
+    question_started_at: serverTimestamp(),
+    question_start_delay_ms: START_COUNTDOWN_MS,
+    // Kérdésenkénti indulási idők (a szerveres pontozáshoz: akkor is tudja, mikor indult
+    // egy kérdés, ha a tanár közben már továbblépett). Új munkamenetnél újrakezdődik.
+    question_starts: { '0': serverTimestamp() },
+    all_answered_index: null,
+    answer_stats: null,
   });
+};
+
+/** Továbblépés egy adott kérdésre (szerver-időbélyeggel). */
+export const goToQuestion = async (roomId: string, index: number): Promise<void> => {
+  await updateDoc(doc(db, 'rooms', roomId), {
+    current_question_index: index,
+    question_started_at: serverTimestamp(),
+    question_start_delay_ms: 0,
+    [`question_starts.${index}`]: serverTimestamp(),
+    all_answered_index: null,
+    answer_stats: null,
+  });
+};
+
+/** Tengeralattjáró boost – atomikus növelés, így párhuzamos boostok sem vesznek el. */
+export const incrementSubmarineBoost = async (roomId: string): Promise<void> => {
+  await updateDoc(doc(db, 'rooms', roomId), { submarine_boosts: increment(1) });
+};
+
+export const subscribeToRoom = (
+  roomId: string,
+  callback: (room: Room | null) => void,
+  onConnectionChange?: (fromCache: boolean) => void
+): Unsubscribe => {
+  return onSnapshot(
+    doc(db, 'rooms', roomId),
+    { includeMetadataChanges: !!onConnectionChange },
+    (snap) => {
+      onConnectionChange?.(snap.metadata.fromCache);
+      if (!snap.exists()) {
+        callback(null);
+      } else {
+        callback(toRoom(snap));
+      }
+    },
+    logSnapshotError('room')
+  );
 };
 
 // ----------------------------------------------------
 // PARTICIPANTS
 // ----------------------------------------------------
+/** Determinisztikus résztvevő-azonosító: ugyanaz a diák (uid) ugyanabban a szobában mindig ugyanaz. */
+export const participantDocId = (roomId: string, uid: string) => `${roomId}_${uid}`;
+
+const toParticipant = (snap: DocumentSnapshot): RoomParticipant => {
+  const data = snap.data({ serverTimestamps: 'estimate' }) || {};
+  return { id: snap.id, ...data, last_seen_ms: tsToMillis(data.last_seen) } as RoomParticipant;
+};
+
 export const getRoomParticipants = async (roomId: string): Promise<RoomParticipant[]> => {
   const q = query(
     collection(db, 'room_participants'),
     where('room_id', '==', roomId)
   );
   const snap = await getDocs(q);
-  const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as RoomParticipant));
+  const items = snap.docs.map(toParticipant);
   return items.sort((a, b) => (a.joined_at || '').localeCompare(b.joined_at || ''));
 };
+
+export const getParticipant = async (participantId: string): Promise<RoomParticipant | null> => {
+  const snap = await getDoc(doc(db, 'room_participants', participantId));
+  return snap.exists() ? toParticipant(snap) : null;
+};
+
+export class KickedFromRoomError extends Error {
+  constructor() {
+    super('A tanár kitiltott ebből a szobából.');
+    this.name = 'KickedFromRoomError';
+  }
+}
 
 export const joinRoomParticipant = async (
   roomId: string,
   studentName: string,
-  studentSessionId: string,
+  uid: string,
   avatar?: { character: string; accessory: string }
 ): Promise<RoomParticipant> => {
-  // Check if participant already exists for this room + session
-  const q = query(
-    collection(db, 'room_participants'),
-    where('room_id', '==', roomId),
-    where('student_session_id', '==', studentSessionId),
-    limit(1)
-  );
-  const snap = await getDocs(q);
+  const id = participantDocId(roomId, uid);
+  const ref = doc(db, 'room_participants', id);
+  const existing = await getDoc(ref);
 
-  if (!snap.empty) {
-    const existingDoc = snap.docs[0];
-    const updatedData: Partial<RoomParticipant> = {
+  if (existing.exists()) {
+    if (existing.data().kicked) throw new KickedFromRoomError();
+    const updatedData = {
       student_name: studentName,
       is_active: true,
+      last_seen: serverTimestamp(),
       ...(avatar ? { avatar } : {}),
     };
-    await updateDoc(existingDoc.ref, updatedData);
-    return { id: existingDoc.id, ...existingDoc.data(), ...updatedData } as RoomParticipant;
+    await updateDoc(ref, updatedData);
+    return { ...toParticipant(existing), student_name: studentName, is_active: true, ...(avatar ? { avatar } : {}) };
   }
 
-  const docRef = doc(collection(db, 'room_participants'));
-  const newParticipant: RoomParticipant = {
-    id: docRef.id,
+  const newParticipant = {
+    id,
     room_id: roomId,
+    uid,
     student_name: studentName,
-    student_session_id: studentSessionId,
+    student_session_id: uid,
     joined_at: new Date().toISOString(),
     is_active: true,
+    kicked: false,
     avatar: avatar || { character: '🐻', accessory: 'none' },
+    last_seen: serverTimestamp(),
   };
-  await setDoc(docRef, newParticipant);
-  return newParticipant;
+  await setDoc(ref, newParticipant);
+  return { ...newParticipant, last_seen: null } as RoomParticipant;
+};
+
+/** Szívverés: a diák jelzi, hogy még kapcsolatban van. */
+export const touchParticipant = async (participantId: string): Promise<void> => {
+  await updateDoc(doc(db, 'room_participants', participantId), { last_seen: serverTimestamp() });
 };
 
 export const updateParticipant = async (participantId: string, updates: Partial<RoomParticipant>): Promise<void> => {
   const docRef = doc(db, 'room_participants', participantId);
-  await updateDoc(docRef, updates);
+  const { last_seen_ms, ...rest } = updates;
+  await updateDoc(docRef, rest);
+};
+
+/** Kitiltás: a diák nem tud újra csatlakozni ugyanazzal az azonosítóval. */
+export const kickParticipant = async (participantId: string): Promise<void> => {
+  await updateDoc(doc(db, 'room_participants', participantId), { is_active: false, kicked: true });
 };
 
 export const deleteParticipant = async (participantId: string): Promise<void> => {
@@ -230,10 +326,20 @@ export const subscribeToParticipants = (
     where('room_id', '==', roomId)
   );
   return onSnapshot(q, (snap) => {
-    const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as RoomParticipant));
+    const items = snap.docs.map(toParticipant);
     items.sort((a, b) => (a.joined_at || '').localeCompare(b.joined_at || ''));
     callback(items);
-  });
+  }, logSnapshotError('participants'));
+};
+
+/** Egyetlen résztvevő figyelése (a diák a sajátját: kitiltás / újraindítás észlelése). */
+export const subscribeToParticipant = (
+  participantId: string,
+  callback: (participant: RoomParticipant | null, fromCache: boolean) => void
+): Unsubscribe => {
+  return onSnapshot(doc(db, 'room_participants', participantId), (snap) => {
+    callback(snap.exists() ? toParticipant(snap) : null, snap.metadata.fromCache);
+  }, logSnapshotError('participant'));
 };
 
 // ----------------------------------------------------
@@ -256,43 +362,71 @@ export const getRoomAnswers = async (roomId: string, sessionNumber?: number): Pr
   return items.sort((a, b) => (a.answered_at || '').localeCompare(b.answered_at || ''));
 };
 
+/** Egy diák összes válasza egy munkamenetben (tengeralattjáró mód folytatásához). */
+export const getParticipantAnswers = async (
+  roomId: string,
+  participantId: string,
+  sessionNumber: number
+): Promise<QuizAnswer[]> => {
+  const q = query(
+    collection(db, 'quiz_answers'),
+    where('room_id', '==', roomId),
+    where('participant_id', '==', participantId),
+    where('session_number', '==', sessionNumber)
+  );
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as QuizAnswer));
+};
+
+// Determinisztikus dokumentum-azonosító: egy diák egy kérdésre egy munkamenetben
+// pontosan EGY válasz-dokumentumot kaphat. Így nincs szükség előzetes lekérdezésre
+// (ami gyenge wifin másodpercekig lóghat), dupla koppintás / időtúllépés-verseny
+// sem hozhat létre duplikátumot, és offline is azonnal sorba áll az írás.
+export const answerDocId = (a: Pick<QuizAnswer, 'room_id' | 'participant_id' | 'question_index' | 'session_number'>) =>
+  `${a.room_id}_s${a.session_number ?? 1}_${a.participant_id}_q${a.question_index}`;
+
+/**
+ * Válasz mentése. A Firestore-szabályok szerint egy válasz csak egyszer hozható létre
+ * (utólag a diák nem írhatja át – a pontozást a szerver véglegesíti).
+ * Ha egy korábbi, "elveszettnek hitt" próbálkozás valójában már célba ért, a második
+ * írást a szabály elutasítja – ezt sikeresnek tekintjük.
+ */
 export const submitQuizAnswer = async (
   answerData: Omit<QuizAnswer, 'id' | 'answered_at'>
 ): Promise<string> => {
-  // Check if answer for participant + question_index + session_number already exists
-  const q = query(
-    collection(db, 'quiz_answers'),
-    where('room_id', '==', answerData.room_id),
-    where('participant_id', '==', answerData.participant_id),
-    where('question_index', '==', answerData.question_index),
-    where('session_number', '==', answerData.session_number),
-    limit(1)
-  );
-  const snap = await getDocs(q);
-  const now = new Date().toISOString();
-
   // Strip undefined properties to avoid Firestore errors
   const cleanAnswerData = Object.fromEntries(
-    Object.entries(answerData).filter(([_, v]) => v !== undefined)
+    Object.entries(answerData).filter(([, v]) => v !== undefined)
   );
 
-  if (!snap.empty) {
-    const existingDoc = snap.docs[0];
-    await updateDoc(existingDoc.ref, {
+  const id = answerDocId(answerData);
+  const ref = doc(db, 'quiz_answers', id);
+  try {
+    await setDoc(ref, {
       ...cleanAnswerData,
-      answered_at: now,
+      id,
+      answered_at: new Date().toISOString(),
+      submitted_at: serverTimestamp(),
     });
-    return existingDoc.id;
+  } catch (err) {
+    const code = (err as { code?: string })?.code;
+    if (code === 'permission-denied') {
+      const existing = await getDoc(ref);
+      if (existing.exists()) return id;
+    }
+    throw err;
   }
+  return id;
+};
 
-  const docRef = doc(collection(db, 'quiz_answers'));
-  const newAnswer: QuizAnswer = {
-    ...cleanAnswerData,
-    id: docRef.id,
-    answered_at: now,
-  } as QuizAnswer;
-  await setDoc(docRef, newAnswer);
-  return docRef.id;
+/** A diák a saját aktuális válasz-dokumentumát figyeli (visszaállítás + szerveres pontozás). */
+export const subscribeToAnswerDoc = (
+  answerId: string,
+  callback: (answer: QuizAnswer | null) => void
+): Unsubscribe => {
+  return onSnapshot(doc(db, 'quiz_answers', answerId), (snap) => {
+    callback(snap.exists() ? ({ id: snap.id, ...snap.data() } as QuizAnswer) : null);
+  }, logSnapshotError('answer'));
 };
 
 export const subscribeToAnswers = (
@@ -315,7 +449,7 @@ export const subscribeToAnswers = (
     const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as QuizAnswer));
     items.sort((a, b) => (a.answered_at || '').localeCompare(b.answered_at || ''));
     callback(items);
-  });
+  }, logSnapshotError('answers'));
 };
 
 // ----------------------------------------------------
@@ -368,5 +502,5 @@ export const subscribeToReactions = (
         callback({ id: change.doc.id, emoji: data.emoji });
       }
     });
-  });
+  }, logSnapshotError('reactions'));
 };

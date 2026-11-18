@@ -51,6 +51,19 @@
     --quiz-blue: 217 91% 60%;
     --quiz-yellow: 45 95% 50%;
     --quiz-green: 142 70% 45%;
+    --quiz-purple: 262 83% 58%;
+    --quiz-pink: 330 81% 60%;
+  }
+
+  /* Gyenge eszközök (lásd src/lib/devicePerformance.ts): a GPU-igényes effektek kikapcsolva */
+  html.low-end *,
+  html.low-end *::before,
+  html.low-end *::after {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  html.low-end [class*="blur-["] {
+    display: none !important;
   }
 
   .dark {

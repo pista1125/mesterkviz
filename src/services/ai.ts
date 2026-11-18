@@ -80,6 +80,11 @@ export const requestEvaluateAnswer = async (
     import.meta.env.VITE_FIREBASE_EVALUATE_ANSWER_URL ||
     'https://europe-west1-mesterkviz-f52ce.cloudfunctions.net/evaluateAnswer';
 
+  // Időkorlát: hidegindítás vagy lassú OpenAI esetén se ragadjon be a diák
+  // "AI ellenőrzi..." állapotban.
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 12000);
+
   try {
     const response = await fetch(FUNCTION_URL, {
       method: 'POST',
@@ -87,6 +92,7 @@ export const requestEvaluateAnswer = async (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(params),
+      signal: controller.signal,
     });
 
     if (!response.ok) {
@@ -101,6 +107,12 @@ export const requestEvaluateAnswer = async (
     };
   } catch (err) {
     console.error('Error calling evaluateAnswer function:', err);
-    return { isCorrect: false, reason: 'Hálózati hiba az AI kiértékelés során' };
+    const timedOut = err instanceof DOMException && err.name === 'AbortError';
+    return {
+      isCorrect: false,
+      reason: timedOut ? 'Az AI ellenőrzés túl sokáig tartott' : 'Hálózati hiba az AI kiértékelés során',
+    };
+  } finally {
+    clearTimeout(timeoutId);
   }
 };

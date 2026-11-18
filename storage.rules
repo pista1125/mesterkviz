@@ -1,13 +1,19 @@
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
+    // Képeket csak (nem névtelen) tanár tölthet fel; olvasni bárki tud (kérdésképek).
+    function isTeacher() {
+      return request.auth != null && request.auth.token.firebase.sign_in_provider != 'anonymous';
+    }
+
     match /question-images/{allPaths=**} {
       allow read: if true;
-      allow write: if request.auth != null;
+      allow write: if isTeacher()
+        && (request.resource == null || request.resource.size < 10 * 1024 * 1024);
     }
     match /{allPaths=**} {
       allow read: if true;
-      allow write: if request.auth != null;
+      allow write: if isTeacher();
     }
   }
 }

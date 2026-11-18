@@ -63,6 +63,22 @@ export interface Room {
   started_at: string | null;
   ended_at: string | null;
   created_at: string;
+
+  // --- Szerverhez kötött időzítés ---
+  /** Firestore szerver-időbélyeg: mikor indult az aktuális kérdés (a tanár írja serverTimestamp()-pel) */
+  question_started_at?: unknown;
+  /** Kliens oldalon számolt érték: question_started_at milliszekundumban (szerveridő szerint) */
+  question_started_at_ms?: number | null;
+  /** Az indulás utáni visszaszámlálás hossza (csak az 1. kérdésnél), ms */
+  question_start_delay_ms?: number;
+
+  // --- A tanári gép által karbantartott összesítők (a diákok csak ezt figyelik) ---
+  /** Hány (online) diák válaszolt az aktuális kérdésre */
+  answer_stats?: { question_index: number; session_number: number; answered: number; total: number } | null;
+  /** Ha minden online diák válaszolt, ide kerül az aktuális kérdés indexe → eredmény felfedése */
+  all_answered_index?: number | null;
+  /** Aktív résztvevők száma (váróterem kijelzéshez) */
+  participant_count?: number;
 }
 
 export interface RoomParticipant {
@@ -73,6 +89,14 @@ export interface RoomParticipant {
   joined_at: string;
   is_active: boolean;
   avatar?: AvatarData;
+  /** Firebase Auth uid (névtelen bejelentkezés) – a dokumentum azonosítója: `${room_id}_${uid}` */
+  uid?: string;
+  /** A tanár kitiltotta → nem csatlakozhat újra ebbe a szobába */
+  kicked?: boolean;
+  /** Szívverés (serverTimestamp) */
+  last_seen?: unknown;
+  /** Kliens oldalon számolt: last_seen ms-ban */
+  last_seen_ms?: number | null;
 }
 
 export interface QuizAnswer {
@@ -90,17 +114,14 @@ export interface QuizAnswer {
   answered_at: string;
   evaluation_source?: 'exact' | 'normalized' | 'ai';
   ai_reason?: string;
+  /**
+   * 'client'  – a böngésző által számolt ideiglenes értékelés
+   * 'pending' – szabad szöveges válasz, AI-ellenőrzésre vár (a szerver értékeli)
+   * 'server'  – a Cloud Function által véglegesített pontszám
+   */
+  grading?: 'client' | 'pending' | 'server';
+  submitted_at?: unknown;
 }
-
-// Helper to generate a student session ID
-export const getStudentSessionId = (): string => {
-  let id = sessionStorage.getItem('student_session_id');
-  if (!id) {
-    id = crypto.randomUUID();
-    sessionStorage.setItem('student_session_id', id);
-  }
-  return id;
-};
 
 // Helper to generate a new question
 export const createEmptyQuestion = (): QuizQuestion => ({
@@ -175,13 +196,37 @@ export const generateRoomCode = (): string => {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
 
-// Quiz answer color mapping (Kahoot-style)
+// Quiz answer color mapping (Kahoot-style).
+// EGYETLEN forrás a válaszszínekhez: a diák gombjai, a tanári kijelző, a szerkesztő
+// és az eredmény-diagram oszlopai is ezt használják, így a színek mindig egyeznek.
+// `fill` a CSS változóra mutat (SVG / recharts), `bg` a Tailwind osztály.
 export const ANSWER_COLORS = [
-  { bg: 'bg-quiz-red', hover: 'hover:bg-quiz-red/90', icon: '▲' },
-  { bg: 'bg-quiz-blue', hover: 'hover:bg-quiz-blue/90', icon: '◆' },
-  { bg: 'bg-quiz-yellow', hover: 'hover:bg-quiz-yellow/90', icon: '●' },
-  { bg: 'bg-quiz-green', hover: 'hover:bg-quiz-green/90', icon: '■' },
+  { bg: 'bg-quiz-red', hover: 'hover:bg-quiz-red/90', fill: 'hsl(var(--quiz-red))', icon: '▲', label: 'A' },
+  { bg: 'bg-quiz-blue', hover: 'hover:bg-quiz-blue/90', fill: 'hsl(var(--quiz-blue))', icon: '◆', label: 'B' },
+  { bg: 'bg-quiz-yellow', hover: 'hover:bg-quiz-yellow/90', fill: 'hsl(var(--quiz-yellow))', icon: '●', label: 'C' },
+  { bg: 'bg-quiz-green', hover: 'hover:bg-quiz-green/90', fill: 'hsl(var(--quiz-green))', icon: '■', label: 'D' },
+  { bg: 'bg-quiz-purple', hover: 'hover:bg-quiz-purple/90', fill: 'hsl(var(--quiz-purple))', icon: '★', label: 'E' },
+  { bg: 'bg-quiz-pink', hover: 'hover:bg-quiz-pink/90', fill: 'hsl(var(--quiz-pink))', icon: '♦', label: 'F' },
 ] as const;
+
+// Igaz/Hamis kérdéseknél a szín a válasz szövegéhez kötött (nem a sorrendhez),
+// ugyanúgy, ahogy a diák és a tanári kijelző gombjai is.
+export const TRUE_FALSE_COLORS = {
+  Igaz: { bg: 'bg-quiz-blue', fill: 'hsl(var(--quiz-blue))' },
+  Hamis: { bg: 'bg-quiz-red', fill: 'hsl(var(--quiz-red))' },
+} as const;
+
+export const getAnswerColor = (
+  question: Pick<QuizQuestion, 'type'>,
+  option: Pick<QuizOption, 'text'>,
+  index: number
+): { bg: string; fill: string; icon: string } => {
+  if (question.type === 'true-false' && (option.text === 'Igaz' || option.text === 'Hamis')) {
+    const tf = TRUE_FALSE_COLORS[option.text];
+    return { bg: tf.bg, fill: tf.fill, icon: option.text };
+  }
+  return ANSWER_COLORS[index % ANSWER_COLORS.length];
+};
 
 
 export interface MatchingUserPair {

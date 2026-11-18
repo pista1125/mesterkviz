@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Navbar } from '@/components/Navbar';
 import { Users, Brain, BarChart3, Gamepad2, Sparkles, ArrowRight, Trophy, Zap, Play, CheckCircle2, QrCode } from 'lucide-react';
-import { QRScannerModal } from '@/components/quiz/QRScannerModal';
+import { QRScannerModal } from '@/components/quiz/LazyQRScannerModal';
 
 const Index = () => {
   const [digits, setDigits] = useState<string[]>(Array(6).fill(''));
