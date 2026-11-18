@@ -219,12 +219,26 @@ const main = async () => {
     console.log(`[${new Date().toLocaleTimeString()}] válaszok: ${stats.answers}, hibák: ${stats.answerErrors.length}, írás p95: ${pct(stats.writeLatency, 95)} ms, pontozás p95: ${pct(stats.gradingLatency, 95)} ms`);
   }, 10000);
 
-  process.on('SIGINT', () => {
+  let finished = false;
+  const finish = () => {
+    if (finished) return;
+    finished = true;
     clearInterval(progress);
     cleanups.forEach((c) => c());
     printSummary();
     process.exit(0);
+  };
+  process.on('SIGINT', finish);
+
+  // Automatikus befejezés: ha a tanár befejezi a kvízt (35 mp-et még várunk a
+  // szerveres pontozásra), vagy legkésőbb 20 perc után.
+  onSnapshot(doc(db, 'rooms', room.id), (s) => {
+    if (s.data()?.status === 'completed') {
+      console.log('A kvíz befejeződött – várakozás a szerveres pontozásra (35 mp)…');
+      setTimeout(finish, 35000);
+    }
   });
+  setTimeout(finish, 20 * 60 * 1000);
 };
 
 main().catch((e) => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, Cell, LabelList } from 'recharts';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, Sparkles } from 'lucide-react';
 import { isNormalizedMatch } from '@/lib/textNormalization';
@@ -209,36 +209,47 @@ export const QuestionResultsChart: React.FC<QuestionResultsChartProps> = ({
       {question.type === 'multiple-choice' || question.type === 'true-false' ? (
         <div className="bg-card rounded-xl p-4 shadow-md border border-border/50 bg-gradient-to-b from-card to-muted/10">
           <h3 className="text-sm font-bold text-center mb-2 font-display text-muted-foreground uppercase tracking-wider">Válaszok eloszlása</h3>
-          <div className="h-44 w-full">
+          <div className="h-56 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={question.options.map((opt, index) => {
-                const count = answers.filter((a) => (a.answer as any)?.selectedOptionId === opt.id).length;
-                const color = getAnswerColor(question, opt, index);
-                return {
-                  name: opt.text,
-                  count,
-                  color: color.fill,
-                  icon: color.icon,
-                  isCorrect: opt.isCorrect,
-                };
-              })}>
-                <XAxis 
-                  dataKey="icon" 
-                  axisLine={false} 
+              <BarChart
+                margin={{ top: 24, right: 8, bottom: 4, left: 8 }}
+                data={question.options.map((opt, index) => {
+                  const count = answers.filter((a) => (a.answer as any)?.selectedOptionId === opt.id).length;
+                  const color = getAnswerColor(question, opt, index);
+                  return {
+                    name: opt.text,
+                    count,
+                    // A felfedett állapotban a helyes válasz gombja zöld → az oszlopa is az
+                    color: opt.isCorrect ? 'hsl(var(--quiz-green))' : color.fill,
+                    icon: color.icon,
+                    isCorrect: opt.isCorrect,
+                  };
+                })}
+              >
+                <XAxis
+                  dataKey="icon"
+                  axisLine={false}
                   tickLine={false}
                   interval={0}
+                  height={58}
                   tick={(props: any) => {
                     const { x, y, payload } = props;
                     const index = payload.index;
-                    const isCorrect = question.options[index]?.isCorrect;
+                    const opt = question.options[index];
+                    const isCorrect = !!opt?.isCorrect;
+                    const isTrueFalse = question.type === 'true-false';
+                    const rawText = (opt?.text || '').replace(/\$/g, '');
+                    const label = rawText.length > 26 ? `${rawText.slice(0, 25)}…` : rawText;
+                    // A felirat a gombokkal egyező színű: helyes = zöld, egyébként jól olvasható világos
+                    const mainFill = isCorrect ? 'hsl(var(--quiz-green))' : 'hsl(var(--foreground))';
                     return (
                       <g transform={`translate(${x},${y})`}>
-                        <text x={0} y={0} dy={16} textAnchor="middle" fill="#666" style={{ fontSize: 20, fontWeight: 'black' }}>
-                          {payload.value}
+                        <text x={0} y={0} dy={20} textAnchor="middle" style={{ fill: mainFill, fontSize: isTrueFalse ? 18 : 20, fontWeight: 800 }}>
+                          {isCorrect ? `✓ ${payload.value}` : payload.value}
                         </text>
-                        {isCorrect && (
-                          <text x={0} y={20} dy={16} textAnchor="middle" fill="#22c55e" style={{ fontSize: 24, fontWeight: 'black' }}>
-                            ✓
+                        {!isTrueFalse && label && (
+                          <text x={0} y={0} dy={42} textAnchor="middle" style={{ fill: isCorrect ? 'hsl(var(--quiz-green))' : 'hsl(var(--muted-foreground))', fontSize: 13, fontWeight: 600 }}>
+                            {label}
                           </text>
                         )}
                       </g>
@@ -263,19 +274,25 @@ export const QuestionResultsChart: React.FC<QuestionResultsChartProps> = ({
                     return null;
                   }}
                 />
-                <Bar dataKey="count" animationDuration={1000}>
+                <Bar dataKey="count" animationDuration={1000} radius={[8, 8, 0, 0]} maxBarSize={140}>
                   {question.options.map((opt, index) => (
                     <Cell
                       key={`cell-${index}`}
-                      // CSS változóból jön a szín (style-ban, mert SVG attribútumban a var() nem működik),
-                      // így pontosan megegyezik a válaszgombok színével.
+                      // Ugyanaz, mint a válaszgomboké felfedés után: helyes = zöld, a többi a saját
+                      // színében halványítva. A szín CSS változóból jön (style-ban, mert SVG
+                      // attribútumban a var() nem működik).
                       style={{
-                        fill: getAnswerColor(question, opt, index).fill,
-                        opacity: opt.isCorrect ? 1 : 0.55,
+                        fill: opt.isCorrect ? 'hsl(var(--quiz-green))' : getAnswerColor(question, opt, index).fill,
+                        opacity: opt.isCorrect ? 1 : 0.45,
                         transition: 'all 0.3s ease'
                       }}
                     />
                   ))}
+                  <LabelList
+                    dataKey="count"
+                    position="top"
+                    style={{ fill: 'hsl(var(--foreground))', fontSize: 18, fontWeight: 800 }}
+                  />
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
