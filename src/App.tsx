@@ -23,6 +23,7 @@ const Discover = lazy(() => import("./pages/Discover"));
 const Results = lazy(() => import("./pages/Results"));
 const PresenterView = lazy(() => import("./pages/PresenterView"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const AdminUsage = lazy(() => import("./pages/AdminUsage"));
 
 const queryClient = new QueryClient();
 
@@ -57,6 +58,7 @@ const App = () => (
                 <Route path="/play/:roomId" element={<PlayQuiz />} />
                 <Route path="/results/:roomId" element={<Results />} />
                 <Route path="/presenter/:id" element={<PresenterView />} />
+                <Route path="/admin/ai-usage" element={<AdminUsage />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>

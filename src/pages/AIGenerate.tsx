@@ -10,7 +10,9 @@ import { Switch } from '@/components/ui/switch';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { ArrowLeft, Brain, Sparkles, Loader2, Plus, Shapes } from 'lucide-react';
-import { requestGenerateQuiz } from '@/services/ai';
+import { requestGenerateQuiz, QuotaExceededError } from '@/services/ai';
+import { useAiQuota } from '@/hooks/useAiQuota';
+import { AiQuotaNotice } from '@/components/quiz/AiQuotaNotice';
 import { saveQuiz, getAllTopicsByGrade } from '@/services/db';
 
 import { normalizeQuestion } from '@/types/quiz';
@@ -28,6 +30,8 @@ const AIGenerate = () => {
   const [includeTrueFalse, setIncludeTrueFalse] = useState(true);
   const [generateSvg, setGenerateSvg] = useState(false);
   const [generating, setGenerating] = useState(false);
+  const { quota, applyQuota, markExhausted } = useAiQuota(!!user);
+  const quotaExhausted = !!quota && quota.remaining <= 0;
 
   useEffect(() => {
     const loadTopics = async () => {
@@ -92,6 +96,7 @@ const AIGenerate = () => {
         includeTrueFalse,
         generateSvg,
       });
+      applyQuota(data.quota);
 
       const normalizedQuestions = (data.questions || []).map(normalizeQuestion);
 
@@ -110,6 +115,7 @@ const AIGenerate = () => {
       toast.success('Kvíz sikeresen generálva és mentve!');
       navigate('/dashboard');
     } catch (e: any) {
+      if (e instanceof QuotaExceededError) markExhausted();
       toast.error(e?.message || 'Váratlan hiba történt a generáláskor');
     } finally {
       setGenerating(false);
@@ -376,11 +382,13 @@ const AIGenerate = () => {
                 />
               </div>
 
+              <AiQuotaNotice quota={quota} />
+
               <Button
                 className="w-full"
                 size="lg"
                 onClick={handleGenerate}
-                disabled={generating || !gradeLevel || !(isCustomTopic ? customTopicInput.trim() : topic.trim())}
+                disabled={generating || quotaExhausted || !gradeLevel || !(isCustomTopic ? customTopicInput.trim() : topic.trim())}
               >
                 {generating ? (
                   <>

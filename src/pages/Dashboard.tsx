@@ -31,6 +31,7 @@ import {
   BookOpen,
   Gamepad2,
   Infinity as LucideInfinity,
+  Shield,
 } from 'lucide-react';
 import type { Quiz, Room } from '@/types/quiz';
 import { generateRoomCode } from '@/types/quiz';
@@ -45,7 +46,9 @@ import {
   getRoomParticipants,
 } from '@/services/db';
 import { doc, deleteDoc } from 'firebase/firestore';
-import { db } from '@/integrations/firebase/config';
+import { sendEmailVerification } from 'firebase/auth';
+import { db, auth } from '@/integrations/firebase/config';
+import { useAiQuota } from '@/hooks/useAiQuota';
 import {
   Dialog,
   DialogContent,
@@ -93,6 +96,18 @@ const Dashboard = () => {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [rooms, setRooms] = useState<EnrichedRoom[]>([]);
   const [loading, setLoading] = useState(true);
+  // Admin gomb láthatósága – a tényleges jogosultságot a szerver ellenőrzi.
+  const { quota: aiQuota } = useAiQuota(!!user);
+
+  const sendAdminVerification = async () => {
+    if (!auth.currentUser) return;
+    try {
+      await sendEmailVerification(auth.currentUser);
+      toast.success('Megerősítő levél elküldve. A megerősítés után jelentkezz ki és be újra.');
+    } catch (e: any) {
+      toast.error(e?.message || 'Nem sikerült elküldeni a megerősítő levelet');
+    }
+  };
 
   // Quizzes filtering state
   const [searchQuery, setSearchQuery] = useState('');
@@ -532,6 +547,20 @@ const Dashboard = () => {
                 Publikus kvízek
               </Link>
             </Button>
+            {aiQuota?.isAdmin && (
+              <Button size="sm" variant="outline" className="border-amber-500/40 text-amber-500 hover:bg-amber-500/10 shadow-sm" asChild>
+                <Link to="/admin/ai-usage">
+                  <Shield className="mr-1.5 h-4 w-4" />
+                  AI használat
+                </Link>
+              </Button>
+            )}
+            {aiQuota?.adminNeedsVerification && (
+              <Button size="sm" variant="outline" className="border-amber-500/40 text-amber-500 hover:bg-amber-500/10 shadow-sm" onClick={sendAdminVerification}>
+                <Shield className="mr-1.5 h-4 w-4" />
+                Admin: e-mail megerősítése
+              </Button>
+            )}
           </div>
         </div>
 

@@ -8,15 +8,51 @@ export interface GenerateQuizParams {
   generateSvg?: boolean;
 }
 
+import { httpsCallable } from 'firebase/functions';
+import { auth, functions } from '@/integrations/firebase/config';
+
+export interface QuotaInfo {
+  used: number;
+  limit: number;
+  remaining: number;
+}
+
 export interface GeneratedQuizResponse {
   title: string;
   description: string;
   questions: any[];
+  quota?: QuotaInfo;
 }
+
+/** A keret elfogyását jelző hiba (HTTP 429) – a felület ez alapján tiltja a gombot. */
+export class QuotaExceededError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'QuotaExceededError';
+  }
+}
+
+export interface MyAiQuota extends QuotaInfo {
+  month: string;
+  isAdmin: boolean;
+  adminNeedsVerification: boolean;
+}
+
+export const getMyAiQuota = async (): Promise<MyAiQuota> => {
+  const fn = httpsCallable<void, MyAiQuota>(functions, 'getAiQuota');
+  const res = await fn();
+  return res.data;
+};
 
 export const requestGenerateQuiz = async (params: GenerateQuizParams): Promise<GeneratedQuizResponse> => {
   const FUNCTION_URL = import.meta.env.VITE_FIREBASE_GENERATE_QUIZ_URL ||
     'https://europe-west1-mesterkviz-f52ce.cloudfunctions.net/generateQuiz';
+
+  const currentUser = auth.currentUser;
+  if (!currentUser || currentUser.isAnonymous) {
+    throw new Error('Az AI generáláshoz jelentkezz be tanári fiókkal.');
+  }
+  const idToken = await currentUser.getIdToken();
 
   // Format selected types
   let selectedTypes = params.selectedTypes;
@@ -30,6 +66,7 @@ export const requestGenerateQuiz = async (params: GenerateQuizParams): Promise<G
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${idToken}`,
     },
     body: JSON.stringify({
       subject: params.subject,
@@ -49,6 +86,7 @@ export const requestGenerateQuiz = async (params: GenerateQuizParams): Promise<G
     } catch {
       // ignore
     }
+    if (response.status === 429) throw new QuotaExceededError(errorMsg);
     throw new Error(errorMsg);
   }
 

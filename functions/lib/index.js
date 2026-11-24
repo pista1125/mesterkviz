@@ -33,10 +33,11 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.gradeAnswer = exports.evaluateAnswer = exports.generateQuiz = void 0;
+exports.adminListLogs = exports.adminSetQuota = exports.adminListUsage = exports.getAiQuota = exports.gradeAnswer = exports.evaluateAnswer = exports.generateQuiz = void 0;
 const https_1 = require("firebase-functions/v2/https");
 const admin = __importStar(require("firebase-admin"));
 const evaluate_1 = require("./evaluate");
+const quota_1 = require("./quota");
 admin.initializeApp();
 exports.generateQuiz = (0, https_1.onRequest)({
     cors: true,
@@ -48,9 +49,26 @@ exports.generateQuiz = (0, https_1.onRequest)({
         res.status(204).send("");
         return;
     }
+    let token = null;
+    let reservation = null;
+    let recorded = false;
+    const { subject, topic, numQuestions: rawNumQuestions, gradeLevel, selectedTypes: rawSelectedTypes, generateSvg } = req.body || {};
+    const numQuestions = Math.min(Math.max(parseInt(rawNumQuestions, 10) || 5, 1), quota_1.MAX_QUESTIONS_PER_CALL);
+    // Sikertelen hívás: naplózás + a lefoglalt generálás visszaadása a keretbe.
+    const fail = async (status, error, usage) => {
+        if (token && reservation && !recorded) {
+            recorded = true;
+            await (0, quota_1.recordResult)({ token, month: reservation.month, success: false, usage, subject, topic, numQuestions, error });
+        }
+        res.status(status).json({ error });
+    };
     try {
-        const { subject, topic, numQuestions: rawNumQuestions, gradeLevel, selectedTypes: rawSelectedTypes, generateSvg } = req.body || {};
-        const numQuestions = parseInt(rawNumQuestions, 10) || 5;
+        if (req.method !== "POST") {
+            res.status(405).json({ error: "Csak POST kérés engedélyezett." });
+            return;
+        }
+        // 1) Azonosítás (csak bejelentkezett, nem névtelen tanár)
+        token = await (0, quota_1.requireTeacher)(req);
         const selectedTypes = Array.isArray(rawSelectedTypes) && rawSelectedTypes.length > 0
             ? rawSelectedTypes
             : ["multiple-choice", "true-false", "text-input", "matching"];
@@ -60,6 +78,8 @@ exports.generateQuiz = (0, https_1.onRequest)({
             res.status(500).json({ error: "OPENAI_API_KEY is not configured in Firebase environment (functions/.env)" });
             return;
         }
+        // 2) Havi keret lefoglalása (429, ha elfogyott)
+        reservation = await (0, quota_1.reserveQuota)(token);
         const systemPrompt = `Te egy oktatási kvíz generátor AI vagy. A felhasználó megadja a tantárgyat, témakört, évfolyamot és a kérdések számát. Generálj egy kvízt a megadott paraméterek alapján.
 
 FONTOS SZABÁLYOK:
@@ -160,19 +180,20 @@ Tartsd be a kért kérdésszámot (${numQuestions}) és ha a témakörben speci�
             }),
         });
         if (!response.ok) {
-            if (response.status === 429) {
-                res.status(429).json({ error: "Túl sok kérés, próbáld újra később." });
-                return;
-            }
             const t = await response.text();
             console.error("OpenAI API error:", response.status, t);
-            res.status(500).json({ error: `AI hiba történt: ${response.status}` });
+            if (response.status === 429) {
+                await fail(503, "Az AI szolgáltatás most túlterhelt, próbáld újra később.");
+                return;
+            }
+            await fail(500, `AI hiba történt: ${response.status}`);
             return;
         }
         const data = await response.json();
+        const usage = data.usage;
         const toolCall = data.choices?.[0]?.message?.tool_calls?.[0];
         if (!toolCall) {
-            res.status(500).json({ error: "Az AI nem tudott kvízt generálni" });
+            await fail(500, "Az AI nem tudott kvízt generálni", usage);
             return;
         }
         const quizData = JSON.parse(toolCall.function.arguments);
@@ -210,11 +231,21 @@ Tartsd be a kért kérdésszámot (${numQuestions}) és ha a témakörben speci�
                 }
             });
         }
-        res.status(200).json(quizData);
+        // 3) Sikeres generálás rögzítése (tokenek, költség, napló)
+        recorded = true;
+        await (0, quota_1.recordResult)({ token, month: reservation.month, success: true, usage, subject, topic, numQuestions });
+        res.status(200).json({
+            ...quizData,
+            quota: { used: reservation.used, limit: reservation.limit, remaining: Math.max(0, reservation.limit - reservation.used) },
+        });
     }
     catch (e) {
+        if (e instanceof quota_1.HttpError) {
+            res.status(e.status).json({ error: e.message });
+            return;
+        }
         console.error("generateQuiz error:", e);
-        res.status(500).json({ error: e instanceof Error ? e.message : "Ismeretlen hiba" });
+        await fail(500, e instanceof Error ? e.message : "Ismeretlen hiba");
     }
 });
 exports.evaluateAnswer = (0, https_1.onRequest)({
@@ -236,4 +267,10 @@ exports.evaluateAnswer = (0, https_1.onRequest)({
 // Szerveres pontozás (Firestore trigger) – lásd grading.ts
 var grading_1 = require("./grading");
 Object.defineProperty(exports, "gradeAnswer", { enumerable: true, get: function () { return grading_1.gradeAnswer; } });
+// AI keret lekérdezése + admin felület – lásd quota.ts
+var quota_2 = require("./quota");
+Object.defineProperty(exports, "getAiQuota", { enumerable: true, get: function () { return quota_2.getAiQuota; } });
+Object.defineProperty(exports, "adminListUsage", { enumerable: true, get: function () { return quota_2.adminListUsage; } });
+Object.defineProperty(exports, "adminSetQuota", { enumerable: true, get: function () { return quota_2.adminSetQuota; } });
+Object.defineProperty(exports, "adminListLogs", { enumerable: true, get: function () { return quota_2.adminListLogs; } });
 //# sourceMappingURL=index.js.map

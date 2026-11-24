@@ -12,7 +12,9 @@ import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { getQuizById, saveQuiz, getAllTopicsByGrade } from '@/services/db';
-import { requestGenerateQuiz } from '@/services/ai';
+import { requestGenerateQuiz, QuotaExceededError } from '@/services/ai';
+import { useAiQuota } from '@/hooks/useAiQuota';
+import { AiQuotaNotice } from '@/components/quiz/AiQuotaNotice';
 import { toast } from 'sonner';
 import {
   Dialog,
@@ -46,6 +48,8 @@ const QuizEditor = () => {
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(!!isEditing);
   const [generating, setGenerating] = useState(false);
+  const { quota: aiQuota, applyQuota, markExhausted } = useAiQuota(!!user);
+  const aiQuotaExhausted = !!aiQuota && aiQuota.remaining <= 0;
   const [questionToDelete, setQuestionToDelete] = useState<number | null>(null);
   const [isDeleteAllOpen, setIsDeleteAllOpen] = useState(false);
   const [aiQuestionCount, setAiQuestionCount] = useState<number>(5);
@@ -238,6 +242,7 @@ const QuizEditor = () => {
         selectedTypes: selectedAiTypes,
         generateSvg: aiGenerateSvg,
       });
+      applyQuota(data.quota);
 
       if (data.title && !title) setTitle(data.title);
       if (data.description && !description) setDescription(data.description);
@@ -268,6 +273,7 @@ const QuizEditor = () => {
 
       toast.success('AI generált kérdések hozzáadva!');
     } catch (e: any) {
+      if (e instanceof QuotaExceededError) markExhausted();
       toast.error(e?.message || 'Váratlan hiba történt');
     } finally {
       setGenerating(false);
@@ -514,6 +520,7 @@ const QuizEditor = () => {
                   <Badge variant="outline" className="bg-background">Beta</Badge>
                 </div>
                 <div className="flex flex-col gap-4">
+                  <AiQuotaNotice quota={aiQuota} />
                   <div className="space-y-2">
                     <Label htmlFor="ai-assistant-input">Mit generáljon az AI? (Instrukciók)</Label>
                     <div className="flex gap-2">
@@ -538,7 +545,7 @@ const QuizEditor = () => {
                       </div>
                       <Button
                         onClick={handleAIGenerate}
-                        disabled={generating || !aiPrompt.trim() || selectedAiTypes.length === 0}
+                        disabled={generating || aiQuotaExhausted || !aiPrompt.trim() || selectedAiTypes.length === 0}
                         className="whitespace-nowrap shrink-0"
                       >
                         {generating ? (

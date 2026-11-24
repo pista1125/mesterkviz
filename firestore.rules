@@ -138,5 +138,20 @@ service cloud.firestore {
         && request.resource.data.get('stack', '').size() <= 8000;
       allow read, update, delete: if false;
     }
+
+    // ---------------------------------------------------------------
+    // AI-generálási keret: csak a szerver (Cloud Functions) írja.
+    // A tanár a saját havi felhasználását és keretét olvashatja.
+    match /aiUsage/{usageId} {
+      allow read: if isTeacher() && resource.data.uid == request.auth.uid;
+      allow write: if false;
+    }
+    match /aiQuota/{uid} {
+      allow read: if isTeacher() && request.auth.uid == uid;
+      allow write: if false;
+    }
+    match /aiLog/{logId} {
+      allow read, write: if false;
+    }
   }
 }
