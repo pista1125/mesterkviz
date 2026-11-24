@@ -6,6 +6,8 @@ export interface GenerateQuizParams {
   selectedTypes?: string[];
   includeTrueFalse?: boolean;
   generateSvg?: boolean;
+  /** Mit ábrázoljanak az SVG képek – ha meg van adva, a szerver mindenképp kér ábrákat. */
+  svgInstructions?: string;
 }
 
 import { httpsCallable } from 'firebase/functions';
@@ -75,6 +77,7 @@ export const requestGenerateQuiz = async (params: GenerateQuizParams): Promise<G
       gradeLevel: params.gradeLevel,
       selectedTypes,
       generateSvg: params.generateSvg ?? false,
+      svgInstructions: params.svgInstructions?.trim() ?? '',
     }),
   });
 

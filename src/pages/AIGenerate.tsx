@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
+import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { ArrowLeft, Brain, Sparkles, Loader2, Plus, Shapes } from 'lucide-react';
@@ -16,6 +17,8 @@ import { AiQuotaNotice } from '@/components/quiz/AiQuotaNotice';
 import { saveQuiz, getAllTopicsByGrade } from '@/services/db';
 
 import { normalizeQuestion } from '@/types/quiz';
+
+const SVG_INSTRUCTIONS_MAX = 500;
 
 const AIGenerate = () => {
   const { user, loading: authLoading } = useAuth();
@@ -29,6 +32,8 @@ const AIGenerate = () => {
   const [gradeLevel, setGradeLevel] = useState('');
   const [includeTrueFalse, setIncludeTrueFalse] = useState(true);
   const [generateSvg, setGenerateSvg] = useState(false);
+  const [svgInstructions, setSvgInstructions] = useState('');
+  const hasSvgInstructions = svgInstructions.trim().length > 0;
   const [generating, setGenerating] = useState(false);
   const { quota, applyQuota, markExhausted } = useAiQuota(!!user);
   const quotaExhausted = !!quota && quota.remaining <= 0;
@@ -94,11 +99,15 @@ const AIGenerate = () => {
         numQuestions,
         gradeLevel,
         includeTrueFalse,
-        generateSvg,
+        generateSvg: generateSvg || hasSvgInstructions,
+        svgInstructions: hasSvgInstructions ? svgInstructions.trim() : '',
       });
       applyQuota(data.quota);
 
       const normalizedQuestions = (data.questions || []).map(normalizeQuestion);
+      if (hasSvgInstructions && !normalizedQuestions.some((q: any) => q?.imageUrl)) {
+        toast.warning('Az AI most nem készített ábrát – a kérdésszerkesztőben kézzel hozzáadhatsz képet.');
+      }
 
       // Save quiz to Firestore database
       await saveQuiz({
@@ -363,23 +372,55 @@ const AIGenerate = () => {
                 </Label>
               </div>
 
-              <div className="flex items-start justify-between rounded-md border p-3 bg-muted/20 hover:bg-muted/30 transition-colors">
-                <div className="space-y-1 pr-3">
-                  <div className="flex items-center gap-1.5">
-                    <Shapes className="h-4 w-4 text-primary" />
-                    <Label htmlFor="generateSvg" className="font-medium cursor-pointer text-sm">
-                      Szemléltető SVG ábrák generálása
-                    </Label>
+              <div className="space-y-3 rounded-md border p-3 bg-muted/20 hover:bg-muted/30 transition-colors">
+                <div className="flex items-start justify-between">
+                  <div className="space-y-1 pr-3">
+                    <div className="flex items-center gap-1.5">
+                      <Shapes className="h-4 w-4 text-primary" />
+                      <Label htmlFor="generateSvg" className="font-medium cursor-pointer text-sm">
+                        Szemléltető SVG ábrák generálása
+                      </Label>
+                    </div>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      Az AI vektorgrafikus ábrát (geometria, koordináták, diagramok, alakzatok) készít azon kérdésekhez, ahol a szemléltetés segít.
+                    </p>
                   </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    Az AI vektorgrafikus ábrát (geometria, koordináták, diagramok, alakzatok) készít azon kérdésekhez, ahol a szemléltetés segít.
-                  </p>
+                  <Switch
+                    id="generateSvg"
+                    checked={generateSvg || hasSvgInstructions}
+                    disabled={hasSvgInstructions}
+                    onCheckedChange={setGenerateSvg}
+                  />
                 </div>
-                <Switch
-                  id="generateSvg"
-                  checked={generateSvg}
-                  onCheckedChange={setGenerateSvg}
-                />
+
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="svgInstructions" className="text-xs font-medium">
+                      Mit ábrázoljanak a képek? (opcionális)
+                    </Label>
+                    <span className="text-[11px] text-muted-foreground">
+                      {svgInstructions.length}/{SVG_INSTRUCTIONS_MAX}
+                    </span>
+                  </div>
+                  <Textarea
+                    id="svgInstructions"
+                    value={svgInstructions}
+                    maxLength={SVG_INSTRUCTIONS_MAX}
+                    rows={3}
+                    onChange={(e) => {
+                      const val = e.target.value.slice(0, SVG_INSTRUCTIONS_MAX);
+                      if (!hasSvgInstructions && val.trim()) setGenerateSvg(true);
+                      setSvgInstructions(val);
+                    }}
+                    placeholder="pl. derékszögű háromszög a befogók és az átfogó jelölésével; számegyenes a törtekkel"
+                    className="bg-background text-sm"
+                  />
+                  {hasSvgInstructions && (
+                    <p className="text-xs text-primary">
+                      Az ábrakészítés bekapcsolva, mert megadtad, mi legyen a képeken.
+                    </p>
+                  )}
+                </div>
               </div>
 
               <AiQuotaNotice quota={quota} />
