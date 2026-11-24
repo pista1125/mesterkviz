@@ -12,7 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { getQuizById, saveQuiz, getAllTopicsByGrade } from '@/services/db';
-import { requestGenerateQuiz, QuotaExceededError } from '@/services/ai';
+import { requestGenerateQuiz, QuotaExceededError, SVG_INSTRUCTIONS_MAX } from '@/services/ai';
 import { useAiQuota } from '@/hooks/useAiQuota';
 import { AiQuotaNotice } from '@/components/quiz/AiQuotaNotice';
 import { toast } from 'sonner';
@@ -55,6 +55,8 @@ const QuizEditor = () => {
   const [aiQuestionCount, setAiQuestionCount] = useState<number>(5);
   const [selectedAiTypes, setSelectedAiTypes] = useState<string[]>(['multiple-choice', 'true-false', 'text-input', 'matching']);
   const [aiGenerateSvg, setAiGenerateSvg] = useState<boolean>(false);
+  const [aiSvgInstructions, setAiSvgInstructions] = useState('');
+  const hasAiSvgInstructions = aiSvgInstructions.trim().length > 0;
   const [lastSaved, setLastSaved] = useState<string | null>(null);
 
   // Sidebar and navigation states
@@ -240,14 +242,18 @@ const QuizEditor = () => {
         numQuestions: aiQuestionCount,
         gradeLevel,
         selectedTypes: selectedAiTypes,
-        generateSvg: aiGenerateSvg,
+        generateSvg: aiGenerateSvg || hasAiSvgInstructions,
+        svgInstructions: hasAiSvgInstructions ? aiSvgInstructions.trim() : '',
       });
       applyQuota(data.quota);
 
       if (data.title && !title) setTitle(data.title);
       if (data.description && !description) setDescription(data.description);
- 
+
       let newQuestions = (data.questions || []).map(normalizeQuestion);
+      if (hasAiSvgInstructions && !newQuestions.some((q: any) => q?.imageUrl)) {
+        toast.warning('Az AI most nem készített ábrát – a kérdéseknél kézzel hozzáadhatsz képet.');
+      }
  
       // Shuffle multiple-choice options because AI puts correct answer first
       newQuestions = newQuestions.map(q => {
@@ -590,23 +596,55 @@ const QuizEditor = () => {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between rounded-lg border border-primary/20 bg-background/80 p-3 mt-1 shadow-xs">
-                    <div className="space-y-0.5 pr-4">
-                      <div className="flex items-center gap-2">
-                        <Shapes className="h-4 w-4 text-primary" />
-                        <label htmlFor="ai-generate-svg" className="text-sm font-medium cursor-pointer">
-                          Szemléltető ábrák és diagramok generálása (SVG)
-                        </label>
+                  <div className="space-y-3 rounded-lg border border-primary/20 bg-background/80 p-3 mt-1 shadow-xs">
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5 pr-4">
+                        <div className="flex items-center gap-2">
+                          <Shapes className="h-4 w-4 text-primary" />
+                          <label htmlFor="ai-generate-svg" className="text-sm font-medium cursor-pointer">
+                            Szemléltető ábrák és diagramok generálása (SVG)
+                          </label>
+                        </div>
+                        <p className="text-xs text-muted-foreground">
+                          Az AI tiszta vektorgrafikus ábrát készít azon kérdésekhez, ahol szükséges (pl. geometria, alakzatok, grafikonok)
+                        </p>
                       </div>
-                      <p className="text-xs text-muted-foreground">
-                        Az AI tiszta vektorgrafikus ábrát készít azon kérdésekhez, ahol szükséges (pl. geometria, alakzatok, grafikonok)
-                      </p>
+                      <Switch
+                        id="ai-generate-svg"
+                        checked={aiGenerateSvg || hasAiSvgInstructions}
+                        disabled={hasAiSvgInstructions}
+                        onCheckedChange={setAiGenerateSvg}
+                      />
                     </div>
-                    <Switch
-                      id="ai-generate-svg"
-                      checked={aiGenerateSvg}
-                      onCheckedChange={setAiGenerateSvg}
-                    />
+
+                    <div className="space-y-1.5">
+                      <div className="flex items-center justify-between">
+                        <label htmlFor="ai-svg-instructions" className="text-xs font-medium">
+                          Mit ábrázoljanak a képek? (opcionális)
+                        </label>
+                        <span className="text-[11px] text-muted-foreground">
+                          {aiSvgInstructions.length}/{SVG_INSTRUCTIONS_MAX}
+                        </span>
+                      </div>
+                      <Textarea
+                        id="ai-svg-instructions"
+                        value={aiSvgInstructions}
+                        maxLength={SVG_INSTRUCTIONS_MAX}
+                        rows={3}
+                        onChange={(e) => {
+                          const val = e.target.value.slice(0, SVG_INSTRUCTIONS_MAX);
+                          if (!hasAiSvgInstructions && val.trim()) setAiGenerateSvg(true);
+                          setAiSvgInstructions(val);
+                        }}
+                        placeholder="pl. derékszögű háromszög a befogók és az átfogó jelölésével; számegyenes a törtekkel"
+                        className="bg-background text-sm"
+                      />
+                      {hasAiSvgInstructions && (
+                        <p className="text-xs text-primary">
+                          Az ábrakészítés bekapcsolva, mert megadtad, mi legyen a képeken.
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

@@ -11,14 +11,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { ArrowLeft, Brain, Sparkles, Loader2, Plus, Shapes } from 'lucide-react';
-import { requestGenerateQuiz, QuotaExceededError } from '@/services/ai';
+import { requestGenerateQuiz, QuotaExceededError, SVG_INSTRUCTIONS_MAX } from '@/services/ai';
 import { useAiQuota } from '@/hooks/useAiQuota';
 import { AiQuotaNotice } from '@/components/quiz/AiQuotaNotice';
 import { saveQuiz, getAllTopicsByGrade } from '@/services/db';
 
 import { normalizeQuestion } from '@/types/quiz';
-
-const SVG_INSTRUCTIONS_MAX = 500;
 
 const AIGenerate = () => {
   const { user, loading: authLoading } = useAuth();

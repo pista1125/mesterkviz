@@ -10,6 +10,9 @@ export interface GenerateQuizParams {
   svgInstructions?: string;
 }
 
+/** Az ábraleírás maximális hossza (a szerver is ennyire vágja). */
+export const SVG_INSTRUCTIONS_MAX = 500;
+
 import { httpsCallable } from 'firebase/functions';
 import { auth, functions } from '@/integrations/firebase/config';
 
