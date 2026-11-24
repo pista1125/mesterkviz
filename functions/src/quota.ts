@@ -14,9 +14,9 @@ import type { Request } from "firebase-functions/v2/https";
 export const DEFAULT_MONTHLY_LIMIT = 100;
 export const MAX_QUESTIONS_PER_CALL = 50;
 
-// Becsült árak USD / 1M token (gpt-4o). Ha változik a modell vagy az ár, itt kell frissíteni.
-const PRICE_INPUT_PER_M = 2.5;
-const PRICE_OUTPUT_PER_M = 10;
+// Becsült árak USD / 1M token (gpt-5.5; a reasoning tokenek a kimenetben számítanak). Ha változik a modell vagy az ár, itt kell frissíteni.
+const PRICE_INPUT_PER_M = 5;
+const PRICE_OUTPUT_PER_M = 30;
 
 const REGION = "europe-west1";
 

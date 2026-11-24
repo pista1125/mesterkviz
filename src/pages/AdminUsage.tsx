@@ -352,7 +352,7 @@ const AdminUsage = () => {
         </Card>
 
         <p className="mt-3 text-xs text-muted-foreground">
-          A költség becsült érték a tokenszám alapján (gpt-4o listaár). A pontos összeget az OpenAI számlázási felülete mutatja.
+          A költség becsült érték a tokenszám alapján (gpt-5.5 listaár). A pontos összeget az OpenAI számlázási felülete mutatja.
         </p>
       </div>
 

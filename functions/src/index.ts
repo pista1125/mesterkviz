@@ -12,11 +12,14 @@ import {
 
 admin.initializeApp();
 
+// A kvízgeneráló modell (felülírható a functions/.env OPENAI_QUIZ_MODEL változójával).
+const QUIZ_MODEL = (process.env.OPENAI_QUIZ_MODEL || "gpt-5.5").trim();
+
 export const generateQuiz = onRequest(
   {
     cors: true,
     region: "europe-west1",
-    timeoutSeconds: 120,
+    timeoutSeconds: 300,
     memory: "256MiB",
   },
   async (req, res) => {
@@ -100,7 +103,7 @@ Tartsd be a kért kérdésszámot (${numQuestions}) és ha a témakörben speci�
           Authorization: `Bearer ${OPENAI_API_KEY}`,
         },
         body: JSON.stringify({
-          model: "gpt-4o",
+          model: QUIZ_MODEL,
           messages: [
             { role: "system", content: systemPrompt },
             { role: "user", content: userPrompt },
