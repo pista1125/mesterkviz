@@ -1,0 +1,152 @@
+{
+  "idPrefix": "g5-statisztika",
+  "topic": "VII. Adatgyűjtés, statisztika",
+  "grade_level": "5. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "jatekok",
+      "title": "Játékok",
+      "description": "Logikai készlet, tulajdonságok, különbségek, Venn-diagram.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "logic-pieces", "text": "Melyik elem nagy, piros és lyukas?", "options": ["1.", "2.", "3.", "5."], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "logic-pieces", "text": "Hány tulajdonságban különbözik a 3. és a 4. elem (alak, szín, méret, lyukasság)?", "options": ["4", "3", "2", "1"], "answer": 0 },
+        { "type": "text", "time": 20, "svg": "logic-pieces", "text": "Hány piros elem van az ábrán?", "answer": "3/három" },
+        { "type": "tf", "time": 25, "svg": "logic-pieces", "text": "Az 1. és a 2. elem csak a méretében különbözik.", "answer": false },
+        { "type": "mc", "time": 25, "svg": "venn-even-3", "text": "Mely számok kerültek a két kör közös részébe?", "options": ["6 és 12", "2 és 3", "3 és 9", "1 és 7"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "venn-even-3", "text": "Hová került a 7?", "options": ["mindkét körön kívülre", "a páros számok körébe", "a 3-mal oszthatók körébe", "a közös részbe"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "venn-even-3", "text": "Hány szám van összesen a „páros” körben (a közös részt is beleértve)?", "options": ["6", "4", "2", "8"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A 9 páros és 3-mal osztható szám.", "answer": false },
+        { "type": "text", "time": 25, "svg": "venn-even-3", "text": "Hány szám nem került egyik körbe sem?", "answer": "4/négy" },
+        { "type": "mc", "time": 25, "text": "Mi kerül két halmaz közös részébe (metszetébe)?", "options": ["azok az elemek, amelyek mindkét tulajdonsággal rendelkeznek", "azok az elemek, amelyek egyik tulajdonsággal sem rendelkeznek", "csak az első halmaz elemei", "az összes elem"], "answer": 0 },
+        { "type": "mc", "time": 40, "svg": "logic-pieces", "text": "Melyik elem különbözik a 3. elemtől pontosan három tulajdonságban?", "options": ["5.", "1.", "2.", "4."], "answer": 0 },
+        { "type": "match", "time": 45, "svg": "venn-even-3", "text": "Párosítsd a számokat azzal, hol vannak a Venn-diagramon!", "pairs": [
+          ["6", "mindkét körben"],
+          ["4", "csak a páros számok körében"],
+          ["9", "csak a 3-mal oszthatók körében"],
+          ["11", "egyik körben sem"]
+        ] }
+      ]
+    },
+    {
+      "slug": "tablazatok-grafikonok",
+      "title": "Táblázatok, grafikonok",
+      "description": "Oszlopdiagram, vonaldiagram, kördiagram leolvasása és értelmezése.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "bar-sports", "text": "Egy osztályban megkérdezték a kedvenc sportot. Hányan választották a focit?", "options": ["8", "6", "9", "5"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "bar-sports", "text": "Hány tanuló szavazott összesen?", "options": ["22", "20", "24", "4"], "answer": 0 },
+        { "type": "text", "time": 25, "svg": "bar-sports", "text": "Mennyivel többen választották az úszást, mint a teniszt?", "answer": "3/három" },
+        { "type": "tf", "time": 20, "svg": "line-temp", "text": "A grafikon szerint 14 órakor volt a legmelegebb.", "answer": true },
+        { "type": "mc", "time": 20, "svg": "line-temp", "text": "Hány fok volt 10 órakor?", "options": ["11 °C", "10 °C", "7 °C", "15 °C"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "line-temp", "text": "Mikor csökkent a hőmérséklet?", "options": ["14 és 18 óra között", "6 és 10 óra között", "10 és 12 óra között", "egész nap"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "pie-school", "text": "A kördiagram azt mutatja, hogyan jön iskolába a 24 tanuló. Hányan jönnek gyalog?", "options": ["12", "6", "8", "18"], "answer": 0 },
+        { "type": "tf", "time": 20, "svg": "pie-school", "text": "A tanulók negyede jön gyalog.", "answer": false },
+        { "type": "text", "time": 25, "svg": "pie-school", "text": "Hányan jönnek busszal?", "answer": "6/hat" },
+        { "type": "mc", "time": 20, "text": "Melyik diagram a legalkalmasabb arra, hogy egy egész részekre osztását mutassuk be?", "options": ["kördiagram", "vonaldiagram", "számegyenes", "koordináta-rendszer"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "line-temp", "text": "Mennyivel nőtt a hőmérséklet 6 órától 12 óráig?", "options": ["11 °C-kal", "15 °C-kal", "4 °C-kal", "9 °C-kal"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd az ábrázolási módot azzal, mire használjuk!", "pairs": [
+          ["oszlopdiagram", "kategóriák összehasonlítása"],
+          ["vonaldiagram", "időbeli változás bemutatása"],
+          ["kördiagram", "részek aránya az egészhez"],
+          ["táblázat", "pontos számértékek rögzítése"]
+        ] }
+      ]
+    },
+    {
+      "slug": "adatgyujtes-az-adatok-abrazolasa",
+      "title": "Adatgyűjtés, az adatok ábrázolása",
+      "description": "Megfigyelés, számlálás, strigulázás, gyakoriság, piktogram.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "tally-fruits", "text": "Hányan szavaztak az almára?", "options": ["7", "5", "6", "2"], "answer": 0 },
+        { "type": "mc", "time": 35, "svg": "tally-fruits", "text": "Hányan szavaztak összesen?", "options": ["26", "24", "4", "21"], "answer": 0 },
+        { "type": "text", "time": 20, "svg": "tally-fruits", "text": "Hányan szavaztak a banánra?", "answer": "10/tíz" },
+        { "type": "tf", "time": 15, "text": "Strigulázáskor az ötödik vonal áthúzza az előző négyet.", "answer": true },
+        { "type": "mc", "time": 20, "svg": "tally-fruits", "text": "Melyik gyümölcsre szavaztak a legkevesebben?", "options": ["narancs", "eper", "alma", "banán"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "pictogram-books", "text": "Hány könyvet olvasott el Bence?", "options": ["10", "5", "8", "12"], "answer": 0 },
+        { "type": "mc", "time": 35, "svg": "pictogram-books", "text": "Hány könyvet olvastak el összesen?", "options": ["24", "12", "20", "26"], "answer": 0 },
+        { "type": "tf", "time": 20, "svg": "pictogram-books", "text": "Csilla 4 könyvet olvasott el.", "answer": false },
+        { "type": "text", "time": 30, "svg": "pictogram-books", "text": "Hány könyvvel olvasott többet Bence, mint Anna?", "answer": "4/négy" },
+        { "type": "mc", "time": 25, "text": "Mi a statisztikai vizsgálat első lépése?", "options": ["a cél meghatározása", "a diagram megrajzolása", "a következtetés levonása", "az adatok rendszerezése"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Hogyan gyűjtenéd össze, hány autó halad el az iskola előtt egy óra alatt?", "options": ["számlálással, strigulázva", "kérdőívvel", "mérleggel", "hőmérővel"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a strigulákat a számukkal!", "pairs": [
+          ["2 ötös csoport és 3 vonal", "13"],
+          ["1 ötös csoport", "5"],
+          ["3 ötös csoport", "15"],
+          ["4 vonal", "4"]
+        ] }
+      ]
+    },
+    {
+      "slug": "atlag-es-tulajdonsagai",
+      "title": "Átlag és tulajdonságai",
+      "description": "A számtani közép kiszámítása, tulajdonságai, visszafelé számolás.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "cube-towers-avg", "text": "Ha a kockákat egyenlően osztjuk szét a négy torony között, milyen magasak lesznek? (Ez a magasságok átlaga.)", "options": ["4", "5", "3", "16"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mennyi a $3$, $5$ és $7$ átlaga?", "options": ["5", "15", "4", "6"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Mennyi a $2$, $4$, $6$ és $8$ átlaga?", "answer": "5" },
+        { "type": "tf", "time": 25, "text": "Az átlag sosem kisebb a legkisebb adatnál, és sosem nagyobb a legnagyobb adatnál.", "answer": true },
+        { "type": "mc", "time": 20, "svg": "cube-towers-avg", "text": "Hány kocka van a tornyokban összesen?", "options": ["16", "15", "4", "17"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Dóri jegyei: 5, 4, 3, 4. Mennyi az átlaga?", "options": ["4", "3", "5", "4,5"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Három szám átlaga 6. Mennyi a három szám összege?", "options": ["18", "6", "9", "2"], "answer": 0 },
+        { "type": "tf", "time": 30, "text": "Két szám átlaga 5. Ha az egyik szám 8, akkor a másik 3.", "answer": false },
+        { "type": "text", "time": 25, "text": "Peti jegyei: 4, 5, 3. Mennyi az átlaga?", "answer": "4" },
+        { "type": "mc", "time": 30, "text": "Négy nap délben ennyi fokot mértek: 10, 12, 14, 16. Mennyi a hőmérsékletek átlaga?", "options": ["13", "12", "14", "52"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mi történik az átlaggal, ha minden adatot 2-vel növelünk?", "options": ["2-vel nő", "a kétszeresére nő", "nem változik", "2-vel csökken"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az adatokat az átlagukkal!", "pairs": [
+          ["2 és 4", "3"],
+          ["1, 2 és 3", "2"],
+          ["5, 5 és 5", "5"],
+          ["10 és 20", "15"]
+        ] }
+      ]
+    },
+    {
+      "slug": "lehetetlen-lehetseges-biztos",
+      "title": "Lehetetlen, lehetséges, biztos",
+      "description": "Véletlen események, kockadobás, érmedobás, golyóhúzás, esélyek.",
+      "questions": [
+        { "type": "mc", "time": 15, "svg": "dice-faces", "text": "Milyen esemény: egy dobókockával 7-est dobunk?", "options": ["lehetetlen", "lehetséges, de nem biztos", "biztos", "nagyon valószínű"], "answer": 0 },
+        { "type": "mc", "time": 15, "svg": "dice-faces", "text": "Milyen esemény: egy dobókockával páros számot dobunk?", "options": ["lehetséges, de nem biztos", "lehetetlen", "biztos", "egyik sem"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "dice-faces", "text": "Milyen esemény: egy dobókockával 7-nél kisebb számot dobunk?", "options": ["biztos", "lehetetlen", "lehetséges, de nem biztos", "egyik sem"], "answer": 0 },
+        { "type": "tf", "time": 20, "svg": "bag-5red-3blue", "text": "A zsákból piros golyót húzni valószínűbb, mint kéket.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "bag-5red-3blue", "text": "Mekkora eséllyel húzunk kék golyót?", "options": ["8-ból 3", "8-ból 5", "3-ból 1", "5-ből 3"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "spinner-8", "text": "Melyik színen áll meg a legnagyobb eséllyel a szerencsekerék?", "options": ["piroson", "kéken", "zöldön", "sárgán"], "answer": 0 },
+        { "type": "text", "time": 20, "svg": "spinner-8", "text": "A kerék 8 egyenlő részéből hány kék?", "answer": "2/kettő/két" },
+        { "type": "tf", "time": 25, "text": "Ha egy érmével ötször egymás után fejet dobtunk, a hatodik dobás biztosan írás lesz.", "answer": false },
+        { "type": "mc", "time": 15, "svg": "bag-5red-3blue", "text": "Milyen esemény: a zsákból zöld golyót húzunk?", "options": ["lehetetlen", "biztos", "lehetséges, de nem biztos", "nagyon valószínű"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "dice-faces", "text": "Mekkora eséllyel dobunk 6-ost egy dobókockával?", "options": ["6-ból 1", "6-ból 6", "2-ből 1", "6-ból 2"], "answer": 0 },
+        { "type": "text", "time": 20, "svg": "dice-faces", "text": "Hány kedvező eset van, ha páratlan számot szeretnénk dobni?", "answer": "3/három" },
+        { "type": "match", "time": 60, "svg": "dice-faces", "text": "Párosítsd az eseményeket az esélyükkel (egy kockadobásnál)!", "pairs": [
+          ["6-ost dobunk", "6-ból 1"],
+          ["5-öst vagy 6-ost dobunk", "6-ból 2"],
+          ["páros számot dobunk", "6-ból 3"],
+          ["1-nél nagyobbat dobunk", "6-ból 5"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Adatgyűjtés, statisztika",
+      "description": "Témazáró gyakorló: halmazok, diagramok, adatgyűjtés, átlag, valószínűség.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "bar-sports", "text": "Melyik sportot választották a legtöbben?", "options": ["focit", "úszást", "kosárlabdát", "teniszt"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "line-temp", "text": "Hány fok volt 16 órakor?", "options": ["13 °C", "16 °C", "9 °C", "15 °C"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "pie-school", "text": "A 24 tanulóból hányan jönnek kerékpárral?", "options": ["6", "12", "4", "8"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "A $2$, $6$ és $7$ átlaga $5$.", "answer": true },
+        { "type": "text", "time": 20, "svg": "tally-fruits", "text": "Hányan szavaztak az eperre?", "answer": "5/öt" },
+        { "type": "mc", "time": 25, "svg": "cube-towers-avg", "text": "Mennyivel magasabb a legmagasabb torony a legalacsonyabbnál?", "options": ["6 kockával", "7 kockával", "4 kockával", "3 kockával"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "spinner-8", "text": "Mekkora eséllyel áll meg a kerék a kéken?", "options": ["8-ból 2", "8-ból 1", "8-ból 4", "2-ből 1"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Egy kockadobás eredménye biztosan páros szám.", "answer": false },
+        { "type": "text", "time": 20, "text": "Mennyi a $6$, $8$ és $10$ átlaga?", "answer": "8" },
+        { "type": "mc", "time": 20, "svg": "logic-pieces", "text": "Hány lyukas elem van az ábrán?", "options": ["2", "1", "3", "5"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "pictogram-books", "text": "Hány könyvet olvasott el Csilla?", "options": ["8", "4", "6", "10"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a fogalmakat a jelentésükkel!", "pairs": [
+          ["biztos esemény", "mindig bekövetkezik"],
+          ["lehetetlen esemény", "soha nem következik be"],
+          ["átlag", "az adatok összege osztva az adatok számával"],
+          ["gyakoriság", "hányszor fordul elő egy adat"]
+        ] }
+      ]
+    }
+  ]
+}

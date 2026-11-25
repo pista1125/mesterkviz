@@ -76,6 +76,10 @@ const buildQuestion = (q, qid, baseDir, where) => {
   if (!q.text || typeof q.text !== 'string') fail(where, 'hiányzó kérdésszöveg');
   // A szövegek innerHTML-ként jelennek meg: a "<betű" HTML-címkének számítana.
   const allTexts = [q.text, ...(q.options || []), ...(q.pairs || []).flat()];
+  // Elcsúszott escape (pl. "\frac" → lapdobás, "\text" → tabulátor) vezérlőkaraktert hagy a szövegben.
+  if (allTexts.some((t) => /[\u0000-\u001f]/.test(String(t)))) {
+    fail(where, 'vezérlőkarakter a szövegben – valószínűleg hiányzik egy backslash (\\\\frac, \\\\text)');
+  }
   if (allTexts.some((t) => /<[A-Za-z!/]/.test(String(t)))) {
     fail(where, 'a szövegben "<" áll közvetlenül betű előtt – használj \\lt jelet');
   }

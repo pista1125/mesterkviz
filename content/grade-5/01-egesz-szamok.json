@@ -1,0 +1,2236 @@
+{
+  "idPrefix": "g5-egesz-szamok",
+  "topic": "I. Az egész számok",
+  "grade_level": "5. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "a-szamok-kialakulasa-a-romai-szamok",
+      "title": "A számok kialakulása, a római számok",
+      "description": "A római számjelek, összeadó és kivonó szabály, átírás római és arab számok között.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi a XIV római szám értéke?",
+          "options": [
+            "14",
+            "16",
+            "41",
+            "114"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Hogyan írjuk a 49-et római számmal?",
+          "options": [
+            "XLIX",
+            "IL",
+            "XXXXVIIII",
+            "LIX"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 30,
+          "text": "Mennyi az MMXXIV római szám értéke?",
+          "answer": "2024"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "A rómaiak a nullát is le tudták írni egy külön jellel.",
+          "answer": false
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "svg": "roman-clock",
+          "text": "Hány órát mutat az óra?",
+          "options": [
+            "3 órát",
+            "12 órát",
+            "9 órát",
+            "4 órát"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 15,
+          "text": "Mennyit ér a D római számjel?",
+          "options": [
+            "500",
+            "50",
+            "1000",
+            "100"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Melyik helyes római szám?",
+          "options": [
+            "IX = 9",
+            "VX = 5",
+            "IC = 99",
+            "IL = 49"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Mennyi az XC római szám értéke?",
+          "answer": "90"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "Ha kisebb értékű jel áll a nagyobb előtt, akkor kivonjuk (pl. IV = 4).",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mennyi a CDXL római szám értéke?",
+          "options": [
+            "440",
+            "640",
+            "460",
+            "540"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Melyik a legnagyobb szám?",
+          "options": [
+            "MC",
+            "CM",
+            "DCCC",
+            "MXX"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a római számjeleket az értékükkel!",
+          "pairs": [
+            [
+              "I",
+              "1"
+            ],
+            [
+              "V",
+              "5"
+            ],
+            [
+              "X",
+              "10"
+            ],
+            [
+              "L",
+              "50"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "a-helyiertekes-iras",
+      "title": "A helyiértékes írás",
+      "description": "Helyiérték, alaki érték, valódi érték, a tízes számrendszer.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 25,
+          "svg": "place-value-big",
+          "text": "Melyik helyiértéken áll a 7-es számjegy?",
+          "options": [
+            "százezresek",
+            "tízezresek",
+            "milliók",
+            "ezresek"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "svg": "place-value-big",
+          "text": "Mennyi a 2-es számjegy valódi értéke?",
+          "options": [
+            "20 000",
+            "2000",
+            "2",
+            "200 000"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Melyik szám áll 3 ezresből, 5 tízesből és 2 egyesből?",
+          "answer": "3052/3 052"
+        },
+        {
+          "type": "tf",
+          "time": 10,
+          "text": "A 0 is számjegy.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $5 \\cdot 1000 + 4 \\cdot 10$?",
+          "options": [
+            "5040",
+            "540",
+            "5400",
+            "50 040"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Hány (teljes) százas van a 4500-ban?",
+          "options": [
+            "45",
+            "5",
+            "4",
+            "450"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi a 3-as valódi értéke a 3456-ban?",
+          "options": [
+            "3000",
+            "3",
+            "300",
+            "30"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 30,
+          "text": "Melyik a legnagyobb négyjegyű szám, amelynek minden számjegye különböző?",
+          "answer": "9876"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "A 705-ben a 0 a tízesek helyén áll.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 15,
+          "text": "Hogyan írjuk le számjegyekkel az egymilliót?",
+          "options": [
+            "1 000 000",
+            "100 000",
+            "10 000 000",
+            "1 000"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi 6 tízezres?",
+          "options": [
+            "60 000",
+            "6000",
+            "600 000",
+            "60"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "A szám: 4567. Párosítsd a számjegyeket a helyiértékükkel!",
+          "pairs": [
+            [
+              "4",
+              "ezresek"
+            ],
+            [
+              "5",
+              "százasok"
+            ],
+            [
+              "6",
+              "tízesek"
+            ],
+            [
+              "7",
+              "egyesek"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "a-szamjegyek-harmas-csoportositasa-es-a-szamok-kiolvasasa",
+      "title": "A számjegyek hármas csoportosítása és a számok kiolvasása",
+      "description": "Nagy számok tagolása hármas csoportokra, kiolvasás és leírás.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Hogyan olvassuk ki: 3 405 027?",
+          "options": [
+            "hárommillió-négyszázötezer-huszonhét",
+            "háromszáznegyvenötezer-huszonhét",
+            "hárommillió-negyvenötezer-kétszázhét",
+            "harmincnégymillió-ötezer-huszonhét"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Hogyan írjuk számjegyekkel: kétmillió-háromszázezer?",
+          "options": [
+            "2 300 000",
+            "2 030 000",
+            "230 000",
+            "2 000 300"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Hány jegyű a 15 000 000?",
+          "answer": "8/nyolc"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "A nagy számokat jobbról balra haladva tagoljuk hármas csoportokra.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mi áll a 12 345 678 szám milliós csoportjában?",
+          "options": [
+            "12",
+            "345",
+            "678",
+            "1"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Hány nulla van az egymilliárd számjegyes alakjában?",
+          "options": [
+            "9",
+            "6",
+            "12",
+            "8"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Hogyan írjuk számjegyekkel: ötvenezer-hatszáz?",
+          "options": [
+            "50 600",
+            "5600",
+            "500 600",
+            "56 000"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 30,
+          "text": "Írd le számjegyekkel: hétmillió-harmincezer-öt",
+          "answer": "7030005/7 030 005"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "A 100 000 hatjegyű szám.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Melyik a legnagyobb szám?",
+          "options": [
+            "1 010 101",
+            "1 001 111",
+            "999 999",
+            "1 010 011"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mi áll a 2 040 600 szám ezres csoportjában?",
+          "options": [
+            "040",
+            "2",
+            "600",
+            "204"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a számokat a nevükkel!",
+          "pairs": [
+            [
+              "1 000",
+              "ezer"
+            ],
+            [
+              "10 000",
+              "tízezer"
+            ],
+            [
+              "100 000",
+              "százezer"
+            ],
+            [
+              "1 000 000",
+              "egymillió"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "a-termeszetes-szamok-helyesirasa",
+      "title": "A természetes számok helyesírása",
+      "description": "Számok betűvel írása: egybeírás 2000-ig, kötőjeles tagolás 2000 fölött.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Hogyan írjuk helyesen betűvel az 1999-et?",
+          "options": [
+            "ezerkilencszázkilencvenkilenc",
+            "ezer-kilencszázkilencvenkilenc",
+            "ezer kilencszáz kilencvenkilenc",
+            "egyezer-kilencszázkilencvenkilenc"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Hogyan írjuk helyesen betűvel a 2024-et?",
+          "options": [
+            "kétezer-huszonnégy",
+            "kétezerhuszonnégy",
+            "kétezer huszonnégy",
+            "két ezer-huszonnégy"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 20,
+          "text": "2000 fölött a számokat hármas csoportonként kötőjellel tagoljuk.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Hogyan írjuk helyesen betűvel az 1500-at?",
+          "options": [
+            "ezerötszáz",
+            "ezer-ötszáz",
+            "egyezer-ötszáz",
+            "ezer ötszáz"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Hogyan írjuk helyesen betűvel a 3456-ot?",
+          "options": [
+            "háromezer-négyszázötvenhat",
+            "háromezernégyszázötvenhat",
+            "háromezer-négyszáz-ötvenhat",
+            "három ezer négyszázötvenhat"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Írd le számjegyekkel: hatezer-ötszázhét",
+          "answer": "6507/6 507"
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Hogyan írjuk helyesen betűvel a 25 000-et?",
+          "options": [
+            "huszonötezer",
+            "huszonöt-ezer",
+            "huszonöt ezer",
+            "huszon-ötezer"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "Az „ezerkétszáz” helyesen írt alak.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Hogyan írjuk helyesen betűvel a 40 017-et?",
+          "options": [
+            "negyvenezer-tizenhét",
+            "negyvenezertizenhét",
+            "negyven-ezer-tizenhét",
+            "negyvenezer tizenhét"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 30,
+          "text": "Írd le számjegyekkel: kétmillió-ötszázezer",
+          "answer": "2500000/2 500 000"
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Hogyan írjuk helyesen betűvel az 1 000 002-t?",
+          "options": [
+            "egymillió-kettő",
+            "egymilliókettő",
+            "egy millió kettő",
+            "egymillió-nulla-kettő"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a számokat a helyesen írt alakjukkal!",
+          "pairs": [
+            [
+              "1200",
+              "ezerkétszáz"
+            ],
+            [
+              "2200",
+              "kétezer-kétszáz"
+            ],
+            [
+              "3000",
+              "háromezer"
+            ],
+            [
+              "2001",
+              "kétezer-egy"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "szamrendszerek",
+      "title": "Számrendszerek",
+      "description": "A tízes és a kettes számrendszer, helyiértékek, átváltás.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 30,
+          "svg": "binary-cards",
+          "text": "A kártyák alatti számjegyek a kettes számrendszerbeli $1101_2$ számot adják. Mennyi ez tízes számrendszerben?",
+          "options": [
+            "13",
+            "1101",
+            "11",
+            "15"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 15,
+          "text": "Milyen számjegyeket használunk a kettes számrendszerben?",
+          "options": [
+            "0 és 1",
+            "1 és 2",
+            "0, 1 és 2",
+            "0-tól 9-ig"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Mennyi a $101_2$ tízes számrendszerben?",
+          "answer": "5"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "A tízes számrendszerben 10 különböző számjegyet használunk.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Hogyan írjuk a 6-ot kettes számrendszerben?",
+          "options": [
+            "$110_2$",
+            "$101_2$",
+            "$111_2$",
+            "$1000_2$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Melyek a helyiértékek a kettes számrendszerben (jobbról balra)?",
+          "options": [
+            "1, 2, 4, 8, 16, …",
+            "1, 10, 100, 1000, …",
+            "1, 2, 3, 4, 5, …",
+            "2, 4, 6, 8, …"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi az $1000_2$ tízes számrendszerben?",
+          "options": [
+            "8",
+            "1000",
+            "4",
+            "16"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 30,
+          "text": "Mennyi az $1111_2$ tízes számrendszerben?",
+          "answer": "15"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "A számítógépek a kettes számrendszert használják.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Hogyan írjuk a 10-et kettes számrendszerben?",
+          "options": [
+            "$1010_2$",
+            "$10_2$",
+            "$1100_2$",
+            "$1001_2$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi a $10_2$ tízes számrendszerben?",
+          "options": [
+            "2",
+            "10",
+            "1",
+            "3"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 60,
+          "text": "Párosítsd a kettes számrendszerbeli számokat a tízes alakjukkal!",
+          "pairs": [
+            [
+              "$1_2$",
+              "1"
+            ],
+            [
+              "$11_2$",
+              "3"
+            ],
+            [
+              "$100_2$",
+              "4"
+            ],
+            [
+              "$111_2$",
+              "7"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "a-szamok-abrazolasa-a-szamegyenesen",
+      "title": "A számok ábrázolása a számegyenesen",
+      "description": "Számok helye a számegyenesen, beosztás, távolság, sorba rendezés.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 20,
+          "svg": "number-line-100",
+          "text": "Melyik számot jelöli az $A$ pont?",
+          "options": [
+            "30",
+            "3",
+            "35",
+            "25"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "svg": "number-line-100",
+          "text": "Melyik számot jelöli a $B$ pont?",
+          "options": [
+            "75",
+            "70",
+            "80",
+            "7,5"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "A számegyenesen jobbra haladva a számok egyre nagyobbak.",
+          "answer": true
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "svg": "number-line-100",
+          "text": "Mekkora a távolság az $A$ és a $B$ pont között?",
+          "answer": "45"
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Egy számegyenes 0-tól 1000-ig tart. Hol van rajta a 250?",
+          "options": [
+            "az első negyedénél",
+            "a felénél",
+            "a végénél",
+            "a háromnegyedénél"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 15,
+          "text": "Melyik szám van a 48 és az 52 között középen?",
+          "options": [
+            "50",
+            "49",
+            "51",
+            "100"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "svg": "number-line-int",
+          "text": "Melyik számot jelöli a $B$ pont?",
+          "options": [
+            "$-1$",
+            "$1$",
+            "$-2$",
+            "$0$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "A számegyenesen a 0-tól balra a negatív számok vannak.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Melyik van közelebb a 100-hoz: a 93 vagy a 108?",
+          "options": [
+            "a 93",
+            "a 108",
+            "egyformán közel vannak",
+            "egyik sem"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Melyik szám van a 120 és a 180 között pontosan középen?",
+          "answer": "150"
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Melyik a helyes növekvő sorrend?",
+          "options": [
+            "99, 109, 190, 901",
+            "109, 99, 190, 901",
+            "99, 190, 109, 901",
+            "901, 190, 109, 99"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "svg": "number-line-int",
+          "text": "Párosítsd a pontokat az általuk jelölt számokkal!",
+          "pairs": [
+            [
+              "$A$",
+              "$-4$"
+            ],
+            [
+              "$B$",
+              "$-1$"
+            ],
+            [
+              "$C$",
+              "$2$"
+            ],
+            [
+              "$D$",
+              "$5$"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "becsles-kerekites",
+      "title": "Becslés, kerekítés",
+      "description": "Kerekítés tízesre, százasra, ezresre, becslés műveleteknél, forint kerekítés.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 25,
+          "svg": "rounding-347",
+          "text": "Kerekítsd tízesre a 347-et!",
+          "options": [
+            "350",
+            "340",
+            "300",
+            "400"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Kerekítsd százasra a 347-et!",
+          "options": [
+            "300",
+            "350",
+            "400",
+            "340"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Kerekítsd ezresre a 2683-at!",
+          "answer": "3000/3 000"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "Ha a kerekítendő helyiérték utáni számjegy 5, felfelé kerekítünk.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Kerekítsd tízesre a 45-öt!",
+          "options": [
+            "50",
+            "40",
+            "45",
+            "100"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Becsüld meg az összeget: $398 + 203 \\approx ?$",
+          "options": [
+            "600",
+            "500",
+            "700",
+            "200"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Kerekítsd százasra az 1449-et!",
+          "options": [
+            "1400",
+            "1500",
+            "1450",
+            "1000"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "A 95 tízesre kerekítve 90.",
+          "answer": false
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Melyik szám ad százasra kerekítve 500-at?",
+          "options": [
+            "549",
+            "551",
+            "449",
+            "440"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Becsüld meg kerek tízesekkel: $61 \\cdot 19 \\approx 60 \\cdot 20 = ?$",
+          "answer": "1200/1 200"
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "A boltban 5 forintra kerekítünk. Mennyit fizetünk, ha a végösszeg 1233 Ft?",
+          "options": [
+            "1235 Ft",
+            "1230 Ft",
+            "1240 Ft",
+            "1233 Ft"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a számokat a tízesre kerekített értékükkel!",
+          "pairs": [
+            [
+              "74",
+              "70"
+            ],
+            [
+              "75",
+              "80"
+            ],
+            [
+              "146",
+              "150"
+            ],
+            [
+              "133",
+              "130"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "osszeadas-irasbeli-osszeadas",
+      "title": "Összeadás, írásbeli összeadás",
+      "description": "Fejben és írásban összeadás, hiányzó számjegyek, a tagok felcserélhetősége.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mennyi $3456 + 2789$?",
+          "options": [
+            "6245",
+            "6235",
+            "5245",
+            "6145"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 45,
+          "svg": "column-add",
+          "text": "Melyik számjegy hiányzik az írásbeli összeadásból?",
+          "options": [
+            "5",
+            "4",
+            "6",
+            "3"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 15,
+          "text": "Mennyi $999 + 1$?",
+          "answer": "1000/1 000"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "Az összeadás tagjai felcserélhetők.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Számold ki ügyesen: $27 + 58 + 73$",
+          "options": [
+            "158",
+            "148",
+            "168",
+            "138"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Két szám összege 500, az egyik 237. Mennyi a másik?",
+          "options": [
+            "263",
+            "273",
+            "737",
+            "337"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 30,
+          "text": "Mennyi $12\\,345 + 4655$?",
+          "answer": "17000/17 000"
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $1500 + 2700 + 500$?",
+          "options": [
+            "4700",
+            "4200",
+            "5700",
+            "3700"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 20,
+          "text": "Ha az egyik tagot 10-zel növeljük, az összeg is 10-zel nő.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 15,
+          "text": "Mennyi $8 + 8 + 8 + 8 + 8$?",
+          "options": [
+            "40",
+            "48",
+            "32",
+            "88"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mikor van maradék (átvitel) az írásbeli összeadásban?",
+          "options": [
+            "ha egy oszlopban az összeg legalább 10",
+            "mindig",
+            "soha",
+            "ha páratlan számokat adunk össze"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd az összeadásokat az eredményükkel!",
+          "pairs": [
+            [
+              "$250 + 750$",
+              "1000"
+            ],
+            [
+              "$199 + 301$",
+              "500"
+            ],
+            [
+              "$1234 + 766$",
+              "2000"
+            ],
+            [
+              "$45 + 55$",
+              "100"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "kivonas-irasbeli-kivonas",
+      "title": "Kivonás, írásbeli kivonás",
+      "description": "Fejben és írásban kivonás, ellenőrzés összeadással, hiányzó számjegyek.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mennyi $5000 - 1234$?",
+          "options": [
+            "3766",
+            "3866",
+            "4234",
+            "3776"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 45,
+          "svg": "column-sub",
+          "text": "Melyik számjegy hiányzik az írásbeli kivonásból?",
+          "options": [
+            "3",
+            "2",
+            "4",
+            "8"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 15,
+          "text": "Mennyi $1000 - 1$?",
+          "answer": "999"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "A kivonásban a kisebbítendő és a kivonandó felcserélhető.",
+          "answer": false
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "$450 - \\square = 275$. Mi kerül a $\\square$ helyére?",
+          "options": [
+            "175",
+            "725",
+            "185",
+            "225"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Hogyan ellenőrizhetjük a kivonást?",
+          "options": [
+            "a különbséghez hozzáadjuk a kivonandót, és a kisebbítendőt kell kapnunk",
+            "a különbséget megszorozzuk 2-vel",
+            "a kisebbítendőt elosztjuk a kivonandóval",
+            "nem lehet ellenőrizni"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 30,
+          "text": "Mennyi $7003 - 2008$?",
+          "answer": "4995/4 995"
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Számold ki ügyesen: $600 - 199$",
+          "options": [
+            "401",
+            "399",
+            "411",
+            "499"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 25,
+          "text": "Ha a kisebbítendőt és a kivonandót is 5-tel növeljük, a különbség nem változik.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Annának 1250 Ft-ja van. Vesz egy 780 Ft-os könyvet. Mennyi pénze marad?",
+          "options": [
+            "470 Ft",
+            "570 Ft",
+            "530 Ft",
+            "2030 Ft"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mennyi a legnagyobb és a legkisebb négyjegyű szám különbsége?",
+          "options": [
+            "8999",
+            "9000",
+            "8889",
+            "9999"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a kivonásokat az eredményükkel!",
+          "pairs": [
+            [
+              "$100 - 37$",
+              "63"
+            ],
+            [
+              "$500 - 250$",
+              "250"
+            ],
+            [
+              "$1000 - 999$",
+              "1"
+            ],
+            [
+              "$72 - 27$",
+              "45"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "szorzas-irasbeli-szorzas",
+      "title": "Szorzás, írásbeli szorzás",
+      "description": "Szorzás fejben és írásban, ügyes szorzás, a szorzás tulajdonságai.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 20,
+          "svg": "array-4x6",
+          "text": "Hány korong van az ábrán? Melyik szorzással számolhatjuk ki?",
+          "options": [
+            "$4 \\cdot 6 = 24$",
+            "$4 + 6 = 10$",
+            "$4 \\cdot 4 = 16$",
+            "$6 \\cdot 6 = 36$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $234 \\cdot 3$?",
+          "options": [
+            "702",
+            "692",
+            "602",
+            "712"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Mennyi $125 \\cdot 8$?",
+          "answer": "1000/1 000"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "Bármely szám és a 0 szorzata 0.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mennyi $46 \\cdot 25$?",
+          "options": [
+            "1150",
+            "1050",
+            "1250",
+            "1100"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Számold ki ügyesen: $4 \\cdot 37 \\cdot 25$",
+          "options": [
+            "3700",
+            "3600",
+            "370",
+            "925"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Mennyi $300 \\cdot 40$?",
+          "answer": "12000/12 000"
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $99 \\cdot 7$?",
+          "options": [
+            "693",
+            "703",
+            "683",
+            "697"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "A szorzás tényezői felcserélhetők.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 45,
+          "text": "Mennyi $212 \\cdot 13$?",
+          "options": [
+            "2756",
+            "2746",
+            "2856",
+            "636"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "12 dobozban egyenként 24 ceruza van. Hány ceruza van összesen?",
+          "options": [
+            "288",
+            "248",
+            "36",
+            "298"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a szorzásokat az eredményükkel!",
+          "pairs": [
+            [
+              "$5 \\cdot 20$",
+              "100"
+            ],
+            [
+              "$25 \\cdot 8$",
+              "200"
+            ],
+            [
+              "$50 \\cdot 6$",
+              "300"
+            ],
+            [
+              "$125 \\cdot 4$",
+              "500"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "osztas-irasbeli-osztas-ketjegyu-osztoval",
+      "title": "Osztás, írásbeli osztás kétjegyű osztóval",
+      "description": "Bennfoglalás, részekre osztás, írásbeli osztás, maradék, ellenőrzés.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 20,
+          "svg": "groups-24-by-6",
+          "text": "24 sütit 6-osával dobozolunk. Hány doboz kell?",
+          "options": [
+            "4",
+            "6",
+            "18",
+            "30"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mennyi $864 : 12$?",
+          "options": [
+            "72",
+            "62",
+            "82",
+            "74"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 30,
+          "text": "Mennyi $975 : 15$?",
+          "answer": "65"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "Az osztás szorzással ellenőrizhető.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi a maradék, ha a 100-at elosztjuk 7-tel?",
+          "options": [
+            "2",
+            "3",
+            "1",
+            "0"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mennyi $360 : 24$?",
+          "options": [
+            "15",
+            "14",
+            "16",
+            "12"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mennyi $456 : 19$?",
+          "options": [
+            "24",
+            "23",
+            "26",
+            "22"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "$0 : 5 = 0$",
+          "answer": true
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "85 tanulót 17 fős csoportokba osztunk. Hány csoport lesz?",
+          "answer": "5/öt"
+        },
+        {
+          "type": "mc",
+          "time": 45,
+          "text": "Mennyi $500 : 16$?",
+          "options": [
+            "31, maradék 4",
+            "31, maradék 3",
+            "30, maradék 20",
+            "32, maradék 0"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Hány darab 48 Ft-os tollat vehetünk 1440 Ft-ért?",
+          "options": [
+            "30",
+            "28",
+            "32",
+            "35"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd az osztásokat az eredményükkel!",
+          "pairs": [
+            [
+              "$96 : 12$",
+              "8"
+            ],
+            [
+              "$84 : 14$",
+              "6"
+            ],
+            [
+              "$75 : 25$",
+              "3"
+            ],
+            [
+              "$99 : 11$",
+              "9"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "muveletek-tulajdonsagai-muveleti-sorrend-zarojelek",
+      "title": "Műveletek tulajdonságai, műveleti sorrend, zárójelek",
+      "description": "Műveleti sorrend, zárójelek, felcserélhetőség, csoportosíthatóság, széttagolhatóság.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $3 + 4 \\cdot 5$?",
+          "options": [
+            "23",
+            "35",
+            "27",
+            "12"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $(3 + 4) \\cdot 5$?",
+          "options": [
+            "35",
+            "23",
+            "27",
+            "12"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Mennyi $100 - 20 : 4$?",
+          "answer": "95"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "Zárójel nélkül a szorzást és az osztást előbb végezzük el, mint az összeadást és a kivonást.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $48 : 6 : 2$?",
+          "options": [
+            "4",
+            "16",
+            "6",
+            "24"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $2 \\cdot (15 - 7) + 3$?",
+          "options": [
+            "19",
+            "16",
+            "26",
+            "13"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Számold ki ügyesen: $7 \\cdot 25 + 3 \\cdot 25$",
+          "options": [
+            "250",
+            "200",
+            "175",
+            "1000"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 20,
+          "text": "$a \\cdot (b + c) = a \\cdot b + a \\cdot c$",
+          "answer": true
+        },
+        {
+          "type": "text",
+          "time": 30,
+          "text": "Mennyi $60 - (24 - 8) \\cdot 2$?",
+          "answer": "28"
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Hová kell zárójelet tenni, hogy az eredmény 20 legyen: $2 + 3 \\cdot 4$?",
+          "options": [
+            "$(2 + 3) \\cdot 4$",
+            "$2 + (3 \\cdot 4)$",
+            "sehová",
+            "$2 + 3 \\cdot (4)$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $36 : (9 - 3)$?",
+          "options": [
+            "6",
+            "1",
+            "12",
+            "4"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a kifejezéseket az értékükkel!",
+          "pairs": [
+            [
+              "$2 + 3 \\cdot 4$",
+              "14"
+            ],
+            [
+              "$(2 + 3) \\cdot 4$",
+              "20"
+            ],
+            [
+              "$2 \\cdot 3 + 4$",
+              "10"
+            ],
+            [
+              "$2 \\cdot (3 - 1) \\cdot 4$",
+              "16"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "negativ-szamok",
+      "title": "Negatív számok",
+      "description": "Negatív számok a hétköznapokban: hőmérséklet, adósság, emeletek, tengerszint.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 20,
+          "svg": "thermometer-minus4",
+          "text": "Hány fokot mutat a hőmérő?",
+          "options": [
+            "$-4\\,^\\circ\\text{C}$",
+            "$4\\,^\\circ\\text{C}$",
+            "$-6\\,^\\circ\\text{C}$",
+            "$-3\\,^\\circ\\text{C}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "svg": "elevator",
+          "text": "A lift a 3. emeletről 5 szintet megy lefelé. Melyik szintre érkezik?",
+          "options": [
+            "$-2$ (2. pinceszint)",
+            "$-1$",
+            "$2$",
+            "$8$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "A $-5$ kisebb, mint a $-2$.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 15,
+          "text": "Melyik a legkisebb szám?",
+          "options": [
+            "$-8$",
+            "$-3$",
+            "$0$",
+            "$2$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Katinak 300 Ft adóssága van. Hogyan írjuk ezt le egész számmal?",
+          "answer": "-300/-300 Ft"
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Egy búvár 20 méterrel a tengerszint alatt úszik. Melyik szám írja le a helyzetét?",
+          "options": [
+            "$-20$ m",
+            "$20$ m",
+            "$0$ m",
+            "$-2$ m"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Reggel $-3\\,^\\circ\\text{C}$ volt, délre 5 fokkal melegebb lett. Hány fok lett délre?",
+          "options": [
+            "$2\\,^\\circ\\text{C}$",
+            "$-8\\,^\\circ\\text{C}$",
+            "$8\\,^\\circ\\text{C}$",
+            "$-2\\,^\\circ\\text{C}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "A 0 pozitív szám.",
+          "answer": false
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Melyik a helyes növekvő sorrend?",
+          "options": [
+            "$-7, -2, 0, 3$",
+            "$-2, -7, 0, 3$",
+            "$0, -2, -7, 3$",
+            "$3, 0, -2, -7$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 30,
+          "text": "Hány fok a különbség $+6\\,^\\circ\\text{C}$ és $-4\\,^\\circ\\text{C}$ között?",
+          "answer": "10/10 fok/10 °C"
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "A fagyasztóban $-18\\,^\\circ\\text{C}$, a konyhában $22\\,^\\circ\\text{C}$ van. Hány fok a különbség?",
+          "options": [
+            "40",
+            "4",
+            "22",
+            "18"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a helyzeteket a számokkal!",
+          "pairs": [
+            [
+              "3 fokkal fagypont alatt",
+              "$-3$"
+            ],
+            [
+              "200 Ft adósság",
+              "$-200$"
+            ],
+            [
+              "2. emelet",
+              "$2$"
+            ],
+            [
+              "tengerszint",
+              "$0$"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "a-szamok-ellentettje-es-abszolut-erteke",
+      "title": "A számok ellentettje és abszolút értéke",
+      "description": "Ellentett, abszolút érték mint távolság a 0-tól, számegyenes.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 15,
+          "text": "Mi a 7 ellentettje?",
+          "options": [
+            "$-7$",
+            "$7$",
+            "$0$",
+            "$\\frac{1}{7}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 15,
+          "text": "Mennyi $\\lvert -9 \\rvert$?",
+          "options": [
+            "$9$",
+            "$-9$",
+            "$0$",
+            "$18$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "svg": "number-line-int",
+          "text": "Melyik pont jelöli a legnagyobb abszolút értékű számot?",
+          "options": [
+            "$D$",
+            "$A$",
+            "$B$",
+            "$C$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Mennyi $\\lvert -15 \\rvert + \\lvert 4 \\rvert$?",
+          "answer": "19"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "Egy szám abszolút értéke soha nem negatív.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $-(-6)$?",
+          "options": [
+            "$6$",
+            "$-6$",
+            "$0$",
+            "$12$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Melyik két számnak egyenlő az abszolút értéke?",
+          "options": [
+            "4 és $-4$",
+            "4 és 5",
+            "$-4$ és $-5$",
+            "0 és 4"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "A 0 ellentettje 0.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Melyik számok abszolút értéke 3?",
+          "options": [
+            "3 és $-3$",
+            "csak a 3",
+            "csak a $-3$",
+            "0 és 3"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "svg": "number-line-int",
+          "text": "Mi a $C$ pont által jelölt szám ellentettje?",
+          "answer": "-2"
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mit mutat meg egy szám abszolút értéke?",
+          "options": [
+            "a szám 0-tól mért távolságát a számegyenesen",
+            "a szám ellentettjét",
+            "a szám kétszeresét",
+            "a szám jegyeinek számát"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a kifejezéseket az értékükkel!",
+          "pairs": [
+            [
+              "a 8 ellentettje",
+              "$-8$"
+            ],
+            [
+              "$\\lvert -8 \\rvert$",
+              "$8$"
+            ],
+            [
+              "a 0 ellentettje",
+              "$0$"
+            ],
+            [
+              "$-(-3)$",
+              "$3$"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "egesz-szamok-osszeadasa-es-kivonasa",
+      "title": "Egész számok összeadása és kivonása",
+      "description": "Összeadás és kivonás negatív számokkal, számegyenes, hétköznapi példák.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 25,
+          "svg": "number-line-add",
+          "text": "Melyik műveletet mutatja a számegyenes?",
+          "options": [
+            "$-3 + 5 = 2$",
+            "$-3 + 5 = -8$",
+            "$3 + 5 = 8$",
+            "$-3 - 5 = -2$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $-4 + (-6)$?",
+          "options": [
+            "$-10$",
+            "$10$",
+            "$-2$",
+            "$2$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Mennyi $5 - 9$?",
+          "answer": "-4"
+        },
+        {
+          "type": "tf",
+          "time": 20,
+          "text": "Egy szám ellentettjét hozzáadni ugyanaz, mint a számot kivonni.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 15,
+          "text": "Mennyi $-7 + 10$?",
+          "options": [
+            "$3$",
+            "$-3$",
+            "$17$",
+            "$-17$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $3 - (-5)$?",
+          "options": [
+            "$8$",
+            "$-2$",
+            "$2$",
+            "$-8$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Mennyi $-2 - 6$?",
+          "answer": "-8"
+        },
+        {
+          "type": "mc",
+          "time": 15,
+          "text": "Mennyi $-12 + 12$?",
+          "options": [
+            "$0$",
+            "$24$",
+            "$-24$",
+            "$12$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "Két negatív szám összege negatív.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Reggel $-6\\,^\\circ\\text{C}$ volt, délig 9 fokot melegedett. Hány fok lett?",
+          "options": [
+            "$3\\,^\\circ\\text{C}$",
+            "$-15\\,^\\circ\\text{C}$",
+            "$15\\,^\\circ\\text{C}$",
+            "$-3\\,^\\circ\\text{C}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mennyi $-5 + 3 - 4$?",
+          "options": [
+            "$-6$",
+            "$-2$",
+            "$2$",
+            "$-12$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a műveleteket az eredményükkel!",
+          "pairs": [
+            [
+              "$-3 + 3$",
+              "$0$"
+            ],
+            [
+              "$-3 + 5$",
+              "$2$"
+            ],
+            [
+              "$-3 - 5$",
+              "$-8$"
+            ],
+            [
+              "$3 - 5$",
+              "$-2$"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Az egész számok",
+      "description": "Témazáró gyakorló: római számok, helyiérték, kerekítés, alapműveletek, negatív számok.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi a XXIV római szám értéke?",
+          "options": [
+            "24",
+            "26",
+            "14",
+            "44"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Hogyan olvassuk ki: 3 050 207?",
+          "options": [
+            "hárommillió-ötvenezer-kétszázhét",
+            "hárommillió-ötszázezer-kétszázhét",
+            "háromszázötezer-kétszázhét",
+            "hárommillió-ötezer-kétszázhét"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 30,
+          "text": "Mennyi az $1011_2$ tízes számrendszerben?",
+          "answer": "11"
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Kerekítsd százasra a 4567-et!",
+          "options": [
+            "4600",
+            "4500",
+            "5000",
+            "4570"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "$-3 \\gt -1$",
+          "answer": false
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $25 \\cdot 36$?",
+          "options": [
+            "900",
+            "800",
+            "960",
+            "750"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Mennyi $6 + 4 \\cdot 3$?",
+          "answer": "18"
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mennyi $672 : 21$?",
+          "options": [
+            "32",
+            "31",
+            "33",
+            "42"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "svg": "elevator",
+          "text": "A lift a földszintről 2 szintet megy lefelé. Melyik szintre ér?",
+          "options": [
+            "$-2$",
+            "$2$",
+            "$-1$",
+            "$0$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "$\\lvert -7 \\rvert = 7$",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $-8 + 15$?",
+          "options": [
+            "$7$",
+            "$-7$",
+            "$23$",
+            "$-23$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 60,
+          "text": "Párosítsd a fogalmakat egy-egy példával!",
+          "pairs": [
+            [
+              "római szám",
+              "XII"
+            ],
+            [
+              "kettes számrendszerbeli szám",
+              "$101_2$"
+            ],
+            [
+              "negatív szám",
+              "$-4$"
+            ],
+            [
+              "egymás ellentettjei",
+              "6 és $-6$"
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

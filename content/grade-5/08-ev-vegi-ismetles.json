@@ -1,0 +1,32 @@
+{
+  "idPrefix": "g5-ev-vegi-ismetles",
+  "topic": "VIII. Év végi összefoglalás",
+  "grade_level": "5. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "ev-vegi-ismetles",
+      "title": "Év végi ismétlés – 5. osztály",
+      "description": "Az egész év anyaga: számok, törtek, geometria, mérés, sorozatok, arányosság, statisztika.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Mennyi a XLIV római szám értéke?", "options": ["44", "46", "64", "54"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Kerekítsd ezresekre: 3 456 789", "options": ["3 457 000", "3 456 000", "3 460 000", "3 500 000"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Mennyi $-5 + 8$?", "answer": "3" },
+        { "type": "tf", "time": 25, "svg": "fraction-bars-compare", "text": "$\\frac{3}{4} \\lt \\frac{2}{3}$", "answer": false },
+        { "type": "mc", "time": 20, "svg": "pie-3-8", "text": "A kör hányad részét színeztük ki?", "options": ["$\\frac{3}{8}$", "$\\frac{5}{8}$", "$\\frac{3}{5}$", "$\\frac{1}{3}$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mennyi $2{,}5 + 1{,}75$?", "options": ["$4{,}25$", "$3{,}25$", "$4{,}3$", "$1{,}5$"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "rect-7x4", "text": "Mekkora a téglalap területe?", "options": ["28 cm²", "22 cm²", "11 cm²", "28 cm"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "coord-points-abcd", "text": "Mik az $A$ pont koordinátái?", "options": ["$(2; 3)$", "$(3; 2)$", "$(-2; 3)$", "$(2; -3)$"], "answer": 0 },
+        { "type": "text", "time": 20, "svg": "sequence-boxes", "text": "Mi a sorozat következő tagja?", "answer": "14" },
+        { "type": "tf", "time": 25, "text": "Ha 6 füzet 1500 Ft-ba kerül, akkor 2 füzet 500 Ft-ba kerül.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Bea jegyei: 4, 5, 3, 5, 3. Mennyi az átlaga?", "options": ["4", "5", "3", "4,5"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az egyenlő mennyiségeket!", "pairs": [
+          ["1 kg", "100 dkg"],
+          ["1 l", "10 dl"],
+          ["1 óra", "60 perc"],
+          ["1 m", "100 cm"]
+        ] }
+      ]
+    }
+  ]
+}

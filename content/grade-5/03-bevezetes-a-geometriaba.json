@@ -1,0 +1,224 @@
+{
+  "idPrefix": "g5-geometria",
+  "topic": "III. Bevezetés a geometriába",
+  "grade_level": "5. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "csoportositasok",
+      "title": "Csoportosítások",
+      "description": "Alakzatok szétválogatása forma, szín és más tulajdonságok szerint.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "shapes-sort", "text": "Hány háromszög van az ábrán?", "options": ["3", "2", "4", "8"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "shapes-sort", "text": "Hány piros alakzat van az ábrán?", "options": ["3", "2", "4", "5"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "shapes-sort", "text": "Hány olyan alakzat van, amely piros ÉS háromszög?", "answer": "1/egy" },
+        { "type": "tf", "time": 15, "text": "Ugyanazokat az alakzatokat többféle szempont szerint is szétválogathatjuk.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "shapes-sort", "text": "Mi a közös a 3-as és az 5-ös alakzatban?", "options": ["mindkettő kör, nincs csúcsuk", "mindkettő piros", "mindkettő háromszög", "mindkettőnek 4 oldala van"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "shapes-sort", "text": "Hány alakzat NEM kék?", "options": ["5", "3", "4", "6"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Melyik nem illik a sorba: négyzet, téglalap, háromszög, kör?", "options": ["a kör, mert görbe vonal határolja", "a négyzet", "a háromszög", "a téglalap"], "answer": 0 },
+        { "type": "tf", "time": 20, "svg": "shapes-sort", "text": "Az ábrán több kék alakzat van, mint zöld.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Melyik geometriai tulajdonság?", "options": ["az oldalak száma", "a szín", "az anyag", "az ár"], "answer": 0 },
+        { "type": "text", "time": 25, "svg": "shapes-sort", "text": "Hány négyszög van az ábrán?", "answer": "3/három" },
+        { "type": "mc", "time": 15, "text": "Melyik alakzat tartozik a négyszögek közé?", "options": ["téglalap", "kör", "háromszög", "ötszög"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az alakzatokat a csoportjukkal!", "pairs": [
+          ["négyzet", "négyszögek"],
+          ["kör", "görbe vonallal határolt alakzatok"],
+          ["háromszög", "3 oldalú sokszögek"],
+          ["ötszög", "5 oldalú sokszögek"]
+        ] }
+      ]
+    },
+    {
+      "slug": "halmazok",
+      "title": "Halmazok",
+      "description": "Halmaz, elem, Venn-diagram, közös rész, egyesítés, üres halmaz.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "venn-shapes", "text": "Melyik alakzat van a két halmaz közös részében?", "options": ["a piros háromszög", "a piros négyzet", "a kék háromszög", "a kék négyzet"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "venn-shapes", "text": "Hány elem van a „piros” halmazban?", "options": ["3", "2", "4", "1"], "answer": 0 },
+        { "type": "text", "time": 25, "svg": "venn-shapes", "text": "Hány elem van a „háromszög” halmazban?", "answer": "3/három" },
+        { "type": "tf", "time": 15, "text": "Az üres halmaznak nincs eleme.", "answer": true },
+        { "type": "mc", "time": 15, "text": "Melyik szám eleme az $A = \\{1, 3, 5, 7\\}$ halmaznak?", "options": ["5", "2", "4", "6"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Melyek a 10-nél kisebb páros pozitív egész számok?", "options": ["$\\{2, 4, 6, 8\\}$", "$\\{2, 4, 6, 8, 10\\}$", "$\\{1, 3, 5, 7, 9\\}$", "$\\{0, 2, 4\\}$"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "venn-shapes", "text": "Melyik alakzat nem tartozik egyik halmazba sem?", "options": ["a kék négyzet", "a zöld háromszög", "a piros kör", "a piros háromszög"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Az $\\{1, 2, 3\\}$ és a $\\{3, 2, 1\\}$ halmaz egyenlő.", "answer": true },
+        { "type": "mc", "time": 25, "text": "$A = \\{1, 2, 3, 4, 5\\}$ és $B = \\{4, 5, 6\\}$. Melyek a közös elemek?", "options": ["$\\{4, 5\\}$", "$\\{1, 2, 3\\}$", "$\\{6\\}$", "$\\{1, 2, 3, 4, 5, 6\\}$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "$A = \\{1, 2, 3, 4, 5\\}$ és $B = \\{4, 5, 6\\}$. Hány különböző elem van a két halmazban összesen?", "answer": "6/hat" },
+        { "type": "mc", "time": 15, "text": "Hány eleme van a hét napjai halmaznak?", "options": ["7", "5", "12", "30"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a jeleket a jelentésükkel!", "pairs": [
+          ["$\\in$", "eleme"],
+          ["$\\notin$", "nem eleme"],
+          ["$\\emptyset$", "üres halmaz"],
+          ["$\\{\\;\\}$", "a halmaz elemeinek felsorolása"]
+        ] }
+      ]
+    },
+    {
+      "slug": "test-felulet-vonal-pont",
+      "title": "Test, felület, vonal, pont",
+      "description": "Testek, határoló felületek (lapok), élek, csúcsok; sík és görbe felületek.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "cube-parts", "text": "Mit jelöl a piros pont a kockán?", "options": ["csúcsot", "élt", "lapot", "testet"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "cube-parts", "text": "Mit jelöl a kék vonal a kockán?", "options": ["élt", "csúcsot", "lapot", "átlót"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "cube-parts", "text": "Mi a sárgára színezett rész?", "options": ["egy lap", "egy él", "egy csúcs", "az egész test"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Hány lapja van a kockának?", "answer": "6/hat" },
+        { "type": "tf", "time": 15, "text": "A pontnak nincs kiterjedése.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Hány éle van a kockának?", "options": ["12", "8", "6", "4"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Hány csúcsa van a kockának?", "options": ["8", "6", "12", "4"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A gömböt görbe felület határolja.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Melyik testet határolják csak sík lapok?", "options": ["kocka", "gömb", "henger", "kúp"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Milyen felületek határolják a hengert?", "options": ["2 sík (kör) és 1 görbe felület", "csak sík felületek", "csak görbe felület", "6 sík lap"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Hány csúcsa van a téglatestnek?", "answer": "8/nyolc" },
+        { "type": "match", "time": 45, "text": "Párosítsd a fogalmakat egy-egy példával a kockán!", "pairs": [
+          ["test", "maga a kocka"],
+          ["felület", "egy lap"],
+          ["vonal", "egy él"],
+          ["pont", "egy csúcs"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-szog",
+      "title": "A szög",
+      "description": "A szög fogalma, szögfajták, szögmérés szögmérővel.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "protractor-60", "text": "Hány fokos a szögmérővel mért szög?", "options": ["$60^\\circ$", "$120^\\circ$", "$30^\\circ$", "$90^\\circ$"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "angle-types-row", "text": "Melyik számmal jelölt szög derékszög?", "options": ["2", "1", "3", "4"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "angle-types-row", "text": "Melyik számmal jelölt szög homorú (180°-nál nagyobb)?", "options": ["4", "3", "2", "1"], "answer": 0 },
+        { "type": "tf", "time": 10, "text": "A derékszög $90^\\circ$-os.", "answer": true },
+        { "type": "mc", "time": 15, "text": "Milyen szög a $120^\\circ$-os szög?", "options": ["tompaszög", "hegyesszög", "derékszög", "egyenesszög"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Hány fokos az egyenesszög?", "options": ["$180^\\circ$", "$90^\\circ$", "$360^\\circ$", "$100^\\circ$"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Hány fokos a teljesszög?", "answer": "360/360°/360 fok" },
+        { "type": "mc", "time": 20, "svg": "obtuse-angle", "text": "Milyen szöget jelöltünk az ábrán?", "options": ["tompaszöget", "hegyesszöget", "derékszöget", "egyenesszöget"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A hegyesszög nagyobb, mint $90^\\circ$.", "answer": false },
+        { "type": "mc", "time": 25, "text": "Hány fokos szöget zár be az óra két mutatója pontosan 3 órakor?", "options": ["$90^\\circ$", "$30^\\circ$", "$180^\\circ$", "$45^\\circ$"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Hány fokos a derékszög fele?", "answer": "45/45°/45 fok" },
+        { "type": "match", "time": 45, "text": "Párosítsd a szögfajtákat egy-egy példával!", "pairs": [
+          ["hegyesszög", "30°"],
+          ["derékszög", "90°"],
+          ["tompaszög", "150°"],
+          ["homorú szög", "270°"]
+        ] }
+      ]
+    },
+    {
+      "slug": "sikidomok-sokszogek",
+      "title": "Síkidomok, sokszögek",
+      "description": "Sokszögek, oldalak, csúcsok, átlók, domború és konkáv sokszögek.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "polygon-row", "text": "Hány oldalú a 3-as számmal jelölt sokszög?", "options": ["5", "3", "4", "6"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "concave-convex", "text": "Melyik sokszög NEM domború (konkáv)?", "options": ["B", "A", "mindkettő", "egyik sem"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Hány oldala van egy hatszögnek?", "answer": "6/hat" },
+        { "type": "tf", "time": 15, "text": "A kör sokszög.", "answer": false },
+        { "type": "mc", "time": 20, "text": "Mi a sokszög?", "options": ["egyenes szakaszokkal határolt síkidom", "görbe vonallal határolt síkidom", "térbeli test", "egy pont"], "answer": 0 },
+        { "type": "mc", "time": 10, "text": "Hány csúcsa van a háromszögnek?", "options": ["3", "4", "2", "6"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "polygon-row", "text": "Hány átlója van a 2-es számmal jelölt négyszögnek?", "options": ["2", "4", "1", "0"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Minden négyzet téglalap is.", "answer": true },
+        { "type": "mc", "time": 10, "text": "Hány oldala van egy nyolcszögnek?", "options": ["8", "6", "10", "4"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy ötszög egyik csúcsából hány átló húzható?", "answer": "2/kettő" },
+        { "type": "mc", "time": 15, "text": "Melyik NEM síkidom?", "options": ["kocka", "négyzet", "kör", "háromszög"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az oldalak számát a sokszög nevével!", "pairs": [
+          ["3 oldal", "háromszög"],
+          ["4 oldal", "négyszög"],
+          ["5 oldal", "ötszög"],
+          ["6 oldal", "hatszög"]
+        ] }
+      ]
+    },
+    {
+      "slug": "testek-epitese-szemleltetese",
+      "title": "Testek építése, szemléltetése",
+      "description": "Testek építése kockákból, testhálók, testek tulajdonságai.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "cube-stack-3x2x2", "text": "Hány kis kockából áll a test?", "options": ["12", "7", "10", "16"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "cube-net", "text": "Melyik test hálója látható?", "options": ["kocka", "gúla", "henger", "gömb"], "answer": 0 },
+        { "type": "tf", "time": 20, "svg": "not-a-net", "text": "Az egy sorban álló 6 négyzetből kocka hajtogatható.", "answer": false },
+        { "type": "mc", "time": 20, "svg": "cube-building", "text": "Hány kockából építették az építményt?", "options": ["4", "3", "5", "6"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Hány kis kockából építhető meg egy 2 × 2 × 2-es nagy kocka?", "answer": "8/nyolc" },
+        { "type": "mc", "time": 15, "text": "Melyik test tud minden irányba gurulni?", "options": ["gömb", "kocka", "téglatest", "gúla"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Hány négyzetből áll a kocka hálója?", "options": ["6", "4", "8", "12"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A téglatest minden lapja téglalap (vagy négyzet).", "answer": true },
+        { "type": "mc", "time": 25, "text": "Hány kis kockából építhető meg egy 3 × 3 × 3-as nagy kocka?", "options": ["27", "9", "18", "12"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "cube-stack-3x2x2", "text": "Ha a test tetejére még egy ugyanilyen réteget teszünk, hány kis kockából áll majd?", "options": ["18", "16", "24", "14"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Legfeljebb hány lapját láthatjuk egy kockának egyszerre?", "answer": "3/három" },
+        { "type": "match", "time": 60, "text": "Párosítsd a testeket a jellemzőjükkel!", "pairs": [
+          ["kocka", "6 egybevágó négyzetlap"],
+          ["téglatest", "6 téglalap alakú lap"],
+          ["gömb", "nincs éle és csúcsa"],
+          ["henger", "2 kör alakú alaplap"]
+        ] }
+      ]
+    },
+    {
+      "slug": "egyenesek-sikban-terben",
+      "title": "Egyenesek síkban, térben",
+      "description": "Párhuzamos, metsző, merőleges és kitérő egyenesek, pont és egyenes távolsága.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "lines-positions", "text": "Melyik két egyenes párhuzamos?", "options": ["$a$ és $b$", "$a$ és $c$", "$b$ és $c$", "egyik sem"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "perpendicular-lines", "text": "Milyen helyzetű az $e$ és az $f$ egyenes?", "options": ["merőlegesek", "párhuzamosak", "kitérők", "egybeesnek"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Két párhuzamos egyenesnek nincs közös pontja.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "point-line-distance", "text": "Melyik szakasz hossza a $P$ pont és az $e$ egyenes távolsága?", "options": ["$PT$", "$PA$", "$PB$", "$AB$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Hol fordulhatnak elő kitérő egyenesek?", "options": ["csak a térben", "csak a síkban", "a síkban és a térben is", "sehol"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Hány közös pontja van két metsző egyenesnek?", "answer": "1/egy" },
+        { "type": "mc", "time": 15, "text": "Két különböző ponton át hány egyenes húzható?", "options": ["pontosan egy", "kettő", "végtelen sok", "egy sem"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A merőleges egyenesek derékszöget zárnak be.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Milyen helyzetűek a kocka szemközti lapjain lévő, egymással szemben fekvő élek (pl. alsó elülső és felső hátsó él)?", "options": ["párhuzamosak", "merőlegesek", "metszők", "egybeesők"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Az osztályteremben milyen helyzetű a padló és az egyik fal találkozási vonala, valamint a mennyezet és ugyanennek a falnak a találkozási vonala?", "options": ["párhuzamosak", "merőlegesek", "metszők", "kitérők"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Hány félegyenesre bont egy egyenest a rajta lévő egyik pontja?", "answer": "2/kettő" },
+        { "type": "match", "time": 60, "text": "Párosítsd az egyenesek helyzetét a leírással!", "pairs": [
+          ["párhuzamos", "egy síkban vannak, és nincs közös pontjuk"],
+          ["metsző", "pontosan egy közös pontjuk van"],
+          ["merőleges", "derékszöget zárnak be"],
+          ["kitérő", "nincs közös pontjuk, és nincsenek egy síkban"]
+        ] }
+      ]
+    },
+    {
+      "slug": "teglalap-negyzet",
+      "title": "Téglalap, négyzet",
+      "description": "A téglalap és a négyzet tulajdonságai: oldalak, szögek, átlók, szimmetria.",
+      "questions": [
+        { "type": "mc", "time": 15, "text": "Hány fokosak a téglalap szögei?", "options": ["mind $90^\\circ$", "mind $60^\\circ$", "kettő $90^\\circ$, kettő $45^\\circ$", "mind $180^\\circ$"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "rect-diagonals", "text": "Mi igaz a téglalap $AC$ és $BD$ átlójára?", "options": ["egyenlő hosszúak", "az egyik kétszer olyan hosszú", "párhuzamosak", "nem metszik egymást"], "answer": 0 },
+        { "type": "tf", "time": 10, "text": "A négyzet minden oldala egyenlő hosszú.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Melyik állítás igaz?", "options": ["Minden négyzet téglalap.", "Minden téglalap négyzet.", "A négyzetnek nincs derékszöge.", "A téglalapnak 3 oldala van."], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Egy téglalap egyik oldala 5 cm. Hány cm a vele szemközti oldal?", "answer": "5/5 cm" },
+        { "type": "mc", "time": 25, "svg": "rect-diagonals", "text": "Mit mondhatunk az átlók $O$ metszéspontjáról?", "options": ["felezi mindkét átlót", "az $A$ csúcsban van", "a téglalapon kívül van", "csak az egyik átlót felezi"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Hány szimmetriatengelye van a négyzetnek?", "options": ["4", "2", "1", "0"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Minden téglalap átlói merőlegesek egymásra.", "answer": false },
+        { "type": "mc", "time": 10, "text": "Hány oldala van a téglalapnak?", "options": ["4", "3", "5", "6"], "answer": 0 },
+        { "type": "text", "time": 20, "svg": "square-a", "text": "A négyzet oldala $a = 4$ cm. Hány cm a négy oldal hosszának összege?", "answer": "16/16 cm" },
+        { "type": "mc", "time": 25, "text": "Mire kell figyelni a téglalap szerkesztésekor?", "options": ["hogy a szomszédos oldalak derékszöget zárjanak be", "hogy minden oldal más hosszú legyen", "hogy görbe vonalat használjunk", "hogy 5 csúcsa legyen"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a tulajdonságokat az alakzattal!", "pairs": [
+          ["4 egyenlő oldal és 4 derékszög", "négyzet"],
+          ["szemközti oldalai egyenlők, 4 derékszöge van", "téglalap"],
+          ["3 oldala van", "háromszög"],
+          ["görbe vonal határolja", "kör"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Bevezetés a geometriába",
+      "description": "Témazáró gyakorló: csoportosítás, halmazok, testek, szögek, sokszögek, egyenesek, téglalap.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "shapes-sort", "text": "Hány kör van az ábrán?", "options": ["2", "1", "3", "4"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "venn-shapes", "text": "Hány elem van a „piros” vagy a „háromszög” halmazban (legalább az egyikben)?", "options": ["5", "6", "3", "4"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Hány éle van a kockának?", "answer": "12/tizenkettő" },
+        { "type": "mc", "time": 20, "svg": "protractor-60", "text": "Milyen szöget mértünk a szögmérővel?", "options": ["hegyesszöget", "derékszöget", "tompaszöget", "egyenesszöget"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A tompaszög $90^\\circ$ és $180^\\circ$ közötti szög.", "answer": true },
+        { "type": "mc", "time": 20, "svg": "concave-convex", "text": "Melyik sokszög domború (konvex)?", "options": ["A", "B", "mindkettő", "egyik sem"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "cube-net", "text": "Melyik test hálója látható?", "options": ["kocka", "téglatest", "henger", "gúla"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Hány fokos az egyenesszög?", "answer": "180/180°/180 fok" },
+        { "type": "mc", "time": 20, "svg": "perpendicular-lines", "text": "Hány fokos szöget zár be a két egyenes?", "options": ["$90^\\circ$", "$45^\\circ$", "$180^\\circ$", "$60^\\circ$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A téglalap átlói egyenlő hosszúak.", "answer": true },
+        { "type": "mc", "time": 15, "text": "Melyik alakzat NEM sokszög?", "options": ["kör", "négyzet", "háromszög", "hatszög"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a fogalmakat egy-egy példával!", "pairs": [
+          ["test", "kocka"],
+          ["síkidom", "téglalap"],
+          ["vonal", "egyenes"],
+          ["szög", "derékszög"]
+        ] }
+      ]
+    }
+  ]
+}

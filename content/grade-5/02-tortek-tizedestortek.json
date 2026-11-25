@@ -1,0 +1,2237 @@
+{
+  "idPrefix": "g5-tortek",
+  "topic": "II. Törtek, tizedes törtek",
+  "grade_level": "5. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "ismerkedes-a-tortekkel",
+      "title": "Ismerkedés a törtekkel",
+      "description": "Az egész részei, számláló és nevező, törtrész kiszámítása.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 20,
+          "svg": "pie-3-8",
+          "text": "A kör hányad részét színeztük ki?",
+          "options": [
+            "$\\frac{3}{8}$",
+            "$\\frac{3}{5}$",
+            "$\\frac{5}{8}$",
+            "$\\frac{1}{3}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "svg": "chocolate-bar",
+          "text": "A csokoládé hányad részét ették meg (szürke kockák)?",
+          "options": [
+            "$\\frac{5}{12}$",
+            "$\\frac{7}{12}$",
+            "$\\frac{5}{7}$",
+            "$\\frac{1}{5}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mit mutat meg a tört nevezője?",
+          "options": [
+            "hány egyenlő részre osztottuk az egészet",
+            "hány részt vettünk el",
+            "mekkora az egész",
+            "hány egész van"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Hány perc egy negyedóra?",
+          "answer": "15/15 perc"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "A $\\frac{3}{3}$ egy egésszel egyenlő.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "svg": "pizza-8",
+          "text": "Bence megette a szürke szeleteket. A pizza hányad része maradt meg?",
+          "options": [
+            "$\\frac{5}{8}$",
+            "$\\frac{3}{8}$",
+            "$\\frac{3}{5}$",
+            "$\\frac{1}{2}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi 12 alma $\\frac{1}{3}$ része?",
+          "options": [
+            "4",
+            "3",
+            "6",
+            "9"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Mennyi a 20 negyede?",
+          "answer": "5"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "Az $\\frac{1}{2}$ nagyobb, mint az $\\frac{1}{3}$.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 15,
+          "text": "Hogyan olvassuk ki: $\\frac{2}{5}$?",
+          "options": [
+            "két ötöd",
+            "öt ketted",
+            "két egész öt",
+            "ötből kettő egész"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Hány centiméter 1 méter $\\frac{3}{4}$ része?",
+          "options": [
+            "75 cm",
+            "34 cm",
+            "25 cm",
+            "43 cm"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a törteket a nevükkel!",
+          "pairs": [
+            [
+              "$\\frac{1}{2}$",
+              "fél"
+            ],
+            [
+              "$\\frac{1}{4}$",
+              "negyed"
+            ],
+            [
+              "$\\frac{3}{4}$",
+              "háromnegyed"
+            ],
+            [
+              "$\\frac{1}{3}$",
+              "harmad"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tortek-bovitese-egyszerusitese-osszehasonlitasa",
+      "title": "Törtek bővítése, egyszerűsítése, összehasonlítása",
+      "description": "Egyenlő törtek, bővítés, egyszerűsítés, törtek sorba rendezése.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 25,
+          "svg": "equal-fractions",
+          "text": "Melyik egyenlőséget mutatja az ábra?",
+          "options": [
+            "$\\frac{1}{2} = \\frac{2}{4} = \\frac{4}{8}$",
+            "$\\frac{1}{2} \\lt \\frac{2}{4} \\lt \\frac{4}{8}$",
+            "$\\frac{1}{2} = \\frac{2}{8}$",
+            "$\\frac{2}{4} = \\frac{4}{4}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Egyszerűsítsd: $\\frac{6}{9}$",
+          "options": [
+            "$\\frac{2}{3}$",
+            "$\\frac{3}{4}$",
+            "$\\frac{1}{3}$",
+            "$\\frac{6}{3}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Melyik szám kerül a kérdőjel helyére? $\\frac{3}{4} = \\frac{?}{12}$",
+          "answer": "9"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "Bővítéskor a számlálót és a nevezőt is ugyanazzal a számmal szorozzuk.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "svg": "fraction-bars-compare",
+          "text": "Melyik a legnagyobb tört?",
+          "options": [
+            "$\\frac{3}{4}$",
+            "$\\frac{2}{3}$",
+            "$\\frac{1}{2}$",
+            "mind egyenlő"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 15,
+          "text": "Melyik a nagyobb: $\\frac{2}{5}$ vagy $\\frac{3}{5}$?",
+          "options": [
+            "$\\frac{3}{5}$",
+            "$\\frac{2}{5}$",
+            "egyenlők",
+            "nem lehet eldönteni"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Melyik a nagyobb: $\\frac{1}{3}$ vagy $\\frac{1}{4}$?",
+          "options": [
+            "$\\frac{1}{3}$",
+            "$\\frac{1}{4}$",
+            "egyenlők",
+            "nem lehet eldönteni"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "$\\frac{4}{8} = \\frac{1}{2}$",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Egyszerűsítsd a lehető legjobban: $\\frac{10}{15}$",
+          "options": [
+            "$\\frac{2}{3}$",
+            "$\\frac{5}{3}$",
+            "$\\frac{1}{3}$",
+            "$\\frac{3}{5}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Melyik szám kerül a kérdőjel helyére? $\\frac{2}{3} = \\frac{8}{?}$",
+          "answer": "12"
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Melyik a helyes növekvő sorrend?",
+          "options": [
+            "$\\frac{1}{5}, \\frac{1}{4}, \\frac{1}{3}, \\frac{1}{2}$",
+            "$\\frac{1}{2}, \\frac{1}{3}, \\frac{1}{4}, \\frac{1}{5}$",
+            "$\\frac{1}{3}, \\frac{1}{5}, \\frac{1}{2}, \\frac{1}{4}$",
+            "$\\frac{1}{4}, \\frac{1}{5}, \\frac{1}{2}, \\frac{1}{3}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a törteket a legegyszerűbb alakjukkal!",
+          "pairs": [
+            [
+              "$\\frac{2}{4}$",
+              "$\\frac{1}{2}$"
+            ],
+            [
+              "$\\frac{3}{9}$",
+              "$\\frac{1}{3}$"
+            ],
+            [
+              "$\\frac{4}{16}$",
+              "$\\frac{1}{4}$"
+            ],
+            [
+              "$\\frac{6}{10}$",
+              "$\\frac{3}{5}$"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tortek-abrazolasa-szamegyenesen-vegyes-tortek",
+      "title": "Törtek ábrázolása számegyenesen, vegyes törtek",
+      "description": "Törtek a számegyenesen, áltörtek és vegyes törtek átírása.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 30,
+          "svg": "fraction-number-line",
+          "text": "Melyik számot jelöli a $P$ pont?",
+          "options": [
+            "$1\\frac{1}{3}$",
+            "$\\frac{1}{3}$",
+            "$1\\frac{2}{3}$",
+            "$\\frac{3}{4}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Írd fel vegyes törtként: $\\frac{7}{4}$",
+          "options": [
+            "$1\\frac{3}{4}$",
+            "$1\\frac{1}{4}$",
+            "$2\\frac{3}{4}$",
+            "$7\\frac{1}{4}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Melyik szám kerül a kérdőjel helyére? $2\\frac{1}{2} = \\frac{?}{2}$",
+          "answer": "5"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "Az $\\frac{5}{5}$ a számegyenesen az 1 helyén van.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "svg": "fraction-number-line",
+          "text": "Melyik számot jelöli a $Q$ pont?",
+          "options": [
+            "$\\frac{2}{3}$",
+            "$\\frac{1}{3}$",
+            "$\\frac{1}{2}$",
+            "$\\frac{3}{2}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Írd fel áltörtként: $1\\frac{2}{5}$",
+          "options": [
+            "$\\frac{7}{5}$",
+            "$\\frac{3}{5}$",
+            "$\\frac{12}{5}$",
+            "$\\frac{6}{5}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Melyik tört nagyobb 1-nél?",
+          "options": [
+            "$\\frac{5}{4}$",
+            "$\\frac{3}{4}$",
+            "$\\frac{4}{4}$",
+            "$\\frac{1}{2}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "A vegyes tört egy egész számból és egy 1-nél kisebb törtből áll.",
+          "answer": true
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Mennyi a $\\frac{9}{4}$ egészrésze?",
+          "answer": "2"
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Írd fel áltörtként: $3\\frac{1}{3}$",
+          "options": [
+            "$\\frac{10}{3}$",
+            "$\\frac{4}{3}$",
+            "$\\frac{7}{3}$",
+            "$\\frac{9}{3}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 15,
+          "text": "Melyik szám van a 0 és az 1 között pontosan középen?",
+          "options": [
+            "$\\frac{1}{2}$",
+            "$\\frac{1}{3}$",
+            "$\\frac{1}{4}$",
+            "$\\frac{2}{3}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 60,
+          "text": "Párosítsd az áltörteket a vegyes tört alakjukkal!",
+          "pairs": [
+            [
+              "$\\frac{3}{2}$",
+              "$1\\frac{1}{2}$"
+            ],
+            [
+              "$\\frac{5}{3}$",
+              "$1\\frac{2}{3}$"
+            ],
+            [
+              "$\\frac{9}{4}$",
+              "$2\\frac{1}{4}$"
+            ],
+            [
+              "$\\frac{7}{2}$",
+              "$3\\frac{1}{2}$"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "egyenlo-nevezoju-tortek-osszeadasa-es-kivonasa",
+      "title": "Egyenlő nevezőjű törtek összeadása és kivonása",
+      "description": "Azonos nevezőjű törtek összeadása, kivonása, vegyes törtek.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 25,
+          "svg": "fraction-add-same",
+          "text": "Az ábra alapján mennyi $\\frac{2}{7} + \\frac{3}{7}$?",
+          "options": [
+            "$\\frac{5}{7}$",
+            "$\\frac{5}{14}$",
+            "$\\frac{6}{7}$",
+            "$\\frac{1}{7}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $\\frac{5}{9} - \\frac{2}{9}$?",
+          "options": [
+            "$\\frac{3}{9}$",
+            "$\\frac{3}{0}$",
+            "$\\frac{7}{9}$",
+            "$\\frac{3}{18}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Mennyi $\\frac{1}{5} + \\frac{2}{5} + \\frac{2}{5}$?",
+          "answer": "1"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "Egyenlő nevezőjű törtek összeadásakor a nevezőket is összeadjuk.",
+          "answer": false
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $\\frac{7}{8} - \\frac{3}{8}$?",
+          "options": [
+            "$\\frac{4}{8}$",
+            "$\\frac{4}{0}$",
+            "$\\frac{10}{8}$",
+            "$\\frac{4}{16}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $1 - \\frac{3}{10}$?",
+          "options": [
+            "$\\frac{7}{10}$",
+            "$\\frac{3}{10}$",
+            "$\\frac{2}{10}$",
+            "$\\frac{13}{10}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $\\frac{3}{4} + \\frac{3}{4}$?",
+          "options": [
+            "$1\\frac{1}{2}$",
+            "$\\frac{6}{8}$",
+            "$\\frac{3}{8}$",
+            "$\\frac{9}{16}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 30,
+          "text": "Mennyi $1\\frac{1}{3} + \\frac{2}{3}$?",
+          "answer": "2"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "$\\frac{4}{6} - \\frac{4}{6} = 0$",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Egy pizzát 8 egyenlő szeletre vágtak. Anna 3, Béla 2 szeletet evett. A pizza hányad részét ették meg együtt?",
+          "options": [
+            "$\\frac{5}{8}$",
+            "$\\frac{5}{16}$",
+            "$\\frac{3}{8}$",
+            "$\\frac{1}{8}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mennyi $2 - \\frac{1}{4}$?",
+          "options": [
+            "$1\\frac{3}{4}$",
+            "$1\\frac{1}{4}$",
+            "$\\frac{1}{4}$",
+            "$2\\frac{1}{4}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a műveleteket az eredményükkel!",
+          "pairs": [
+            [
+              "$\\frac{1}{5} + \\frac{3}{5}$",
+              "$\\frac{4}{5}$"
+            ],
+            [
+              "$\\frac{4}{9} - \\frac{1}{9}$",
+              "$\\frac{3}{9}$"
+            ],
+            [
+              "$\\frac{2}{7} + \\frac{5}{7}$",
+              "$1$"
+            ],
+            [
+              "$\\frac{5}{6} - \\frac{5}{6}$",
+              "$0$"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "kulonbozo-nevezoju-tortek-osszeadasa-es-kivonasa",
+      "title": "Különböző nevezőjű törtek összeadása és kivonása",
+      "description": "Közös nevezőre hozás, összeadás és kivonás.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $\\frac{1}{2} + \\frac{1}{4}$?",
+          "options": [
+            "$\\frac{3}{4}$",
+            "$\\frac{2}{6}$",
+            "$\\frac{1}{6}$",
+            "$\\frac{2}{4}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $\\frac{1}{2} + \\frac{1}{3}$?",
+          "options": [
+            "$\\frac{5}{6}$",
+            "$\\frac{2}{5}$",
+            "$\\frac{1}{5}$",
+            "$\\frac{2}{6}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Melyik szám kerül a kérdőjel helyére? $\\frac{1}{4} + \\frac{1}{2} = \\frac{?}{4}$",
+          "answer": "3"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "Különböző nevezőjű törteket közös nevezőre hozás után adunk össze.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $\\frac{3}{5} + \\frac{1}{10}$?",
+          "options": [
+            "$\\frac{7}{10}$",
+            "$\\frac{4}{15}$",
+            "$\\frac{4}{10}$",
+            "$\\frac{3}{10}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mennyi $\\frac{5}{6} - \\frac{1}{3}$?",
+          "options": [
+            "$\\frac{1}{2}$",
+            "$\\frac{4}{3}$",
+            "$\\frac{4}{6}$",
+            "$\\frac{1}{3}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mi a legkisebb közös nevező az $\\frac{1}{4}$ és az $\\frac{1}{6}$ esetén?",
+          "options": [
+            "12",
+            "24",
+            "10",
+            "6"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Melyik szám kerül a kérdőjel helyére? $\\frac{2}{3} + \\frac{1}{6} = \\frac{?}{6}$",
+          "answer": "5"
+        },
+        {
+          "type": "tf",
+          "time": 20,
+          "text": "$\\frac{1}{2} + \\frac{1}{3} = \\frac{2}{5}$",
+          "answer": false
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Kati megette a torta felét, Peti a negyedét. Mennyit ettek meg együtt?",
+          "options": [
+            "$\\frac{3}{4}$",
+            "$\\frac{2}{6}$",
+            "$\\frac{1}{6}$",
+            "$\\frac{2}{4}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mennyi $1 - \\frac{1}{3} - \\frac{1}{6}$?",
+          "options": [
+            "$\\frac{1}{2}$",
+            "$\\frac{1}{3}$",
+            "$\\frac{2}{3}$",
+            "$\\frac{1}{6}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 60,
+          "text": "Párosítsd a műveleteket az eredményükkel!",
+          "pairs": [
+            [
+              "$\\frac{1}{2} + \\frac{1}{4}$",
+              "$\\frac{3}{4}$"
+            ],
+            [
+              "$\\frac{1}{3} + \\frac{1}{6}$",
+              "$\\frac{1}{2}$"
+            ],
+            [
+              "$\\frac{3}{4} - \\frac{1}{2}$",
+              "$\\frac{1}{4}$"
+            ],
+            [
+              "$\\frac{1}{2} - \\frac{1}{10}$",
+              "$\\frac{2}{5}$"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tort-szorzasa-termeszetes-szammal",
+      "title": "Tört szorzása természetes számmal",
+      "description": "Tört szorzása természetes számmal, egyszerűsítés, vegyes törtek.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 25,
+          "svg": "fraction-times-int",
+          "text": "Melyik szorzást mutatja az ábra?",
+          "options": [
+            "$3 \\cdot \\frac{2}{5} = \\frac{6}{5}$",
+            "$3 \\cdot \\frac{2}{5} = \\frac{6}{15}$",
+            "$2 \\cdot \\frac{3}{5} = \\frac{5}{5}$",
+            "$3 + \\frac{2}{5}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $4 \\cdot \\frac{3}{8}$?",
+          "options": [
+            "$1\\frac{1}{2}$",
+            "$\\frac{12}{32}$",
+            "$\\frac{7}{8}$",
+            "$\\frac{3}{32}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 15,
+          "text": "Mennyi $5 \\cdot \\frac{1}{5}$?",
+          "answer": "1"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "Ha törtet természetes számmal szorzunk, a számlálót szorozzuk, a nevező nem változik.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $3 \\cdot \\frac{2}{9}$?",
+          "options": [
+            "$\\frac{2}{3}$",
+            "$\\frac{6}{27}$",
+            "$\\frac{5}{9}$",
+            "$\\frac{2}{27}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Egy pohárba $\\frac{1}{4}$ liter fér. Mennyi fér 6 pohárba?",
+          "options": [
+            "$1\\frac{1}{2}$ liter",
+            "$\\frac{6}{24}$ liter",
+            "$\\frac{1}{24}$ liter",
+            "6 liter"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $2 \\cdot \\frac{3}{4}$?",
+          "options": [
+            "$1\\frac{1}{2}$",
+            "$\\frac{6}{8}$",
+            "$\\frac{5}{4}$",
+            "$\\frac{3}{8}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Mennyi $10 \\cdot \\frac{3}{10}$?",
+          "answer": "3"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "$3 \\cdot \\frac{1}{3} = 1$",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $7 \\cdot \\frac{2}{7}$?",
+          "options": [
+            "$2$",
+            "$\\frac{14}{49}$",
+            "$\\frac{9}{7}$",
+            "$7$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mennyi $4 \\cdot 1\\frac{1}{2}$?",
+          "options": [
+            "$6$",
+            "$4\\frac{1}{2}$",
+            "$5$",
+            "$8$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a szorzásokat az eredményükkel!",
+          "pairs": [
+            [
+              "$2 \\cdot \\frac{1}{4}$",
+              "$\\frac{1}{2}$"
+            ],
+            [
+              "$3 \\cdot \\frac{1}{3}$",
+              "$1$"
+            ],
+            [
+              "$5 \\cdot \\frac{2}{5}$",
+              "$2$"
+            ],
+            [
+              "$4 \\cdot \\frac{3}{4}$",
+              "$3$"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tort-osztasa-pozitiv-egesz-szammal",
+      "title": "Tört osztása pozitív egész számmal",
+      "description": "Tört osztása egész számmal: a számláló osztása vagy a nevező szorzása.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 25,
+          "svg": "div-bar-3-4",
+          "text": "Egy csokoládé $\\frac{3}{4}$ részét 3 gyerek egyenlően osztja szét. Mennyi jut egy gyereknek?",
+          "options": [
+            "$\\frac{1}{4}$",
+            "$\\frac{3}{4}$",
+            "$\\frac{9}{4}$",
+            "$\\frac{1}{3}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $\\frac{4}{5} : 2$?",
+          "options": [
+            "$\\frac{2}{5}$",
+            "$\\frac{8}{10}$",
+            "$\\frac{8}{5}$",
+            "$\\frac{2}{10}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $\\frac{1}{2} : 2$?",
+          "options": [
+            "$\\frac{1}{4}$",
+            "$1$",
+            "$\\frac{2}{2}$",
+            "$\\frac{1}{2}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 25,
+          "text": "Ha a számláló nem osztható az osztóval, akkor a nevezőt szorozzuk meg vele.",
+          "answer": true
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Melyik szám kerül a kérdőjel helyére? $\\frac{6}{7} : 3 = \\frac{?}{7}$",
+          "answer": "2"
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mennyi $\\frac{2}{3} : 4$?",
+          "options": [
+            "$\\frac{1}{6}$",
+            "$\\frac{8}{3}$",
+            "$\\frac{2}{7}$",
+            "$\\frac{1}{3}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Fél liter tejet 2 pohárba töltünk egyenlően. Mennyi jut egy pohárba?",
+          "options": [
+            "$\\frac{1}{4}$ liter",
+            "1 liter",
+            "$\\frac{1}{2}$ liter",
+            "2 liter"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 20,
+          "text": "Ha egy (pozitív) törtet 1-nél nagyobb egész számmal osztunk, kisebb számot kapunk.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $\\frac{9}{10} : 3$?",
+          "options": [
+            "$\\frac{3}{10}$",
+            "$\\frac{27}{10}$",
+            "$\\frac{9}{3}$",
+            "$\\frac{3}{30}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Melyik szám kerül a kérdőjel helyére? $\\frac{8}{9} : 4 = \\frac{?}{9}$",
+          "answer": "2"
+        },
+        {
+          "type": "mc",
+          "time": 15,
+          "text": "Mennyi $1 : 4$ törtként?",
+          "options": [
+            "$\\frac{1}{4}$",
+            "$4$",
+            "$\\frac{4}{1}$",
+            "$\\frac{1}{5}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd az osztásokat az eredményükkel!",
+          "pairs": [
+            [
+              "$\\frac{4}{5} : 2$",
+              "$\\frac{2}{5}$"
+            ],
+            [
+              "$\\frac{6}{7} : 3$",
+              "$\\frac{2}{7}$"
+            ],
+            [
+              "$\\frac{1}{3} : 2$",
+              "$\\frac{1}{6}$"
+            ],
+            [
+              "$\\frac{3}{8} : 3$",
+              "$\\frac{1}{8}$"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "muveletek-sorrendje-zarojelfelbontas",
+      "title": "Műveletek sorrendje, zárójelfelbontás",
+      "description": "Műveleti sorrend törtekkel, zárójelek használata.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mennyi $\\frac{1}{2} + \\frac{1}{2} \\cdot 2$?",
+          "options": [
+            "$1\\frac{1}{2}$",
+            "$2$",
+            "$1$",
+            "$\\frac{3}{2} \\cdot 2$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $\\left(\\frac{1}{2} + \\frac{1}{2}\\right) \\cdot 2$?",
+          "options": [
+            "$2$",
+            "$1\\frac{1}{2}$",
+            "$1$",
+            "$4$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Mennyi $3 \\cdot \\frac{1}{4} + \\frac{1}{4}$?",
+          "answer": "1"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "Zárójel nélkül előbb szorzunk, és csak utána adunk össze.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mennyi $1 - \\frac{1}{3} \\cdot 2$?",
+          "options": [
+            "$\\frac{1}{3}$",
+            "$\\frac{4}{3}$",
+            "$\\frac{2}{3}$",
+            "$0$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $\\left(1 - \\frac{1}{3}\\right) \\cdot 3$?",
+          "options": [
+            "$2$",
+            "$1$",
+            "$3$",
+            "$\\frac{2}{9}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $\\frac{2}{5} + \\frac{3}{5} - \\frac{1}{5}$?",
+          "options": [
+            "$\\frac{4}{5}$",
+            "$1$",
+            "$\\frac{6}{5}$",
+            "$\\frac{1}{5}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 30,
+          "text": "$\\left(\\frac{1}{2} + \\frac{1}{4}\\right) : 3 = \\frac{1}{4}$",
+          "answer": true
+        },
+        {
+          "type": "text",
+          "time": 15,
+          "text": "Mennyi $10 - 4 \\cdot 2$?",
+          "answer": "2"
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $\\frac{5}{6} - \\left(\\frac{1}{6} + \\frac{2}{6}\\right)$?",
+          "options": [
+            "$\\frac{2}{6}$",
+            "$\\frac{4}{6}$",
+            "$\\frac{8}{6}$",
+            "$0$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mennyi $4 \\cdot \\left(\\frac{3}{8} + \\frac{1}{8}\\right)$?",
+          "options": [
+            "$2$",
+            "$\\frac{16}{8}$-nál több",
+            "$\\frac{4}{8}$",
+            "$1$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a kifejezéseket az értékükkel!",
+          "pairs": [
+            [
+              "$\\frac{1}{2} + \\frac{1}{4}$",
+              "$\\frac{3}{4}$"
+            ],
+            [
+              "$2 \\cdot \\frac{1}{4}$",
+              "$\\frac{1}{2}$"
+            ],
+            [
+              "$1 - \\frac{3}{4}$",
+              "$\\frac{1}{4}$"
+            ],
+            [
+              "$3 \\cdot \\frac{1}{3}$",
+              "$1$"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "mit-tanultunk-eddig-gyakoroljunk",
+      "title": "Mit tanultunk eddig? Gyakoroljunk!",
+      "description": "Vegyes gyakorlás: törtrész, egyszerűsítés, összeadás, kivonás, szorzás, osztás.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 20,
+          "svg": "pie-3-8",
+          "text": "A kör hányad része NINCS kiszínezve?",
+          "options": [
+            "$\\frac{5}{8}$",
+            "$\\frac{3}{8}$",
+            "$\\frac{5}{3}$",
+            "$\\frac{1}{2}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Egyszerűsítsd: $\\frac{8}{12}$",
+          "options": [
+            "$\\frac{2}{3}$",
+            "$\\frac{3}{4}$",
+            "$\\frac{3}{2}$",
+            "$\\frac{1}{2}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Melyik szám kerül a kérdőjel helyére? $\\frac{3}{8} + \\frac{2}{8} = \\frac{?}{8}$",
+          "answer": "5"
+        },
+        {
+          "type": "tf",
+          "time": 20,
+          "text": "$\\frac{2}{3} \\gt \\frac{3}{4}$",
+          "answer": false
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $\\frac{1}{3} + \\frac{1}{2}$?",
+          "options": [
+            "$\\frac{5}{6}$",
+            "$\\frac{2}{5}$",
+            "$\\frac{1}{6}$",
+            "$\\frac{2}{6}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $5 \\cdot \\frac{2}{5}$?",
+          "options": [
+            "$2$",
+            "$\\frac{10}{25}$",
+            "$\\frac{7}{5}$",
+            "$10$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $\\frac{4}{9} : 2$?",
+          "options": [
+            "$\\frac{2}{9}$",
+            "$\\frac{8}{9}$",
+            "$\\frac{4}{18}$-nál több",
+            "$\\frac{2}{18}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Melyik szám kerül a kérdőjel helyére? $2\\frac{3}{4} = \\frac{?}{4}$",
+          "answer": "11"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "Az $\\frac{1}{2}$ és a $\\frac{3}{6}$ egyenlő.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi 30-nak a $\\frac{2}{3}$ része?",
+          "options": [
+            "20",
+            "10",
+            "45",
+            "15"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $1 - \\frac{5}{8}$?",
+          "options": [
+            "$\\frac{3}{8}$",
+            "$\\frac{5}{8}$",
+            "$\\frac{4}{8}$",
+            "$\\frac{13}{8}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a törteket a legegyszerűbb alakjukkal!",
+          "pairs": [
+            [
+              "$\\frac{5}{10}$",
+              "$\\frac{1}{2}$"
+            ],
+            [
+              "$\\frac{4}{12}$",
+              "$\\frac{1}{3}$"
+            ],
+            [
+              "$\\frac{6}{8}$",
+              "$\\frac{3}{4}$"
+            ],
+            [
+              "$\\frac{10}{25}$",
+              "$\\frac{2}{5}$"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tizedes-tortek",
+      "title": "Tizedes törtek",
+      "description": "Tized, század, ezred, a tizedes törtek helyiértékei, kiolvasás és írás.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 20,
+          "svg": "tenths-strip",
+          "text": "A szalag hányad részét színeztük ki? Add meg tizedes tört alakban!",
+          "options": [
+            "0,3",
+            "0,7",
+            "3,0",
+            "0,03"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "svg": "place-value-table",
+          "text": "Melyik helyiértéken áll a 4-es számjegy a 305,47-ben?",
+          "options": [
+            "tized",
+            "század",
+            "tízes",
+            "egyes"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Írd fel tizedes tört alakban: $\\frac{3}{10}$",
+          "answer": "0,3"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "$0{,}5 = \\frac{5}{10}$",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Írd fel tizedes tört alakban: $\\frac{7}{100}$",
+          "options": [
+            "0,07",
+            "0,7",
+            "7,00",
+            "0,007"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Hogyan olvassuk ki: 2,35?",
+          "options": [
+            "két egész harmincöt század",
+            "két egész harmincöt tized",
+            "kettőszázharmincöt",
+            "harmincöt egész két század"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Melyik törttel egyenlő a 0,25?",
+          "options": [
+            "$\\frac{25}{100}$",
+            "$\\frac{25}{10}$",
+            "$\\frac{2}{5}$",
+            "$\\frac{1}{25}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Írd fel tizedes törtként: négy egész hat tized",
+          "answer": "4,6"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "$0{,}7 = 0{,}70$",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Hány cm 1,5 m?",
+          "options": [
+            "150 cm",
+            "15 cm",
+            "105 cm",
+            "1500 cm"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Hogyan írjuk tizedes törttel: két egész három század?",
+          "options": [
+            "2,03",
+            "2,3",
+            "2,003",
+            "23,0"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a törteket a tizedes tört alakjukkal!",
+          "pairs": [
+            [
+              "$\\frac{1}{10}$",
+              "0,1"
+            ],
+            [
+              "$\\frac{1}{100}$",
+              "0,01"
+            ],
+            [
+              "$\\frac{5}{10}$",
+              "0,5"
+            ],
+            [
+              "$\\frac{25}{100}$",
+              "0,25"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tizedes-tortek-abrazolasa-kerekitese-es-osszehasonlitasa",
+      "title": "Tizedes törtek ábrázolása, kerekítése és összehasonlítása",
+      "description": "Tizedes törtek a számegyenesen, kerekítés, sorba rendezés.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 25,
+          "svg": "decimal-number-line",
+          "text": "Melyik számot jelöli az $A$ pont?",
+          "options": [
+            "0,7",
+            "0,07",
+            "7",
+            "0,35"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "svg": "decimal-number-line",
+          "text": "Melyik számot jelöli a $B$ pont?",
+          "options": [
+            "0,35",
+            "0,3",
+            "0,4",
+            "3,5"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Kerekítsd tizedekre: 3,46",
+          "options": [
+            "3,5",
+            "3,4",
+            "3,46",
+            "3"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "$0{,}8 \\gt 0{,}75$",
+          "answer": true
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Kerekítsd egészekre: 2,07",
+          "answer": "2"
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Melyik a legnagyobb szám?",
+          "options": [
+            "0,9",
+            "0,89",
+            "0,099",
+            "0,809"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Kerekítsd századokra: 5,449",
+          "options": [
+            "5,45",
+            "5,44",
+            "5,5",
+            "5,4"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "$0{,}3 \\lt 0{,}25$",
+          "answer": false
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Melyik a helyes növekvő sorrend?",
+          "options": [
+            "0,2; 0,25; 0,3; 0,35",
+            "0,25; 0,2; 0,35; 0,3",
+            "0,3; 0,25; 0,2; 0,35",
+            "0,35; 0,3; 0,25; 0,2"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 30,
+          "text": "Kerekítsd tizedekre: 12,95",
+          "answer": "13/13,0"
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Melyik szám van az 1,2 és az 1,3 között pontosan középen?",
+          "options": [
+            "1,25",
+            "1,5",
+            "1,23",
+            "1,35"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a számokat a tizedekre kerekített értékükkel!",
+          "pairs": [
+            [
+              "2,34",
+              "2,3"
+            ],
+            [
+              "2,35",
+              "2,4"
+            ],
+            [
+              "2,96",
+              "3,0"
+            ],
+            [
+              "2,01",
+              "2,0"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tizedes-tortek-osszeadasa-es-kivonasa",
+      "title": "Tizedes törtek összeadása és kivonása",
+      "description": "Összeadás és kivonás tizedes törtekkel, helyiértékek egymás alá írása.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $3{,}7 + 2{,}45$?",
+          "options": [
+            "6,15",
+            "5,15",
+            "6,52",
+            "2,82"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $5 - 1{,}25$?",
+          "options": [
+            "3,75",
+            "4,25",
+            "3,85",
+            "4,75"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 15,
+          "text": "Mennyi $0{,}6 + 0{,}4$?",
+          "answer": "1"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "Tizedes törtek írásbeli összeadásakor a tizedesvesszőket egymás alá írjuk.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mennyi $12{,}5 - 3{,}75$?",
+          "options": [
+            "8,75",
+            "9,75",
+            "8,25",
+            "9,25"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Hány méter 1,5 m és 75 cm együtt?",
+          "options": [
+            "2,25 m",
+            "76,5 m",
+            "1,575 m",
+            "9 m"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "svg": "shopping-weights",
+          "text": "Mennyi a három szatyor tömege együtt?",
+          "options": [
+            "4,5 kg",
+            "4,05 kg",
+            "3,5 kg",
+            "5,4 kg"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Mennyi $10 - 0{,}1$?",
+          "answer": "9,9"
+        },
+        {
+          "type": "tf",
+          "time": 10,
+          "text": "$0{,}3 + 0{,}3 = 0{,}6$",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $4{,}08 + 1{,}2$?",
+          "options": [
+            "5,28",
+            "4,20",
+            "5,10",
+            "16,08"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $7{,}5 - 2{,}75$?",
+          "options": [
+            "4,75",
+            "5,25",
+            "4,25",
+            "5,75"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a műveleteket az eredményükkel!",
+          "pairs": [
+            [
+              "$0{,}5 + 0{,}5$",
+              "1"
+            ],
+            [
+              "$1{,}2 + 0{,}3$",
+              "1,5"
+            ],
+            [
+              "$2 - 0{,}4$",
+              "1,6"
+            ],
+            [
+              "$3{,}25 - 1{,}25$",
+              "2"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tizedes-tortek-szorzasa-termeszetes-szammal",
+      "title": "Tizedes törtek szorzása természetes számmal",
+      "description": "Szorzás 10-zel, 100-zal, 1000-rel, tizedes tört szorzása természetes számmal.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 15,
+          "text": "Mennyi $3{,}45 \\cdot 10$?",
+          "options": [
+            "34,5",
+            "345",
+            "0,345",
+            "3,450"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $0{,}072 \\cdot 100$?",
+          "options": [
+            "7,2",
+            "72",
+            "0,72",
+            "720"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $1{,}5 \\cdot 4$?",
+          "options": [
+            "6",
+            "4,5",
+            "60",
+            "0,6"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "10-zel szorzáskor a tizedesvessző egy hellyel jobbra kerül.",
+          "answer": true
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Mennyi $2{,}4 \\cdot 3$?",
+          "answer": "7,2"
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $0{,}25 \\cdot 8$?",
+          "options": [
+            "2",
+            "0,2",
+            "20",
+            "2,5"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "svg": "scale-apples",
+          "text": "1 kg alma 480 Ft. Mennyibe kerül a mérlegen lévő 2,5 kg alma?",
+          "options": [
+            "1200 Ft",
+            "960 Ft",
+            "1440 Ft",
+            "482,5 Ft"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Mennyi $1{,}2 \\cdot 100$?",
+          "answer": "120"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "$0{,}5 \\cdot 6 = 3$",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Egy szalag 4,5 m hosszú. Hány méter 3 ilyen szalag?",
+          "options": [
+            "13,5 m",
+            "12,5 m",
+            "7,5 m",
+            "135 m"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $0{,}125 \\cdot 1000$?",
+          "options": [
+            "125",
+            "12,5",
+            "1250",
+            "1,25"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a szorzásokat az eredményükkel!",
+          "pairs": [
+            [
+              "$0{,}1 \\cdot 10$",
+              "1"
+            ],
+            [
+              "$0{,}3 \\cdot 4$",
+              "1,2"
+            ],
+            [
+              "$2{,}5 \\cdot 2$",
+              "5"
+            ],
+            [
+              "$1{,}25 \\cdot 100$",
+              "125"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tizedes-tortek-osztasa-pozitiv-egesz-szammal",
+      "title": "Tizedes törtek osztása pozitív egész számmal",
+      "description": "Osztás 10-zel, 100-zal, tizedes tört osztása egész számmal.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 15,
+          "text": "Mennyi $45{,}6 : 10$?",
+          "options": [
+            "4,56",
+            "456",
+            "0,456",
+            "45,06"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $3{,}6 : 4$?",
+          "options": [
+            "0,9",
+            "9",
+            "0,09",
+            "1,4"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Mennyi $7 : 100$?",
+          "answer": "0,07"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "100-zal osztáskor a tizedesvessző két hellyel balra kerül.",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $1{,}5 : 3$?",
+          "options": [
+            "0,5",
+            "5",
+            "0,05",
+            "4,5"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $12{,}4 : 4$?",
+          "options": [
+            "3,1",
+            "3,01",
+            "31",
+            "8,4"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "svg": "scale-apples",
+          "text": "Egy másik boltban 2,5 kg alma 1200 Ft. Mennyibe kerül itt 1 kg?",
+          "options": [
+            "480 Ft",
+            "500 Ft",
+            "300 Ft",
+            "3000 Ft"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 30,
+          "text": "Mennyi $9 : 4$ tizedes tört alakban?",
+          "answer": "2,25"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "$0{,}8 : 2 = 0{,}4$",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Egy 10 m-es szalagot 4 egyenlő részre vágunk. Milyen hosszú egy rész?",
+          "options": [
+            "2,5 m",
+            "2,4 m",
+            "4 m",
+            "0,4 m"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $4{,}2 : 6$?",
+          "options": [
+            "0,7",
+            "7",
+            "0,07",
+            "1,8"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd az osztásokat az eredményükkel!",
+          "pairs": [
+            [
+              "$5 : 10$",
+              "0,5"
+            ],
+            [
+              "$0{,}6 : 3$",
+              "0,2"
+            ],
+            [
+              "$4{,}8 : 4$",
+              "1,2"
+            ],
+            [
+              "$1 : 4$",
+              "0,25"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "kozonseges-tortek-tizedes-tort-alakja",
+      "title": "Közönséges törtek tizedes tört alakja",
+      "description": "Átváltás közönséges tört és tizedes tört között.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 15,
+          "text": "Mi az $\\frac{1}{2}$ tizedes tört alakja?",
+          "options": [
+            "0,5",
+            "0,2",
+            "1,2",
+            "0,12"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mi a $\\frac{3}{4}$ tizedes tört alakja?",
+          "options": [
+            "0,75",
+            "0,34",
+            "3,4",
+            "0,43"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Mi az $\\frac{1}{5}$ tizedes tört alakja?",
+          "answer": "0,2"
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "$\\frac{1}{4} = 0{,}25$",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mi a $\\frac{3}{5}$ tizedes tört alakja?",
+          "options": [
+            "0,6",
+            "0,35",
+            "0,3",
+            "3,5"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "text": "Mi a $\\frac{7}{20}$ tizedes tört alakja?",
+          "options": [
+            "0,35",
+            "0,72",
+            "0,7",
+            "3,5"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 30,
+          "svg": "pie-3-8",
+          "text": "Írd fel tizedes tört alakban a kör kiszínezett részét!",
+          "options": [
+            "0,375",
+            "0,38",
+            "3,8",
+            "0,625"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 30,
+          "text": "Mi az $\\frac{1}{8}$ tizedes tört alakja?",
+          "answer": "0,125"
+        },
+        {
+          "type": "tf",
+          "time": 20,
+          "text": "$0{,}4 = \\frac{2}{5}$",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mi az $\\frac{1}{3}$ tizedes tört alakja?",
+          "options": [
+            "0,333…",
+            "0,3",
+            "0,13",
+            "3,1"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Melyik közönséges törttel egyenlő a 0,75?",
+          "options": [
+            "$\\frac{3}{4}$",
+            "$\\frac{7}{5}$",
+            "$\\frac{1}{75}$",
+            "$\\frac{3}{5}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a törteket a tizedes tört alakjukkal!",
+          "pairs": [
+            [
+              "$\\frac{1}{2}$",
+              "0,5"
+            ],
+            [
+              "$\\frac{1}{4}$",
+              "0,25"
+            ],
+            [
+              "$\\frac{1}{5}$",
+              "0,2"
+            ],
+            [
+              "$\\frac{1}{10}$",
+              "0,1"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Törtek, tizedes törtek",
+      "description": "Témazáró gyakorló: közönséges és tizedes törtek, műveletek, átváltás.",
+      "questions": [
+        {
+          "type": "mc",
+          "time": 25,
+          "svg": "chocolate-bar",
+          "text": "A csokoládé hányad részét ették meg (szürke kockák)?",
+          "options": [
+            "$\\frac{5}{12}$",
+            "$\\frac{7}{12}$",
+            "$\\frac{5}{7}$",
+            "$\\frac{1}{5}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Egyszerűsítsd: $\\frac{9}{12}$",
+          "options": [
+            "$\\frac{3}{4}$",
+            "$\\frac{2}{3}$",
+            "$\\frac{1}{3}$",
+            "$\\frac{9}{4}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 20,
+          "text": "Melyik szám kerül a kérdőjel helyére? $\\frac{2}{7} + \\frac{4}{7} = \\frac{?}{7}$",
+          "answer": "6"
+        },
+        {
+          "type": "mc",
+          "time": 25,
+          "text": "Mennyi $\\frac{1}{2} + \\frac{1}{3}$?",
+          "options": [
+            "$\\frac{5}{6}$",
+            "$\\frac{2}{5}$",
+            "$\\frac{1}{6}$",
+            "$\\frac{2}{6}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 20,
+          "text": "$\\frac{3}{5} \\gt \\frac{1}{2}$",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $3 \\cdot \\frac{2}{7}$?",
+          "options": [
+            "$\\frac{6}{7}$",
+            "$\\frac{6}{21}$",
+            "$\\frac{5}{7}$",
+            "$\\frac{2}{21}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $\\frac{6}{7} : 2$?",
+          "options": [
+            "$\\frac{3}{7}$",
+            "$\\frac{12}{7}$",
+            "$\\frac{6}{9}$",
+            "$\\frac{3}{14}$"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "text",
+          "time": 25,
+          "text": "Mennyi $2{,}5 + 1{,}75$?",
+          "answer": "4,25"
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "text": "Mennyi $0{,}6 \\cdot 5$?",
+          "options": [
+            "3",
+            "0,3",
+            "30",
+            "3,5"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "time": 15,
+          "text": "$\\frac{3}{4} = 0{,}75$",
+          "answer": true
+        },
+        {
+          "type": "mc",
+          "time": 20,
+          "svg": "decimal-number-line",
+          "text": "Melyik számot jelöli az $A$ pont?",
+          "options": [
+            "0,7",
+            "0,07",
+            "7",
+            "0,35"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "time": 45,
+          "text": "Párosítsd a fogalmakat egy-egy példával!",
+          "pairs": [
+            [
+              "számláló",
+              "a $\\frac{3}{5}$-ben a 3"
+            ],
+            [
+              "nevező",
+              "a $\\frac{3}{5}$-ben az 5"
+            ],
+            [
+              "vegyes tört",
+              "$2\\frac{1}{3}$"
+            ],
+            [
+              "tizedes tört",
+              "0,7"
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

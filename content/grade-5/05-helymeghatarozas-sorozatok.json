@@ -1,0 +1,248 @@
+{
+  "idPrefix": "g5-helymeghatarozas",
+  "topic": "V. Helymeghatározás, sorozatok",
+  "grade_level": "5. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "a-helymeghatarozas-szerepe-kornyezetunkben",
+      "title": "A helymeghatározás szerepe környezetünkben",
+      "description": "Lakcím, mozijegy, térkép, égtájak, viszonyítási pont, GPS.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "cinema-seats", "text": "Melyik a pirossal jelölt szék helye a moziban?", "options": ["3. sor 5. szék", "5. sor 3. szék", "3. sor 4. szék", "2. sor 5. szék"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "compass-rose", "text": "Melyik mellékégtáj van az észak és a kelet között?", "options": ["északkelet (ÉK)", "északnyugat (ÉNy)", "délkelet (DK)", "délnyugat (DNy)"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Milyen sorrendben adjuk meg a lakcímet (a nagyobbtól a kisebb felé)?", "options": ["város, utca, házszám", "házszám, utca, város", "utca, város, házszám", "házszám, város, utca"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A GPS műholdak jelei alapján határozza meg a helyzetünket.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "map-grid", "text": "Melyik négyzetben van a templom a térképen?", "options": ["C2", "B4", "C3", "2C"], "answer": 0 },
+        { "type": "text", "time": 20, "svg": "cinema-seats", "text": "Hány szék van egy sorban ebben a moziteremben?", "answer": "8/nyolc" },
+        { "type": "mc", "time": 25, "svg": "compass-rose", "text": "Ha háttal állunk délnek, merre nézünk?", "options": ["észak felé", "kelet felé", "nyugat felé", "dél felé"], "answer": 0 },
+        { "type": "tf", "time": 10, "text": "A Nap keleten kel fel.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Mit nevezünk viszonyítási pontnak?", "options": ["azt a pontot, amelyhez képest megadjuk a helyzetet", "a legmagasabb pontot", "a térkép közepét", "a célállomást"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "map-grid", "text": "Melyik négyzetben van az iskola?", "options": ["B4", "C2", "B3", "4B"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Hány fő égtáj van?", "answer": "4/négy" },
+        { "type": "match", "time": 30, "text": "Párosítsd a rövidítéseket az égtájakkal!", "pairs": [
+          ["É", "észak"],
+          ["K", "kelet"],
+          ["D", "dél"],
+          ["Ny", "nyugat"]
+        ] }
+      ]
+    },
+    {
+      "slug": "helymeghatarozas",
+      "title": "Helymeghatározás",
+      "description": "Oszlopok és sorok, sakktábla, táblázat cellái, torpedó, lépések a rácson.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "chess-rook", "text": "Melyik mezőn áll a bástya?", "options": ["c3", "3c", "d3", "c6"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "map-grid", "text": "Melyik négyzet van közvetlenül a templomtól jobbra?", "options": ["D2", "B2", "C3", "C1"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Egy táblázatkezelőben a B3 cella hányadik sorban van?", "answer": "3/harmadik" },
+        { "type": "tf", "time": 15, "text": "A sakktáblán egy mezőt egy betű és egy szám ad meg.", "answer": true },
+        { "type": "mc", "time": 30, "svg": "chess-rook", "text": "A bástya 2 mezőt lép előre (felfelé). Melyik mezőre ér?", "options": ["c5", "e3", "c1", "a3"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Hány mezőből áll egy 10 × 10-es torpedótábla?", "options": ["100", "20", "40", "1000"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "map-grid", "text": "Hány négyzetre osztották a térképet?", "options": ["20", "9", "16", "25"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A mozijegyen a sor és a szék száma egyértelműen megadja a helyünket.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Egy négyzetrácson 3 egységet lépünk jobbra, majd 2-t felfelé. Hány lépést tettünk összesen?", "options": ["5", "6", "1", "3"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "map-grid", "text": "Hány négyzetnyit kell lépni az iskolától a templomig, ha csak vízszintesen és függőlegesen léphetünk?", "answer": "3/három" },
+        { "type": "mc", "time": 15, "text": "Hány mezőből áll a sakktábla?", "options": ["64", "8", "16", "100"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a helyeket a megadásuk módjával!", "pairs": [
+          ["mozi", "sor és szék"],
+          ["sakktábla", "betű és szám (pl. e4)"],
+          ["térkép", "négyzetháló jele (pl. C2)"],
+          ["lakcím", "város, utca, házszám"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-derekszogu-koordinata-rendszer",
+      "title": "A derékszögű koordináta-rendszer",
+      "description": "Tengelyek, origó, síknegyedek, pontok koordinátái.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "coord-points-abcd", "text": "Mik az $A$ pont koordinátái?", "options": ["$(2; 3)$", "$(3; 2)$", "$(-2; 3)$", "$(2; -3)$"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "coord-points-abcd", "text": "Mik a $B$ pont koordinátái?", "options": ["$(-3; 1)$", "$(1; -3)$", "$(3; 1)$", "$(-3; -1)$"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "coord-points-abcd", "text": "Melyik pont van a III. síknegyedben (ahol mindkét koordináta negatív)?", "options": ["$C$", "$A$", "$B$", "$D$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Az origó koordinátái $(0; 0)$.", "answer": true },
+        { "type": "mc", "time": 20, "text": "A pont első koordinátáját melyik tengelyen olvassuk le?", "options": ["a vízszintes ($x$) tengelyen", "a függőleges ($y$) tengelyen", "bármelyiken", "egyiken sem"], "answer": 0 },
+        { "type": "text", "time": 25, "svg": "coord-points-abcd", "text": "Mennyi a $D$ pont második koordinátája?", "answer": "-2" },
+        { "type": "mc", "time": 25, "text": "Hol van a $(0; 5)$ pont?", "options": ["az $y$ tengelyen", "az $x$ tengelyen", "az I. síknegyedben", "az origóban"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A $(3; 2)$ és a $(2; 3)$ ugyanazt a pontot jelöli.", "answer": false },
+        { "type": "mc", "time": 30, "svg": "coord-points-abcd", "text": "Melyik pont van a IV. síknegyedben (pozitív $x$, negatív $y$)?", "options": ["$D$", "$A$", "$B$", "$C$"], "answer": 0 },
+        { "type": "mc", "time": 10, "text": "Hány síknegyedre osztják a síkot a koordinátatengelyek?", "options": ["4", "2", "3", "8"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "coord-points-abcd", "text": "Tükrözzük az $A$ pontot az $x$ tengelyre. Mennyi lesz a képpont második koordinátája?", "answer": "-3" },
+        { "type": "match", "time": 60, "text": "Párosítsd a pontokat azzal, hol vannak!", "pairs": [
+          ["$(2; 3)$", "I. síknegyed"],
+          ["$(-2; 3)$", "II. síknegyed"],
+          ["$(-2; -3)$", "III. síknegyed"],
+          ["$(2; -3)$", "IV. síknegyed"]
+        ] }
+      ]
+    },
+    {
+      "slug": "pontok-abrazolasa",
+      "title": "Pontok ábrázolása",
+      "description": "Pontok felvétele és leolvasása, alakzatok a koordináta-rendszerben.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "coord-triangle", "text": "Milyen alakzatot határoznak meg az $A$, $B$, $C$ pontok?", "options": ["derékszögű háromszöget", "négyzetet", "egyenlő oldalú háromszöget", "téglalapot"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "coord-triangle", "text": "Mik a $B$ pont koordinátái?", "options": ["$(5; 1)$", "$(1; 5)$", "$(5; 0)$", "$(1; 1)$"], "answer": 0 },
+        { "type": "text", "time": 25, "svg": "coord-triangle", "text": "Hány egység hosszú az $AB$ szakasz?", "answer": "4/négy" },
+        { "type": "tf", "time": 15, "text": "Pont ábrázolásakor előbb az $x$ tengely mentén lépünk, aztán az $y$ tengely irányában.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Hol van a $(3; 0)$ pont?", "options": ["az $x$ tengelyen", "az $y$ tengelyen", "az origóban", "a II. síknegyedben"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Az $(1; 1)$, $(4; 1)$ és $(4; 3)$ pontok egy téglalap három csúcsa. Melyik a negyedik csúcs?", "options": ["$(1; 3)$", "$(3; 1)$", "$(4; 4)$", "$(3; 3)$"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "coord-triangle", "text": "Hány egység hosszú az $AC$ szakasz?", "options": ["3", "4", "5", "1"], "answer": 0 },
+        { "type": "tf", "time": 15, "svg": "coord-triangle", "text": "Az ábrán az $A$ pont az origó.", "answer": false },
+        { "type": "mc", "time": 30, "text": "Mit mondhatunk a $(2; 2)$, $(4; 4)$ és $(6; 6)$ pontokról?", "options": ["egy egyenesre esnek", "háromszöget alkotnak", "mind az $x$ tengelyen vannak", "mind az $y$ tengelyen vannak"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Egy téglalap csúcsai: $(1; 1)$, $(5; 1)$, $(5; 3)$, $(1; 3)$. Hány négyzetegység a területe?", "answer": "8/nyolc" },
+        { "type": "mc", "time": 20, "text": "Melyik pont van az origótól 3 egységgel jobbra?", "options": ["$(3; 0)$", "$(0; 3)$", "$(-3; 0)$", "$(3; 3)$"], "answer": 0 },
+        { "type": "match", "time": 60, "svg": "coord-points-abcd", "text": "Párosítsd a pontokat a koordinátáikkal!", "pairs": [
+          ["$A$", "$(2; 3)$"],
+          ["$B$", "$(-3; 1)$"],
+          ["$C$", "$(-2; -4)$"],
+          ["$D$", "$(4; -2)$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "tajekozodas-sikban-terben",
+      "title": "Tájékozódás síkban, térben",
+      "description": "Dimenziók, helymegadás egy, két és három adattal, földrajzi fokhálózat, kockaépítmények.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Hány adat (koordináta) kell egy pont megadásához a térben?", "options": ["3", "2", "1", "4"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Hány adat kell egy pont megadásához a számegyenesen?", "options": ["1", "2", "3", "0"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Hány adat kell egy pont megadásához a síkban?", "options": ["2", "1", "3", "4"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A térkép kétdimenziós ábrázolás.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Milyen adatokkal adható meg egy repülőgép helyzete?", "options": ["földrajzi szélesség, hosszúság és magasság", "csak a magasság", "csak a sebesség", "csak a szélesség"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "cube-building", "text": "Hány kocka van az építmény alsó szintjén?", "options": ["3", "4", "1", "2"], "answer": 0 },
+        { "type": "text", "time": 20, "svg": "cube-building", "text": "Hány kocka van az építmény felső szintjén?", "answer": "1/egy" },
+        { "type": "tf", "time": 20, "text": "Az Egyenlítő a $0^\\circ$-os szélességi kör.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Melyik város mellett halad át a kezdő (0°-os) hosszúsági kör?", "options": ["Greenwich (London)", "Budapest", "Párizs", "Róma"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mivel adható meg egy szállodai szoba helye az épületben?", "options": ["az emelet és a szobaszám megadásával", "csak a ház színével", "csak az utca nevével", "a recepció nevével"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Egy kilométerkő hány számmal adja meg a helyet az autópályán?", "answer": "1/egy" },
+        { "type": "match", "time": 45, "text": "Párosítsd a dimenziókat egy-egy példával!", "pairs": [
+          ["1 dimenzió", "számegyenes"],
+          ["2 dimenzió", "térkép"],
+          ["3 dimenzió", "repülőgép helyzete a levegőben"],
+          ["0 dimenzió", "egy pont"]
+        ] }
+      ]
+    },
+    {
+      "slug": "ritmusok-diszitesek",
+      "title": "Ritmusok, díszítések",
+      "description": "Ismétlődő minták, alapszakasz, az n-edik elem, díszítősorok.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "pattern-shapes", "text": "Melyik alakzat kerül a kérdőjel helyére?", "options": ["zöld négyzet", "piros háromszög", "kék kör", "sárga csillag"], "answer": 0 },
+        { "type": "mc", "time": 45, "svg": "pattern-shapes", "text": "Ha a minta ugyanígy folytatódik, milyen lesz a 20. alakzat?", "options": ["kék kör", "piros háromszög", "zöld négyzet", "nem lehet tudni"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Az ABBABBABB… betűsor folytatódik. Hány B betű van az első 12 betű között?", "answer": "8/nyolc" },
+        { "type": "tf", "time": 15, "text": "Az ismétlődő minta legkisebb, újra és újra visszatérő részét alapszakasznak nevezzük.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "border-pattern", "text": "Milyen mozgatással készült a díszítősor?", "options": ["eltolással", "elforgatással", "nagyítással", "kicsinyítéssel"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "A gyöngysor színei így ismétlődnek: piros, kék, kék, piros, kék, kék, … Milyen színű a 10. gyöngy?", "options": ["piros", "kék", "zöld", "nem lehet tudni"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Az 1, 2, 1, 2, … sorozat folytatódik. Mi a 15. tag?", "options": ["1", "2", "15", "3"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A hét napjai is ritmust alkotnak: 7 naponta ismétlődnek.", "answer": true },
+        { "type": "mc", "time": 20, "svg": "pattern-shapes", "text": "Hány alakzatból áll a minta alapszakasza?", "options": ["3", "2", "4", "9"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "pattern-shapes", "text": "Hány kör van a minta első 12 alakzata között?", "answer": "4/négy" },
+        { "type": "mc", "time": 20, "text": "A „tik-tak-tak, tik-tak-tak, …” ritmus alapszakasza hány hangból áll?", "options": ["3", "2", "1", "6"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a mintákat az alapszakaszuk hosszával!", "pairs": [
+          ["ABABAB…", "2"],
+          ["ABCABC…", "3"],
+          ["ABBBABBB…", "4"],
+          ["AAAA…", "1"]
+        ] }
+      ]
+    },
+    {
+      "slug": "keressunk-osszefuggeseket",
+      "title": "Keressünk összefüggéseket!",
+      "description": "Számgépek, bemenet–kimenet táblázatok, fordított műveletek, gyufaszálas minták.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "rule-machine", "text": "A gépbe az 5-öt tesszük. Mi jön ki?", "options": ["13", "16", "10", "8"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "matchstick-squares", "text": "A minta szerint hány gyufaszál kell 4 négyzethez?", "options": ["13", "16", "12", "15"], "answer": 0 },
+        { "type": "text", "time": 45, "svg": "matchstick-squares", "text": "Hány gyufaszál kell 10 négyzethez?", "answer": "31" },
+        { "type": "tf", "time": 15, "text": "Egy számgépet visszafelé is működtethetünk a fordított műveletekkel.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "value-table", "text": "Mi kerül a kérdőjel helyére a táblázatban?", "options": ["7", "6", "9", "4"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy gépbe a 3-at téve 9, az 5-öt téve 15 jön ki. Mit csinál a gép?", "options": ["3-mal szoroz", "6-ot hozzáad", "10-et hozzáad", "kétszerez"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Bemenet → kimenet: 2 → 5, 4 → 9, 6 → 13. Mi a szabály?", "options": ["szorozd 2-vel, adj hozzá 1-et", "adj hozzá 3-at", "szorozd 3-mal", "szorozd 2-vel, vonj ki 1-et"], "answer": 0 },
+        { "type": "tf", "time": 30, "text": "Ha a bemenet 1-gyel nő, és a kimenet mindig 3-mal nő, akkor a szabályban 3-mal szorzunk.", "answer": true },
+        { "type": "text", "time": 30, "svg": "rule-machine", "text": "A gépből 21 jött ki. Melyik számot tették be?", "answer": "9" },
+        { "type": "mc", "time": 15, "text": "Egy gép mindent 10-zel szoroz. Mi jön ki, ha 7-et teszünk be?", "options": ["70", "17", "710", "3"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "matchstick-squares", "text": "Hány gyufaszál kell minden újabb négyzethez?", "options": ["3", "4", "2", "1"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "A szabály: „szorozd 2-vel, majd adj hozzá 1-et”. Párosítsd a bemenetet a kimenettel!", "pairs": [
+          ["1", "3"],
+          ["2", "5"],
+          ["5", "11"],
+          ["10", "21"]
+        ] }
+      ]
+    },
+    {
+      "slug": "sorozatok",
+      "title": "Sorozatok",
+      "description": "Sorozatok tagjai, szabályai, hiányzó tagok, növekvő és csökkenő sorozatok.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "sequence-boxes", "text": "Mi a sorozat következő tagja?", "options": ["14", "13", "15", "16"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mi a következő tag: 3, 6, 12, 24, …?", "options": ["48", "30", "36", "27"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Mi a következő tag: 50, 45, 40, …?", "answer": "35" },
+        { "type": "tf", "time": 20, "text": "Ha egy sorozatban a szomszédos tagok különbsége mindig ugyanannyi, akkor egyforma lépésekkel nő vagy csökken.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Az 1, 4, 7, 10, … sorozat folytatódik. Mennyi a 10. tag?", "options": ["28", "31", "30", "25"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Milyen szabály szerint képződik a 2, 4, 8, 16, … sorozat?", "options": ["minden tag az előző kétszerese", "minden tag az előzőnél 2-vel nagyobb", "minden tag az előzőnél 4-gyel nagyobb", "a tagok négyzetszámok"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "A 100, 90, 80, … sorozat hányadik tagja a 0?", "options": ["a 11.", "a 10.", "a 9.", "a 12."], "answer": 0 },
+        { "type": "text", "time": 25, "svg": "sequence-boxes", "text": "Mennyi a sorozat 6. tagja?", "answer": "17" },
+        { "type": "tf", "time": 20, "text": "Az 1, 1, 2, 3, 5, 8, … sorozatban minden tag az előző kettő összege.", "answer": true },
+        { "type": "mc", "time": 15, "text": "Melyik szám hiányzik: 5, ?, 15, 20?", "options": ["10", "12", "8", "11"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mi a következő tag: 81, 27, 9, …?", "options": ["3", "1", "6", "0"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a sorozatokat a szabályukkal!", "pairs": [
+          ["2, 4, 6, 8, …", "adj hozzá 2-t"],
+          ["1, 3, 9, 27, …", "szorozd 3-mal"],
+          ["20, 17, 14, …", "vonj ki 3-at"],
+          ["64, 32, 16, …", "oszd el 2-vel"]
+        ] }
+      ]
+    },
+    {
+      "slug": "nevezetes-erdekes-sorozatok",
+      "title": "Nevezetes, érdekes sorozatok",
+      "description": "Páros és páratlan számok, négyzetszámok, háromszögszámok, Fibonacci-sorozat.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "triangular-dots", "text": "Hány pötty lesz a következő (5.) háromszögben?", "options": ["15", "14", "16", "20"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mi a következő négyzetszám: 1, 4, 9, 16, …?", "options": ["25", "20", "24", "32"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Mi a Fibonacci-sorozat következő tagja: 1, 1, 2, 3, 5, 8, …?", "answer": "13" },
+        { "type": "tf", "time": 10, "text": "A páros számok sorozata: 2, 4, 6, 8, …", "answer": true },
+        { "type": "mc", "time": 30, "text": "Mennyi $1 + 3 + 5 + 7$?", "options": ["16", "15", "12", "20"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mennyi a 10. négyzetszám?", "options": ["100", "20", "50", "1000"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "triangular-dots", "text": "Hány pöttyből áll a 4. háromszögszám?", "options": ["10", "8", "12", "6"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Két páratlan szám összege páratlan.", "answer": false },
+        { "type": "text", "time": 25, "text": "Mennyi az 5. háromszögszám ($1 + 2 + 3 + 4 + 5$)?", "answer": "15" },
+        { "type": "mc", "time": 20, "text": "Melyik szám négyzetszám?", "options": ["49", "50", "48", "45"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Melyik sorozat számai fordulnak elő gyakran a természetben (pl. a napraforgó magjainak elrendeződésében)?", "options": ["a Fibonacci-sorozat", "a páros számok", "a 10 többszörösei", "a római számok"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a sorozatokat a nevükkel!", "pairs": [
+          ["1, 3, 6, 10, …", "háromszögszámok"],
+          ["1, 4, 9, 16, …", "négyzetszámok"],
+          ["1, 1, 2, 3, 5, …", "Fibonacci-sorozat"],
+          ["1, 3, 5, 7, …", "páratlan számok"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Helymeghatározás, sorozatok",
+      "description": "Témazáró gyakorló: helymeghatározás, koordináta-rendszer, minták, számgépek, sorozatok.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "map-grid", "text": "Melyik négyzetben van az iskola?", "options": ["B4", "C2", "4B", "B3"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "coord-points-abcd", "text": "Mik a $C$ pont koordinátái?", "options": ["$(-2; -4)$", "$(-4; -2)$", "$(2; 4)$", "$(-2; 4)$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Az origó a két koordinátatengely metszéspontja.", "answer": true },
+        { "type": "mc", "time": 20, "svg": "compass-rose", "text": "Melyik égtáj van a nyugattal szemben?", "options": ["kelet", "észak", "dél", "északnyugat"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Mi a következő tag: 4, 8, 12, 16, …?", "answer": "20" },
+        { "type": "mc", "time": 30, "svg": "pattern-shapes", "text": "Milyen lesz a minta 10. alakzata?", "options": ["piros háromszög", "kék kör", "zöld négyzet", "nem lehet tudni"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "rule-machine", "text": "A gépbe a 7-et tesszük. Mi jön ki?", "options": ["17", "20", "10", "14"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "matchstick-squares", "text": "Hány gyufaszál kell 5 négyzethez?", "answer": "16" },
+        { "type": "tf", "time": 15, "text": "A $(4; 0)$ pont az $y$ tengelyen van.", "answer": false },
+        { "type": "mc", "time": 20, "text": "Mi a következő négyzetszám a 36 után?", "options": ["49", "42", "48", "64"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "chess-rook", "text": "Melyik mezőn áll a bástya?", "options": ["c3", "3c", "c6", "f3"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a fogalmakat egy-egy példával!", "pairs": [
+          ["koordináták", "$(2; 3)$"],
+          ["égtáj", "északkelet"],
+          ["alapszakasz", "ABC az ABCABC… mintában"],
+          ["négyzetszám", "25"]
+        ] }
+      ]
+    }
+  ]
+}

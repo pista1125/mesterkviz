@@ -1,0 +1,248 @@
+{
+  "idPrefix": "g5-hosszusag-terulet-terfogat",
+  "topic": "IV. Hosszúság, terület, térfogat",
+  "grade_level": "5. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "a-hosszusag-merese",
+      "title": "A hosszúság mérése",
+      "description": "A hosszúság mértékegységei (mm, cm, dm, m, km), mérés vonalzóval, átváltás.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "ruler-segment", "text": "Milyen hosszú az $AB$ szakasz?", "options": ["7,5 cm", "9,5 cm", "7 cm", "2 cm"], "answer": 0 },
+        { "type": "mc", "time": 10, "text": "Hány centiméter 1 méter?", "options": ["100", "10", "1000", "60"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Hány méter 3 km?", "answer": "3000/3 000/3000 m" },
+        { "type": "tf", "time": 10, "text": "1 cm = 10 mm", "answer": true },
+        { "type": "mc", "time": 20, "text": "Hogyan írható fel másképp a 250 cm?", "options": ["2 m 50 cm", "25 m", "2 m 5 cm", "250 m"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyik a leghosszabb?", "options": ["2 km", "1900 m", "150 000 cm", "18 000 dm"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Hány cm 45 mm?", "options": ["4,5 cm", "45 cm", "0,45 cm", "450 cm"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Hány cm 5 dm?", "answer": "50/50 cm" },
+        { "type": "tf", "time": 10, "text": "1 km = 100 m", "answer": false },
+        { "type": "mc", "time": 15, "text": "Körülbelül milyen hosszú egy új ceruza?", "options": ["15 cm", "15 mm", "15 m", "15 dm"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Hány cm 3 m 20 cm?", "options": ["320 cm", "32 cm", "302 cm", "3020 cm"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az egyenlő hosszúságokat!", "pairs": [
+          ["1 km", "1000 m"],
+          ["1 m", "10 dm"],
+          ["1 dm", "10 cm"],
+          ["1 cm", "10 mm"]
+        ] }
+      ]
+    },
+    {
+      "slug": "teglalap-negyzet-kerulete",
+      "title": "Téglalap, négyzet kerülete",
+      "description": "A kerület fogalma, a téglalap és a négyzet kerülete, visszakövetkeztetés.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "rect-grid-5x3", "text": "Minden kis négyzet oldala 1 cm. Mekkora a kék téglalap kerülete?", "options": ["16 cm", "15 cm", "8 cm", "30 cm"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mekkora a 8 cm és 3 cm oldalú téglalap kerülete?", "options": ["22 cm", "24 cm", "11 cm", "16 cm"], "answer": 0 },
+        { "type": "text", "time": 20, "svg": "square-a", "text": "A négyzet oldala $a = 6$ cm. Hány cm a kerülete?", "answer": "24/24 cm" },
+        { "type": "tf", "time": 15, "text": "A négyzet kerülete: $4 \\cdot a$.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Egy négyzet kerülete 20 cm. Milyen hosszú az oldala?", "options": ["5 cm", "4 cm", "10 cm", "80 cm"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy téglalap kerülete 30 cm, egyik oldala 10 cm. Milyen hosszú a másik oldala?", "options": ["5 cm", "20 cm", "10 cm", "3 cm"], "answer": 0 },
+        { "type": "mc", "time": 45, "svg": "l-shape", "text": "Mekkora az ábrán látható síkidom kerülete?", "options": ["36 cm", "29 cm", "68 cm", "43 cm"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Egy 12 m × 8 m-es kertet körbekerítünk. Hány méter kerítés kell?", "answer": "40/40 m" },
+        { "type": "tf", "time": 20, "text": "Két különböző alakú téglalapnak is lehet ugyanakkora a kerülete.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Hány cm az 1 m oldalú négyzet kerülete?", "options": ["400 cm", "4 cm", "100 cm", "40 cm"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "pentagon-sides", "text": "Mekkora az ötszög kerülete?", "options": ["20 cm", "18 cm", "6 cm", "25 cm"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az alakzatokat a kerületükkel!", "pairs": [
+          ["2 cm × 3 cm-es téglalap", "10 cm"],
+          ["3 cm oldalú négyzet", "12 cm"],
+          ["5 cm × 2 cm-es téglalap", "14 cm"],
+          ["4 cm oldalú négyzet", "16 cm"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-terulet-merese",
+      "title": "A terület mérése",
+      "description": "A terület fogalma, mérése egységnégyzetekkel, a terület mértékegységei.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "rect-grid-5x3", "text": "Minden kis négyzet 1 cm². Hány cm² a kék téglalap területe?", "options": ["15", "16", "8", "12"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "unit-square-m2", "text": "Az ábra alapján hány dm² az 1 m²?", "options": ["100", "10", "1000", "10 000"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Hány cm² az 1 dm²?", "answer": "100" },
+        { "type": "tf", "time": 15, "text": "A terület-mértékegységek közötti váltószám 100.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Hány dm² a 3 m²?", "options": ["300", "30", "3000", "3"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Melyik mértékegységben adjuk meg egy szoba alapterületét?", "options": ["m²", "cm²", "km²", "mm²"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Hány dm² az 500 cm²?", "options": ["5", "50", "500", "0,5"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Hány dm² a 2 m²?", "answer": "200" },
+        { "type": "tf", "time": 15, "text": "1 m² = 100 cm²", "answer": false },
+        { "type": "mc", "time": 25, "text": "Hány m² egy hektár?", "options": ["10 000", "100", "1000", "1 000 000"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Milyen mértékegységben adjuk meg Magyarország területét?", "options": ["km²", "m²", "cm²", "dm²"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az egyenlő területeket!", "pairs": [
+          ["1 m²", "100 dm²"],
+          ["1 dm²", "100 cm²"],
+          ["1 cm²", "100 mm²"],
+          ["1 km²", "1 000 000 m²"]
+        ] }
+      ]
+    },
+    {
+      "slug": "teglalap-negyzet-terulete",
+      "title": "Téglalap, négyzet területe",
+      "description": "A téglalap és a négyzet területe, visszakövetkeztetés, összetett alakzatok.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "rect-7x4", "text": "Mekkora a téglalap területe?", "options": ["28 cm²", "22 cm²", "11 cm²", "14 cm²"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "rect-grid-5x3", "text": "Minden kis négyzet 1 cm². Mekkora a kék téglalap területe?", "options": ["15 cm²", "16 cm²", "8 cm²", "30 cm²"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Hány cm² a 9 cm oldalú négyzet területe?", "answer": "81/81 cm2/81 cm²" },
+        { "type": "tf", "time": 15, "text": "A téglalap területe a két szomszédos oldal hosszának szorzata.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Egy téglalap területe 48 cm², egyik oldala 6 cm. Milyen hosszú a másik oldala?", "options": ["8 cm", "42 cm", "12 cm", "6 cm"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy négyzet területe 64 cm². Milyen hosszú az oldala?", "options": ["8 cm", "16 cm", "32 cm", "4 cm"], "answer": 0 },
+        { "type": "mc", "time": 45, "svg": "l-shape", "text": "Mekkora az ábrán látható síkidom területe?", "options": ["68 cm²", "80 cm²", "12 cm²", "92 cm²"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Egy szoba 5 m hosszú és 4 m széles. Hány m² az alapterülete?", "answer": "20/20 m2/20 m²" },
+        { "type": "tf", "time": 25, "text": "Ha a négyzet oldalát a kétszeresére növeljük, a területe is csak a kétszeresére nő.", "answer": false },
+        { "type": "mc", "time": 45, "text": "Egy 2 m × 1 m-es falfelületet 1 dm²-es csempékkel burkolunk. Hány csempe kell?", "options": ["200", "20", "2000", "3"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyiknek nagyobb a területe: a 10 cm × 2 cm-es téglalapnak vagy a 4 cm oldalú négyzetnek?", "options": ["a téglalapnak", "a négyzetnek", "egyenlő a területük", "nem lehet eldönteni"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az alakzatokat a területükkel (cm²)!", "pairs": [
+          ["3 cm × 4 cm-es téglalap", "12"],
+          ["5 cm oldalú négyzet", "25"],
+          ["2 cm × 8 cm-es téglalap", "16"],
+          ["3 cm oldalú négyzet", "9"]
+        ] }
+      ]
+    },
+    {
+      "slug": "teglatest-kocka",
+      "title": "Téglatest, kocka",
+      "description": "A téglatest és a kocka lapjai, élei, csúcsai, tulajdonságai.",
+      "questions": [
+        { "type": "mc", "time": 15, "text": "Hány lapja van a téglatestnek?", "options": ["6", "8", "12", "4"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Hány éle van a téglatestnek?", "options": ["12", "8", "6", "10"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "cuboid-3-4-5", "text": "Hány különböző élhossz fordul elő ennél a téglatestnél?", "options": ["3", "1", "2", "12"], "answer": 0 },
+        { "type": "tf", "time": 10, "text": "A kocka minden éle egyenlő hosszú.", "answer": true },
+        { "type": "text", "time": 15, "text": "Hány csúcsa van a téglatestnek?", "answer": "8/nyolc" },
+        { "type": "mc", "time": 30, "svg": "cuboid-3-4-5", "text": "A téglatestnek hány 5 cm hosszú éle van?", "options": ["4", "1", "2", "3"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Igaz-e, hogy minden kocka téglatest is?", "options": ["igen", "nem", "csak a kis kockák", "csak a nagy kockák"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A téglatest szemközti lapjai egybevágók.", "answer": true },
+        { "type": "mc", "time": 15, "svg": "cube-parts", "text": "Mit jelöl a piros pont a kockán?", "options": ["csúcsot", "élt", "lapot", "testet"], "answer": 0 },
+        { "type": "text", "time": 45, "svg": "cuboid-3-4-5", "text": "Hány cm a téglatest összes élének együttes hossza?", "answer": "48/48 cm" },
+        { "type": "mc", "time": 15, "text": "Milyen alakú egy gyufásdoboz?", "options": ["téglatest", "gömb", "henger", "gúla"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a fogalmakat a jellemzőjükkel!", "pairs": [
+          ["kocka", "12 egyenlő hosszú éle van"],
+          ["téglatest", "legfeljebb 3 különböző élhossza van"],
+          ["lap", "téglalap vagy négyzet"],
+          ["csúcs", "3 él találkozik benne"]
+        ] }
+      ]
+    },
+    {
+      "slug": "teglatest-kocka-felszine",
+      "title": "Téglatest, kocka felszíne",
+      "description": "A felszín fogalma, a kocka és a téglatest felszíne, testháló.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Mekkora a 2 cm élű kocka felszíne?", "options": ["24 cm²", "8 cm²", "12 cm²", "16 cm²"], "answer": 0 },
+        { "type": "mc", "time": 45, "svg": "cuboid-3-4-5", "text": "Mekkora a téglatest felszíne?", "options": ["94 cm²", "60 cm²", "47 cm²", "120 cm²"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "cube-net", "text": "A háló minden négyzete 2 cm oldalú. Hány cm² a kocka felszíne?", "answer": "24/24 cm2/24 cm²" },
+        { "type": "tf", "time": 15, "text": "A test felszíne a test összes lapjának együttes területe.", "answer": true },
+        { "type": "mc", "time": 15, "text": "Mekkora az 1 cm élű kocka felszíne?", "options": ["6 cm²", "1 cm²", "4 cm²", "12 cm²"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Mekkora az 1 cm × 2 cm × 3 cm-es téglatest felszíne?", "options": ["22 cm²", "6 cm²", "11 cm²", "36 cm²"], "answer": 0 },
+        { "type": "mc", "time": 45, "svg": "open-box", "text": "Mennyi kartonpapír kell a fedetlen dobozhoz?", "options": ["300 cm²", "400 cm²", "200 cm²", "500 cm²"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Az $a$ élű kocka felszíne $6 \\cdot a \\cdot a$.", "answer": true },
+        { "type": "text", "time": 25, "text": "Hány cm² a 3 cm élű kocka felszíne?", "answer": "54/54 cm2/54 cm²" },
+        { "type": "mc", "time": 15, "text": "Egy dobozt becsomagolunk. Mit kell kiszámítanunk a papír mennyiségéhez?", "options": ["a doboz felszínét", "a doboz térfogatát", "a doboz éleinek számát", "a doboz tömegét"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy kocka felszíne 96 cm². Milyen hosszú az éle?", "options": ["4 cm", "16 cm", "6 cm", "8 cm"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a kockákat a felszínükkel (cm²)!", "pairs": [
+          ["1 cm élű kocka", "6"],
+          ["2 cm élű kocka", "24"],
+          ["3 cm élű kocka", "54"],
+          ["4 cm élű kocka", "96"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-terfogat-merese",
+      "title": "A térfogat mérése",
+      "description": "Térfogat egységkockákkal, a térfogat és az űrtartalom mértékegységei.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "cube-stack-3x2x2", "text": "Hány egységkockából áll a test?", "options": ["12", "7", "10", "16"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "cube-1dm-liter", "text": "Mennyi víz fér egy 1 dm élű kocka alakú edénybe?", "options": ["1 liter", "1 dl", "10 liter", "1 ml"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Hány cm³ az 1 dm³?", "answer": "1000/1 000" },
+        { "type": "tf", "time": 15, "text": "1 liter = 1 dm³", "answer": true },
+        { "type": "mc", "time": 20, "text": "Hány dm³ a 2 m³?", "options": ["2000", "200", "20", "20 000"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Hány cm³ az 1 ml?", "options": ["1", "10", "100", "1000"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Hány liter a 3000 cm³?", "options": ["3", "30", "300", "0,3"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A térfogat-mértékegységek közötti váltószám 1000.", "answer": true },
+        { "type": "mc", "time": 15, "text": "Milyen mértékegységben adjuk meg egy uszoda medencéjének térfogatát?", "options": ["m³", "cm³", "mm³", "ml"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Hány dl az 5 liter?", "answer": "50/50 dl" },
+        { "type": "mc", "time": 20, "text": "Mennyi az 500 cm³?", "options": ["fél liter", "5 liter", "50 liter", "0,05 liter"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az egyenlő mennyiségeket!", "pairs": [
+          ["1 m³", "1000 dm³"],
+          ["1 dm³", "1000 cm³"],
+          ["1 liter", "10 dl"],
+          ["1 dl", "100 ml"]
+        ] }
+      ]
+    },
+    {
+      "slug": "teglatest-kocka-terfogata",
+      "title": "Téglatest, kocka térfogata",
+      "description": "A téglatest és a kocka térfogata, űrtartalom literben.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "cuboid-3-4-5", "text": "Mekkora a téglatest térfogata?", "options": ["60 cm³", "12 cm³", "94 cm³", "47 cm³"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mekkora a 4 cm élű kocka térfogata?", "options": ["64 cm³", "16 cm³", "12 cm³", "96 cm³"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Hány cm³ a 2 cm × 3 cm × 5 cm-es téglatest térfogata?", "answer": "30/30 cm3/30 cm³" },
+        { "type": "tf", "time": 15, "text": "A téglatest térfogata: $a \\cdot b \\cdot c$.", "answer": true },
+        { "type": "mc", "time": 20, "svg": "cube-stack-3x2x2", "text": "Minden kis kocka 1 cm élű. Mekkora a test térfogata?", "options": ["12 cm³", "7 cm³", "16 cm³", "24 cm³"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Egy akvárium belső méretei 50 cm × 20 cm × 30 cm. Hány liter víz fér bele?", "options": ["30 liter", "300 liter", "3 liter", "100 liter"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy kocka térfogata 27 cm³. Milyen hosszú az éle?", "options": ["3 cm", "9 cm", "27 cm", "13,5 cm"], "answer": 0 },
+        { "type": "tf", "time": 10, "text": "Az 1 cm élű kocka térfogata 1 cm³.", "answer": true },
+        { "type": "text", "time": 30, "text": "Egy kocka alakú doboz belső éle 10 cm. Hány liter fér bele?", "answer": "1/1 liter/1 l" },
+        { "type": "mc", "time": 30, "text": "Egy téglatest térfogata 60 cm³, alaplapja 3 cm × 4 cm. Milyen magas?", "options": ["5 cm", "7 cm", "20 cm", "12 cm"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy doboz belső méretei 2 dm × 3 dm × 4 dm. Hány liter fér bele?", "options": ["24 liter", "9 liter", "240 liter", "52 liter"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a kockákat a térfogatukkal (cm³)!", "pairs": [
+          ["1 cm élű kocka", "1"],
+          ["2 cm élű kocka", "8"],
+          ["3 cm élű kocka", "27"],
+          ["5 cm élű kocka", "125"]
+        ] }
+      ]
+    },
+    {
+      "slug": "gyakorlati-feladatok",
+      "title": "Gyakorlati feladatok",
+      "description": "Kerület, terület, felszín, térfogat a hétköznapokban: kerítés, parketta, festés, akvárium.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Egy 4 m × 5 m-es szobába parkettát rakunk. Hány m² parketta kell?", "options": ["20 m²", "18 m²", "9 m²", "40 m²"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy 15 m × 10 m-es kertet körbekerítünk. Hány méter kerítés kell?", "options": ["50 m", "25 m", "150 m", "40 m"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy doboz festék 10 m² festésére elég. Hány dobozt kell venni 35 m² festéséhez?", "answer": "4/négy" },
+        { "type": "tf", "time": 20, "text": "A kerítés hosszához a kert kerületét, a fűmag mennyiségéhez a területét kell kiszámítani.", "answer": true },
+        { "type": "mc", "time": 45, "svg": "open-box", "text": "Mennyi kartonpapír kell a fedetlen dobozhoz?", "options": ["300 cm²", "400 cm²", "250 cm²", "500 cm²"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Egy akvárium belső méretei 40 cm × 25 cm × 30 cm. Hány liter víz fér bele?", "options": ["30 liter", "300 liter", "95 liter", "3 liter"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Egy 2 m × 1 m-es falat 20 cm × 20 cm-es csempével burkolunk. Hány csempe kell?", "options": ["50", "40", "200", "10"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Egy 1 m³-es tartályba 1000 liter víz fér.", "answer": true },
+        { "type": "text", "time": 30, "text": "Egy 6 m × 4 m-es kertben egy 2 m × 1 m-es virágágyás van. Hány m² marad füvesnek?", "answer": "22/22 m2/22 m²" },
+        { "type": "mc", "time": 30, "text": "Hány 1 cm élű kis kocka fér bele egy 10 cm élű kocka alakú dobozba?", "options": ["1000", "100", "60", "600"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy könyvespolcon 3 polc van, mindegyik 80 cm hosszú. Hány méter a polcok összhossza?", "options": ["2,4 m", "240 m", "24 m", "0,24 m"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a feladatokat azzal, amit ki kell számítani!", "pairs": [
+          ["kerítés építése", "kerület"],
+          ["parkettázás", "terület"],
+          ["ajándék becsomagolása", "felszín"],
+          ["akvárium feltöltése", "térfogat"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Hosszúság, terület, térfogat",
+      "description": "Témazáró gyakorló: mértékegységek, kerület, terület, felszín, térfogat.",
+      "questions": [
+        { "type": "mc", "time": 15, "text": "Hány cm 2 m 35 cm?", "options": ["235 cm", "2035 cm", "23,5 cm", "205 cm"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "rect-7x4", "text": "Mekkora a téglalap kerülete?", "options": ["22 cm", "28 cm", "11 cm", "14 cm"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "rect-7x4", "text": "Mekkora a téglalap területe?", "options": ["28 cm²", "22 cm²", "11 cm²", "14 cm²"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Hány dm² a 4 m²?", "answer": "400" },
+        { "type": "tf", "time": 15, "text": "1 liter = 1 dm³", "answer": true },
+        { "type": "mc", "time": 25, "svg": "cuboid-3-4-5", "text": "Mekkora a téglatest térfogata?", "options": ["60 cm³", "94 cm³", "12 cm³", "47 cm³"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mekkora az 5 cm élű kocka felszíne?", "options": ["150 cm²", "125 cm²", "25 cm²", "60 cm²"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Hány cm a 6 cm oldalú négyzet kerülete?", "answer": "24/24 cm" },
+        { "type": "mc", "time": 30, "svg": "cube-net", "text": "A háló négyzetei 2 cm oldalúak. Mekkora a hajtogatott kocka térfogata?", "options": ["8 cm³", "24 cm³", "12 cm³", "6 cm³"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A kocka 6 lapja egybevágó négyzet.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Hány ml a 2 liter?", "options": ["2000 ml", "200 ml", "20 ml", "20 000 ml"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a mennyiségeket egy illő mértékegységgel!", "pairs": [
+          ["kerület", "cm"],
+          ["terület", "cm²"],
+          ["térfogat", "cm³"],
+          ["űrtartalom", "liter"]
+        ] }
+      ]
+    }
+  ]
+}

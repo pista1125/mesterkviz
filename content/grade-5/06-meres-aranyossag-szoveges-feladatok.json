@@ -1,0 +1,272 @@
+{
+  "idPrefix": "g5-meres-aranyossag",
+  "topic": "VI. Mérés, arányosság, szöveges feladatok",
+  "grade_level": "5. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "a-tomeg-merese-mertekegysegei",
+      "title": "A tömeg mérése, mértékegységei",
+      "description": "Tömegmértékek (mg, g, dkg, kg, q, t), váltószámok, becslések.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "balance-flour", "text": "A mérleg egyensúlyban van. Hány dkg a liszt?", "options": ["170 dkg", "71 dkg", "1070 dkg", "17 dkg"], "answer": 0 },
+        { "type": "mc", "time": 15, "svg": "mass-unit-chain", "text": "Hány gramm 1 kg?", "options": ["1000 g", "100 g", "10 g", "10 000 g"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Hány dkg 3 kg?", "answer": "300" },
+        { "type": "tf", "time": 15, "text": "1 t = 1000 kg", "answer": true },
+        { "type": "mc", "time": 20, "text": "Körülbelül mekkora egy alma tömege?", "options": ["15 dkg", "15 kg", "15 g", "15 mg"], "answer": 0 },
+        { "type": "mc", "time": 15, "svg": "mass-unit-chain", "text": "Hány kg 1 mázsa (q)?", "options": ["100 kg", "10 kg", "1000 kg", "50 kg"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyik a legnehezebb?", "options": ["2500 g", "2 kg", "150 dkg", "1800 g"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "1 dkg = 100 g", "answer": false },
+        { "type": "text", "time": 30, "svg": "balance-flour", "text": "Hány gramm a liszt a mérlegen?", "answer": "1700" },
+        { "type": "mc", "time": 20, "text": "Hány gramm 5000 mg?", "options": ["5 g", "50 g", "500 g", "0,5 g"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Melyik mértékegységgel adnád meg egy teherautó rakományának tömegét?", "options": ["tonna", "milligramm", "gramm", "dekagramm"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a tárgyakat a becsült tömegükkel!", "pairs": [
+          ["gombostű feje", "10 mg"],
+          ["postai levél", "20 g"],
+          ["alma", "15 dkg"],
+          ["személyautó", "1,2 t"]
+        ] }
+      ]
+    },
+    {
+      "slug": "az-urtartalom-merese-mertekegysegei",
+      "title": "Az űrtartalom mérése, mértékegységei",
+      "description": "Űrtartalom-mértékek (ml, cl, dl, l, hl), kapcsolatuk a térfogattal.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "measuring-jug-700", "text": "Mennyi víz van a mérőkancsóban?", "options": ["700 ml", "7 l", "70 ml", "600 ml"], "answer": 0 },
+        { "type": "text", "time": 25, "svg": "measuring-jug-700", "text": "Hány deciliter víz van a kancsóban?", "answer": "7/hét" },
+        { "type": "mc", "time": 15, "svg": "capacity-unit-chain", "text": "Hány ml 1 liter?", "options": ["1000 ml", "100 ml", "10 ml", "10 000 ml"], "answer": 0 },
+        { "type": "tf", "time": 15, "svg": "cube-1dm-liter", "text": "1 liter = 1 dm³", "answer": true },
+        { "type": "mc", "time": 15, "svg": "capacity-unit-chain", "text": "Hány liter 1 hektoliter?", "options": ["100 l", "10 l", "1000 l", "50 l"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Körülbelül mennyi tea fér egy bögrébe?", "options": ["3 dl", "3 l", "3 ml", "3 hl"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "1 cl = 100 ml", "answer": false },
+        { "type": "mc", "time": 20, "svg": "cube-1dm-liter", "text": "Mennyi víz fér egy 1 dm élű kocka alakú edénybe?", "options": ["1 l", "1 dl", "1 ml", "10 l"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Hány dl 2 liter?", "answer": "20" },
+        { "type": "mc", "time": 25, "text": "Hány 2 dl-es pohár telik meg 1 liter üdítőből?", "options": ["5", "2", "10", "4"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "measuring-jug-700", "text": "Mennyi vizet kell még a kancsóba önteni, hogy 1 liter legyen benne?", "options": ["300 ml", "3 l", "30 ml", "400 ml"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az egyenlő mennyiségeket!", "pairs": [
+          ["1 l", "10 dl"],
+          ["1 dl", "100 ml"],
+          ["1 hl", "100 l"],
+          ["1 cl", "10 ml"]
+        ] }
+      ]
+    },
+    {
+      "slug": "az-ido-merese-mertekegysegei",
+      "title": "Az idő mérése, mértékegységei",
+      "description": "Időmértékek (s, perc, óra, nap, év), óraleolvasás, időtartam számítása.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "clock-745", "text": "Hány órát mutat az óra?", "options": ["7:45", "8:45", "9:40", "8:09"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "movie-timeline", "text": "Milyen hosszú a film?", "options": ["1 óra 35 perc", "2 óra 25 perc", "1 óra 25 perc", "2 óra 35 perc"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "movie-timeline", "text": "Hány percig tart a film?", "answer": "95" },
+        { "type": "tf", "time": 15, "text": "1 óra = 100 perc", "answer": false },
+        { "type": "mc", "time": 10, "text": "Hány óra 1 nap?", "options": ["24", "12", "60", "100"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Hány másodperc 3 perc?", "options": ["180", "300", "30", "120"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Hány napos a szökőév?", "options": ["366", "365", "360", "364"], "answer": 0 },
+        { "type": "tf", "time": 10, "text": "1 évszázad = 100 év", "answer": true },
+        { "type": "text", "time": 25, "svg": "clock-745", "text": "Hány perc múlva lesz 8 óra?", "answer": "15" },
+        { "type": "mc", "time": 25, "text": "Hány perc 2 óra 15 perc?", "options": ["135", "215", "120", "75"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Hány perc másfél óra?", "options": ["90", "150", "75", "60"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az egyenlő időtartamokat!", "pairs": [
+          ["1 perc", "60 másodperc"],
+          ["1 óra", "60 perc"],
+          ["1 nap", "24 óra"],
+          ["1 hét", "7 nap"]
+        ] }
+      ]
+    },
+    {
+      "slug": "mertekegyseg-atvaltasok",
+      "title": "Mértékegység-átváltások",
+      "description": "Váltás nagyobb és kisebb egységek között, összetett mennyiségek, tizedes törtek.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "mass-unit-chain", "text": "Hány dkg 3,5 kg?", "options": ["350 dkg", "35 dkg", "3500 dkg", "305 dkg"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "capacity-unit-chain", "text": "Hány liter 750 ml?", "options": ["0,75 l", "7,5 l", "75 l", "0,075 l"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Hány tonna 4500 kg?", "answer": "4,5" },
+        { "type": "tf", "time": 25, "text": "145 perc = 2 óra 25 perc", "answer": true },
+        { "type": "mc", "time": 25, "text": "Hány dkg 3 kg 45 dkg?", "options": ["345 dkg", "3045 dkg", "48 dkg", "3450 dkg"], "answer": 0 },
+        { "type": "mc", "time": 15, "svg": "mass-unit-chain", "text": "Mi a váltószám a kg és a dkg között?", "options": ["100", "10", "1000", "60"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "capacity-unit-chain", "text": "Hány ml 0,25 l?", "options": ["250 ml", "25 ml", "2500 ml", "2,5 ml"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "0,5 l = 50 ml", "answer": false },
+        { "type": "text", "time": 25, "text": "Hány ml 1,5 dl?", "answer": "150" },
+        { "type": "mc", "time": 25, "text": "Melyik egyenlő 1,2 kg-mal?", "options": ["120 dkg", "12 dkg", "1200 dkg", "12 g"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mennyi 90 másodperc?", "options": ["1 perc 30 másodperc", "1 perc 50 másodperc", "9 perc", "1 perc 9 másodperc"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az egyenlő mennyiségeket!", "pairs": [
+          ["2 kg", "200 dkg"],
+          ["2 l", "20 dl"],
+          ["2 óra", "120 perc"],
+          ["2 t", "20 q"]
+        ] }
+      ]
+    },
+    {
+      "slug": "aranyossagok-valtozo-mennyisegek",
+      "title": "Arányosságok, változó mennyiségek",
+      "description": "Együtt változó mennyiségek, táblázatok, egységár.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "notebook-table", "text": "Mi kerül a kérdőjel helyére a táblázatban?", "options": ["1250", "1000", "1500", "1050"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "notebook-table", "text": "Mennyibe kerül 1 füzet?", "options": ["250 Ft", "500 Ft", "25 Ft", "2500 Ft"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "candle-table", "text": "Egy égő gyertya hosszát mértük óránként. Mi kerül a kérdőjel helyére?", "options": ["8", "9", "7", "10"], "answer": 0 },
+        { "type": "tf", "time": 25, "svg": "candle-table", "text": "A gyertya hossza egyenesen arányos az eltelt idővel.", "answer": false },
+        { "type": "mc", "time": 30, "text": "Melyik két mennyiség egyenesen arányos?", "options": ["a vásárolt kenyerek száma és a fizetendő összeg", "egy gyerek életkora és a magassága", "a munkások száma és a munka elvégzésének ideje", "a napszak és a hőmérséklet"], "answer": 0 },
+        { "type": "text", "time": 25, "svg": "candle-table", "text": "Óránként hány cm-t ég le a gyertya?", "answer": "3/három" },
+        { "type": "mc", "time": 25, "text": "Ha ugyanazt a munkát több munkás végzi, akkor a munka általában…", "options": ["rövidebb ideig tart", "hosszabb ideig tart", "ugyanannyi ideig tart", "sosem lesz kész"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Ha két mennyiség egyenesen arányos, akkor az összetartozó értékeik hányadosa állandó.", "answer": true },
+        { "type": "text", "time": 30, "svg": "notebook-table", "text": "Hány füzetet vehetünk 2000 Ft-ért?", "answer": "8/nyolc" },
+        { "type": "mc", "time": 25, "text": "Egy autó óránként 80 km-t tesz meg. Mennyit tesz meg 3 óra alatt?", "options": ["240 km", "83 km", "160 km", "320 km"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "proportional-table", "text": "Mi kerül a kérdőjel helyére?", "options": ["900", "800", "1200", "600"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd, hogyan változik a másik mennyiség!", "pairs": [
+          ["több füzetet veszünk", "többet fizetünk"],
+          ["több munkás dolgozik", "rövidebb a munkaidő"],
+          ["tovább ég a gyertya", "rövidebb lesz a gyertya"],
+          ["több benzin van a tankban", "hosszabb utat tehetünk meg"]
+        ] }
+      ]
+    },
+    {
+      "slug": "egyenes-aranyossag",
+      "title": "Egyenes arányosság",
+      "description": "Következtetés egységre (hármasszabály), az egyenes arányosság grafikonja.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "prop-graph-400", "text": "Mennyibe kerül 3 kg alma?", "options": ["1200 Ft", "1600 Ft", "800 Ft", "1000 Ft"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "prop-graph-400", "text": "Mennyibe kerül 1 kg alma?", "options": ["400 Ft", "200 Ft", "800 Ft", "100 Ft"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "prop-graph-400", "text": "Hány forintba kerül 7 kg alma?", "answer": "2800" },
+        { "type": "tf", "time": 20, "text": "Az egyenes arányosság grafikonja egy origón átmenő egyenesre illeszkedik.", "answer": true },
+        { "type": "mc", "time": 40, "text": "4 kg alma ára 1800 Ft. Mennyibe kerül 7 kg?", "options": ["3150 Ft", "2400 Ft", "3600 Ft", "2100 Ft"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "direct-proportion-graph", "text": "A grafikon egy gyalogtúrát mutat. Mekkora utat tettek meg 5 óra alatt?", "options": ["15 km", "18 km", "12 km", "5 km"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "5 füzet ára 1000 Ft. Mennyibe kerül 8 füzet?", "options": ["1600 Ft", "1300 Ft", "8000 Ft", "1800 Ft"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Egyenes arányosságnál, ha az egyik mennyiség a kétszeresére nő, akkor a másik a felére csökken.", "answer": false },
+        { "type": "text", "time": 25, "text": "3 m szövet ára 4500 Ft. Hány forint 1 m?", "answer": "1500" },
+        { "type": "mc", "time": 30, "text": "Egy gép 4 perc alatt 60 csavart gyárt. Hányat gyárt 10 perc alatt?", "options": ["150", "240", "66", "100"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "direct-proportion-graph", "text": "Hány km-t tettek meg 1 óra alatt?", "options": ["3 km", "1 km", "6 km", "2 km"], "answer": 0 },
+        { "type": "match", "time": 45, "svg": "prop-graph-400", "text": "Párosítsd az alma tömegét az árával!", "pairs": [
+          ["1 kg", "400 Ft"],
+          ["2 kg", "800 Ft"],
+          ["5 kg", "2000 Ft"],
+          ["10 kg", "4000 Ft"]
+        ] }
+      ]
+    },
+    {
+      "slug": "nyitott-mondatok",
+      "title": "Nyitott mondatok",
+      "description": "Ismeretlenek, egyenletek és egyenlőtlenségek, alaphalmaz és igazsághalmaz.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "balance-x5-12", "text": "A mérleg egyensúlyban van. Hány kg az $x$?", "options": ["7", "17", "5", "12"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Oldd meg: $x + 15 = 42$", "options": ["27", "57", "37", "25"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Oldd meg: $4 \\cdot y = 36$. Mennyi $y$?", "answer": "9" },
+        { "type": "tf", "time": 25, "svg": "inequality-line", "text": "Az ábrán az $a + 7 \\lt 12$ nyitott mondat összes természetes szám megoldása be van jelölve.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "inequality-line", "text": "Hány természetes szám teszi igazzá az $a + 7 \\lt 12$ nyitott mondatot?", "options": ["5", "4", "12", "végtelen sok"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Melyik nyitott mondat?", "options": ["$x + 3 = 10$", "$5 + 3 = 8$", "$2 \\cdot 4 \\gt 7$", "$10 - 4 = 6$"], "answer": 0 },
+        { "type": "mc", "time": 40, "text": "$b$ természetes szám, és $b \\le 6$. Mely számok teszik igazzá a $2 \\cdot b \\ge 8$ nyitott mondatot?", "options": ["$4$, $5$, $6$", "$0$, $1$, $2$, $3$, $4$", "csak a $4$", "$5$, $6$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Az $x - 5 = 10$ nyitott mondat megoldása az $5$.", "answer": false },
+        { "type": "text", "time": 30, "svg": "balance-2x3-11", "text": "A mérleg egyensúlyban van. Hány kg egy $x$ doboz?", "answer": "4" },
+        { "type": "mc", "time": 25, "text": "Melyik szám NEM megoldása az $y \\lt 6$ nyitott mondatnak?", "options": ["6", "0", "3", "5"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mi kerül a négyzet helyére: $\\square : 4 = 8$?", "options": ["32", "2", "12", "4"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a nyitott mondatokat a megoldásukkal!", "pairs": [
+          ["$x + 4 = 10$", "6"],
+          ["$x - 4 = 10$", "14"],
+          ["$4 \\cdot x = 20$", "5"],
+          ["$x : 4 = 3$", "12"]
+        ] }
+      ]
+    },
+    {
+      "slug": "keressuk-a-megoldasokat",
+      "title": "Keressük a megoldásokat!",
+      "description": "Lebontogatás, fordított műveletek, „gondoltam egy számot”, ellenőrzés.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "reverse-chain", "text": "Melyik számot tettük be az elejére ($x$)?", "options": ["7", "35", "11", "9"], "answer": 0 },
+        { "type": "mc", "time": 40, "text": "Oldd meg lebontogatással: $(y - 4) : 5 = 6$", "options": ["34", "26", "10", "50"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Oldd meg: $2 \\cdot x + 5 = 17$. Mennyi $x$?", "answer": "6" },
+        { "type": "tf", "time": 20, "text": "Lebontogatáskor a műveleteket fordított sorrendben, a fordított műveletükkel végezzük el.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "reverse-chain", "text": "Mi az első lépés visszafelé haladva?", "options": ["a 28-ból kivonunk 7-et", "a 28-at elosztjuk 3-mal", "a 28-hoz hozzáadunk 7-et", "a 28-at megszorozzuk 3-mal"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Gondoltam egy számot, hozzáadtam 8-at, és 20-at kaptam. Melyik számra gondoltam?", "options": ["12", "28", "160", "2"], "answer": 0 },
+        { "type": "mc", "time": 35, "text": "Gondoltam egy számot, megszoroztam 4-gyel, majd kivontam belőle 3-at, és 25-öt kaptam. Melyik számra gondoltam?", "options": ["7", "8", "88", "5"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Az $x = 5$ megoldása a $3 \\cdot x - 4 = 10$ nyitott mondatnak.", "answer": false },
+        { "type": "text", "time": 35, "text": "Gondoltam egy számot, elosztottam 3-mal, majd hozzáadtam 4-et, és 10-et kaptam. Melyik számra gondoltam?", "answer": "18" },
+        { "type": "mc", "time": 25, "text": "Hogyan ellenőrizzük a nyitott mondat megoldását?", "options": ["behelyettesítjük a kapott számot az eredeti nyitott mondatba", "újra elolvassuk a feladatot", "megnézzük, páros-e a szám", "megkérdezzük a padtársunkat"], "answer": 0 },
+        { "type": "mc", "time": 35, "text": "Oldd meg: $5 \\cdot (x + 2) = 35$", "options": ["5", "7", "3", "9"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a nyitott mondatokat a megoldásukkal!", "pairs": [
+          ["$x + 6 = 10$", "4"],
+          ["$3 \\cdot x = 15$", "5"],
+          ["$x - 3 = 3$", "6"],
+          ["$x : 2 = 1$", "2"]
+        ] }
+      ]
+    },
+    {
+      "slug": "egyszeru-szoveges-feladatok",
+      "title": "Egyszerű szöveges feladatok",
+      "description": "A szöveges feladatmegoldás lépései, szakaszos ábra, ellenőrzés, válasz.",
+      "questions": [
+        { "type": "mc", "time": 35, "svg": "tape-anna-peti", "text": "Anna és Peti együtt 36 gesztenyét gyűjtött, Peti kétszer annyit, mint Anna. Hány gesztenyét gyűjtött Anna?", "options": ["12", "18", "24", "9"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "tape-anna-peti", "text": "Hány gesztenyét gyűjtött Peti?", "answer": "24" },
+        { "type": "mc", "time": 20, "text": "Mi a szöveges feladat megoldásának utolsó lépése?", "options": ["szöveges válasz a kérdésre", "az adatok kigyűjtése", "a terv elkészítése", "a számolás"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Ellenőrzéskor az eredményt az eredeti szövegbe helyettesítjük vissza.", "answer": true },
+        { "type": "mc", "time": 40, "text": "Két szám összege 50, a különbségük 10. Melyik a nagyobb szám?", "options": ["30", "20", "40", "25"], "answer": 0 },
+        { "type": "mc", "time": 40, "text": "Egy osztályba 28 tanuló jár. 4-gyel több a lány, mint a fiú. Hány fiú jár az osztályba?", "options": ["12", "16", "14", "10"], "answer": 0 },
+        { "type": "mc", "time": 40, "text": "Juli háromszor annyi idős, mint az öccse. Együtt 24 évesek. Hány éves az öccse?", "options": ["6", "8", "18", "12"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Ha Anna 9 éves, és Peti 5 évvel fiatalabb nála, akkor Peti 14 éves.", "answer": false },
+        { "type": "text", "time": 25, "text": "Egy könyv 120 oldalas. Bence már elolvasott 45 oldalt. Hány oldal van még hátra?", "answer": "75" },
+        { "type": "mc", "time": 20, "text": "Kirándulásra 3 busz indul, mindegyiken 45 utas ül. Hányan utaznak összesen?", "options": ["135", "48", "125", "145"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mi a szöveges feladat megoldásának helyes sorrendje?", "options": ["adatok → terv → számolás → ellenőrzés → válasz", "számolás → adatok → terv → válasz → ellenőrzés", "terv → számolás → adatok → ellenőrzés → válasz", "adatok → számolás → válasz → terv → ellenőrzés"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a kérdéseket a művelettel, amellyel megoldjuk őket!", "pairs": [
+          ["Együtt hány van?", "összeadás"],
+          ["Mennyivel kevesebb?", "kivonás"],
+          ["Mennyi a háromszorosa?", "szorzás"],
+          ["Mennyi jut egy főre, ha egyenlően osztjuk szét?", "osztás"]
+        ] }
+      ]
+    },
+    {
+      "slug": "szoveges-feladatok-a-hetkoznapjainkban",
+      "title": "Szöveges feladatok a hétköznapjainkban",
+      "description": "Vásárlás, visszajáró pénz, akciók, receptek, menetrend, utazás.",
+      "questions": [
+        { "type": "mc", "time": 40, "svg": "shop-receipt", "text": "Mennyit kell fizetni összesen?", "options": ["1480 Ft", "910 Ft", "1030 Ft", "1540 Ft"], "answer": 0 },
+        { "type": "text", "time": 40, "svg": "shop-receipt", "text": "Mennyi pénzt kapunk vissza 2000 Ft-ból?", "answer": "520" },
+        { "type": "mc", "time": 30, "svg": "recipe-4", "text": "Hány tojás kell, ha 6 főre sütünk palacsintát?", "options": ["3", "4", "2", "6"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "recipe-4", "text": "Hány dl tej kell 8 főre?", "options": ["6 dl", "3 dl", "8 dl", "12 dl"], "answer": 0 },
+        { "type": "tf", "time": 25, "svg": "recipe-4", "text": "2 főre 10 dkg liszt kell.", "answer": true },
+        { "type": "mc", "time": 35, "svg": "train-timetable", "text": "Mennyi ideig tart az út Budapest-Nyugatitól Szobig?", "options": ["1 óra 35 perc", "2 óra 25 perc", "1 óra 45 perc", "1 óra 25 perc"], "answer": 0 },
+        { "type": "text", "time": 25, "svg": "train-timetable", "text": "Hány perc alatt ér a vonat Budapest-Nyugatiból Vácra?", "answer": "30" },
+        { "type": "mc", "time": 25, "svg": "deal-3for2", "text": "Mennyit fizetünk 3 joghurtért az akcióval?", "options": ["300 Ft", "450 Ft", "150 Ft", "200 Ft"], "answer": 0 },
+        { "type": "tf", "time": 30, "svg": "deal-3for2", "text": "Az akcióval 6 joghurt 900 Ft-ba kerül.", "answer": false },
+        { "type": "mc", "time": 30, "text": "Egy kerékpáros óránként 18 km-t tesz meg. Mekkora utat tesz meg 2,5 óra alatt?", "options": ["45 km", "36 km", "20,5 km", "54 km"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "train-timetable", "text": "Hány perc alatt ér a vonat Vácról Nagymarosra?", "options": ["27 perc", "33 perc", "37 perc", "23 perc"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Készpénzes fizetésnél 0-ra vagy 5-re kerekítünk. Párosítsd a végösszeget azzal, amennyit fizetünk!", "pairs": [
+          ["1482 Ft", "1480 Ft"],
+          ["1483 Ft", "1485 Ft"],
+          ["1488 Ft", "1490 Ft"],
+          ["1496 Ft", "1495 Ft"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Mérés, arányosság, szöveges feladatok",
+      "description": "Témazáró gyakorló: mértékegységek, arányosság, nyitott mondatok, szöveges feladatok.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "mass-unit-chain", "text": "Hány kg 2 t?", "options": ["2000 kg", "200 kg", "20 kg", "20 000 kg"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "measuring-jug-700", "text": "Hány liter víz van a kancsóban?", "options": ["0,7 l", "7 l", "0,07 l", "70 l"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "clock-745", "text": "Hány perc múlva lesz fél kilenc (8:30)?", "options": ["45", "15", "30", "75"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Hány perc 3 óra?", "answer": "180" },
+        { "type": "tf", "time": 20, "text": "1 liter víz tömege körülbelül 1 kg.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "notebook-table", "text": "Mennyibe kerül 7 füzet?", "options": ["1750 Ft", "1500 Ft", "2000 Ft", "1720 Ft"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Oldd meg: $x - 8 = 15$", "options": ["23", "7", "13", "120"], "answer": 0 },
+        { "type": "mc", "time": 35, "text": "Gondoltam egy számot, megszoroztam 5-tel, majd hozzáadtam 2-t, és 37-et kaptam. Melyik számra gondoltam?", "options": ["7", "8", "6", "195"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "recipe-4", "text": "Hány dkg liszt kell 12 főre?", "answer": "60" },
+        { "type": "tf", "time": 15, "text": "1 hl = 10 l", "answer": false },
+        { "type": "mc", "time": 25, "svg": "prop-graph-400", "text": "Hány kg almát kapunk 1600 Ft-ért?", "options": ["4 kg", "3 kg", "5 kg", "16 kg"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a mennyiségeket a mértékegységükkel!", "pairs": [
+          ["tömeg", "kilogramm"],
+          ["űrtartalom", "liter"],
+          ["idő", "perc"],
+          ["hosszúság", "méter"]
+        ] }
+      ]
+    }
+  ]
+}
