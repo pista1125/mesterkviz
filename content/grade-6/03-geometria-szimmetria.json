@@ -1,0 +1,272 @@
+{
+  "idPrefix": "g6-geometria-szimmetria",
+  "topic": "III. Geometria, tengelyes tükrözés",
+  "grade_level": "6. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "sikbeli-alakzatok",
+      "title": "Síkbeli alakzatok",
+      "description": "Pont, egyenes, szakasz, félegyenes, szögfajták, sokszögek.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "lines-positions", "text": "Melyik két egyenes párhuzamos az ábrán?", "options": ["$a$ és $b$", "$a$ és $c$", "$b$ és $c$", "egyik sem"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "angle-types-row", "text": "Melyik számmal jelölt szög derékszög?", "options": ["2", "1", "3", "4"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "angle-types-row", "text": "Melyik számmal jelölt szög homorú (180°-nál nagyobb)?", "options": ["4", "3", "2", "1"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A félegyenesnek egy kezdőpontja van, a másik irányban végtelen.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Mi a szakasz?", "options": ["egy egyenes két pontja közé eső rész a végpontokkal együtt", "mindkét irányban végtelen vonal", "egy pontból induló, egyik irányban végtelen vonal", "egy görbe vonal"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "polygon-row", "text": "Hány oldalú a 3-as számmal jelölt sokszög?", "options": ["5", "3", "4", "6"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Hány csúcsa van egy hatszögnek?", "answer": "6/hat" },
+        { "type": "mc", "time": 15, "text": "Mekkora lehet egy hegyesszög?", "options": ["0° és 90° között", "pontosan 90°", "90° és 180° között", "pontosan 180°"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Két különböző egyenes a síkban vagy metszi egymást, vagy párhuzamos.", "answer": true },
+        { "type": "mc", "time": 20, "svg": "obtuse-angle", "text": "Milyen szöget jelöltünk az ábrán?", "options": ["tompaszöget", "hegyesszöget", "derékszöget", "egyenesszöget"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Hány fokos a derékszög?", "answer": "90/90°/90 fok" },
+        { "type": "match", "time": 45, "text": "Párosítsd a szögfajtákat egy-egy példával!", "pairs": [
+          ["hegyesszög", "35°"],
+          ["derékszög", "90°"],
+          ["tompaszög", "120°"],
+          ["egyenesszög", "180°"]
+        ] }
+      ]
+    },
+    {
+      "slug": "egybevagosag",
+      "title": "Egybevágóság",
+      "description": "Egybevágó alakzatok, transzformációk, háromszögek egybevágósága.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Mikor egybevágó két alakzat?", "options": ["ha alakjuk és méretük is azonos", "ha csak a színük azonos", "ha csak az alakjuk azonos", "ha csak a területük azonos"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "congruent-sss", "text": "Egybevágó-e a két háromszög?", "options": ["igen, mert az oldalaik páronként egyenlők", "nem, mert különböző a színük", "nem, mert más helyen vannak", "nem lehet eldönteni"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Két egybevágó háromszög kerülete egyenlő.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "reflection-axis", "text": "Milyen kapcsolatban van az ábrán a kék és a piros háromszög?", "options": ["egybevágók, egymás tükörképei", "csak hasonlók, de nem egybevágók", "nem egybevágók", "egyenlő területűek, de más alakúak"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Melyik transzformáció NEM egybevágóság?", "options": ["kétszeres nagyítás", "tengelyes tükrözés", "eltolás", "elforgatás"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Bármely két négyzet egybevágó.", "answer": false },
+        { "type": "mc", "time": 20, "text": "Mikor egybevágó két kör?", "options": ["ha a sugaruk egyenlő", "mindig", "soha", "ha a középpontjuk ugyanott van"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Két téglalap egybevágó. Az egyik oldalai 3 cm és 5 cm. Hány cm a másik téglalap kerülete?", "answer": "16/16 cm" },
+        { "type": "mc", "time": 20, "text": "Mit jelent az o–o–o egybevágósági eset?", "options": ["a két háromszög három-három oldala páronként egyenlő", "három szögük egyenlő", "egy oldaluk egyenlő", "a kerületük egyenlő"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Két egybevágó alakzat területe egyenlő.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Két háromszög szögei páronként egyenlők. Mit mondhatunk?", "options": ["nem biztos, hogy egybevágók", "biztosan egybevágók", "biztosan nem egybevágók", "biztosan egyenlő a területük"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd az alakzatpárokat a megállapítással!", "pairs": [
+          ["két 5 cm oldalú négyzet", "egybevágók, mert egyenlő az oldaluk"],
+          ["egy 3 cm és egy 6 cm oldalú négyzet", "nem egybevágók, csak hasonlók"],
+          ["két 2 cm sugarú kör", "egybevágók, mert egyenlő a sugaruk"],
+          ["egy alakzat és a tükörképe", "mindig egybevágók"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-kor",
+      "title": "A kör",
+      "description": "Kör, körvonal, sugár, átmérő, húr, körív, körcikk, körszelet.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "circle-parts", "text": "Melyik számmal jelölt szakasz egy húr, amely NEM átmérő?", "options": ["2", "1", "3", "egyik sem"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "circle-parts", "text": "Melyik számmal jelölt szakasz a sugár?", "options": ["1", "2", "3", "egyik sem"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "circle-sector", "text": "Hogy hívjuk a kiszínezett részt?", "options": ["körcikk", "körszelet", "körgyűrű", "félkör"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Egy kör sugara 7 cm. Hány cm az átmérője?", "answer": "14/14 cm" },
+        { "type": "tf", "time": 15, "text": "A körvonal minden pontja egyenlő távolságra van a középponttól.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "circle-lines", "text": "Melyik egyenes érinti a kört?", "options": ["$f$", "$e$", "$g$", "egyik sem"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Egy kör átmérője 18 cm. Mekkora a sugara?", "options": ["9 cm", "36 cm", "18 cm", "6 cm"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A kör leghosszabb húrja az átmérő.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Mi határolja a körszeletet?", "options": ["egy húr és a hozzá tartozó körív", "két sugár és egy körív", "két koncentrikus kör", "két átmérő"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "circle-lines", "text": "Hogy nevezzük a $g$ egyenest a körhöz képest?", "options": ["szelő", "érintő", "elkerülő egyenes", "átmérő"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "A körzőt 4 cm-re nyitjuk, és kört rajzolunk. Hány cm a kör átmérője?", "answer": "8/8 cm" },
+        { "type": "match", "time": 60, "text": "Párosítsd a kör részeit a leírásukkal!", "pairs": [
+          ["sugár", "a középpontot a körvonal egy pontjával összekötő szakasz"],
+          ["átmérő", "a középponton átmenő húr"],
+          ["húr", "a körvonal két pontját összekötő szakasz"],
+          ["körív", "a körvonal egy darabja"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-szakasz-felezomerolegese",
+      "title": "A szakasz felezőmerőlegese",
+      "description": "A felezőmerőleges definíciója, szerkesztése, a két végponttól egyenlő távolságra lévő pontok.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "construct-perp-bisector", "text": "Mit szerkesztettünk meg (piros egyenes)?", "options": ["az $AB$ szakasz felezőmerőlegesét", "egy szögfelezőt", "egy párhuzamos egyenest", "egy kört"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "perp-bisector-points", "text": "$P$ rajta van az $AB$ szakasz $f$ felezőmerőlegesén, és $PA = 5$ cm. Mekkora $PB$?", "options": ["5 cm", "10 cm", "2,5 cm", "nem lehet tudni"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A felezőmerőleges minden pontja egyenlő távolságra van a szakasz két végpontjától.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Mi igaz a szakasz felezőmerőlegesére?", "options": ["merőleges a szakaszra, és átmegy a felezőpontján", "párhuzamos a szakasszal", "átmegy a szakasz egyik végpontján", "a szakasz meghosszabbítása"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Az $AB$ szakasz 12 cm, $F$ a felezőpontja. Hány cm az $AF$?", "answer": "6/6 cm" },
+        { "type": "mc", "time": 30, "text": "Két falu, $A$ és $B$ között olyan helyre szeretnénk kutat ásni, amely mindkét falutól egyenlő távol van. Hol keressük?", "options": ["az $AB$ szakasz felezőmerőlegesén", "az $A$ falu mellett", "az $AB$ szakasz meghosszabbításán", "bárhol"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A felezőmerőleges két egyenlő részre osztja a szakaszt.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Mekkorára nyissuk a körzőt a felezőmerőleges szerkesztésekor?", "options": ["a szakasz felénél nagyobbra", "pontosan a szakasz felére", "a szakasz felénél kisebbre", "mindegy"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Hol metszik egymást a háromszög oldalainak felezőmerőlegesei?", "options": ["a háromszög köré írt körének középpontjában", "mindig az egyik csúcsban", "nem metszik egymást", "a leghosszabb oldalon"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Hány felezőmerőlegese van egy szakasznak?", "answer": "1/egy" },
+        { "type": "mc", "time": 30, "svg": "perp-bisector-points", "text": "A $Q$ pont nincs rajta a felezőmerőlegesen, a bal oldalán van. Mi igaz rá?", "options": ["$QA \\lt QB$", "$QA = QB$", "$QA \\gt QB$", "nem lehet tudni"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a fogalmakat a jelentésükkel!", "pairs": [
+          ["felezőpont", "a szakaszt két egyenlő részre bontó pont"],
+          ["felezőmerőleges", "a felezőpontban a szakaszra állított merőleges"],
+          ["mértani hely", "adott tulajdonságú pontok halmaza"],
+          ["körző", "távolságok felmérésére és körök rajzolására szolgál"]
+        ] }
+      ]
+    },
+    {
+      "slug": "szerkesztesek",
+      "title": "Szerkesztések",
+      "description": "Körző és vonalzó, szakaszmásolás, szögmásolás, szögfelezés, merőlegesek és párhuzamosok.",
+      "questions": [
+        { "type": "mc", "time": 15, "text": "Milyen eszközökkel szerkesztünk?", "options": ["körzővel és vonalzóval", "szögmérővel", "csak vonalzóval", "szabadkézzel"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "construct-angle-bisector", "text": "Mit szerkesztettünk meg (piros félegyenes)?", "options": ["a szög felezőjét", "egy szakaszfelező merőlegest", "egy párhuzamost", "egy kört"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Szakaszt körzővel tudunk átmásolni.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Hogyan szerkeszthetünk $60^\\circ$-os szöget?", "options": ["szabályos háromszög szerkesztésével", "négyzet szerkesztésével", "derékszög felezésével", "nem lehet megszerkeszteni"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Hány fokos szöget kapunk a derékszög felezésével?", "options": ["$45^\\circ$", "$30^\\circ$", "$60^\\circ$", "$90^\\circ$"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Egy $60^\\circ$-os szöget megfelezünk. Hány fokosak a kapott szögek?", "answer": "30/30°/30 fok" },
+        { "type": "mc", "time": 30, "text": "Merőlegest állítunk az $e$ egyenes $P$ pontjában. $P$-ből körívvel kijelöljük az $e$-n az $A$ és $B$ pontot. Mi a következő lépés?", "options": ["megszerkesztjük az $AB$ szakasz felezőmerőlegesét", "megfelezzük az $AP$ szakaszt", "párhuzamost húzunk $e$-vel", "kört rajzolunk $A$ körül 1 cm sugárral"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Párhuzamos egyenest szögmásolással is szerkeszthetünk.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Mi a szögmásolás első lépése?", "options": ["a szög csúcsából körívet húzunk, amely metszi a szárakat", "megmérjük a szöget szögmérővel", "meghosszabbítjuk a szárakat", "felezzük a szöget"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "construct-perp-bisector", "text": "Milyen helyzetű a piros egyenes az $AB$ szakaszhoz képest?", "options": ["merőleges rá, és felezi", "párhuzamos vele", "csak átmegy $A$-n", "nem metszi"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Egy $120^\\circ$-os szöget megfelezünk. Hány fokosak a kapott szögek?", "answer": "60/60°/60 fok" },
+        { "type": "match", "time": 60, "text": "Párosítsd a szerkesztéseket az eredményükkel!", "pairs": [
+          ["szakaszfelezés", "a felezőpont és a felezőmerőleges"],
+          ["szögfelezés", "két egyenlő nagyságú szög"],
+          ["szabályos háromszög szerkesztése", "$60^\\circ$-os szög"],
+          ["a derékszög felezése", "$45^\\circ$-os szög"]
+        ] }
+      ]
+    },
+    {
+      "slug": "tengelyes-tukrozes",
+      "title": "Tengelyes tükrözés",
+      "description": "A tengelyes tükrözés definíciója, tükrözés négyzetrácson és a koordináta-rendszerben.",
+      "questions": [
+        { "type": "text", "time": 25, "svg": "grid-reflect", "text": "Tükrözzük az $A$ pontot a $t$ tengelyre. Hány négyzetnyire lesz a tükörképe a tengelytől?", "answer": "3/három" },
+        { "type": "mc", "time": 20, "svg": "reflection-axis", "text": "Melyik transzformáció viszi a kék háromszöget a pirosba?", "options": ["tengelyes tükrözés", "eltolás", "nagyítás", "elforgatás"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Tengelyes tükrözésnél a pont és a képe egyenlő távolságra van a tengelytől.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Milyen helyzetű a $PP'$ szakasz (pont és tükörképe) a tengelyhez képest?", "options": ["merőleges rá", "párhuzamos vele", "$45^\\circ$-os szöget zár be vele", "egybeesik vele"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "coord-point-a", "text": "Tükrözzük az ábrán látható $A$ pontot az $y$ tengelyre. Mik a képpont koordinátái?", "options": ["$(-3; 2)$", "$(3; -2)$", "$(-3; -2)$", "$(2; 3)$"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mi a tükörtengely pontjainak képe?", "options": ["önmaguk", "a tengely túloldalán lévő pontok", "nincs képük", "az origó"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "A $P$ pont 4 cm-re van a tükörtengelytől. Hány cm-re van $P$ a saját tükörképétől?", "answer": "8/8 cm" },
+        { "type": "tf", "time": 20, "text": "A tengelyes tükrözés megtartja az alakzat körüljárási irányát.", "answer": false },
+        { "type": "mc", "time": 30, "text": "Tükrözzük a $(2; 5)$ pontot az $x$ tengelyre. Mik a képpont koordinátái?", "options": ["$(2; -5)$", "$(-2; 5)$", "$(-2; -5)$", "$(5; 2)$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mit látunk, ha tükörbe nézve felemeljük a jobb kezünket?", "options": ["a tükörképünk a bal kezét emeli", "a tükörképünk a jobb kezét emeli", "nem látszik semmi", "mindkét kezét emeli"], "answer": 0 },
+        { "type": "text", "time": 25, "svg": "grid-reflect", "text": "Tükrözzük a $B$ pontot a $t$ tengelyre. Hány négyzetnyire lesz a tükörképe a tengelytől?", "answer": "2/kettő" },
+        { "type": "match", "time": 60, "text": "Tükrözzük a pontokat az $y$ tengelyre. Párosítsd a pontokat a képükkel!", "pairs": [
+          ["$(1; 4)$", "$(-1; 4)$"],
+          ["$(-3; 2)$", "$(3; 2)$"],
+          ["$(0; 5)$", "$(0; 5)$"],
+          ["$(2; -1)$", "$(-2; -1)$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-tengelyes-tukrozes-tulajdonsagai",
+      "title": "A tengelyes tükrözés tulajdonságai",
+      "description": "Távolságtartás, szögtartás, körüljárási irány, fix elemek, kétszeri tükrözés.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Melyik állítás NEM igaz a tengelyes tükrözésre?", "options": ["megtartja a körüljárási irányt", "távolságtartó", "szögtartó", "a tengely pontjai helyben maradnak"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Egy szakasz tükörképe vele egyenlő hosszú szakasz.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Mi egy szög tükörképe?", "options": ["vele egyenlő nagyságú szög", "kétszer akkora szög", "fele akkora szög", "derékszög"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Melyek a tengelyes tükrözés fixpontjai?", "options": ["a tengely pontjai", "nincs fixpontja", "csak egy pont", "a sík minden pontja"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mi a tengelyre merőleges egyenes tükörképe?", "options": ["önmaga", "egy vele párhuzamos másik egyenes", "maga a tengely", "egy rá merőleges egyenes"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Egy 7 cm-es szakaszt tengelyesen tükrözünk. Hány cm hosszú a képe?", "answer": "7/7 cm" },
+        { "type": "tf", "time": 25, "text": "A tengellyel párhuzamos egyenes tükörképe is párhuzamos a tengellyel.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Mit kapunk, ha egy alakzatot kétszer egymás után ugyanarra a tengelyre tükrözünk?", "options": ["visszakapjuk az eredeti alakzatot", "kétszer akkora alakzatot", "az alakzat eltolt képét", "egy pontot"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "reflection-axis", "text": "Ha a kék háromszög csúcsait az óramutató járásával megegyező irányban járjuk körbe, milyen irányban járjuk körbe a piros kép megfelelő csúcsait?", "options": ["az óramutató járásával ellentétesen", "az óramutató járásával megegyezően", "nem lehet körbejárni", "egyenes vonalban"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Az $AB$ szakasz a $T$ pontban metszi a tükörtengelyt. Mit mondhatunk az $A'B'$ képszakaszról?", "options": ["szintén átmegy a $T$ ponton", "párhuzamos $AB$-vel", "nem metszi a tengelyt", "rövidebb $AB$-nél"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Egy $35^\\circ$-os szöget tengelyesen tükrözünk. Hány fokos a képe?", "answer": "35/35°/35 fok" },
+        { "type": "match", "time": 60, "text": "Mi történik tengelyes tükrözéskor? Párosítsd!", "pairs": [
+          ["a szakasz hossza", "a képe ugyanolyan hosszú"],
+          ["a szög nagysága", "a képe ugyanakkora"],
+          ["a körüljárási irány", "megfordul"],
+          ["a tengely pontjai", "helyben maradnak"]
+        ] }
+      ]
+    },
+    {
+      "slug": "tengelyes-szimmetria",
+      "title": "Tengelyes szimmetria",
+      "description": "Szimmetrikus alakzatok, a szimmetriatengelyek száma, betűk, számjegyek, természet.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "letters-axial", "text": "Melyik betűnek NINCS szimmetriatengelye?", "options": ["F", "A", "E", "H"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "butterfly", "text": "Hány szimmetriatengelye van a lepkének?", "options": ["1", "2", "0", "4"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Hány szimmetriatengelye van a négyzetnek?", "options": ["4", "2", "1", "8"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Hány szimmetriatengelye van egy (nem négyzet) téglalapnak?", "answer": "2/kettő" },
+        { "type": "tf", "time": 15, "text": "A körnek végtelen sok szimmetriatengelye van.", "answer": true },
+        { "type": "mc", "time": 30, "svg": "shapes-row", "text": "Melyik alakzatnak NINCS szimmetriatengelye? (1: paralelogramma, 2: deltoid, 3: egyenlő szárú háromszög, 4: szabályos ötszög)", "options": ["1", "2", "3", "4"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "letters-axial", "text": "Hány szimmetriatengelye van a H betűnek?", "options": ["2", "1", "0", "4"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Egy (nem szabályos) egyenlő szárú háromszögnek pontosan egy szimmetriatengelye van.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Hány szimmetriatengelye van a szabályos háromszögnek?", "options": ["3", "1", "6", "0"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Melyik nyomtatott számjegy tengelyesen szimmetrikus?", "options": ["8", "2", "4", "7"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "shapes-row", "text": "Hány szimmetriatengelye van a 4-es alakzatnak (szabályos ötszög)?", "answer": "5/öt" },
+        { "type": "match", "time": 45, "text": "Párosítsd az alakzatokat a szimmetriatengelyeik számával!", "pairs": [
+          ["egyenlő szárú háromszög", "1"],
+          ["téglalap", "2"],
+          ["szabályos háromszög", "3"],
+          ["négyzet", "4"]
+        ] }
+      ]
+    },
+    {
+      "slug": "tengelyesen-szimmetrikus-haromszogek-negyszogek-sokszogek",
+      "title": "Tengelyesen szimmetrikus háromszögek, négyszögek, sokszögek",
+      "description": "Egyenlő szárú és szabályos háromszög, deltoid, húrtrapéz, téglalap, rombusz, négyzet, szabályos sokszögek.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "isosceles-axis", "text": "Mit tudunk az egyenlő szárú háromszög alapon fekvő szögeiről ($A$ és $B$ csúcsnál)?", "options": ["egyenlők", "az egyik kétszerese a másiknak", "összegük $90^\\circ$", "mindig derékszögek"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "isosceles-axis", "text": "Az alapon fekvő szögek $70^\\circ$-osak. Mekkora a $C$ csúcsnál lévő szög?", "options": ["$40^\\circ$", "$70^\\circ$", "$110^\\circ$", "$20^\\circ$"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "kite-diagonals", "text": "Melyik átló egyenese a deltoid szimmetriatengelye?", "options": ["$AC$", "$BD$", "mindkettő", "egyik sem"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A húrtrapéz (szimmetrikus trapéz) tengelyesen szimmetrikus.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Melyek a rombusz szimmetriatengelyei?", "options": ["az átlói", "az oldalfelező merőlegesei", "az oldalai", "nincs szimmetriatengelye"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Hány szimmetriatengelye van a szabályos hatszögnek?", "answer": "6/hat" },
+        { "type": "mc", "time": 20, "text": "Milyen helyzetűek a deltoid átlói?", "options": ["merőlegesek", "párhuzamosak", "mindig egyenlők", "nem metszik egymást"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Minden téglalapnak 4 szimmetriatengelye van.", "answer": false },
+        { "type": "mc", "time": 15, "text": "Mekkorák a szabályos háromszög szögei?", "options": ["mind $60^\\circ$", "mind $90^\\circ$", "$30^\\circ$, $60^\\circ$, $90^\\circ$", "mind $45^\\circ$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyik négyszög tengelyesen szimmetrikus, de (általában) NEM paralelogramma?", "options": ["deltoid", "téglalap", "rombusz", "négyzet"], "answer": 0 },
+        { "type": "text", "time": 25, "svg": "isosceles-axis", "text": "Az egyenlő szárú háromszög alapja 10 cm. A szimmetriatengely két egyenlő részre osztja az alapot. Hány cm-esek ezek a részek?", "answer": "5/5 cm" },
+        { "type": "match", "time": 60, "text": "Párosítsd a négyszögeket a szimmetriatengelyeikkel!", "pairs": [
+          ["deltoid", "1 tengely: az egyik átló"],
+          ["téglalap", "2 tengely: az oldalfelező merőlegesek"],
+          ["rombusz", "2 tengely: a két átló"],
+          ["négyzet", "4 tengely"]
+        ] }
+      ]
+    },
+    {
+      "slug": "szerkesztesi-feladatok",
+      "title": "Szerkesztési feladatok",
+      "description": "A szerkesztés négy lépése, háromszög szerkesztése, háromszög-egyenlőtlenség, diszkusszió.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Mi a szerkesztési feladat megoldásának helyes sorrendje?", "options": ["vázlat, terv, szerkesztés, diszkusszió", "szerkesztés, vázlat, terv, diszkusszió", "diszkusszió, terv, vázlat, szerkesztés", "terv, szerkesztés, vázlat, diszkusszió"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "triangle-inequality", "text": "Miért nem szerkeszthető háromszög a 3 cm, 4 cm és 8 cm hosszú szakaszokból?", "options": ["mert $3 + 4 \\lt 8$", "mert a 8 páros", "mert a 3 páratlan", "szerkeszthető"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyik számhármasból szerkeszthető háromszög (cm-ben)?", "options": ["4, 5, 6", "2, 3, 6", "1, 2, 3", "5, 5, 11"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A háromszög bármely két oldalának összege nagyobb a harmadik oldalnál.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Mit vizsgálunk a diszkusszióban?", "options": ["hány megoldása van a feladatnak", "milyen színű ceruzát használunk", "hány percig tartott a szerkesztés", "a lap méretét"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Egy háromszög két oldala 3 cm és 7 cm. A harmadik oldal egész szám (cm). Legalább hány cm?", "answer": "5/5 cm" },
+        { "type": "mc", "time": 30, "text": "Háromszöget szerkesztünk három oldalából. Felmértük az egyik oldalt. Mi a következő lépés?", "options": ["a végpontjaiból a másik két oldal hosszával körívet húzunk", "megfelezzük az oldalt", "derékszöget szerkesztünk", "szögfelezőt rajzolunk"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Ha két oldal összege egyenlő a harmadik oldallal, akkor is szerkeszthető háromszög.", "answer": false },
+        { "type": "mc", "time": 30, "text": "Hogyan szerkesztünk négyzetet az oldalából?", "options": ["merőlegeseket állítunk, és körzővel felmérjük az oldalt", "négy szakaszt rajzolunk szemre", "kört rajzolunk", "szögfelezőt szerkesztünk"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy háromszög két oldala 5 cm és 5 cm, a közbezárt szög $60^\\circ$. Milyen háromszöget kapunk?", "options": ["szabályos háromszöget", "derékszögű háromszöget", "tompaszögű háromszöget", "általános háromszöget"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Egy háromszög két oldala 2 cm és 9 cm. A harmadik oldal egész szám (cm). Legfeljebb hány cm?", "answer": "10/10 cm" },
+        { "type": "match", "time": 60, "text": "Párosítsd a szerkesztés lépéseit a tartalmukkal!", "pairs": [
+          ["vázlat", "szabadkézi rajz az adatokkal"],
+          ["terv", "a szerkesztési lépések megtervezése"],
+          ["szerkesztés", "a rajz elkészítése körzővel és vonalzóval"],
+          ["diszkusszió", "hány megoldás van"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Geometria, tengelyes tükrözés",
+      "description": "Témazáró gyakorló: alakzatok, kör, felezőmerőleges, szerkesztések, tengelyes tükrözés és szimmetria.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "letters-axial", "text": "Melyik betűnek van vízszintes, de nincs függőleges szimmetriatengelye?", "options": ["E", "A", "F", "H"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Hány szimmetriatengelye van a négyzetnek?", "options": ["4", "2", "1", "0"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A tengelyes tükrözés távolságtartó.", "answer": true },
+        { "type": "mc", "time": 20, "svg": "circle-parts", "text": "Melyik számmal jelölt szakasz a kör átmérője?", "options": ["3", "1", "2", "egyik sem"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Egy kör sugara 5 cm. Hány cm az átmérője?", "answer": "10/10 cm" },
+        { "type": "mc", "time": 30, "text": "Tükrözzük a $(3; -2)$ pontot az $x$ tengelyre. Mik a képpont koordinátái?", "options": ["$(3; 2)$", "$(-3; -2)$", "$(-3; 2)$", "$(-2; 3)$"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Melyik szög tompaszög?", "options": ["150°", "90°", "45°", "180°"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A (nem rombusz) deltoidnak két szimmetriatengelye van.", "answer": false },
+        { "type": "mc", "time": 25, "text": "Szerkeszthető-e háromszög a 2 cm, 4 cm és 7 cm hosszú szakaszokból?", "options": ["nem", "igen", "csak derékszögű", "csak egyenlő szárú"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy egyenlő szárú háromszög szárai által bezárt szög $80^\\circ$. Hány fokos egy alapon fekvő szöge?", "answer": "50/50°/50 fok" },
+        { "type": "mc", "time": 25, "svg": "construct-perp-bisector", "text": "Mi igaz a piros egyenes minden pontjára?", "options": ["egyenlő távol van $A$-tól és $B$-től", "rajta van az $AB$ szakaszon", "$A$-hoz van közelebb", "$B$-hez van közelebb"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd az alakzatokat a szimmetriatengelyeik számával!", "pairs": [
+          ["kör", "végtelen sok"],
+          ["szabályos háromszög", "3"],
+          ["általános paralelogramma", "0"],
+          ["húrtrapéz", "1"]
+        ] }
+      ]
+    }
+  ]
+}

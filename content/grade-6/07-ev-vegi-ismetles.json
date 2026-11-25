@@ -1,0 +1,32 @@
+{
+  "idPrefix": "g6-ev-vegi-ismetles",
+  "topic": "VII. Év végi ismétlés",
+  "grade_level": "6. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "ev-vegi-ismetles",
+      "title": "Év végi ismétlés – 6. osztály",
+      "description": "Vegyes ismétlő kvíz a 6. osztály minden témaköréből: egész számok, oszthatóság, törtek, geometria, arány és százalék, mérések, statisztika.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Mennyi $(-4) \\cdot (-6) - 30$?", "options": ["$-6$", "$54$", "$-54$", "$6$"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mennyi az LKKT(4; 6)?", "options": ["12", "24", "2", "10"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mennyi $\\frac{3}{4} + \\frac{1}{8}$?", "options": ["$\\frac{7}{8}$", "$\\frac{4}{12}$", "$\\frac{4}{8}$", "$\\frac{3}{32}$"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Mennyi $0{,}6 \\cdot 15$?", "answer": "9" },
+        { "type": "mc", "time": 20, "svg": "grid-reflect", "text": "Hány négyzetnyire van az $A$ pont a $t$ tükörtengelytől?", "options": ["3", "2", "5", "6"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mennyi 240-nek a 25%-a?", "options": ["60", "25", "48", "96"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Oldd meg: $3x + 4 = 19$. Mennyi $x$?", "answer": "5" },
+        { "type": "mc", "time": 25, "svg": "cuboid-3-4-5", "text": "Mekkora a téglatest térfogata?", "options": ["$60\\text{ cm}^3$", "$94\\text{ cm}^3$", "$12\\text{ cm}^3$", "$47\\text{ cm}^3$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Egy (nem négyzet) téglalapnak 2 szimmetriatengelye van.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "pie-sports", "text": "A kördiagram 40 tanuló kedvenc sportját mutatja. Hányan fociznak?", "options": ["20", "50", "10", "25"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A 91 prímszám.", "answer": false },
+        { "type": "match", "time": 60, "text": "Párosítsd a témaköröket egy-egy példával!", "pairs": [
+          ["oszthatóság", "$4 \\mid 316$"],
+          ["törtek", "$\\frac{1}{2} + \\frac{1}{4} = \\frac{3}{4}$"],
+          ["arány", "$3 : 6 = 1 : 2$"],
+          ["térfogat", "$2 \\cdot 3 \\cdot 4 = 24\\text{ cm}^3$"]
+        ] }
+      ]
+    }
+  ]
+}

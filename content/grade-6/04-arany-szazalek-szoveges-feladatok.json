@@ -1,0 +1,296 @@
+{
+  "idPrefix": "g6-arany-szazalek",
+  "topic": "IV. Arány, százalék, szöveges feladatok",
+  "grade_level": "6. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "az-arany-fogalma",
+      "title": "Az arány fogalma",
+      "description": "Két mennyiség aránya, egyszerűsítés, bővítés, arány mértékegységekkel.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "ratio-bar-2-3", "text": "Mi a piros és a kék négyzetek számának aránya?", "options": ["$2 : 3$", "$3 : 2$", "$2 : 5$", "$3 : 5$"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Egyszerűsítsd az arányt: $8 : 12$", "options": ["$2 : 3$", "$4 : 6$", "$3 : 2$", "$1 : 4$"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Mennyi a $15 : 5$ arány értéke (a hányados)?", "answer": "3" },
+        { "type": "tf", "time": 15, "text": "Két mennyiség aránya a két mennyiség hányadosa.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Egy osztályba 12 fiú és 16 lány jár. Mi a fiúk és a lányok számának aránya?", "options": ["$3 : 4$", "$4 : 3$", "$12 : 28$", "$3 : 7$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mi az 1 m és a 20 cm aránya?", "options": ["$5 : 1$", "$1 : 20$", "$1 : 5$", "$20 : 1$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "$2 : 3 = 4 : 6$", "answer": true },
+        { "type": "mc", "time": 25, "svg": "ratio-bar-2-3", "text": "Mi a kék négyzetek és az összes négyzet számának aránya?", "options": ["$3 : 5$", "$3 : 2$", "$2 : 5$", "$5 : 3$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy receptben a liszt és a cukor aránya $2 : 1$. Hány bögre cukor kell 6 bögre liszthez?", "options": ["3", "12", "2", "4"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Írd fel egész számokkal az $\\frac{1}{2} : \\frac{1}{4}$ arányt! (pl. 3:1 alakban)", "answer": "2:1" },
+        { "type": "mc", "time": 20, "text": "Melyik arány egyenlő a $3 : 5$ aránnyal?", "options": ["$9 : 15$", "$5 : 3$", "$6 : 8$", "$3 : 8$"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az arányokat a legegyszerűbb alakjukkal!", "pairs": [
+          ["$4 : 8$", "$1 : 2$"],
+          ["$9 : 6$", "$3 : 2$"],
+          ["$10 : 25$", "$2 : 5$"],
+          ["$12 : 4$", "$3 : 1$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "aranyos-osztas",
+      "title": "Arányos osztás",
+      "description": "Mennyiségek szétosztása adott arányban lépésről lépésre.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "ratio-share-marbles", "text": "Anna és Bence a 24 golyót $3 : 5$ arányban osztja el. Hány golyót kap Anna?", "options": ["9", "15", "3", "8"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "60 Ft-ot $1 : 2$ arányban osztunk el. Mekkorák a részek?", "options": ["20 Ft és 40 Ft", "30 Ft és 30 Ft", "10 Ft és 50 Ft", "15 Ft és 45 Ft"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "100 Ft-ot $2 : 3$ arányban osztunk el. Hány forint a nagyobbik rész?", "answer": "60/60 Ft" },
+        { "type": "tf", "time": 20, "text": "Arányos osztásnál először kiszámítjuk, hány egyenlő részre kell osztani a mennyiséget.", "answer": true },
+        { "type": "mc", "time": 30, "text": "90-et $1 : 2 : 3$ arányban osztunk el. Mekkorák a részek?", "options": ["15, 30, 45", "10, 20, 60", "30, 30, 30", "9, 18, 63"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Egy téglalap kerülete 30 cm, oldalainak aránya $2 : 3$. Mekkorák az oldalai?", "options": ["6 cm és 9 cm", "12 cm és 18 cm", "10 cm és 15 cm", "4 cm és 6 cm"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy mennyiséget $2 : 3$ arányban osztottunk el, a kisebbik rész 10. Mekkora az egész?", "options": ["25", "15", "50", "20"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Ha 40-et $1 : 1$ arányban osztunk el, mindkét rész 20.", "answer": true },
+        { "type": "text", "time": 45, "text": "Három testvér 2400 Ft-ot $3 : 4 : 5$ arányban oszt el. Hány forintot kap a legkevesebbet kapó?", "answer": "600/600 Ft" },
+        { "type": "mc", "time": 30, "text": "Egy háromszög szögeinek aránya $1 : 2 : 3$. Mekkorák a szögei?", "options": ["$30^\\circ$, $60^\\circ$, $90^\\circ$", "$20^\\circ$, $40^\\circ$, $60^\\circ$", "$60^\\circ$, $60^\\circ$, $60^\\circ$", "$10^\\circ$, $20^\\circ$, $30^\\circ$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "10 liter szörpöt $2 : 3$ arányban keverünk szirupból és vízből. Mennyi szirup és mennyi víz kell?", "options": ["4 l szirup és 6 l víz", "2 l szirup és 3 l víz", "6 l szirup és 4 l víz", "5 l szirup és 5 l víz"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "A 30-at az alábbi arányokban osztjuk el. Párosítsd!", "pairs": [
+          ["$1 : 2$", "10 és 20"],
+          ["$1 : 4$", "6 és 24"],
+          ["$2 : 3$", "12 és 18"],
+          ["$1 : 1$", "15 és 15"]
+        ] }
+      ]
+    },
+    {
+      "slug": "egyenes-aranyossag",
+      "title": "Egyenes arányosság",
+      "description": "Összetartozó mennyiségek, állandó hányados, következtetés egységre.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "proportional-table", "text": "Az alma ára egyenesen arányos a tömegével. Mi kerül a kérdőjel helyére?", "options": ["900", "800", "1200", "450"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mi jellemzi az egyenesen arányos mennyiségeket?", "options": ["az összetartozó értékek hányadosa állandó", "az összetartozó értékek összege állandó", "az összetartozó értékek szorzata állandó", "mindkettő mindig nő"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Egyenes arányosságnál, ha az egyik mennyiség a kétszeresére nő, a másik is a kétszeresére nő.", "answer": true },
+        { "type": "mc", "time": 30, "text": "3 füzet 450 Ft. Mennyibe kerül 7 füzet?", "options": ["1050 Ft", "900 Ft", "1350 Ft", "3150 Ft"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Egy gyalogos 1 óra alatt 5 km-t tesz meg. Hány km-t tesz meg ugyanolyan tempóban 3 óra alatt?", "answer": "15/15 km" },
+        { "type": "mc", "time": 30, "text": "Melyik két mennyiség egyenesen arányos?", "options": ["a vásárolt kenyerek száma és a fizetett összeg", "az életkor és a testmagasság", "a munkások száma és a munka ideje", "a négyzet oldala és a területe"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "4 kg alma 1200 Ft. Mennyibe kerül 1 kg?", "options": ["300 Ft", "400 Ft", "4800 Ft", "250 Ft"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Az életkor és a testmagasság egyenesen arányos.", "answer": false },
+        { "type": "text", "time": 20, "svg": "proportional-table", "text": "Hány kg almát kapunk 1500 Ft-ért?", "answer": "5/5 kg" },
+        { "type": "mc", "time": 30, "text": "Egy recepthez 4 főre 200 g liszt kell. Mennyi liszt kell 6 főre?", "options": ["300 g", "250 g", "400 g", "120 g"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Egy autó 100 km-en 6 liter benzint fogyaszt. Mennyit fogyaszt 250 km-en?", "options": ["15 liter", "12 liter", "25 liter", "18 liter"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "1 kg alma 300 Ft. Párosítsd a tömeget az árral!", "pairs": [
+          ["1 kg", "300 Ft"],
+          ["2 kg", "600 Ft"],
+          ["4 kg", "1200 Ft"],
+          ["10 kg", "3000 Ft"]
+        ] }
+      ]
+    },
+    {
+      "slug": "egyenes-aranyossag-grafikonja",
+      "title": "Egyenes arányosság grafikonja",
+      "description": "Koordináta-rendszer, origón átmenő egyenes, pontsor, leolvasás.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "direct-proportion-graph", "text": "A grafikon egy séta útját mutatja. Hány km-t tett meg 2 óra alatt?", "options": ["6 km", "2 km", "3 km", "12 km"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "direct-proportion-graph", "text": "Melyik szabály írja le a grafikont ($x$: idő órában, $y$: út km-ben)?", "options": ["$y = 3x$", "$y = x + 3$", "$y = 2x$", "$y = x$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Az egyenes arányosság grafikonja átmegy az origón.", "answer": true },
+        { "type": "text", "time": 25, "svg": "direct-proportion-graph", "text": "Hány km-t tesz meg 5 óra alatt ugyanilyen tempóban?", "answer": "15/15 km" },
+        { "type": "mc", "time": 25, "text": "Melyik pont NINCS rajta az $y = 3x$ grafikonján?", "options": ["$(2; 5)$", "$(1; 3)$", "$(4; 12)$", "$(0; 0)$"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "direct-proportion-graph", "text": "Hány óra alatt tett meg 12 km-t?", "options": ["4 óra", "3 óra", "12 óra", "36 óra"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Ha darabszámot ábrázolunk (pl. füzetek száma), a grafikon különálló pontokból áll.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Egy grafikon egyenes, de NEM megy át az origón. Lehet-e egyenes arányosság?", "options": ["nem", "igen, mindig", "csak ha emelkedik", "csak ha vízszintes"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Az összetartozó értékek: $x$: 1, 2, 3 és $y$: 4, 8, 12. Melyik a szabály?", "options": ["$y = 4x$", "$y = x + 3$", "$y = 2x + 2$", "$y = x + 4$"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "$y = 2x$. Mennyi $y$, ha $x = 7$?", "answer": "14" },
+        { "type": "mc", "time": 20, "text": "A $(3; 5)$ pontnál melyik tengelyen olvasható le a 3?", "options": ["a vízszintes ($x$) tengelyen", "a függőleges ($y$) tengelyen", "mindkettőn", "egyiken sem"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az $x$ értékeket az $y = 3x$ szabály szerinti $y$ értékekkel!", "pairs": [
+          ["$x = 1$", "$y = 3$"],
+          ["$x = 2$", "$y = 6$"],
+          ["$x = 4$", "$y = 12$"],
+          ["$x = 6$", "$y = 18$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "szabalyok-megfeleltetesek",
+      "title": "Szabályok, megfeleltetések",
+      "description": "Hozzárendelési szabályok, értéktáblázatok, szabálykeresés, visszafelé számolás.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "rule-machine", "text": "A gépbe az 5-öt tesszük be. Mi jön ki?", "options": ["13", "16", "10", "8"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "value-table", "text": "Mi kerül a kérdőjel helyére az értéktáblázatban?", "options": ["7", "6", "9", "4"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "value-table", "text": "Melyik szabály illik a táblázathoz?", "options": ["$y = 2x + 1$", "$y = x + 1$", "$y = 2x$", "$y = 3x$"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "rule-machine", "text": "A gépből 23 jött ki. Melyik számot tették be?", "answer": "10" },
+        { "type": "tf", "time": 20, "text": "Ha a szabályt visszafelé alkalmazzuk, a kimenetből kiszámíthatjuk a bemenetet.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Mi a következő szám: 2, 5, 8, 11, …?", "options": ["14", "13", "15", "16"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mi a következő szám: 1, 4, 9, 16, …?", "options": ["25", "20", "23", "32"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "A szabály: „szorozd meg 4-gyel, majd vonj ki 1-et”. Mit kapunk a 6-ból?", "answer": "23" },
+        { "type": "mc", "time": 30, "text": "Melyik szabály illik az $(1; 3)$, $(2; 5)$, $(3; 7)$ számpárokhoz?", "options": ["$y = 2x + 1$", "$y = x + 2$", "$y = 3x$", "$y = 2x + 3$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Az 1, 2, 4, 8, 16 sorozatban minden szám az előző kétszerese.", "answer": true },
+        { "type": "mc", "time": 15, "text": "Mi a következő szám: 50, 45, 40, …?", "options": ["35", "30", "45", "38"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Mit rendelnek a szabályok a 3-hoz? Párosítsd!", "pairs": [
+          ["$x + 5$", "8"],
+          ["$2 \\cdot x$", "6"],
+          ["$x \\cdot x$", "9"],
+          ["$10 - x$", "7"]
+        ] }
+      ]
+    },
+    {
+      "slug": "tortresz",
+      "title": "Törtrész",
+      "description": "Törtrész kiszámítása, visszaszámolás az egészre, hányadrész meghatározása.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Mennyi 60-nak a $\\frac{3}{4}$ része?", "options": ["45", "80", "15", "20"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "segment-2-5", "text": "Egy szám $\\frac{2}{5}$ része 40. Mennyi az egész?", "options": ["100", "16", "80", "200"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Egy 40 fős csoport $\\frac{3}{8}$ része fiú. Hány fiú van a csoportban?", "answer": "15" },
+        { "type": "tf", "time": 20, "text": "Ha egy szám $\\frac{1}{5}$ része 7, akkor a szám 35.", "answer": true },
+        { "type": "mc", "time": 20, "text": "15 perc hányad része 1 órának?", "options": ["$\\frac{1}{4}$", "$\\frac{1}{15}$", "$\\frac{1}{3}$", "$\\frac{1}{6}$"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "pizza-8", "text": "A pizza hányad részét ették meg (szürke szeletek)?", "options": ["$\\frac{3}{8}$", "$\\frac{5}{8}$", "$\\frac{3}{5}$", "$\\frac{1}{3}$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy szám $\\frac{2}{3}$ része 24. Melyik ez a szám?", "options": ["36", "16", "48", "72"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Hány gramm 1 kg $\\frac{2}{5}$ része?", "answer": "400/400 g" },
+        { "type": "mc", "time": 25, "text": "A 20 hányad része a 30-nak?", "options": ["$\\frac{2}{3}$", "$\\frac{3}{2}$", "$\\frac{1}{3}$", "$\\frac{1}{2}$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Egy pozitív szám $\\frac{3}{4}$ része nagyobb, mint maga a szám.", "answer": false },
+        { "type": "mc", "time": 45, "text": "Egy túra útvonalának $\\frac{5}{6}$ részét már megtettük, még 12 km van hátra. Milyen hosszú az egész útvonal?", "options": ["72 km", "60 km", "14,4 km", "10 km"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a 40 törtrészeit az értékükkel!", "pairs": [
+          ["a 40 fele", "20"],
+          ["a 40 negyede", "10"],
+          ["a 40 háromnegyede", "30"],
+          ["a 40 ötöde", "8"]
+        ] }
+      ]
+    },
+    {
+      "slug": "szazalekszamitas",
+      "title": "Százalékszámítás",
+      "description": "A százalék fogalma, százalékérték, százalékalap, százalékláb.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "hundred-grid-35", "text": "A 100 kis négyzetből álló táblázat hány százalékát színeztük ki?", "options": ["35%", "65%", "3,5%", "0,35%"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Mit jelent az 1%?", "options": ["az egész századrészét", "az egész tizedrészét", "az egész felét", "az egész ezredrészét"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mennyi 200-nak a 15%-a?", "options": ["30", "15", "185", "20"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Mennyi 80-nak a 25%-a?", "answer": "20" },
+        { "type": "mc", "time": 30, "svg": "percent-bar-20-40", "text": "Egy mennyiség 20%-a 40. Mennyi a 100%?", "options": ["200", "8", "60", "800"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Az 50% az egész fele.", "answer": true },
+        { "type": "mc", "time": 25, "text": "A 12 hány százaléka a 48-nak?", "options": ["25%", "12%", "4%", "36%"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy 30 fős osztályból 6-an hiányoznak. Az osztály hány százaléka hiányzik?", "answer": "20/20%/20 %" },
+        { "type": "mc", "time": 25, "text": "Egy szám 10%-a 7. Melyik ez a szám?", "options": ["70", "0,7", "17", "700"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A 100% az egész mennyiséget jelenti.", "answer": true },
+        { "type": "mc", "time": 15, "text": "Hány százalék a 0,4?", "options": ["40%", "4%", "0,4%", "400%"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a százalékokat a törtekkel!", "pairs": [
+          ["50%", "$\\frac{1}{2}$"],
+          ["25%", "$\\frac{1}{4}$"],
+          ["20%", "$\\frac{1}{5}$"],
+          ["10%", "$\\frac{1}{10}$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-szazalekszamitas-gyakorlasa",
+      "title": "A százalékszámítás gyakorlása",
+      "description": "Árleszállítás, drágulás, kedvezmények, keverékek, kördiagram.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "price-tag", "text": "Mennyi lesz a termék ára a feltüntetett kedvezménnyel?", "options": ["6000 Ft", "2000 Ft", "7975 Ft", "10 000 Ft"], "answer": 0 },
+        { "type": "mc", "time": 45, "svg": "discount-bar-80", "text": "Egy termék 20%-os akcióval 24 000 Ft. Mennyi volt az eredeti ára?", "options": ["30 000 Ft", "28 800 Ft", "19 200 Ft", "26 400 Ft"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy 2000 Ft-os termék ára 10%-kal nő. Mennyi lesz az új ár?", "options": ["2200 Ft", "2010 Ft", "1800 Ft", "2100 Ft"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Ha egy ár 20%-kal csökken, akkor az eredeti ár 80%-át kell kifizetni.", "answer": true },
+        { "type": "text", "time": 25, "text": "Egy 500 Ft-os termék 20%-kal olcsóbb lett. Hány forint az új ár?", "answer": "400/400 Ft" },
+        { "type": "mc", "time": 25, "svg": "pie-sports", "text": "A kördiagram 40 tanuló kedvenc sportját mutatja. Hányan fociznak?", "options": ["20", "50", "10", "25"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Hány gramm só van 200 g 10%-os sóoldatban?", "options": ["20 g", "10 g", "2 g", "190 g"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy termék ára 1500 Ft-ról 1800 Ft-ra nőtt. Hány százalékos a drágulás?", "options": ["20%", "30%", "18%", "300%"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Egy 40 fős évfolyam 15%-a hiányzik. Hányan hiányoznak?", "answer": "6" },
+        { "type": "tf", "time": 30, "text": "Ha egy árat 10%-kal emelnek, majd az új árat 10%-kal csökkentik, visszakapjuk az eredeti árat.", "answer": false },
+        { "type": "mc", "time": 30, "svg": "pie-sports", "text": "A 40 tanuló közül hányan úsznak?", "options": ["6", "15", "4", "10"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Egy termék ára 1000 Ft. Párosítsd a változásokat az új árral!", "pairs": [
+          ["10% kedvezmény", "900 Ft"],
+          ["25% kedvezmény", "750 Ft"],
+          ["10%-os drágulás", "1100 Ft"],
+          ["50% kedvezmény", "500 Ft"]
+        ] }
+      ]
+    },
+    {
+      "slug": "nyitott-mondatok",
+      "title": "Nyitott mondatok",
+      "description": "Az ismeretlen fogalma, mérlegelv, lebontogatás, egyszerű egyenletek és egyenlőtlenségek.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "balance-2x3-11", "text": "A mérleg egyensúlyban van. Mennyi egy $x$ doboz tömege?", "options": ["4 kg", "7 kg", "11 kg", "3 kg"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Oldd meg: $x + 7 = 15$", "options": ["$x = 8$", "$x = 22$", "$x = 7$", "$x = 15$"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Oldd meg: $3x = 21$. Mennyi $x$?", "answer": "7" },
+        { "type": "tf", "time": 15, "text": "A mérleg egyensúlyban marad, ha mindkét oldalról ugyanannyit veszünk el.", "answer": true },
+        { "type": "mc", "time": 30, "svg": "chain-x3-2", "text": "Egy számmal elvégeztük az ábrán látható műveleteket, és 18-at kaptunk. Melyik számból indultunk?", "options": ["6", "8", "9", "15"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Oldd meg: $2x - 3 = 11$", "options": ["$x = 7$", "$x = 4$", "$x = 8$", "$x = 14$"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Oldd meg: $x : 4 = 5$", "options": ["$x = 20$", "$x = 9$", "$x = 1{,}25$", "$x = 1$"], "answer": 0 },
+        { "type": "tf", "time": 10, "text": "Az ismeretlent általában betűvel (pl. $x$) jelöljük.", "answer": true },
+        { "type": "text", "time": 25, "text": "Oldd meg: $x - 9 = -2$. Mennyi $x$?", "answer": "7" },
+        { "type": "mc", "time": 30, "text": "Melyik természetes számok igazzá teszik: $x + 3 \\lt 6$?", "options": ["0, 1, 2", "3, 4, 5", "1, 2, 3", "csak a 3"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Oldd meg: $5x + 2 = 3x + 10$", "options": ["$x = 4$", "$x = 6$", "$x = 2$", "$x = 8$"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az egyenleteket a megoldásukkal!", "pairs": [
+          ["$x + 4 = 10$", "$6$"],
+          ["$2x = 18$", "$9$"],
+          ["$x - 5 = 3$", "$8$"],
+          ["$x : 3 = 4$", "$12$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "szoveges-feladatok",
+      "title": "Szöveges feladatok",
+      "description": "A szöveges feladatok megoldásának lépései, modellalkotás, ellenőrzés.",
+      "questions": [
+        { "type": "mc", "time": 30, "text": "Gondoltam egy számra. A háromszorosát 7-tel növeltem, így 31-et kaptam. Melyik számra gondoltam?", "options": ["8", "11", "24", "10"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Anna 3 évvel idősebb Bencénél. Együtt 21 évesek. Hány éves Bence?", "options": ["9", "12", "10", "7"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "3 füzet és 1 toll együtt 950 Ft. A toll 200 Ft. Hány forint egy füzet?", "answer": "250/250 Ft" },
+        { "type": "tf", "time": 10, "text": "A szöveges feladat végén szöveges választ adunk.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Két szám összege 30, a különbségük 6. Melyik ez a két szám?", "options": ["18 és 12", "20 és 10", "15 és 15", "24 és 6"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Egy téglalap kerülete 24 cm, az egyik oldala 2 cm-rel hosszabb a másiknál. Mekkorák az oldalai?", "options": ["5 cm és 7 cm", "6 cm és 8 cm", "4 cm és 6 cm", "10 cm és 12 cm"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Péter elköltötte a pénze $\\frac{1}{3}$ részét, így 600 Ft-ja maradt. Mennyi pénze volt?", "options": ["900 Ft", "800 Ft", "1800 Ft", "200 Ft"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy 25 fős osztályban 3-mal több a lány, mint a fiú. Hány fiú van az osztályban?", "answer": "11" },
+        { "type": "tf", "time": 15, "text": "Az eredményt érdemes az eredeti szöveg alapján is ellenőrizni.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Egy autó 60 km/h sebességgel 2,5 órán át halad. Hány km-t tesz meg?", "options": ["150 km", "120 km", "62,5 km", "24 km"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "4 egyforma doboz együtt 2 kg 400 g. Mekkora egy doboz tömege?", "options": ["600 g", "60 g", "6 kg", "800 g"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a szöveget a kifejezéssel!", "pairs": [
+          ["egy szám kétszerese", "$2x$"],
+          ["egy számnál 5-tel nagyobb szám", "$x + 5$"],
+          ["egy szám fele", "$\\frac{x}{2}$"],
+          ["egy szám háromszorosánál 1-gyel kisebb szám", "$3x - 1$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "tobb-megoldas-is-lehet",
+      "title": "Több megoldás is lehet",
+      "description": "Módszeres esetvizsgálat, táblázatkészítés, a megoldások száma.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "rect-perimeter-12", "text": "Hány különböző téglalap van, amelynek kerülete 12 cm, és az oldalai egész centiméterek?", "options": ["3", "2", "6", "1"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Hány olyan $(x; y)$ természetes számpár van, amelyre $x + y = 5$ (a sorrend számít)?", "options": ["6", "5", "3", "10"], "answer": 0 },
+        { "type": "tf", "time": 10, "text": "Egy feladatnak több megoldása is lehet.", "answer": true },
+        { "type": "mc", "time": 45, "text": "12 kekszet egyformán osztunk szét legalább 2 gyerek között úgy, hogy mindenki legalább 2-t kapjon. Hányféle gyerekszám lehetséges?", "options": ["4", "6", "3", "5"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "rect-perimeter-12", "text": "Az ábrán látható téglalapok közül melyiknek legnagyobb a területe? Add meg a területét ($\\text{cm}^2$-ben)!", "answer": "9/9 cm2/9 cm²" },
+        { "type": "mc", "time": 30, "text": "Melyik pozitív egész számok igazzá teszik: $x + 3 \\lt 7$?", "options": ["1, 2, 3", "1, 2, 3, 4", "4, 5, 6", "csak a 4"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Hány olyan kétjegyű szám van, amelynek számjegyeinek összege 4?", "options": ["4", "3", "5", "2"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Táblázat készítésével rendszerezve megtalálhatjuk az összes megoldást.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Hányféleképpen fizethetünk ki 20 Ft-ot 5 Ft-os és 10 Ft-os érmékkel?", "options": ["3", "2", "4", "5"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Hány olyan pozitív egész $(x; y)$ számpár van, amelyre $x \\cdot y = 12$ (a sorrend számít)?", "answer": "6/hat" },
+        { "type": "mc", "time": 25, "text": "Melyik egész számok abszolútértéke 3?", "options": ["$-3$ és $3$", "csak a 3", "csak a $-3$", "nincs ilyen"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a feltételeket a megoldások számával!", "pairs": [
+          ["$x + y = 3$ (természetes számok, a sorrend számít)", "4 megoldás"],
+          ["$x \\cdot y = 7$ (pozitív egészek, a sorrend számít)", "2 megoldás"],
+          ["$x + 1 = x$", "nincs megoldás"],
+          ["$x$ pozitív egész és $x \\lt 4$", "3 megoldás"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Arány, százalék, szöveges feladatok",
+      "description": "Témazáró gyakorló: arány, arányos osztás, egyenes arányosság, törtrész, százalék, egyenletek.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Egyszerűsítsd az arányt: $15 : 25$", "options": ["$3 : 5$", "$5 : 3$", "$1 : 10$", "$3 : 25$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "56-ot $3 : 4$ arányban osztunk el. Mekkorák a részek?", "options": ["24 és 32", "21 és 35", "28 és 28", "18 és 38"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "2 kg alma 700 Ft. Hány forint 6 kg?", "answer": "2100/2100 Ft" },
+        { "type": "tf", "time": 15, "text": "Egyenes arányosságnál az összetartozó értékek hányadosa állandó.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "direct-proportion-graph", "text": "A grafikon alapján hány km-t tett meg a sétáló 3 óra alatt?", "options": ["9 km", "3 km", "6 km", "12 km"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mennyi 240-nek a $\\frac{3}{4}$ része?", "options": ["180", "320", "60", "80"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mennyi 400 Ft-nak a 15%-a?", "options": ["60 Ft", "15 Ft", "40 Ft", "340 Ft"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Oldd meg: $2x + 5 = 17$. Mennyi $x$?", "answer": "6" },
+        { "type": "mc", "time": 20, "svg": "discount-bar-80", "text": "Az akciós ár az eredeti ár hány százaléka?", "options": ["80%", "20%", "120%", "24%"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A $3 : 4$ arányt bővítve $6 : 8$-at kapunk.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "rule-machine", "text": "A gépbe a 7-et tesszük be. Mi jön ki?", "options": ["17", "20", "10", "14"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a fogalmakat egy-egy példával!", "pairs": [
+          ["arány", "$2 : 3$"],
+          ["százalék", "a 100-nak a 7%-a 7"],
+          ["egyenes arányosság", "$y = 3x$"],
+          ["törtrész", "a 60-nak a $\\frac{1}{3}$ része 20"]
+        ] }
+      ]
+    }
+  ]
+}

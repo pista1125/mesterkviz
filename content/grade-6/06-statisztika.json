@@ -1,0 +1,128 @@
+{
+  "idPrefix": "g6-statisztika",
+  "topic": "VI. Statisztika",
+  "grade_level": "6. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "jatekok",
+      "title": "Játékok",
+      "description": "Venn-diagramok, halmazműveletek, osztálytermi szita-formula és barkochba.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "venn-sport", "text": "Az ábra egy osztály tanulóit mutatja. Hányan fociznak?", "options": ["13", "8", "5", "19"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "venn-sport", "text": "Hány tanuló jár az osztályba?", "answer": "22" },
+        { "type": "mc", "time": 20, "svg": "venn-sport", "text": "Hányan űzik mindkét sportot?", "options": ["5", "8", "6", "3"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A Venn-diagramon a két kör közös része azokat jelöli, akik mindkét csoportba tartoznak.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Egy 25 fős osztályban 15-en fociznak, 12-en kosaraznak, 5-en mindkettőt űzik. Hányan nem űzik egyiket sem?", "options": ["3", "0", "8", "13"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Barkochba: 1 és 100 közötti számra gondoltam. Melyik a legjobb első kérdés?", "options": ["Nagyobb-e 50-nél?", "A 37-re gondoltál?", "Páros-e a szám és 100?", "Gondoltál valamire?"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "1 és 16 közötti egész számra gondoltam. Legalább hány igen/nem kérdés kell, hogy mindig biztosan kitaláld?", "options": ["4", "8", "16", "2"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Barkochbában az a jó kérdés, amelyik körülbelül a felére szűkíti a lehetőségeket.", "answer": true },
+        { "type": "mc", "time": 25, "text": "$A = \\{1, 2, 3, 4\\}$ és $B = \\{3, 4, 5\\}$. Melyek a közös elemek?", "options": ["$\\{3, 4\\}$", "$\\{1, 2, 3, 4, 5\\}$", "$\\{1, 2\\}$", "$\\{5\\}$"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "$A = \\{1, 2, 3, 4\\}$ és $B = \\{3, 4, 5\\}$. Hány eleme van az $A \\cup B$ halmaznak (az összes elemnek, ismétlés nélkül)?", "answer": "5/öt" },
+        { "type": "mc", "time": 25, "svg": "venn-12-18", "text": "A Venn-diagram a 12 és a 18 prímtényezőit mutatja. Melyek a közös prímtényezők?", "options": ["2 és 3", "csak a 2", "csak a 3", "2, 2 és 3"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a Venn-diagram részeit a jelentésükkel!", "pairs": [
+          ["a két kör közös része", "mindkét tulajdonsággal rendelkezik"],
+          ["csak a bal oldali kör", "csak az első tulajdonsággal rendelkezik"],
+          ["a körökön kívüli rész", "egyik tulajdonsággal sem rendelkezik"],
+          ["a két kör együtt", "legalább az egyik tulajdonsággal rendelkezik"]
+        ] }
+      ]
+    },
+    {
+      "slug": "grafikonok-diagramok-osszefuggesek",
+      "title": "Grafikonok, diagramok, összefüggések",
+      "description": "Oszlop-, vonal- és sávdiagramok, skálázás, folyamatok, félrevezető ábrák.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "fruit-bar", "text": "Melyik a legkedveltebb gyümölcs?", "options": ["alma", "banán", "körte", "szőlő"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "fruit-bar", "text": "Hányan szavaztak a banánra?", "options": ["6", "5", "9", "3"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "fruit-bar", "text": "Hányan szavaztak összesen?", "answer": "23" },
+        { "type": "mc", "time": 25, "svg": "temperature-day", "text": "Mennyi volt a nap legmagasabb hőmérséklete?", "options": ["$8\\,^\\circ\\text{C}$", "$6\\,^\\circ\\text{C}$", "$15\\,^\\circ\\text{C}$", "$10\\,^\\circ\\text{C}$"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "temperature-day", "text": "Mikor volt a hőmérséklet pontosan $0\\,^\\circ\\text{C}$ (délelőtt)?", "options": ["8 és 9 óra között", "6 órakor", "12 órakor", "soha"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A vonaldiagram jól mutatja egy mennyiség időbeli változását.", "answer": true },
+        { "type": "mc", "time": 30, "svg": "misleading-bars", "text": "Miért félrevezető ez a diagram?", "options": ["mert a függőleges tengely nem 0-tól indul, így a különbség nagynak látszik", "mert az oszlopok különböző színűek", "mert csak két bolt szerepel", "nem félrevezető"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "misleading-bars", "text": "Valójában mennyivel adott el több gombócot a B bolt?", "options": ["2 gombóccal (kb. 2%-kal)", "kétszer annyit", "100%-kal többet", "50 gombóccal"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Az oszlopdiagram különböző kategóriák összehasonlítására alkalmas.", "answer": true },
+        { "type": "mc", "time": 20, "svg": "fruit-bar", "text": "Hányan szavaztak összesen a körtére és a szőlőre?", "options": ["8", "6", "9", "15"], "answer": 0 },
+        { "type": "text", "time": 25, "svg": "temperature-day", "text": "Hány fok volt éjfélkor (0 órakor)?", "answer": "-2/-2 °C/-2 fok" },
+        { "type": "match", "time": 60, "text": "Párosítsd az ábrázolási módokat azzal, mire a legalkalmasabbak!", "pairs": [
+          ["oszlopdiagram", "kategóriák összehasonlítása"],
+          ["kördiagram", "rész–egész arányok"],
+          ["vonaldiagram", "időbeli változás"],
+          ["táblázat", "pontos adatok rögzítése"]
+        ] }
+      ]
+    },
+    {
+      "slug": "kordiagram",
+      "title": "Kördiagram",
+      "description": "Az egész részekre bontása, középponti szögek (1% = 3,6°), leolvasás.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "pie-grades", "text": "A kördiagram egy 20 fős osztály jegyeit mutatja. Hányan kaptak 4-est?", "options": ["8", "4", "40", "10"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Hány fokos körcikk tartozik 1%-hoz?", "options": ["$3{,}6^\\circ$", "$1^\\circ$", "$36^\\circ$", "$0{,}36^\\circ$"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "pie-grades", "text": "Hány fokos az 5-ösökhöz tartozó körcikk?", "options": ["$108^\\circ$", "$30^\\circ$", "$90^\\circ$", "$120^\\circ$"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Hány fokos körcikk tartozik 25%-hoz?", "answer": "90/90°/90 fok" },
+        { "type": "tf", "time": 15, "text": "A kördiagram körcikkeinek középponti szögei együtt $360^\\circ$-ot adnak.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "pie-sports", "text": "A kördiagram 40 tanuló kedvenc sportját mutatja. Hányan kosaraznak?", "options": ["10", "25", "4", "15"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy körcikk középponti szöge $72^\\circ$. Hány százalékot jelent?", "options": ["20%", "72%", "25%", "10%"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Egy körcikk középponti szöge $180^\\circ$. Hány százalékot jelent?", "answer": "50/50%/50 %" },
+        { "type": "mc", "time": 25, "svg": "pie-sports", "text": "Hány fokos a focihoz tartozó körcikk?", "options": ["$180^\\circ$", "$50^\\circ$", "$90^\\circ$", "$120^\\circ$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Ha egy kör 4 egyforma körcikkből áll, mindegyik $90^\\circ$-os.", "answer": true },
+        { "type": "mc", "time": 30, "text": "30 tanuló közül 10 kér kakaót. Hány fokos körcikk ábrázolja őket a kördiagramon?", "options": ["$120^\\circ$", "$100^\\circ$", "$30^\\circ$", "$90^\\circ$"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a százalékokat a középponti szögekkel!", "pairs": [
+          ["10%", "$36^\\circ$"],
+          ["25%", "$90^\\circ$"],
+          ["50%", "$180^\\circ$"],
+          ["75%", "$270^\\circ$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "adatok-abrazolasa-atlag",
+      "title": "Adatok ábrázolása, átlag",
+      "description": "Gyakoriság, relatív gyakoriság, átlag, módusz, medián, terjedelem.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "grades-bar", "text": "Az oszlopdiagram egy dolgozat jegyeit mutatja. Hány tanuló írta meg a dolgozatot?", "options": ["20", "5", "6", "15"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "grades-bar", "text": "Mi a jegyek módusza (a leggyakoribb jegy)?", "options": ["3", "6", "4", "5"], "answer": 0 },
+        { "type": "text", "time": 60, "svg": "grades-bar", "text": "Mennyi a jegyek átlaga?", "answer": "3,3" },
+        { "type": "mc", "time": 45, "svg": "shoe-sizes", "text": "Mi a cipőméretek mediánja?", "options": ["38", "37", "38,5", "39"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mennyi a 4, 6, 8, 10, 12 számok átlaga?", "options": ["8", "10", "40", "6"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A módusz a leggyakrabban előforduló adat.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Mi a mediánja a 3, 8, 1, 9, 5 adatoknak?", "options": ["5", "1", "9", "5,2"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Mennyi a 12, 7, 19, 4, 15 adatok terjedelme?", "answer": "15" },
+        { "type": "mc", "time": 30, "svg": "grades-bar", "text": "Mennyi az ötösök relatív gyakorisága?", "options": ["20%", "4%", "25%", "40%"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Az átlag mindig megegyezik valamelyik adattal.", "answer": false },
+        { "type": "mc", "time": 45, "text": "Lili első három jegye 4, 5 és 3. Milyen jegyet kell kapnia negyedikre, hogy az átlaga pontosan 4 legyen?", "options": ["4", "5", "3", "2"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Adatok: 1, 1, 3, 7, 8. Párosítsd a mutatókat az értékükkel!", "pairs": [
+          ["átlag", "4"],
+          ["módusz", "1"],
+          ["medián", "3"],
+          ["terjedelem", "7"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Statisztika",
+      "description": "Témazáró gyakorló: Venn-diagram, diagramok, kördiagram, átlag, módusz, medián.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "venn-sport", "text": "Hányan kosaraznak, de nem fociznak?", "options": ["6", "11", "5", "3"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "fruit-bar", "text": "Hányan szavaztak az almára?", "options": ["9", "6", "10", "8"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "pie-grades", "text": "Hány fokos a 3-asokhoz tartozó körcikk?", "options": ["$72^\\circ$", "$20^\\circ$", "$60^\\circ$", "$90^\\circ$"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Mennyi az 5, 7, 9 számok átlaga?", "answer": "7" },
+        { "type": "tf", "time": 15, "text": "A medián a nagyság szerint sorba rendezett adatok középső eleme.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Mi a módusza a 2, 2, 3, 6, 7 adatoknak?", "options": ["2", "3", "4", "7"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "misleading-bars", "text": "Mi a hiba ezen a diagramon?", "options": ["a függőleges tengely nem 0-tól indul", "rossz a színezés", "hiányzik egy bolt", "nincs hiba"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Egy 40 fős évfolyam 30%-a jár kórusba. Hányan járnak kórusba?", "answer": "12" },
+        { "type": "mc", "time": 15, "text": "Hány fokos körcikk tartozik 50%-hoz?", "options": ["$180^\\circ$", "$50^\\circ$", "$90^\\circ$", "$360^\\circ$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A kördiagramon a körcikkek szöge arányos az adatok relatív gyakoriságával.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "temperature-day", "text": "Hány órakor volt a leghidegebb?", "options": ["6 órakor", "0 órakor", "12 órakor", "24 órakor"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a statisztikai mutatókat a definíciójukkal!", "pairs": [
+          ["módusz", "a leggyakoribb adat"],
+          ["medián", "a sorba rendezett adatok középső eleme"],
+          ["átlag", "az adatok összege osztva az adatok számával"],
+          ["terjedelem", "a legnagyobb és a legkisebb adat különbsége"]
+        ] }
+      ]
+    }
+  ]
+}

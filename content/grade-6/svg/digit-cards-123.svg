@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 110" width="240" height="110" font-family="Arial, sans-serif">
+<rect width="240" height="110" fill="#ffffff"/>
+<rect x="20" y="15" width="55" height="80" rx="8" fill="#ffffff" stroke="#374151" stroke-width="2.5"/><text x="47.0" y="70.0" font-size="36" text-anchor="middle" fill="#1d4ed8" font-weight="bold">1</text><rect x="95" y="15" width="55" height="80" rx="8" fill="#ffffff" stroke="#374151" stroke-width="2.5"/><text x="122.0" y="70.0" font-size="36" text-anchor="middle" fill="#1d4ed8" font-weight="bold">2</text><rect x="170" y="15" width="55" height="80" rx="8" fill="#ffffff" stroke="#374151" stroke-width="2.5"/><text x="197.0" y="70.0" font-size="36" text-anchor="middle" fill="#1d4ed8" font-weight="bold">3</text>
+</svg>
