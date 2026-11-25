@@ -1,0 +1,224 @@
+{
+  "idPrefix": "g7-racionalis-szamok",
+  "topic": "II. Racionális számok, betűs kifejezések",
+  "grade_level": "7. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "egesz-szamok-tulajdonsagai",
+      "title": "Az egész számok tulajdonságai",
+      "description": "Számegyenes, ellentett, abszolútérték, műveletek egész számokkal, előjelszabályok.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "number-line-int", "text": "Melyik pont jelöli a $-1$-et a számegyenesen?", "options": ["$B$", "$A$", "$C$", "$D$"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "number-line-int", "text": "Melyik pont jelöli a legnagyobb abszolútértékű számot?", "options": ["$D$", "$A$", "$B$", "$C$"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Mi a $-7$ ellentettje?", "options": ["$7$", "$-7$", "$\\frac{1}{7}$", "$0$"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mennyi $(-3) + (-5)$?", "options": ["$-8$", "$8$", "$-2$", "$2$"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Mennyi $7 + (-12)$?", "answer": "-5" },
+        { "type": "tf", "time": 15, "text": "$\\lvert -5 \\rvert = -5$", "answer": false },
+        { "type": "mc", "time": 20, "text": "Mennyi $(-6) \\cdot (-4)$?", "options": ["$24$", "$-24$", "$-10$", "$10$"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "thermometer-minus4", "text": "Reggel a hőmérő az ábrán látható értéket mutatta. Délre 7 fokkal melegebb lett. Hány fokot mutatott délben?", "options": ["$3\\,^\\circ\\text{C}$", "$-11\\,^\\circ\\text{C}$", "$11\\,^\\circ\\text{C}$", "$-3\\,^\\circ\\text{C}$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Az egész számok összeadása felcserélhető: $a + b = b + a$.", "answer": true },
+        { "type": "text", "time": 20, "text": "Mennyi $(-48) : 6$?", "answer": "-8" },
+        { "type": "mc", "time": 20, "text": "Mennyi $5 - (-3)$?", "options": ["$8$", "$2$", "$-8$", "$-2$"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a kifejezéseket az értékükkel!", "pairs": [
+          ["$\\lvert -9 \\rvert$", "$9$"],
+          ["$-(-4)$", "$4$"],
+          ["$(-2) \\cdot 3$", "$-6$"],
+          ["$(-10) : (-5)$", "$2$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "tortek-tizedestortek",
+      "title": "Törtek, tizedes törtek",
+      "description": "Bővítés, egyszerűsítés, vegyes számok, törtek és tizedes törtek átváltása, összehasonlítás.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "pie-3-8", "text": "A kör hányad részét színeztük ki?", "options": ["$\\frac{3}{8}$", "$\\frac{3}{5}$", "$\\frac{5}{8}$", "$\\frac{1}{3}$"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "pie-3-8", "text": "Írd fel tizedes tört alakban a kör kiszínezett részét!", "options": ["$0{,}375$", "$0{,}38$", "$3{,}8$", "$0{,}625$"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "bar-2-5", "text": "A szalag kiszínezett része tizedes tört alakban:", "options": ["$0{,}4$", "$0{,}25$", "$2{,}5$", "$0{,}2$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egyszerűsítsd a lehető legjobban: $\\frac{12}{18}$", "options": ["$\\frac{2}{3}$", "$\\frac{6}{9}$", "$\\frac{4}{6}$", "$\\frac{3}{2}$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Az $\\frac{1}{3}$ tizedes tört alakja véges.", "answer": false },
+        { "type": "text", "time": 25, "text": "Melyik szám kerül a kérdőjel helyére? $\\frac{3}{4} = \\frac{?}{100}$", "answer": "75" },
+        { "type": "mc", "time": 30, "text": "Írd fel áltörtként: $2\\frac{3}{5}$", "options": ["$\\frac{13}{5}$", "$\\frac{6}{5}$", "$\\frac{10}{5}$", "$\\frac{23}{5}$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyik a legnagyobb?", "options": ["$\\frac{3}{4}$", "$\\frac{2}{3}$", "$\\frac{5}{8}$", "$\\frac{7}{12}$"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "A $\\frac{3}{8}$ tizedes tört alakja véges, mert a nevező prímtényezői között csak 2 szerepel.", "answer": true },
+        { "type": "text", "time": 30, "text": "Írd fel tizedes tört alakban: $\\frac{7}{20}$", "answer": "0,35" },
+        { "type": "mc", "time": 25, "text": "Mi az $\\frac{1}{6}$ tizedes tört alakja?", "options": ["$0{,}1666\\ldots$", "$0{,}16$", "$0{,}6$", "$1{,}6$"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a törteket a tizedes tört alakjukkal!", "pairs": [
+          ["$\\frac{1}{2}$", "$0{,}5$"],
+          ["$\\frac{1}{4}$", "$0{,}25$"],
+          ["$\\frac{1}{5}$", "$0{,}2$"],
+          ["$\\frac{1}{8}$", "$0{,}125$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "muveletek-racionalis-szamok",
+      "title": "Műveletek a racionális számok halmazán",
+      "description": "Törtek összeadása, kivonása, szorzása, osztása, reciprok, negatív törtek.",
+      "questions": [
+        { "type": "mc", "time": 30, "text": "Mennyi $\\frac{2}{3} + \\frac{3}{5}$?", "options": ["$\\frac{19}{15}$", "$\\frac{5}{8}$", "$\\frac{5}{15}$", "$\\frac{6}{15}$"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "fraction-add", "text": "Az ábra alapján mennyi $\\frac{1}{2} + \\frac{1}{3}$?", "options": ["$\\frac{5}{6}$", "$\\frac{2}{5}$", "$\\frac{1}{6}$", "$\\frac{2}{6}$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mennyi $\\frac{3}{4} - \\frac{1}{6}$?", "options": ["$\\frac{7}{12}$", "$\\frac{2}{10}$", "$\\frac{1}{2}$", "$\\frac{5}{12}$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mennyi $\\frac{4}{9} \\cdot \\frac{3}{8}$?", "options": ["$\\frac{1}{6}$", "$\\frac{7}{17}$", "$\\frac{12}{17}$", "$\\frac{32}{27}$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Törttel úgy osztunk, hogy a reciprokával szorzunk.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Mennyi $\\frac{5}{6} : \\frac{2}{3}$?", "options": ["$\\frac{5}{4}$", "$\\frac{10}{18}$", "$\\frac{5}{9}$", "$\\frac{4}{5}$"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Mennyi $-\\frac{3}{4} \\cdot 8$?", "answer": "-6" },
+        { "type": "mc", "time": 20, "text": "Mi a $-\\frac{2}{7}$ reciproka?", "options": ["$-\\frac{7}{2}$", "$\\frac{7}{2}$", "$\\frac{2}{7}$", "$-\\frac{2}{7}$"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "$-\\frac{3}{5} = \\frac{-3}{5} = \\frac{3}{-5}$", "answer": true },
+        { "type": "text", "time": 20, "text": "Mennyi $\\frac{1}{2} + \\frac{1}{4} + \\frac{1}{4}$?", "answer": "1" },
+        { "type": "mc", "time": 30, "text": "Mennyi $\\left(-\\frac{2}{3}\\right) \\cdot \\left(-\\frac{9}{4}\\right)$?", "options": ["$\\frac{3}{2}$", "$-\\frac{3}{2}$", "$\\frac{2}{3}$", "$-\\frac{6}{7}$"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a műveleteket az eredményükkel!", "pairs": [
+          ["$\\frac{1}{3} + \\frac{1}{6}$", "$\\frac{1}{2}$"],
+          ["$\\frac{3}{4} \\cdot 2$", "$\\frac{3}{2}$"],
+          ["$1 : \\frac{1}{4}$", "$4$"],
+          ["$\\frac{2}{5} - \\frac{2}{5}$", "$0$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "szoveges-feladatok",
+      "title": "Szöveges feladatok",
+      "description": "Törtrész számítása, az egész kiszámítása a törtrészből, szakaszos ábrák.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Mennyi 600 Ft $\\frac{3}{4}$ része?", "options": ["450 Ft", "800 Ft", "200 Ft", "150 Ft"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "segment-2-5", "text": "A szakaszos ábra szerint egy szám $\\frac{2}{5}$ része 40. Mennyi az egész?", "options": ["100", "16", "80", "200"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Hány perc 1 óra $\\frac{3}{4}$ része?", "answer": "45/45 perc" },
+        { "type": "mc", "time": 25, "text": "Egy 30 fős osztály $\\frac{2}{5}$ része fiú. Hány fiú jár az osztályba?", "options": ["12", "18", "15", "6"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "pizza-8", "text": "Panni megette a pizza szürkével jelölt szeleteit. A pizza hányad része maradt meg?", "options": ["$\\frac{5}{8}$", "$\\frac{3}{8}$", "$\\frac{3}{5}$", "$\\frac{1}{2}$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Ha egy szám $\\frac{1}{3}$ része 12, akkor maga a szám 4.", "answer": false },
+        { "type": "mc", "time": 45, "text": "Kati 2400 Ft zsebpénzének $\\frac{1}{3}$ részét könyvre, $\\frac{1}{4}$ részét moziba költötte. Mennyi pénze maradt?", "options": ["1000 Ft", "1400 Ft", "600 Ft", "1800 Ft"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy túraútvonal $\\frac{3}{5}$ részét már megtettük, ez 24 km. Hány km hosszú az egész útvonal?", "answer": "40/40 km" },
+        { "type": "mc", "time": 25, "text": "Mennyi 1,5 liter $\\frac{2}{3}$ része?", "options": ["1 liter", "0,5 liter", "2,25 liter", "0,75 liter"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A feladat megoldása után érdemes ellenőrizni, hogy az eredmény valószerű-e.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Egy tartály $\\frac{3}{4}$ részéig van tele, ez 36 liter. Hány liter fér a tartályba?", "options": ["48 liter", "27 liter", "39 liter", "144 liter"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a kérdéseket a megoldásukhoz szükséges művelettel!", "pairs": [
+          ["Mennyi 600 Ft $\\frac{3}{4}$ része?", "$600 \\cdot \\frac{3}{4}$"],
+          ["Egy szám $\\frac{2}{5}$ része 40. Mennyi a szám?", "$40 : \\frac{2}{5}$"],
+          ["15 perc hányad része 60 percnek?", "$\\frac{15}{60}$"],
+          ["Mennyi $\\frac{1}{3}$ és $\\frac{1}{4}$ együtt?", "$\\frac{1}{3} + \\frac{1}{4}$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszetett-muveletek-zarojelfelbontas",
+      "title": "Összetett műveletek, zárójelfelbontás",
+      "description": "Műveleti sorrend, zárójelek, előjelek zárójelfelbontáskor, a törtvonal mint zárójel.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Mennyi $3 + 4 \\cdot 2$?", "options": ["$11$", "$14$", "$9$", "$24$"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mennyi $(3 + 4) \\cdot 2$?", "options": ["$14$", "$11$", "$10$", "$24$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Mennyi $20 - 2 \\cdot [3 + (-1)]$?", "answer": "16" },
+        { "type": "mc", "time": 25, "text": "Bontsd fel a zárójelet: $-(a - b + c)$", "options": ["$-a + b - c$", "$-a - b - c$", "$a - b + c$", "$-a + b + c$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "$+(a - b) = a - b$", "answer": true },
+        { "type": "mc", "time": 25, "text": "Mennyi $\\frac{6 + 4}{7 - 2}$?", "options": ["$2$", "$6$", "$10$", "$0{,}5$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mennyi $12 : 3 \\cdot 2$?", "options": ["$8$", "$2$", "$6$", "$18$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Mennyi $(-2) \\cdot (-3) - 4 \\cdot 5$?", "answer": "-14" },
+        { "type": "tf", "time": 20, "text": "A szorzást és az osztást balról jobbra haladva végezzük el.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Mennyi $10 - (3 - 7)$?", "options": ["$14$", "$0$", "$6$", "$-14$"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Mennyi $\\frac{1}{2} \\cdot \\left(\\frac{2}{3} + \\frac{1}{3}\\right) - 1$?", "options": ["$-\\frac{1}{2}$", "$\\frac{1}{2}$", "$0$", "$-1$"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a kifejezéseket az értékükkel!", "pairs": [
+          ["$2 + 3 \\cdot 4$", "$14$"],
+          ["$(2 + 3) \\cdot 4$", "$20$"],
+          ["$2 \\cdot 3 + 4$", "$10$"],
+          ["$2 \\cdot (3 - 4)$", "$-2$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "szamok-es-betuk-hasznalata",
+      "title": "Számok és betűk használata",
+      "description": "Változók, együtthatók, szöveg lefordítása betűs kifejezésre, kerület és terület betűkkel.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Hogyan írjuk fel: „egy számnál 5-tel nagyobb szám”?", "options": ["$x + 5$", "$5x$", "$x - 5$", "$\\frac{x}{5}$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Hogyan írjuk fel: „egy szám felének és 4-nek a különbsége”?", "options": ["$\\frac{x}{2} - 4$", "$\\frac{x - 4}{2}$", "$4 - \\frac{x}{2}$", "$2x - 4$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Hogyan írjuk fel: „két szám összegének négyzete”?", "options": ["$(a + b)^2$", "$a^2 + b^2$", "$2(a + b)$", "$a + b^2$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "„Két szám négyzetének összege” betűkkel: $(a + b)^2$.", "answer": false },
+        { "type": "mc", "time": 30, "svg": "rect-x-x3", "text": "Mekkora az ábrán látható téglalap kerülete?", "options": ["$4x + 6$", "$2x + 3$", "$x(x + 3)$", "$4x + 3$"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "rect-x-x3", "text": "Mekkora az ábrán látható téglalap területe?", "options": ["$x(x + 3)$", "$4x + 6$", "$2x + 3$", "$x + x + 3$"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "rect-x-x3", "text": "Mekkora az ábrán látható téglalap kerülete, ha $x = 5$ cm? (cm-ben)", "answer": "26/26 cm" },
+        { "type": "mc", "time": 20, "text": "Mi az együtthatója a $-3a^2b$ kifejezésnek?", "options": ["$-3$", "$3$", "$2$", "$a^2b$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Az $x$ kifejezés együtthatója 1.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Egy füzet $x$ forintba kerül. Mennyit fizetünk 4 füzetért és egy 200 Ft-os tollért?", "options": ["$4x + 200$", "$4(x + 200)$", "$x + 800$", "$204x$"], "answer": 0 },
+        { "type": "text", "time": 20, "svg": "square-a", "text": "Az ábrán látható négyzet oldala $a = 7$ cm. Hány cm a kerülete?", "answer": "28/28 cm" },
+        { "type": "match", "time": 45, "text": "Párosítsd a szöveget a betűs kifejezéssel!", "pairs": [
+          ["egy szám háromszorosa", "$3x$"],
+          ["egy szám ellentettje", "$-x$"],
+          ["egy szám reciproka", "$\\frac{1}{x}$"],
+          ["az $n$ utáni egész szám", "$n + 1$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszevonas-helyettesitesi-ertek",
+      "title": "Összevonás, helyettesítési érték",
+      "description": "Egynemű tagok összevonása, zárójel előtti mínuszjel, helyettesítési érték negatív számokkal.",
+      "questions": [
+        { "type": "mc", "time": 30, "text": "Vond össze: $5a - 3b + 2a + 7b$", "options": ["$7a + 4b$", "$7a - 10b$", "$11ab$", "$3a + 4b$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Melyik kifejezés egynemű a $4a^2b$-vel?", "options": ["$a^2b$", "$4ab^2$", "$4a^2$", "$ab$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A $3x$ és a $3x^2$ egynemű kifejezések.", "answer": false },
+        { "type": "mc", "time": 30, "svg": "triangle-sides-a", "text": "Mekkora az ábrán látható háromszög kerülete?", "options": ["$6a + 1$", "$6a$", "$5a + 1$", "$6a^2 + 1$"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "triangle-sides-a", "text": "Mekkora az ábrán látható háromszög kerülete, ha $a = 4$?", "answer": "25" },
+        { "type": "text", "time": 45, "text": "Mennyi a $3x^2 - 2x + 5$ kifejezés értéke, ha $x = -2$?", "answer": "21" },
+        { "type": "mc", "time": 25, "text": "Vond össze: $2x + 3y - x + y$", "options": ["$x + 4y$", "$3x + 4y$", "$x + 3y$", "$5xy$"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mennyi $x^2$, ha $x = -3$?", "options": ["$9$", "$-9$", "$-6$", "$6$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Negatív számot érdemes zárójelben behelyettesíteni.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Egyszerűsítsd: $4a - (a - 2)$", "options": ["$3a + 2$", "$3a - 2$", "$5a - 2$", "$3a$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mennyi $3a - 2b$, ha $a = 2$ és $b = -1$?", "options": ["$8$", "$4$", "$6$", "$-8$"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a kifejezéseket az összevont alakjukkal!", "pairs": [
+          ["$2x + 3x$", "$5x$"],
+          ["$7y - 9y$", "$-2y$"],
+          ["$a + a^2 + a$", "$a^2 + 2a$"],
+          ["$3ab - ab$", "$2ab$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "zarojelfelbontas-kiemeles",
+      "title": "Zárójelfelbontás, kiemelés",
+      "description": "Beszorzás egytagú kifejezéssel, negatív tényező, közös tényező kiemelése, területmodell.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Bontsd fel a zárójelet: $3(2x + 5)$", "options": ["$6x + 15$", "$6x + 5$", "$5x + 8$", "$6x + 8$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Bontsd fel a zárójelet: $-3(2x - 5y + 1)$", "options": ["$-6x + 15y - 3$", "$-6x - 15y - 3$", "$-6x + 15y + 3$", "$6x - 15y + 3$"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "area-3-x2", "text": "Az ábra alapján melyik egyenlőség igaz?", "options": ["$3(x + 2) = 3x + 6$", "$3(x + 2) = 3x + 2$", "$3(x + 2) = 3x + 5$", "$3(x + 2) = 5x$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A kiemelés és a zárójelfelbontás egymás fordított műveletei.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Emeld ki a közös tényezőt: $6x + 9$", "options": ["$3(2x + 3)$", "$3(2x + 9)$", "$6(x + 9)$", "$9(6x + 1)$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Emeld ki a legnagyobb közös tényezőt: $4a^2 - 6ab$", "options": ["$2a(2a - 3b)$", "$2a(2a - 6b)$", "$4a(a - 6b)$", "$2(2a - 3b)$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "$-5x - 10y = -5(x + \\square \\cdot y)$. Milyen szám kerül a $\\square$ helyére?", "answer": "2" },
+        { "type": "mc", "time": 20, "text": "Bontsd fel a zárójelet: $x(x - 4)$", "options": ["$x^2 - 4x$", "$x^2 - 4$", "$2x - 4$", "$x - 4x$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "$-(x - 3) = -x - 3$", "answer": false },
+        { "type": "text", "time": 45, "text": "Egyszerűsítsd: $2(x + 4) - 3x$", "answer": "-x+8/8-x" },
+        { "type": "mc", "time": 25, "svg": "area-3-x2", "text": "Mekkora az ábrán látható téglalap területe, ha $x = 4$?", "options": ["$18$", "$14$", "$24$", "$13$"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a kifejezéseket a kiemelt alakjukkal!", "pairs": [
+          ["$5a + 5b$", "$5(a + b)$"],
+          ["$2x - 8$", "$2(x - 4)$"],
+          ["$x^2 + x$", "$x(x + 1)$"],
+          ["$-3y - 6$", "$-3(y + 2)$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Racionális számok, betűs kifejezések",
+      "description": "Témazáró gyakorló: egész számok, törtek, műveletek, szöveges feladatok, algebrai kifejezések.",
+      "questions": [
+        { "type": "mc", "time": 15, "text": "Mennyi $(-8) + 3$?", "options": ["$-5$", "$5$", "$-11$", "$11$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mennyi $\\frac{3}{4} + \\frac{1}{8}$?", "options": ["$\\frac{7}{8}$", "$\\frac{4}{12}$", "$\\frac{4}{8}$", "$\\frac{3}{32}$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mennyi $\\frac{2}{3} : \\frac{4}{9}$?", "options": ["$\\frac{3}{2}$", "$\\frac{8}{27}$", "$\\frac{2}{3}$", "$\\frac{6}{9}$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "$0{,}6 = \\frac{3}{5}$", "answer": true },
+        { "type": "text", "time": 30, "text": "Egy szám $\\frac{3}{4}$ része 18. Melyik ez a szám?", "answer": "24" },
+        { "type": "mc", "time": 25, "svg": "number-line-int", "text": "Mi a $C$ pont által jelölt szám ellentettje?", "options": ["$-2$", "$2$", "$\\frac{1}{2}$", "$0$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Vond össze: $7x - 2y - 3x + 5y$", "options": ["$4x + 3y$", "$10x + 3y$", "$4x - 7y$", "$7xy$"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Mennyi a $2a^2 - a$ kifejezés értéke, ha $a = -3$?", "answer": "21" },
+        { "type": "mc", "time": 25, "text": "Bontsd fel a zárójelet: $-2(3x - 4)$", "options": ["$-6x + 8$", "$-6x - 8$", "$6x - 8$", "$-6x - 4$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "$12x + 8 = 4(3x + 2)$", "answer": true },
+        { "type": "mc", "time": 20, "svg": "pie-3-8", "text": "A kör hányad része NINCS kiszínezve?", "options": ["$\\frac{5}{8}$", "$\\frac{3}{8}$", "$\\frac{5}{3}$", "$\\frac{1}{2}$"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a szabályokat a képletükkel!", "pairs": [
+          ["osztás törttel", "$\\frac{a}{b} : \\frac{c}{d} = \\frac{a}{b} \\cdot \\frac{d}{c}$"],
+          ["széttagolhatóság", "$a(b + c) = ab + ac$"],
+          ["ellentett", "$a + (-a) = 0$"],
+          ["abszolútérték", "$\\lvert -a \\rvert = \\lvert a \\rvert$"]
+        ] }
+      ]
+    }
+  ]
+}

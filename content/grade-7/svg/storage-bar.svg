@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 110" width="320" height="110" font-family="Arial, sans-serif">
+<rect width="320" height="110" fill="#ffffff"/>
+<rect x="20" y="35" width="280" height="40" fill="#ffffff" stroke="#374151" stroke-width="2.5"/><rect x="22" y="37" width="207" height="36" fill="#f97316" stroke="none" stroke-width="0"/><text x="125.0" y="61.0" font-size="13" text-anchor="middle" fill="#ffffff" font-weight="bold">192 GB foglalt</text><text x="160.0" y="22.0" font-size="13" text-anchor="middle" fill="#111827" font-weight="bold">pendrive: 256 GB</text><rect x="300" y="47" width="8" height="16" fill="#374151" stroke="#374151" stroke-width="1"/>
+</svg>

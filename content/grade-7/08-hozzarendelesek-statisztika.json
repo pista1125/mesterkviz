@@ -1,0 +1,200 @@
+{
+  "idPrefix": "g7-hozzarendelesek-statisztika",
+  "topic": "VIII. Hozzárendelések, statisztika",
+  "grade_level": "7. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "ket-halmaz-kozotti-hozzarendelesek",
+      "title": "Két halmaz közötti hozzárendelések",
+      "description": "Nyíldiagram, értelmezési tartomány, értékkészlet, függvény, kölcsönösen egyértelmű hozzárendelés.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "arrow-diagram-function", "text": "Milyen szabály szerint rendeltük az $A$ halmaz elemeihez a $B$ halmaz elemeit?", "options": ["$x \\mapsto 2x$", "$x \\mapsto x + 1$", "$x \\mapsto x^2$", "$x \\mapsto x : 2$"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "arrow-diagram-function", "text": "Függvény-e az ábrán látható hozzárendelés?", "options": ["igen, mert minden elemből pontosan egy nyíl indul", "nem, mert 4 nyíl van", "nem, mert a $B$ halmazban nagyobb számok vannak", "nem lehet eldönteni"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "arrow-diagram-not-function", "text": "Miért NEM függvény az ábrán látható hozzárendelés?", "options": ["mert Bélához két elem is tartozik", "mert Csilla csak rajzol", "mert a foci és a zene különböző", "mert három ember van"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Függvénynél az értelmezési tartomány minden eleméhez pontosan egy elem tartozik.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Melyik kölcsönösen egyértelmű hozzárendelés?", "options": ["egy osztály tanulói → a sorszámuk a naplóban", "emberek → a szüleik", "számok → az osztóik", "országok → a városaik"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "A hozzárendelés szabálya $x \\mapsto 3x - 1$. Mi tartozik a 4-hez?", "answer": "11" },
+        { "type": "mc", "time": 25, "text": "Az $A = \\{1, 2, 3\\}$ halmaz minden eleméhez a kétszeresét rendeljük. Mi az értékkészlet?", "options": ["$\\{2, 4, 6\\}$", "$\\{1, 2, 3\\}$", "$\\{1, 4, 9\\}$", "$\\{3, 4, 5\\}$"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Ha két különböző elemhez ugyanaz a képelem tartozik, a hozzárendelés nem lehet függvény.", "answer": false },
+        { "type": "mc", "time": 20, "text": "Mi az értelmezési tartomány?", "options": ["azon elemek halmaza, amelyekhez hozzárendelünk", "a hozzárendelt értékek halmaza", "a nyilak száma", "a legnagyobb képelem"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Függvény-e az „ember → a születési dátuma” hozzárendelés?", "options": ["igen", "nem, mert többen születhettek ugyanazon a napon", "nem, mert a dátum nem szám", "csak felnőttekre"], "answer": 0 },
+        { "type": "text", "time": 20, "svg": "arrow-diagram-function", "text": "Melyik elemhez rendeltük a 6-ot?", "answer": "3" },
+        { "type": "match", "time": 60, "text": "Párosítsd a hozzárendeléseket a jellemzésükkel!", "pairs": [
+          ["ember → az anyja", "függvény, de többen tartozhatnak ugyanahhoz az anyához"],
+          ["szám → az osztói", "nem függvény (többértelmű)"],
+          ["tanuló → a sorszáma a naplóban", "kölcsönösen egyértelmű"],
+          ["$x \\mapsto x + 1$", "képlettel megadott függvény"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-hozzarendelesek-megadasi-modjai",
+      "title": "A hozzárendelések megadási módjai",
+      "description": "Szöveg, képlet, értéktáblázat, rendezett számpárok és grafikon.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "value-table", "text": "Mi kerül a kérdőjel helyére az értéktáblázatban?", "options": ["7", "6", "9", "4"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "value-table", "text": "Melyik szabály illik az értéktáblázathoz?", "options": ["$y = 2x + 1$", "$y = x + 1$", "$y = 2x$", "$y = 3x - 1$"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "grid-line-x2", "text": "Melyik hozzárendelés grafikonja látható?", "options": ["$y = x + 2$", "$y = 2x$", "$y = x - 2$", "$y = 2x + 2$"], "answer": 0 },
+        { "type": "text", "time": 25, "svg": "grid-line-x2", "text": "Mennyi az ábrázolt függvény értéke, ha $x = 3$?", "answer": "5" },
+        { "type": "tf", "time": 15, "text": "Egy hozzárendelés megadható szöveggel, képlettel, értéktáblázattal, számpárokkal és grafikonnal is.", "answer": true },
+        { "type": "mc", "time": 25, "text": "„Minden számhoz rendeljük hozzá a háromszorosánál 2-vel kisebb számot.” Melyik a képlet?", "options": ["$y = 3x - 2$", "$y = 3(x - 2)$", "$y = 2x - 3$", "$y = 3x + 2$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Melyik szabály illik az $(1; 4)$, $(2; 5)$, $(3; 6)$ számpárokhoz?", "options": ["$y = x + 3$", "$y = 4x$", "$y = 2x + 2$", "$y = x - 3$"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "A $(2; 7)$ pont rajta van az $y = 3x + 1$ grafikonján.", "answer": true },
+        { "type": "mc", "time": 20, "text": "$y = -x$. Mennyi $y$, ha $x = -5$?", "options": ["$5$", "$-5$", "$0$", "$-25$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "$y = 2x + 1$. Mennyi $x$, ha $y = 11$?", "answer": "5" },
+        { "type": "mc", "time": 15, "text": "Az $y = 2x + 1$ hozzárendelésben melyik a független változó?", "options": ["$x$", "$y$", "$2$", "$1$"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Készíts értéktáblázatot az $y = 3x - 1$ szabályhoz! Párosítsd!", "pairs": [
+          ["$x = 0$", "$y = -1$"],
+          ["$x = 1$", "$y = 2$"],
+          ["$x = 2$", "$y = 5$"],
+          ["$x = -1$", "$y = -4$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "olvassunk-a-grafikonrol",
+      "title": "Olvassunk a grafikonról!",
+      "description": "Hőmérséklet–idő és út–idő grafikonok, növekedés, csökkenés, szélsőértékek.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "temperature-day", "text": "A grafikon egy nap hőmérsékletét mutatja. Mennyi volt a legmagasabb hőmérséklet?", "options": ["$8\\,^\\circ\\text{C}$", "$6\\,^\\circ\\text{C}$", "$12\\,^\\circ\\text{C}$", "$15\\,^\\circ\\text{C}$"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "temperature-day", "text": "Hány órakor volt a leghidegebb?", "options": ["6 órakor", "0 órakor", "12 órakor", "24 órakor"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "temperature-day", "text": "Mikor emelkedett a hőmérséklet?", "options": ["6 és 15 óra között", "0 és 6 óra között", "15 és 24 óra között", "egész nap"], "answer": 0 },
+        { "type": "text", "time": 25, "svg": "temperature-day", "text": "Hány fok volt 12 órakor?", "answer": "6/6 °C/6 fok" },
+        { "type": "mc", "time": 25, "svg": "bike-distance-time", "text": "A grafikon egy kerékpártúrát mutat. Mekkora utat tett meg a kerékpáros az első órában?", "options": ["15 km", "30 km", "10 km", "5 km"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "bike-distance-time", "text": "Mennyi ideig pihent a kerékpáros?", "options": ["1 órát", "2 órát", "fél órát", "egyáltalán nem pihent"], "answer": 0 },
+        { "type": "text", "time": 25, "svg": "bike-distance-time", "text": "Hány km-t tett meg összesen a kerékpáros?", "answer": "30/30 km" },
+        { "type": "tf", "time": 15, "text": "Az út–idő grafikon vízszintes szakasza azt jelenti, hogy a jármű áll.", "answer": true },
+        { "type": "mc", "time": 30, "svg": "bike-distance-time", "text": "Mekkora volt a kerékpáros sebessége az utolsó órában?", "options": ["15 km/h", "30 km/h", "10 km/h", "7,5 km/h"], "answer": 0 },
+        { "type": "tf", "time": 20, "svg": "temperature-day", "text": "A hőmérséklet 0 és 6 óra között csökkent.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Mit nevezünk a grafikon zérushelyének?", "options": ["azt az $x$ értéket, ahol a grafikon metszi az $x$ tengelyt", "a grafikon legmagasabb pontját", "a grafikon kezdőpontját", "ahol a grafikon metszi az $y$ tengelyt"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a grafikon részeit a jelentésükkel!", "pairs": [
+          ["balról jobbra emelkedő szakasz", "a mennyiség nő"],
+          ["balról jobbra süllyedő szakasz", "a mennyiség csökken"],
+          ["vízszintes szakasz", "a mennyiség nem változik"],
+          ["a grafikon legmagasabb pontja", "maximum"]
+        ] }
+      ]
+    },
+    {
+      "slug": "atlag-modusz-median",
+      "title": "Átlag, módusz, medián",
+      "description": "Számtani közép, módusz, medián és terjedelem kiszámítása, oszlopdiagram elemzése.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "shoe-sizes", "text": "Az oszlopdiagram egy osztály cipőméreteit mutatja. Hány tanuló van az osztályban?", "options": ["20", "5", "8", "190"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "shoe-sizes", "text": "Mi a cipőméretek módusza?", "options": ["38", "8", "40", "37"], "answer": 0 },
+        { "type": "mc", "time": 45, "svg": "shoe-sizes", "text": "Mi a cipőméretek mediánja?", "options": ["38", "37", "38,5", "39"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mennyi a 4, 5, 3, 5, 4, 3, 5 jegyek átlaga (két tizedesre kerekítve)?", "options": ["4,14", "4", "5", "4,29"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Mennyi a 2, 4, 6, 8, 10 számok átlaga?", "answer": "6" },
+        { "type": "mc", "time": 30, "text": "Mi a mediánja a 3, 8, 1, 9, 5 adatoknak?", "options": ["5", "1", "9", "5,2"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Egy adatsornak több módusza is lehet.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Mi a mediánja a 2, 4, 6, 10 adatoknak?", "options": ["5", "4", "6", "5,5"], "answer": 0 },
+        { "type": "text", "time": 25, "svg": "shoe-sizes", "text": "Mennyi a cipőméretek terjedelme?", "answer": "4" },
+        { "type": "mc", "time": 45, "text": "Kati négy dolgozatának átlaga 4. Az ötödik dolgozata 5-ös lett. Mennyi most az átlaga?", "options": ["4,2", "4,5", "4,25", "5"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Az átlag mindig egyenlő a mediánnal.", "answer": false },
+        { "type": "match", "time": 60, "text": "Adatsor: 1, 1, 3, 7, 8. Párosítsd a mutatókat az értékükkel!", "pairs": [
+          ["átlag", "4"],
+          ["módusz", "1"],
+          ["medián", "3"],
+          ["terjedelem", "7"]
+        ] }
+      ]
+    },
+    {
+      "slug": "gyakorisag-relativ-gyakorisag",
+      "title": "Gyakoriság, relatív gyakoriság",
+      "description": "Gyakorisági táblázat, relatív gyakoriság törtként, tizedes törtként és százalékban, diagramok.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "pie-grades", "text": "A kördiagram egy 20 fős osztály dolgozatjegyeit mutatja. Hányan kaptak 4-est?", "options": ["8", "4", "40", "10"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "pie-grades", "text": "Mekkora az 5-ösökhöz tartozó körcikk középponti szöge?", "options": ["$108^\\circ$", "$30^\\circ$", "$90^\\circ$", "$120^\\circ$"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Egy 20 fős osztályban 6 tanuló kapott 5-öst. Hány százalék az 5-ösök relatív gyakorisága?", "answer": "30/30%/30 %" },
+        { "type": "tf", "time": 15, "text": "A relatív gyakoriságok összege mindig 100%.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Egy érték gyakorisága 5, az összes adat száma 25. Mennyi a relatív gyakoriság?", "options": ["0,2", "5", "0,5", "20"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Melyik diagram a legalkalmasabb rész–egész arányok szemléltetésére?", "options": ["kördiagram", "vonaldiagram", "értéktáblázat", "nyíldiagram"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "pie-grades", "text": "A 20 fős osztályban hányan kaptak 2-est?", "options": ["2", "10", "1", "4"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "40 kockadobásból 12 lett hatos. Mennyi a hatosok relatív gyakorisága tizedes tört alakban?", "answer": "0,3" },
+        { "type": "tf", "time": 15, "text": "A gyakoriság azt mutatja meg, hogy egy adat hányszor fordult elő.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Egy kördiagramon egy körcikk középponti szöge $90^\\circ$. Hány százalékot jelent?", "options": ["25%", "90%", "9%", "50%"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mire a legalkalmasabb az oszlopdiagram?", "options": ["különböző kategóriák gyakoriságainak összehasonlítására", "egy kör kerületének kiszámítására", "egyenletek megoldására", "csak időbeli változásra"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a relatív gyakoriságot a kördiagram középponti szögével!", "pairs": [
+          ["10%", "$36^\\circ$"],
+          ["25%", "$90^\\circ$"],
+          ["50%", "$180^\\circ$"],
+          ["30%", "$108^\\circ$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "valoszinuseg",
+      "title": "Valószínűség",
+      "description": "Véletlen kísérlet, biztos és lehetetlen esemény, klasszikus valószínűség.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "spinner-8", "text": "Megpörgetjük a szerencsekereket. Mennyi a valószínűsége, hogy pirosnál áll meg?", "options": ["$\\frac{3}{8}$", "$\\frac{1}{3}$", "$\\frac{3}{5}$", "$\\frac{1}{8}$"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "spinner-8", "text": "Mennyi a valószínűsége, hogy sárgánál áll meg?", "options": ["$\\frac{1}{8}$", "$\\frac{1}{4}$", "$\\frac{1}{2}$", "0"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "bag-balls", "text": "A zsákból vakon kihúzunk egy golyót. Mennyi a valószínűsége, hogy kék lesz?", "options": ["$\\frac{3}{10}$", "$\\frac{1}{3}$", "$\\frac{3}{7}$", "$\\frac{1}{10}$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Szabályos dobókockával 8-ast dobni lehetetlen esemény.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Mennyi a valószínűsége, hogy szabályos dobókockával páros számot dobunk?", "options": ["$\\frac{1}{2}$", "$\\frac{1}{3}$", "$\\frac{1}{6}$", "$\\frac{2}{3}$"], "answer": 0 },
+        { "type": "text", "time": 15, "svg": "bag-balls", "text": "Hány golyó van a zsákban összesen?", "answer": "10" },
+        { "type": "mc", "time": 20, "text": "Melyik biztos esemény kockadobásnál?", "options": ["7-nél kisebb számot dobunk", "6-ost dobunk", "páros számot dobunk", "0-t dobunk"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Egy esemény valószínűsége 0 és 1 közötti szám (a határokat is beleértve).", "answer": true },
+        { "type": "mc", "time": 20, "svg": "spinner-8", "text": "Melyik színnél áll meg a legnagyobb valószínűséggel a szerencsekerék?", "options": ["piros", "kék", "zöld", "sárga"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mennyi a valószínűsége, hogy dobókockával 3-mal osztható számot dobunk?", "options": ["$\\frac{1}{3}$", "$\\frac{1}{2}$", "$\\frac{1}{6}$", "$\\frac{2}{3}$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "1-től 10-ig számozott kártyák közül húzunk egyet. Hány százalék a valószínűsége, hogy prímszámot húzunk?", "answer": "40/40%/40 %" },
+        { "type": "match", "time": 60, "text": "Szabályos dobókockával dobunk. Párosítsd az eseményeket!", "pairs": [
+          ["8-ast dobunk", "lehetetlen esemény"],
+          ["7-nél kisebb számot dobunk", "biztos esemény"],
+          ["páros számot dobunk", "véletlen esemény, $P = \\frac{1}{2}$"],
+          ["6-ost dobunk", "véletlen esemény, $P = \\frac{1}{6}$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "tippelj-kiserletezz-ellenorizz",
+      "title": "Tippelj, kísérletezz, ellenőrizz!",
+      "description": "Kísérleti és elméleti valószínűség, relatív gyakoriság, a nagy számok törvénye.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "coin-tally", "text": "A táblázat egy 100 dobásos érmekísérlet eredményét mutatja. Mennyi a fej relatív gyakorisága?", "options": ["0,47", "0,53", "47", "0,5"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Mennyi a fej dobásának elméleti valószínűsége szabályos érmével?", "options": ["0,5", "0,47", "1", "0,25"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Ha egy kísérletet nagyon sokszor elvégzünk, a relatív gyakoriság egyre közelebb kerül az elméleti valószínűséghez.", "answer": true },
+        { "type": "mc", "time": 30, "svg": "coin-tally", "text": "Mennyivel tér el a fej relatív gyakorisága az elméleti valószínűségtől?", "options": ["0,03", "0,47", "0,53", "3"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Egy szabályos dobókockával 600-szor dobunk. Körülbelül hány hatosra számíthatunk?", "answer": "100" },
+        { "type": "mc", "time": 15, "text": "Mi a kísérleti módszer helyes sorrendje?", "options": ["tippelj, kísérletezz, ellenőrizz", "ellenőrizz, tippelj, kísérletezz", "kísérletezz, ellenőrizz, tippelj", "tippelj, ellenőrizz, kísérletezz"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "10 dobás után a relatív gyakoriság mindig pontosan egyenlő a valószínűséggel.", "answer": false },
+        { "type": "mc", "time": 25, "text": "Melyik kísérletsorozatnál várható a legkisebb eltérés az elméleti valószínűségtől?", "options": ["1000 dobás", "10 dobás", "50 dobás", "100 dobás"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "200 kockadobásból 38 lett hatos. Mennyi a hatosok relatív gyakorisága?", "options": ["0,19", "0,38", "0,16", "38"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "50 húzásból 20-szor húztunk piros golyót (visszatevéssel). Hány százalék a piros relatív gyakorisága?", "answer": "40/40%/40 %" },
+        { "type": "mc", "time": 30, "svg": "spinner-8", "text": "A szerencsekereket 800-szor pörgetjük meg. Körülbelül hányszor áll meg pirosnál?", "options": ["300", "100", "400", "375"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a fogalmakat a jelentésükkel!", "pairs": [
+          ["gyakoriság", "hányszor fordult elő az esemény"],
+          ["relatív gyakoriság", "a gyakoriság osztva a kísérletek számával"],
+          ["valószínűség", "kedvező esetek száma osztva az összes eset számával"],
+          ["nagy számok törvénye", "sok kísérletnél a relatív gyakoriság a valószínűséghez közelít"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Hozzárendelések, statisztika",
+      "description": "Témazáró gyakorló: hozzárendelések, grafikonok, átlag, módusz, medián, gyakoriság, valószínűség.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "arrow-diagram-function", "text": "Melyik elemnek a képe a 8?", "options": ["4", "2", "8", "16"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "$y = 4x - 3$. Mennyi $y$, ha $x = 2$?", "options": ["$5$", "$11$", "$-1$", "$8$"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "temperature-day", "text": "Hány fokkal volt melegebb 15 órakor, mint 6 órakor?", "options": ["12", "4", "8", "2"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Mennyi a 3, 7, 7, 8, 10 adatok átlaga?", "answer": "7" },
+        { "type": "mc", "time": 20, "text": "Mi a mediánja a 3, 7, 7, 8, 10 adatoknak?", "options": ["7", "8", "7,5", "3"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A módusz a leggyakrabban előforduló adat.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "bag-balls", "text": "Mennyi a valószínűsége, hogy a zsákból NEM piros golyót húzunk?", "options": ["$\\frac{1}{2}$", "$\\frac{1}{5}$", "$\\frac{3}{10}$", "$\\frac{2}{5}$"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Egy 25 fős osztályban 10 lány van. Hány százalék a lányok relatív gyakorisága?", "answer": "40/40%/40 %" },
+        { "type": "mc", "time": 30, "svg": "pie-grades", "text": "Mekkora a 3-asokhoz tartozó körcikk középponti szöge?", "options": ["$72^\\circ$", "$20^\\circ$", "$60^\\circ$", "$90^\\circ$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A relatív gyakoriság lehet 1,5 is.", "answer": false },
+        { "type": "mc", "time": 20, "text": "Mennyi a valószínűsége, hogy szabályos dobókockával 5-nél nagyobb számot dobunk?", "options": ["$\\frac{1}{6}$", "$\\frac{1}{3}$", "$\\frac{5}{6}$", "$\\frac{1}{2}$"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a fogalmakat a kiszámítás módjával!", "pairs": [
+          ["átlag", "az adatok összege osztva az adatok számával"],
+          ["relatív gyakoriság", "$\\frac{k}{n}$"],
+          ["klasszikus valószínűség", "kedvező esetek / összes eset"],
+          ["terjedelem", "legnagyobb adat − legkisebb adat"]
+        ] }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "idPrefix": "g7-egyenletek",
+  "topic": "VI. Egyenletek",
+  "grade_level": "7. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "egyenletmegoldasi-modszerek-probalgatas-es-lebontogatas",
+      "title": "Egyenletmegoldási módszerek: próbálgatás és lebontogatás",
+      "description": "Egyenlet, alaphalmaz, megoldáshalmaz, azonosság, próbálgatás és visszafelé gondolkodás.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Mit nevezünk az egyenlet megoldásának (gyökének)?", "options": ["az alaphalmaz azon elemét, amelyre az egyenlőség igaz", "az egyenlet bal oldalát", "bármely számot az alaphalmazból", "az egyenletben szereplő legnagyobb számot"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "chain-5x-4-3", "text": "Egy számmal elvégeztük az ábrán látható műveleteket, és 7-et kaptunk. Melyik számból indultunk?", "options": ["5", "7", "25", "3"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "chain-x3-2", "text": "Egy számmal elvégeztük az ábrán látható műveleteket, és 18-at kaptunk. Melyik számból indultunk?", "answer": "6" },
+        { "type": "mc", "time": 45, "text": "Melyek az $x(12 - x) = 32$ egyenlet pozitív egész megoldásai?", "options": ["4 és 8", "2 és 16", "csak a 4", "nincs megoldása"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "A $2x + 2 = 2(x + 1)$ egyenlet azonosság: minden szám megoldása.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Melyik egyenlőtlenség?", "options": ["$3x + 1 \\gt 7$", "$3x + 1 = 7$", "$x = 2$", "$3 + 1 = 4$"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Az alaphalmaz $\\{1, 2, 3, 4, 5\\}$. Melyik szám megoldása a $2x + 1 = 9$ egyenletnek?", "options": ["4", "5", "3", "nincs ilyen"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Az $x + 1 = x + 3$ egyenletnek nincs megoldása.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Melyik pozitív egész szám megoldása az $x \\cdot x = 49$ egyenletnek?", "options": ["7", "49", "24,5", "9"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Oldd meg lebontogatással: $(x - 2) \\cdot 4 = 20$. Mennyi $x$?", "answer": "7" },
+        { "type": "mc", "time": 30, "text": "Az alaphalmaz a természetes számok halmaza. Mi az $x + 5 = 3$ egyenlet megoldása?", "options": ["nincs megoldása", "$-2$", "8", "2"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az egyenleteket a megoldásukkal!", "pairs": [
+          ["$x + 7 = 12$", "$5$"],
+          ["$3x = 21$", "$7$"],
+          ["$x : 4 = 2$", "$8$"],
+          ["$10 - x = 4$", "$6$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-merlegelv",
+      "title": "A mérlegelv",
+      "description": "A kétkarú mérleg modellje, ekvivalens átalakítások, rendezés lépései.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "balance-2x3-11", "text": "A mérleg egyensúlyban van. Mennyi egy $x$ doboz tömege?", "options": ["4 kg", "7 kg", "11 kg", "3 kg"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "balance-2x3-11", "text": "Mi az első jó lépés a mérlegen?", "options": ["mindkét serpenyőből leveszünk 3 kg-ot", "csak a bal serpenyőből leveszünk 3 kg-ot", "a jobb serpenyőbe teszünk még 3 kg-ot", "elveszünk egy $x$ dobozt a bal oldalról"], "answer": 0 },
+        { "type": "mc", "time": 45, "svg": "balance-3x2-x10", "text": "A mérleg egyensúlyban van. Mennyi egy $x$ doboz tömege?", "options": ["4 kg", "3 kg", "6 kg", "12 kg"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Az egyenlet mindkét oldalát szabad nullával megszorozni (ez ekvivalens átalakítás).", "answer": false },
+        { "type": "mc", "time": 25, "text": "Melyik ekvivalens átalakítás?", "options": ["mindkét oldalhoz hozzáadunk 5-öt", "csak a bal oldalhoz adunk 5-öt", "mindkét oldalt megszorozzuk 0-val", "csak a jobb oldalt osztjuk 2-vel"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "balance-tilted", "text": "A mérleg kibillent. Mit mondhatunk az $x$ doboz tömegéről?", "options": ["kevesebb, mint 5 kg", "pontosan 5 kg", "több, mint 5 kg", "pontosan 7 kg"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Oldd meg: $4x = 28$. Mennyi $x$?", "answer": "7" },
+        { "type": "tf", "time": 15, "text": "Az egyenlőségjel a mérleg egyensúlyát jelenti.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Oldd meg: $5x - 3 = 2x + 9$", "options": ["$x = 4$", "$x = 2$", "$x = 6$", "$x = 12$"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mit végzünk el mindkét oldalon az $x + 8 = 15$ egyenletben?", "options": ["kivonunk 8-at", "hozzáadunk 8-at", "osztunk 8-cal", "szorzunk 8-cal"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Oldd meg: $7x + 2 = 3x + 22$. Mennyi $x$?", "answer": "5" },
+        { "type": "match", "time": 60, "text": "Párosítsd az egyenleteket a megoldás következő lépésével!", "pairs": [
+          ["$x + 6 = 10$", "mindkét oldalból kivonunk 6-ot"],
+          ["$x - 4 = 9$", "mindkét oldalhoz hozzáadunk 4-et"],
+          ["$3x = 18$", "mindkét oldalt elosztjuk 3-mal"],
+          ["$x : 5 = 2$", "mindkét oldalt megszorozzuk 5-tel"]
+        ] }
+      ]
+    },
+    {
+      "slug": "egyenletek-megoldasa-merlegelvvel",
+      "title": "Egyenletek megoldása mérlegelvvel",
+      "description": "Zárójeles és törtes egyenletek, rendezés, azonosság és ellentmondás, ellenőrzés.",
+      "questions": [
+        { "type": "mc", "time": 60, "text": "Oldd meg: $5(2x - 3) - 2(3x + 1) = 3(x + 4) - 9$", "options": ["$x = 20$", "$x = 14$", "$x = -20$", "$x = 3$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Oldd meg: $3(x + 2) = 21$", "options": ["$x = 5$", "$x = 7$", "$x = 6{,}3$", "$x = 15$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Oldd meg: $2(x - 4) = x + 1$. Mennyi $x$?", "answer": "9" },
+        { "type": "mc", "time": 45, "text": "Oldd meg: $\\frac{x}{2} + \\frac{x}{3} = 10$", "options": ["$x = 12$", "$x = 6$", "$x = 60$", "$x = 2$"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "A $3(x + 1) = 3x + 3$ egyenletnek végtelen sok megoldása van.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Mi a $4x + 5 = 4x - 1$ egyenlet megoldáshalmaza?", "options": ["az üres halmaz", "$\\{0\\}$", "minden szám", "$\\{-1{,}5\\}$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Oldd meg: $-2(x - 5) = 4$", "options": ["$x = 3$", "$x = -3$", "$x = 7$", "$x = 0{,}5$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Oldd meg: $\\frac{x + 1}{3} = 4$. Mennyi $x$?", "answer": "11" },
+        { "type": "tf", "time": 15, "text": "Az ellenőrzést az eredeti egyenletbe való behelyettesítéssel végezzük.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Oldd meg: $6 - (x - 2) = 3$", "options": ["$x = 5$", "$x = 1$", "$x = -5$", "$x = 11$"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Oldd meg: $\\frac{x}{4} - 1 = \\frac{x}{6}$", "options": ["$x = 12$", "$x = 24$", "$x = 6$", "$x = -12$"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd az egyenleteket a megoldáshalmazukkal!", "pairs": [
+          ["$2x = 10$", "$\\{5\\}$"],
+          ["$x + 1 = x + 2$", "üres halmaz"],
+          ["$2(x + 1) = 2x + 2$", "minden szám megoldás"],
+          ["$3x = 0$", "$\\{0\\}$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "szoveges-feladatok-megoldasa-egyenlettel",
+      "title": "Szöveges feladatok megoldása egyenlettel",
+      "description": "Az 5 lépéses modell: számok, életkorok, mozgás, geometria szöveges feladatokban.",
+      "questions": [
+        { "type": "mc", "time": 45, "text": "Három egymást követő páratlan szám összege 87. Melyik a legkisebb?", "options": ["27", "29", "25", "31"], "answer": 0 },
+        { "type": "mc", "time": 45, "svg": "age-table", "text": "Az apa 38, a fia 10 éves. Hány év múlva lesz az apa háromszor annyi idős, mint a fia?", "options": ["4", "8", "14", "28"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "cars-road", "text": "Két autó egyszerre indul egymás felé az ábra szerint. Mennyi idő múlva találkoznak?", "options": ["2 óra", "1,5 óra", "4,5 óra", "3 óra"], "answer": 0 },
+        { "type": "text", "time": 45, "svg": "rect-x-x4", "text": "A téglalap kerülete 28 cm. Hány cm az $x$?", "answer": "5/5 cm" },
+        { "type": "mc", "time": 30, "svg": "triangle-x-2x-3x", "text": "A háromszög szögei $x$, $2x$ és $3x$. Mennyi $x$?", "options": ["$30^\\circ$", "$60^\\circ$", "$45^\\circ$", "$20^\\circ$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A szöveges feladat eredményét az eredeti szöveg alapján is ellenőrizni kell.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Gondoltam egy számra. A háromszorosából 7-et elvéve 20-at kaptam. Melyik számra gondoltam?", "options": ["9", "27", "13", "4"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Két szám összege 50, az egyik 10-zel nagyobb a másiknál. Melyik a kisebbik?", "answer": "20" },
+        { "type": "mc", "time": 30, "text": "Peti 3 évvel idősebb Annánál, együtt 25 évesek. Hány éves Anna?", "options": ["11", "14", "12", "8"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Ha egy feladatban „2,5 ember” jön ki eredménynek, akkor hibás a megoldás vagy a modell.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Egy 30 fős osztályban 4-gyel több lány van, mint fiú. Hány fiú jár az osztályba?", "options": ["13", "17", "15", "11"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a szövegeket az egyenletükkel!", "pairs": [
+          ["egy szám kétszeresénél 3-mal több a 15", "$2x + 3 = 15$"],
+          ["egy szám és 3 összegének kétszerese 16", "$2(x + 3) = 16$"],
+          ["egy szám harmada 5", "$\\frac{x}{3} = 5$"],
+          ["három egymást követő egész szám összege 15", "$x + (x + 1) + (x + 2) = 15$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Egyenletek",
+      "description": "Témazáró gyakorló: módszerek, mérlegelv, zárójeles és törtes egyenletek, szöveges feladatok.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Oldd meg: $3x - 4 = 11$", "options": ["$x = 5$", "$x = 7$", "$x = 3$", "$x = 15$"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "chain-5x-4-3", "text": "Melyik módszerrel érdemes megtalálni a kiinduló számot ennél a műveletláncnál?", "options": ["lebontogatással (visszafelé haladva)", "csak találgatással", "kördiagrammal", "nem lehet megtalálni"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Oldd meg: $2(x + 3) = 4x - 2$. Mennyi $x$?", "answer": "4" },
+        { "type": "tf", "time": 15, "text": "Az $x + 2 = x + 2$ egyenlet azonosság.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Oldd meg: $\\frac{x}{5} + 2 = 6$", "options": ["$x = 20$", "$x = 40$", "$x = 8$", "$x = \\frac{4}{5}$"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "balance-3x2-x10", "text": "Melyik egyenletet mutatja a mérleg?", "options": ["$3x + 2 = x + 10$", "$3x + 10 = x + 2$", "$4x = 12$", "$3x = 10$"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Az apa 40, a lánya 12 éves. Hány évvel ezelőtt volt az apa ötször annyi idős, mint a lánya?", "options": ["5", "2", "7", "8"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Három egymást követő páros szám összege 48. Melyik a legnagyobb?", "answer": "18" },
+        { "type": "tf", "time": 20, "text": "Ha az egyenlet mindkét oldalát $-2$-vel osztjuk, ekvivalens átalakítást végzünk.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Oldd meg: $3(2x - 1) - (x + 4) = 8$", "options": ["$x = 3$", "$x = 1$", "$x = -3$", "$x = 15$"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "cars-road", "text": "Hány km-t tesz meg a gyorsabb autó a találkozásig?", "options": ["100 km", "80 km", "90 km", "120 km"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a fogalmakat a jelentésükkel!", "pairs": [
+          ["alaphalmaz", "ezek közül a számok közül keressük a megoldást"],
+          ["megoldáshalmaz", "az egyenlet összes megoldásának halmaza"],
+          ["azonosság", "az alaphalmaz minden eleme megoldás"],
+          ["ellentmondás", "nincs megoldás (üres halmaz)"]
+        ] }
+      ]
+    }
+  ]
+}

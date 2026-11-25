@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290 145" width="290" height="145" font-family="Arial, sans-serif">
+<rect width="290" height="145" fill="#ffffff"/>
+<rect x="20" y="50" width="50" height="36" fill="#a78bfa" stroke="#111827" stroke-width="2"/>
+<rect x="70" y="50" width="50" height="36" fill="#a78bfa" stroke="#111827" stroke-width="2"/>
+<rect x="120" y="50" width="50" height="36" fill="#ffffff" stroke="#111827" stroke-width="2"/>
+<rect x="170" y="50" width="50" height="36" fill="#ffffff" stroke="#111827" stroke-width="2"/>
+<rect x="220" y="50" width="50" height="36" fill="#ffffff" stroke="#111827" stroke-width="2"/>
+<path d="M 20 44 Q 20 32 32 32 L 58 32 Q 70 32 70 22 Q 70 32 82 32 L 108 32 Q 120 32 120 44" fill="none" stroke="#6d28d9" stroke-width="2"/>
+<text x="70" y="16" font-size="15" font-weight="bold" text-anchor="middle" fill="#6d28d9">40</text>
+<path d="M 20 92 Q 20 104 32 104 L 133 104 Q 145 104 145 116 Q 145 104 157 104 L 258 104 Q 270 104 270 92" fill="none" stroke="#111827" stroke-width="2"/>
+<text x="145" y="134" font-size="14" font-weight="bold" text-anchor="middle" fill="#111827">egész: ?</text>
+</svg>

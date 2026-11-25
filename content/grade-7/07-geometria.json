@@ -1,0 +1,296 @@
+{
+  "idPrefix": "g7-geometria",
+  "topic": "VII. Geometria",
+  "grade_level": "7. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "egybevago-haromszogek-szerkesztesek",
+      "title": "Egybevágó háromszögek, szerkesztések",
+      "description": "Az egybevágóság fogalma, a négy alapeset, a szerkesztés lépései.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "congruent-sas", "text": "Az ábrán az azonos jelölésű oldalak és szögek egyenlők. Melyik egybevágósági alapeset ez?", "options": ["o–sz–o (két oldal és a közbezárt szög)", "o–o–o (három oldal)", "sz–o–sz (egy oldal és a rajta fekvő két szög)", "sz–sz–sz (három szög)"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "congruent-sss", "text": "Melyik egybevágósági alapeset alapján egybevágó a két háromszög?", "options": ["o–o–o", "o–sz–o", "sz–o–sz", "o–o–sz"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Ha két háromszög szögei páronként egyenlők, akkor a két háromszög biztosan egybevágó.", "answer": false },
+        { "type": "mc", "time": 25, "text": "Mikor egybevágó két alakzat?", "options": ["ha egybevágósági transzformációval egymásba vihetők (alakjuk és méretük is azonos)", "ha csak az alakjuk azonos", "ha csak a területük azonos", "ha csak a kerületük azonos"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mit jelent az sz–o–sz alapeset?", "options": ["egy oldal és a rajta fekvő két szög egyenlő", "két oldal és a közbezárt szög egyenlő", "három oldal egyenlő", "három szög egyenlő"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mi a szerkesztési feladat megoldásának helyes lépéssorrendje?", "options": ["vázlat, terv, szerkesztés, diszkusszió", "szerkesztés, vázlat, terv, diszkusszió", "diszkusszió, szerkesztés, vázlat, terv", "terv, diszkusszió, vázlat, szerkesztés"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Két háromszög egybevágó. Az egyik kerülete 24 cm. Hány cm a másik kerülete?", "answer": "24/24 cm" },
+        { "type": "tf", "time": 30, "text": "Az o–o–sz eset akkor egybevágósági alapeset, ha a szög a két oldal közül a nagyobbikkal szemközt van.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Háromszöget szerkesztünk három oldalból. Felmértük az egyik oldalt. Mi a következő lépés?", "options": ["a végpontjaiból a másik két oldal hosszával egy-egy körívet húzunk", "szögfelezőt szerkesztünk", "merőlegest állítunk a felezőpontban", "párhuzamost húzunk"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Hány háromszög szerkeszthető három adott oldalból (ha a háromszög-egyenlőtlenség teljesül)?", "options": ["egybevágóság erejéig egy", "kettő", "végtelen sok különböző alakú", "egy sem"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Két háromszög egybevágó. Az egyik két szöge $40^\\circ$ és $60^\\circ$. Hány fokos a másik háromszög harmadik szöge?", "answer": "80/80°/80 fok" },
+        { "type": "match", "time": 60, "text": "Párosítsd az alapeseteket a megadott adatokkal!", "pairs": [
+          ["o–o–o", "három oldal"],
+          ["o–sz–o", "két oldal és a közbezárt szög"],
+          ["sz–o–sz", "egy oldal és a rajta fekvő két szög"],
+          ["o–o–sz", "két oldal és a nagyobbikkal szemközti szög"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefuggesek-a-haromszog-oldalai-es-szogei-kozott",
+      "title": "Összefüggések a háromszög oldalai és szögei között",
+      "description": "Háromszög-egyenlőtlenség, nagyobb oldallal szemben nagyobb szög, belső és külső szögek.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "triangle-inequality", "text": "Miért nem szerkeszthető háromszög a 3 cm, 4 cm és 8 cm hosszú szakaszokból?", "options": ["mert $3 + 4 \\lt 8$", "mert a 8 páros", "mert $3 \\cdot 4 \\gt 8$", "szerkeszthető"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "triangle-sides-579", "text": "Melyik csúcsnál van a háromszög legnagyobb szöge?", "options": ["$C$-nél", "$A$-nál", "$B$-nél", "mindegyik szög egyenlő"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyik számhármas lehet egy háromszög három oldala?", "options": ["5, 6, 10", "2, 3, 6", "1, 1, 3", "4, 5, 9"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Egyenlő oldalakkal szemben egyenlő szögek vannak.", "answer": true },
+        { "type": "mc", "time": 30, "svg": "exterior-angle", "text": "Mekkora a kérdőjellel jelölt külső szög?", "options": ["$105^\\circ$", "$75^\\circ$", "$115^\\circ$", "$65^\\circ$"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Egy háromszög két oldala 4 cm és 9 cm. A harmadik oldal hossza egész szám (cm-ben). Legalább hány cm?", "answer": "6/6 cm" },
+        { "type": "mc", "time": 30, "text": "Egy háromszögben $\\alpha = 70^\\circ$ és $\\beta = 50^\\circ$. Melyik a leghosszabb oldala?", "options": ["$a$ (az $\\alpha$-val szemközti)", "$b$", "$c$", "mindegyik egyenlő"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A derékszögű háromszögben az átfogó a leghosszabb oldal.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Mivel egyenlő a háromszög $\\alpha$ szögénél lévő $\\alpha'$ külső szög?", "options": ["$\\beta + \\gamma$", "$\\alpha + \\beta$", "$180^\\circ + \\alpha$", "$90^\\circ - \\alpha$"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Mekkorák a 3 cm, 3 cm, 3 cm oldalú háromszög szögei?", "options": ["mind $60^\\circ$", "$90^\\circ$, $45^\\circ$, $45^\\circ$", "mind $90^\\circ$", "$30^\\circ$, $60^\\circ$, $90^\\circ$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy egyenlő szárú háromszög szárszöge $40^\\circ$. Hány fokos egy alapon fekvő szöge?", "answer": "70/70°/70 fok" },
+        { "type": "match", "time": 60, "text": "Párosítsd a feltételt a következményével!", "pairs": [
+          ["$a \\gt b$", "$\\alpha \\gt \\beta$"],
+          ["$a = b$", "$\\alpha = \\beta$"],
+          ["$a + b \\gt c$", "háromszög-egyenlőtlenség"],
+          ["$a = b = c$", "minden szög $60^\\circ$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "sokszogek-szogei-es-atloi",
+      "title": "Sokszögek szögei és átlói",
+      "description": "Átlók száma, felbontás háromszögekre, belső és külső szögek összege.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "hexagon-diagonals-vertex", "text": "Hány átló húzható a hatszög egyik csúcsából?", "options": ["3", "6", "4", "9"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "hexagon-diagonals-vertex", "text": "Hány háromszögre bontják a hatszöget az egy csúcsból húzott átlók?", "options": ["4", "3", "6", "5"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "hexagon-diagonals-vertex", "text": "Az ábra alapján hány fok a hatszög belső szögeinek összege?", "answer": "720/720°/720 fok" },
+        { "type": "mc", "time": 25, "text": "Hány átlója van egy konvex ötszögnek?", "options": ["5", "10", "2", "3"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Bármely konvex sokszög külső szögeinek összege $360^\\circ$.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Hány átlója van egy konvex tízszögnek?", "options": ["35", "70", "10", "7"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Egy konvex sokszög belső szögeinek összege $1440^\\circ$. Hány oldalú?", "options": ["10", "8", "12", "9"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Egy nyolcszög egyik csúcsából hány átló húzható?", "answer": "5" },
+        { "type": "mc", "time": 30, "text": "Mekkora a szabályos tizenkétszög egy külső szöge?", "options": ["$30^\\circ$", "$150^\\circ$", "$12^\\circ$", "$36^\\circ$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A konvex négyszögnek 2 átlója van.", "answer": true },
+        { "type": "mc", "time": 30, "svg": "pentagon-angle", "text": "Mekkora a szabályos ötszög kérdőjellel jelölt belső szöge?", "options": ["$108^\\circ$", "$72^\\circ$", "$120^\\circ$", "$100^\\circ$"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a sokszögeket a belső szögeik összegével!", "pairs": [
+          ["háromszög", "$180^\\circ$"],
+          ["négyszög", "$360^\\circ$"],
+          ["ötszög", "$540^\\circ$"],
+          ["hatszög", "$720^\\circ$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-terulet-es-a-terfogat-mertekegysegei",
+      "title": "A terület és a térfogat mértékegységei",
+      "description": "Terület- és térfogat-mértékegységek, ár, hektár, liter, átváltások.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "unit-square-m2", "text": "Az ábra alapján hány $\\text{dm}^2$ az $1\\text{ m}^2$?", "options": ["100", "10", "1000", "10 000"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "cube-1dm-liter", "text": "Mennyi víz fér egy 1 dm élű kocka alakú edénybe?", "options": ["1 liter", "1 dl", "10 liter", "1 ml"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Hány $\\text{m}^2$ egy hektár?", "options": ["10 000", "100", "1000", "1 000 000"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Hány $\\text{dm}^3$ a $3\\text{ m}^3$?", "answer": "3000/3 000" },
+        { "type": "tf", "time": 20, "text": "1 ár = $100\\text{ m}^2$", "answer": true },
+        { "type": "mc", "time": 25, "text": "Hány $\\text{dm}^2$ a $2{,}5\\text{ m}^2$?", "options": ["250", "25", "2500", "25 000"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Hány liter az $500\\text{ cm}^3$?", "options": ["0,5 liter", "5 liter", "50 liter", "0,05 liter"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Hány $\\text{dm}^2$ a $4500\\text{ cm}^2$?", "answer": "45" },
+        { "type": "mc", "time": 25, "text": "Hány hektár egy négyzetkilométer?", "options": ["100", "10", "1000", "10 000"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A térfogat-mértékegységek közötti váltószám 100.", "answer": false },
+        { "type": "mc", "time": 15, "text": "Mennyi 1 ml köbcentiméterben?", "options": ["$1\\text{ cm}^3$", "$10\\text{ cm}^3$", "$100\\text{ cm}^3$", "$1000\\text{ cm}^3$"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az egyenlő mennyiségeket!", "pairs": [
+          ["$1\\text{ m}^2$", "$100\\text{ dm}^2$"],
+          ["$1\\text{ m}^3$", "$1000\\text{ dm}^3$"],
+          ["1 hektár", "100 ár"],
+          ["1 liter", "$1\\text{ dm}^3$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-paralelogramma-terulete",
+      "title": "A paralelogramma területe",
+      "description": "Átdarabolás téglalappá, alap és magasság, a téglalap, a négyzet és a rombusz területe.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "parallelogram-area-8-5", "text": "Mekkora a paralelogramma területe?", "options": ["$40\\text{ cm}^2$", "$13\\text{ cm}^2$", "$26\\text{ cm}^2$", "$20\\text{ cm}^2$"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "parallelogram-cut", "text": "A paralelogramma bal oldalán levágott háromszöget áttettük a jobb oldalra. Milyen alakzatot kaptunk?", "options": ["téglalapot", "trapézt", "deltoidot", "háromszöget"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Egy téglalap oldalai 7 cm és 4 cm. Hány $\\text{cm}^2$ a területe?", "answer": "28/28 cm2/28 cm²" },
+        { "type": "tf", "time": 15, "text": "A paralelogramma területe: egy oldal szorozva a hozzá tartozó magassággal.", "answer": true },
+        { "type": "mc", "time": 15, "text": "Mekkora a 9 cm oldalú négyzet területe?", "options": ["$81\\text{ cm}^2$", "$36\\text{ cm}^2$", "$18\\text{ cm}^2$", "$27\\text{ cm}^2$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy rombusz oldala 6 cm, magassága 4 cm. Mekkora a területe?", "options": ["$24\\text{ cm}^2$", "$36\\text{ cm}^2$", "$12\\text{ cm}^2$", "$20\\text{ cm}^2$"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Egy paralelogramma egyik oldala $a = 10$ cm, a hozzá tartozó magasság 6 cm. A másik oldala $b = 8$ cm. Mekkora a $b$-hez tartozó magasság?", "options": ["7,5 cm", "4,8 cm", "6 cm", "12 cm"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "parallelogram-area-8-5", "text": "Hány cm az ábrán látható paralelogramma kerülete, ha a ferde oldala 6 cm?", "answer": "28/28 cm" },
+        { "type": "tf", "time": 25, "text": "A paralelogramma területe egyenlő a két szomszédos oldal szorzatával.", "answer": false },
+        { "type": "mc", "time": 25, "text": "Egy téglalap területe $48\\text{ cm}^2$, egyik oldala 6 cm. Mekkora a másik oldala?", "options": ["8 cm", "42 cm", "12 cm", "6 cm"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy négyzet kerülete 20 cm. Mekkora a területe?", "options": ["$25\\text{ cm}^2$", "$100\\text{ cm}^2$", "$400\\text{ cm}^2$", "$16\\text{ cm}^2$"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a síkidomokat a területképletükkel!", "pairs": [
+          ["téglalap", "$a \\cdot b$"],
+          ["négyzet", "$a^2$"],
+          ["paralelogramma", "$a \\cdot m_a$"],
+          ["rombusz (átlókkal)", "$\\frac{e \\cdot f}{2}$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-haromszog-terulete",
+      "title": "A háromszög területe",
+      "description": "T = a · mₐ / 2, derékszögű háromszög, tompaszögű háromszög külső magassága.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "triangle-area-10-6", "text": "Mekkora a háromszög területe?", "options": ["$30\\text{ cm}^2$", "$60\\text{ cm}^2$", "$16\\text{ cm}^2$", "$15\\text{ cm}^2$"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "right-triangle-6-8", "text": "Mekkora a derékszögű háromszög területe?", "options": ["$24\\text{ cm}^2$", "$48\\text{ cm}^2$", "$14\\text{ cm}^2$", "$40\\text{ cm}^2$"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "triangle-obtuse-height", "text": "Hol van a tompaszögű háromszög $C$ csúcsából húzott magasságának $T$ talppontja?", "options": ["a háromszögön kívül, az $AB$ oldal meghosszabbításán", "az $AB$ oldal felezőpontjában", "az $A$ csúcsban", "a háromszög belsejében"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A háromszög területe a vele azonos alapú és magasságú paralelogramma területének a fele.", "answer": true },
+        { "type": "text", "time": 30, "text": "Egy háromszög területe $36\\text{ cm}^2$, egyik oldala 12 cm. Hány cm az ehhez az oldalhoz tartozó magasság?", "answer": "6/6 cm" },
+        { "type": "mc", "time": 45, "text": "Egy háromszögben $a = 8$ cm, $m_a = 5$ cm és $b = 10$ cm. Mekkora $m_b$?", "options": ["4 cm", "6,25 cm", "5 cm", "8 cm"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy egyenlő szárú háromszög alapja 10 cm, az alaphoz tartozó magassága 12 cm. Mekkora a területe?", "options": ["$60\\text{ cm}^2$", "$120\\text{ cm}^2$", "$22\\text{ cm}^2$", "$30\\text{ cm}^2$"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Egy derékszögű háromszög befogói 5 cm és 12 cm. Hány $\\text{cm}^2$ a területe?", "answer": "30/30 cm2/30 cm²" },
+        { "type": "tf", "time": 15, "text": "Minden háromszögnek három magassága van.", "answer": true },
+        { "type": "mc", "time": 30, "svg": "triangle-obtuse-height", "text": "Hogyan számítjuk ki az ábrán látható háromszög területét az $AB$ oldal segítségével?", "options": ["$\\frac{AB \\cdot m}{2}$, ahol $m$ a háromszögön kívül húzott magasság", "$AB \\cdot m$", "$\\frac{AB \\cdot AC}{2}$", "nem lehet kiszámítani"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy négyzetrácsra rajzolt háromszög alapja 4 egység, a hozzá tartozó magassága 3 egység. Hány négyzetegység a területe?", "options": ["6", "12", "7", "3,5"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a háromszögeket a területükkel!", "pairs": [
+          ["alap 6, magasság 4", "12"],
+          ["alap 10, magasság 3", "15"],
+          ["derékszögű, befogók 4 és 5", "10"],
+          ["alap 8, magasság 8", "32"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-trapez-terulete",
+      "title": "A trapéz területe",
+      "description": "A trapéz részei, középvonala, területe, húrtrapéz.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "trapezoid-10-6-4", "text": "Mekkora a trapéz területe?", "options": ["$32\\text{ cm}^2$", "$64\\text{ cm}^2$", "$240\\text{ cm}^2$", "$20\\text{ cm}^2$"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "trapezoid-10-6-4", "text": "Milyen hosszú a trapéz $k$ középvonala?", "options": ["8 cm", "16 cm", "4 cm", "6 cm"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A trapéz középvonala a két alap számtani közepe.", "answer": true },
+        { "type": "text", "time": 30, "text": "Egy trapéz alapjai 12 cm és 8 cm, magassága 5 cm. Hány $\\text{cm}^2$ a területe?", "answer": "50/50 cm2/50 cm²" },
+        { "type": "mc", "time": 20, "text": "Melyik négyszöget nevezzük trapéznak?", "options": ["amelynek van legalább egy párhuzamos oldalpárja", "amelynek minden oldala egyenlő", "amelynek minden szöge derékszög", "amelynek átlói merőlegesek"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy trapéz középvonala 7 cm, magassága 4 cm. Mekkora a területe?", "options": ["$28\\text{ cm}^2$", "$14\\text{ cm}^2$", "$11\\text{ cm}^2$", "$56\\text{ cm}^2$"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Egy trapéz területe $60\\text{ cm}^2$, alapjai 14 cm és 6 cm. Mekkora a magassága?", "options": ["6 cm", "4 cm", "10 cm", "3 cm"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Minden paralelogramma egyben trapéz is.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Mi jellemzi a húrtrapézt (szimmetrikus trapézt)?", "options": ["a két szára egyenlő", "minden oldala egyenlő", "nincs párhuzamos oldala", "átlói merőlegesek"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Egy trapéz oldalai 10 cm, 5 cm, 6 cm és 5 cm. Hány cm a kerülete?", "answer": "26/26 cm" },
+        { "type": "mc", "time": 30, "text": "Két egybevágó trapézt egy paralelogrammává illesztünk össze. Mekkora a paralelogramma alapja?", "options": ["$a + c$", "$a - c$", "$a \\cdot c$", "$\\frac{a + c}{2}$"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a trapéz részeit a leírásukkal!", "pairs": [
+          ["alapok", "a párhuzamos oldalak"],
+          ["szárak", "a nem párhuzamos oldalak"],
+          ["magasság", "a két alap egyenesének távolsága"],
+          ["középvonal", "a szárak felezőpontjait összekötő szakasz"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-deltoid-terulete",
+      "title": "A deltoid területe",
+      "description": "A deltoid tulajdonságai, merőleges átlójú négyszögek területe.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "kite-area-8-6", "text": "Mekkora a deltoid területe?", "options": ["$24\\text{ cm}^2$", "$48\\text{ cm}^2$", "$14\\text{ cm}^2$", "$12\\text{ cm}^2$"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "rhombus-10-6", "text": "Mekkora a rombusz területe?", "options": ["$30\\text{ cm}^2$", "$60\\text{ cm}^2$", "$16\\text{ cm}^2$", "$15\\text{ cm}^2$"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Minden olyan négyszög területe, amelynek az átlói merőlegesek egymásra, $\\frac{e \\cdot f}{2}$.", "answer": true },
+        { "type": "text", "time": 20, "text": "Egy deltoid oldalai 5 cm, 5 cm, 8 cm és 8 cm. Hány cm a kerülete?", "answer": "26/26 cm" },
+        { "type": "mc", "time": 15, "text": "Hány szimmetriatengelye van egy (nem rombusz) deltoidnak?", "options": ["1", "2", "0", "4"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy deltoid területe $40\\text{ cm}^2$, egyik átlója 10 cm. Milyen hosszú a másik átlója?", "options": ["8 cm", "4 cm", "30 cm", "20 cm"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Egy négyzet átlója 6 cm. Mekkora a területe?", "options": ["$18\\text{ cm}^2$", "$36\\text{ cm}^2$", "$12\\text{ cm}^2$", "$9\\text{ cm}^2$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A deltoid szimmetriaátlója merőlegesen felezi a másik átlót.", "answer": true },
+        { "type": "mc", "time": 15, "text": "Milyen helyzetűek a deltoid átlói?", "options": ["merőlegesek", "párhuzamosak", "mindig egyenlők", "nem metszik egymást"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Egy rombusz átlói 12 cm és 5 cm. Hány $\\text{cm}^2$ a területe?", "answer": "30/30 cm2/30 cm²" },
+        { "type": "mc", "time": 30, "text": "Érvényes-e a $T = \\frac{e \\cdot f}{2}$ képlet a konkáv (befelé horpadt) deltoidra is?", "options": ["igen", "nem, csak konvexre", "csak ha az átlók egyenlők", "csak négyzetre"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a síkidomokat a területképletükkel!", "pairs": [
+          ["deltoid", "$\\frac{e \\cdot f}{2}$"],
+          ["trapéz", "$\\frac{a + c}{2} \\cdot m$"],
+          ["paralelogramma", "$a \\cdot m_a$"],
+          ["háromszög", "$\\frac{a \\cdot m_a}{2}$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-hasab-felszine-es-terfogata",
+      "title": "A hasáb felszíne és térfogata",
+      "description": "Alaplap, palást, testmagasság, felszín és térfogat, téglatest, kocka, háromoldalú hasáb.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "cuboid-3-4-5", "text": "Mekkora a téglatest térfogata?", "options": ["$60\\text{ cm}^3$", "$12\\text{ cm}^3$", "$94\\text{ cm}^3$", "$47\\text{ cm}^3$"], "answer": 0 },
+        { "type": "text", "time": 45, "svg": "cuboid-3-4-5", "text": "Hány $\\text{cm}^2$ a téglatest felszíne?", "answer": "94/94 cm2/94 cm²" },
+        { "type": "mc", "time": 45, "svg": "triangular-prism", "text": "A hasáb alaplapja egy 3 cm és 4 cm befogójú derékszögű háromszög, magassága 10 cm. Mekkora a térfogata?", "options": ["$60\\text{ cm}^3$", "$120\\text{ cm}^3$", "$30\\text{ cm}^3$", "$132\\text{ cm}^3$"], "answer": 0 },
+        { "type": "mc", "time": 45, "svg": "triangular-prism", "text": "Mekkora ennek a hasábnak a palástja (az oldallapok területének összege)?", "options": ["$120\\text{ cm}^2$", "$60\\text{ cm}^2$", "$132\\text{ cm}^2$", "$70\\text{ cm}^2$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A hasáb térfogata: alapterület szorozva a testmagassággal.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Mekkora a 4 cm élű kocka felszíne?", "options": ["$96\\text{ cm}^2$", "$64\\text{ cm}^2$", "$16\\text{ cm}^2$", "$48\\text{ cm}^2$"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Milyen alakúak az egyenes hasáb oldallapjai?", "options": ["téglalapok", "háromszögek", "körök", "trapézok"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy kocka térfogata $125\\text{ cm}^3$. Hány cm az éle?", "answer": "5/5 cm" },
+        { "type": "tf", "time": 15, "text": "A hasáb felszíne: kétszer az alapterület, plusz a palást területe.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Egy akvárium belső méretei 50 cm × 30 cm × 40 cm. Hány liter víz fér bele?", "options": ["60 liter", "600 liter", "6 liter", "6000 liter"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Hány lapja van egy háromoldalú hasábnak?", "options": ["5", "6", "3", "9"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a mennyiségeket a képletükkel!", "pairs": [
+          ["a hasáb térfogata", "$T_a \\cdot M$"],
+          ["a hasáb felszíne", "$2 \\cdot T_a + T_p$"],
+          ["a palást területe", "$K_a \\cdot M$"],
+          ["a kocka térfogata", "$a^3$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "testek-terben-es-sikban",
+      "title": "Testek térben és síkban",
+      "description": "Testhálók, nézetek, csúcsok, lapok és élek, Euler-tétel.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "cube-net", "text": "Melyik test hálója látható az ábrán?", "options": ["kocka", "négyzet alapú gúla", "henger", "háromoldalú hasáb"], "answer": 0 },
+        { "type": "tf", "time": 25, "svg": "not-a-net", "text": "Az ábrán látható, egy sorban álló 6 négyzetből kocka hajtogatható.", "answer": false },
+        { "type": "mc", "time": 20, "text": "Hány különböző hálója van a kockának?", "options": ["11", "6", "8", "1"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "cylinder", "text": "Milyen alakzatot látunk, ha a hengert felülről nézzük?", "options": ["kört", "téglalapot", "háromszöget", "négyzetet"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "cylinder", "text": "Milyen alakzatot látunk, ha a hengert szemből (elölről) nézzük?", "options": ["téglalapot", "kört", "háromszöget", "trapézt"], "answer": 0 },
+        { "type": "text", "time": 15, "text": "Hány éle van egy kockának?", "answer": "12" },
+        { "type": "mc", "time": 25, "text": "Melyik összefüggés az Euler-tétel ($C$: csúcsok, $L$: lapok, $E$: élek)?", "options": ["$C + L = E + 2$", "$C + L = E$", "$C \\cdot L = E$", "$C - L = E + 2$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy téglatestnek 8 csúcsa és 6 lapja van. Hány éle van?", "options": ["12", "14", "10", "16"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A gömbnek vannak élei.", "answer": false },
+        { "type": "mc", "time": 20, "text": "Hány csúcsa van egy háromoldalú hasábnak?", "options": ["6", "5", "9", "3"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Egy konvex poliédernek 8 lapja és 12 csúcsa van. Hány éle van?", "answer": "18" },
+        { "type": "match", "time": 60, "text": "Párosítsd a testeket a csúcsaik, lapjaik és éleik számával (C, L, E)!", "pairs": [
+          ["kocka", "8, 6, 12"],
+          ["háromoldalú hasáb", "6, 5, 9"],
+          ["négyzet alapú gúla", "5, 5, 8"],
+          ["tetraéder", "4, 4, 6"]
+        ] }
+      ]
+    },
+    {
+      "slug": "szabaduloszoba",
+      "title": "Szabadulószoba",
+      "description": "Kódfejtő geometriai feladványok: szögek, átlók, területek, testek.",
+      "questions": [
+        { "type": "mc", "time": 30, "text": "1. lakat: a kód egy konvex hétszög átlóinak száma. Mi a kód?", "options": ["14", "7", "21", "35"], "answer": 0 },
+        { "type": "mc", "time": 45, "svg": "l-shape", "text": "2. lakat: a kód az ábrán látható síkidom területe ($\\text{cm}^2$-ben). Mi a kód?", "options": ["68", "80", "12", "92"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "3. lakat: egy trapéz alapjai 9 cm és 5 cm, magassága 4 cm. A kód a területe ($\\text{cm}^2$-ben). Mi a kód?", "answer": "28" },
+        { "type": "mc", "time": 25, "text": "4. lakat: egy kocka éle 3 cm. A kód a térfogata ($\\text{cm}^3$-ben). Mi a kód?", "options": ["27", "9", "54", "18"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "5. lakat: egy deltoid átlói 10 cm és 4 cm, a területe $20\\text{ cm}^2$.", "answer": true },
+        { "type": "mc", "time": 25, "text": "6. lakat: a kód a szabályos ötszög belső szögeinek összege (fokban). Mi a kód?", "options": ["540", "360", "720", "108"], "answer": 0 },
+        { "type": "text", "time": 45, "svg": "l-shape", "text": "7. lakat: a kód az ábrán látható síkidom kerülete (cm-ben). Mi a kód?", "answer": "36" },
+        { "type": "mc", "time": 20, "text": "8. lakat: egy paralelogramma egyik oldala 12 cm, a hozzá tartozó magasság 5 cm. A kód a területe. Mi a kód?", "options": ["60", "17", "30", "120"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "9. lakat: egy téglatest élei 2 cm, 3 cm és 10 cm. A kód a felszíne ($\\text{cm}^2$-ben). Mi a kód?", "options": ["112", "60", "56", "120"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "10. lakat: egy háromszög szögei lehetnek $50^\\circ$, $60^\\circ$ és $70^\\circ$.", "answer": true },
+        { "type": "mc", "time": 25, "text": "11. lakat: egy négyszög három szöge $90^\\circ$, $90^\\circ$ és $120^\\circ$. A kód a negyedik szög. Mi a kód?", "options": ["60", "90", "120", "30"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Utolsó ajtó: párosítsd a síkidomokat a területükkel ($\\text{cm}^2$)!", "pairs": [
+          ["deltoid: $e = 6$, $f = 4$", "12"],
+          ["trapéz: $a = 6$, $c = 4$, $m = 2$", "10"],
+          ["paralelogramma: $a = 7$, $m_a = 2$", "14"],
+          ["derékszögű háromszög: befogók 4 és 8", "16"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Geometria",
+      "description": "Témazáró gyakorló: egybevágóság, háromszögek, sokszögek, mértékegységek, területek, hasábok.",
+      "questions": [
+        { "type": "mc", "time": 25, "svg": "kite-area-8-6", "text": "Mekkora a deltoid területe?", "options": ["$24\\text{ cm}^2$", "$48\\text{ cm}^2$", "$14\\text{ cm}^2$", "$28\\text{ cm}^2$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Lehet-e egy háromszög oldala 3 cm, 5 cm és 9 cm?", "options": ["nem", "igen", "csak derékszögű háromszögben", "csak egyenlő szárúban"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Hány fok a hétszög belső szögeinek összege?", "answer": "900/900°/900 fok" },
+        { "type": "tf", "time": 15, "text": "Az o–sz–o egybevágósági alapeset.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Hány $\\text{dm}^2$ a $2\\text{ m}^2$?", "options": ["200", "20", "2000", "20 000"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "trapezoid-10-6-4", "text": "Milyen hosszú a trapéz középvonala?", "options": ["8 cm", "16 cm", "4 cm", "10 cm"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy háromszög egyik oldala 14 cm, a hozzá tartozó magasság 5 cm. Mekkora a területe?", "options": ["$35\\text{ cm}^2$", "$70\\text{ cm}^2$", "$19\\text{ cm}^2$", "$24\\text{ cm}^2$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Hány $\\text{cm}^2$ a 3 cm élű kocka felszíne?", "answer": "54/54 cm2/54 cm²" },
+        { "type": "tf", "time": 15, "text": "1 liter = $1000\\text{ cm}^3$", "answer": true },
+        { "type": "mc", "time": 30, "svg": "cube-net", "text": "A háló minden négyzetének oldala 2 cm. Mekkora a belőle hajtogatott kocka térfogata?", "options": ["$8\\text{ cm}^3$", "$24\\text{ cm}^3$", "$12\\text{ cm}^3$", "$6\\text{ cm}^3$"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Egy paralelogramma egyik oldala 9 cm, a hozzá tartozó magasság 4 cm. Mekkora a területe?", "options": ["$36\\text{ cm}^2$", "$13\\text{ cm}^2$", "$18\\text{ cm}^2$", "$26\\text{ cm}^2$"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a fogalmakat a képletükkel!", "pairs": [
+          ["a háromszög területe", "$\\frac{a \\cdot m_a}{2}$"],
+          ["a trapéz területe", "$\\frac{a + c}{2} \\cdot m$"],
+          ["a hasáb térfogata", "$T_a \\cdot M$"],
+          ["a konvex $n$-szög átlóinak száma", "$\\frac{n(n - 3)}{2}$"]
+        ] }
+      ]
+    }
+  ]
+}

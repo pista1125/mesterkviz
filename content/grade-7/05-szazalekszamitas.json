@@ -1,0 +1,200 @@
+{
+  "idPrefix": "g7-szazalekszamitas",
+  "topic": "V. Százalékszámítás",
+  "grade_level": "7. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "az-aranyossagrol-meg-egyszer",
+      "title": "Az arányosságról még egyszer",
+      "description": "Arányok egyszerűsítése, aránypárok, arányos osztás, geometriai alkalmazások.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "ratio-bar-2-3", "text": "Mi a piros és a kék négyzetek számának aránya?", "options": ["$2 : 3$", "$3 : 2$", "$2 : 5$", "$3 : 5$"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "ratio-bar-2-3", "text": "Az összes négyzet hányad része piros?", "options": ["$\\frac{2}{5}$", "$\\frac{2}{3}$", "$\\frac{3}{5}$", "$\\frac{1}{2}$"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Egyszerűsítsd az arányt: $12 : 18$", "options": ["$2 : 3$", "$6 : 9$", "$4 : 6$", "$3 : 2$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "60 Ft-ot $2 : 3$ arányban osztunk szét. Hány forint a nagyobbik rész?", "answer": "36/36 Ft" },
+        { "type": "tf", "time": 15, "text": "A $3 : 4$ arány egyenlő a $6 : 8$ aránnyal.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Írd fel egész számok arányaként: $\\frac{1}{2} : \\frac{1}{3}$", "options": ["$3 : 2$", "$1 : 2$", "$2 : 3$", "$6 : 1$"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Egy téglalap kerülete 40 cm, oldalainak aránya $3 : 2$. Mekkorák az oldalai?", "options": ["12 cm és 8 cm", "24 cm és 16 cm", "15 cm és 10 cm", "6 cm és 4 cm"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy derékszögű háromszög két hegyesszögének aránya $1 : 2$. Mekkorák ezek a szögek?", "options": ["$30^\\circ$ és $60^\\circ$", "$45^\\circ$ és $90^\\circ$", "$60^\\circ$ és $120^\\circ$", "$20^\\circ$ és $40^\\circ$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Az $a : b$ arány tagjai felcserélhetők, az arány nem változik.", "answer": false },
+        { "type": "text", "time": 30, "text": "90 Ft-ot $1 : 2 : 3$ arányban osztunk szét. Hány forint a legnagyobb rész?", "answer": "45/45 Ft" },
+        { "type": "mc", "time": 30, "text": "Mennyi $x$, ha $x : 6 = 4 : 3$?", "options": ["8", "2", "4,5", "12"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az arányokat a legegyszerűbb alakjukkal!", "pairs": [
+          ["$10 : 15$", "$2 : 3$"],
+          ["$8 : 4$", "$2 : 1$"],
+          ["$9 : 12$", "$3 : 4$"],
+          ["$25 : 100$", "$1 : 4$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "mit-tanultunk-a-szazalekszamitasrol",
+      "title": "Mit tanultunk a százalékszámításról?",
+      "description": "Százalék és ezrelék, átváltások, százalékérték, árengedmény, keverékek.",
+      "questions": [
+        { "type": "mc", "time": 20, "svg": "hundred-grid-35", "text": "A 100 kis négyzetből álló táblázat hány százalékát színeztük ki?", "options": ["35%", "65%", "3,5%", "0,35%"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mennyi 650-nek a 40%-a?", "options": ["260", "26", "390", "160"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Írd fel százalékban: $0{,}25$", "options": ["25%", "2,5%", "0,25%", "250%"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Az 1‰ (egy ezrelék) az egész ezredrésze.", "answer": true },
+        { "type": "mc", "time": 30, "svg": "price-tag", "text": "Mennyi lesz a termék ára a feltüntetett kedvezménnyel?", "options": ["6000 Ft", "2000 Ft", "7975 Ft", "10 000 Ft"], "answer": 0 },
+        { "type": "text", "time": 25, "svg": "price-tag", "text": "Hány forint az engedmény?", "answer": "2000/2000 Ft/2 000" },
+        { "type": "mc", "time": 45, "text": "Egy 3400 Ft-os könyvet 15%-kal olcsóbban adnak. Mennyi az új ár?", "options": ["2890 Ft", "510 Ft", "3385 Ft", "2900 Ft"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Ha egy árat 10%-kal, majd az új árat ismét 10%-kal emeljük, összesen pontosan 20%-kal nő.", "answer": false },
+        { "type": "mc", "time": 60, "svg": "mixing-jugs", "text": "2 liter 25%-os és 3 liter 40%-os gyümölcslevet összeöntünk. Hány százalékos lesz a keverék?", "options": ["34%", "32,5%", "65%", "30%"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Hány százalék a $\\frac{3}{4}$?", "options": ["75%", "34%", "43%", "25%"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Hány kg 25 kg-nak a 40%-a?", "answer": "10/10 kg" },
+        { "type": "match", "time": 45, "text": "Párosítsd a törteket a százalékos alakjukkal!", "pairs": [
+          ["$\\frac{1}{2}$", "50%"],
+          ["$\\frac{1}{4}$", "25%"],
+          ["$\\frac{1}{5}$", "20%"],
+          ["$\\frac{1}{10}$", "10%"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-100-szazalek-kiszamitasa",
+      "title": "A 100% kiszámítása",
+      "description": "A százalékalap kiszámítása, visszaszámolás drágulás és akció után.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "percent-bar-20-40", "text": "Az ábra szerint egy mennyiség 20%-a 40. Mennyi a 100%?", "options": ["200", "8", "60", "800"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Egy mennyiség 1%-a 29. Mennyi a 100%-a?", "answer": "2900" },
+        { "type": "mc", "time": 45, "text": "Egy iskolában 84 diák tanul zenét, ez az összes diák 12%-a. Hány diák jár az iskolába?", "options": ["700", "1008", "96", "600"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Ha egy szám 50%-a 30, akkor a szám 60.", "answer": true },
+        { "type": "mc", "time": 45, "svg": "discount-bar-80", "text": "Egy termék 20%-os akcióval 24 000 Ft. Mennyi volt az eredeti ára?", "options": ["30 000 Ft", "28 800 Ft", "19 200 Ft", "26 400 Ft"], "answer": 0 },
+        { "type": "tf", "time": 30, "text": "Ha egy ár 20%-os emelés után 12 000 Ft, akkor az eredeti ár $12\\,000 - 20\\% = 9600$ Ft.", "answer": false },
+        { "type": "mc", "time": 45, "text": "Egy autó ára 20%-os drágulás után 4 560 000 Ft. Mennyi volt az eredeti ár?", "options": ["3 800 000 Ft", "3 648 000 Ft", "5 472 000 Ft", "4 540 000 Ft"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Albert 72 angol szót tud már, ez a megtanulandó szavak 60%-a. Hány szót kell megtanulnia összesen?", "answer": "120" },
+        { "type": "mc", "time": 45, "text": "Egy osztály tanulói közül 40-en sportolnak, ez az összes tanuló 32%-a. Hány tanuló van?", "options": ["125", "128", "72", "1280"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy szám 25%-a 15. Melyik ez a szám?", "options": ["60", "3,75", "40", "375"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A 100% kiszámításakor a százalékértéket elosztjuk a százaléklábbal (tizedes tört alakban).", "answer": true },
+        { "type": "match", "time": 60, "text": "Párosítsd az adatokat a 100%-kal!", "pairs": [
+          ["10% = 7", "70"],
+          ["25% = 7", "28"],
+          ["50% = 7", "14"],
+          ["1% = 7", "700"]
+        ] }
+      ]
+    },
+    {
+      "slug": "hany-szazalek",
+      "title": "Hány százalék?",
+      "description": "A százalékláb kiszámítása, százalékos változások, az alapváltás csapdája.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "storage-bar", "text": "A 256 GB-os pendrive-on 192 GB foglalt. A tárhely hány százaléka foglalt?", "options": ["75%", "25%", "64%", "133%"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "A 24 hány százaléka a 48-nak?", "options": ["50%", "24%", "200%", "2%"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "15 perc hány százaléka 1 órának?", "answer": "25/25%/25 %" },
+        { "type": "mc", "time": 30, "svg": "price-change-bars", "text": "Az ár 2000 Ft-ról 1600 Ft-ra csökkent. Hány százalékos a csökkenés?", "options": ["20%", "25%", "400%", "80%"], "answer": 0 },
+        { "type": "mc", "time": 45, "svg": "price-change-bars", "text": "Ha az ár 1600 Ft-ról visszaemelkedik 2000 Ft-ra, hány százalékos az emelés?", "options": ["25%", "20%", "400%", "125%"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Az árváltozás százalékát mindig a régi (eredeti) árhoz viszonyítjuk.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Egy 60 kg-os ember testében 42 kg víz van. Ez hány százalék?", "options": ["70%", "42%", "18%", "30%"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Hány százalék a $\\frac{3}{20}$?", "options": ["15%", "3%", "20%", "60%"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Lázár heti edzésideje 5 óráról 7 órára nőtt. Hány százalékkal nőtt?", "answer": "40/40%/40 %" },
+        { "type": "tf", "time": 30, "text": "20 perc a 30 másodpercnek 4000%-a.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Egy 25 fős osztályban 9 lány van. A tanulók hány százaléka lány?", "options": ["36%", "9%", "25%", "64%"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a részarányokat a százalékkal!", "pairs": [
+          ["1 a 4-ből", "25%"],
+          ["3 az 5-ből", "60%"],
+          ["7 a 10-ből", "70%"],
+          ["9 a 20-ból", "45%"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-szazalekszamitas-gyakorlasa",
+      "title": "A százalékszámítás gyakorlása",
+      "description": "A három alapfeladat felismerése, ÁFA, alapváltás, egymás utáni változások, kördiagram.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Egy termék nettó ára 10 000 Ft, az ÁFA 27%. Mennyi a bruttó ár?", "options": ["12 700 Ft", "10 270 Ft", "2 700 Ft", "7 300 Ft"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Milyen típusú feladat: „Mennyi 80-nak a 15%-a?”", "options": ["százalékérték kiszámítása", "alap (100%) kiszámítása", "százalékláb kiszámítása", "egyik sem"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Milyen típusú feladat: „Egy szám 15%-a 12. Melyik ez a szám?”", "options": ["alap (100%) kiszámítása", "százalékérték kiszámítása", "százalékláb kiszámítása", "egyik sem"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Mennyi 80-nak a 15%-a?", "answer": "12" },
+        { "type": "tf", "time": 25, "text": "Ha valami 40%-ot fogy, majd az új súlyához képest 40%-ot hízik, visszakapja az eredeti súlyát.", "answer": false },
+        { "type": "mc", "time": 45, "text": "Egy 500 kg-os teve 40%-ot fogyott (300 kg lett). Hány százalékot kell hízania, hogy újra 500 kg legyen?", "options": ["kb. 66,7%", "40%", "60%", "50%"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "pie-sports", "text": "A kördiagram 40 tanuló kedvenc sportját mutatja. Hányan kosaraznak?", "options": ["10", "25", "4", "15"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "pie-sports", "text": "A kördiagram 40 tanuló kedvenc sportját mutatja. Hányan úsznak?", "answer": "6" },
+        { "type": "mc", "time": 30, "text": "Egy termék bruttó ára 12 700 Ft (27% ÁFA-val). Mennyi a nettó ár?", "options": ["10 000 Ft", "9 271 Ft", "16 129 Ft", "12 427 Ft"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Melyik a nagyobb emelés: egyszer 20%, vagy kétszer egymás után 10%?", "options": ["kétszer 10% (összesen 21%)", "egyszer 20%", "egyformák", "nem lehet eldönteni"], "answer": 0 },
+        { "type": "tf", "time": 30, "text": "Ha egy négyzet oldalát 10%-kal növeljük, a területe 21%-kal nő.", "answer": true },
+        { "type": "match", "time": 60, "text": "Párosítsd a kérdéseket a feladattípussal!", "pairs": [
+          ["Mennyi 200-nak a 30%-a?", "százalékérték"],
+          ["Minek a 30%-a a 60?", "alap (100%)"],
+          ["A 60 hány százaléka a 200-nak?", "százalékláb"],
+          ["Mennyi lesz a 200 egy 30%-os emelés után?", "megnövelt érték: 260"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszetett-szazalekszamitasi-feladatok",
+      "title": "Összetett százalékszámítási feladatok",
+      "description": "Egymás utáni árváltozások, szorzótényezők, értékvesztés, költségvetés, geometriai változások.",
+      "questions": [
+        { "type": "mc", "time": 30, "text": "Egy árat 10%-kal emelnek, majd az új árat 10%-kal csökkentik. Mi történik az eredeti árhoz képest?", "options": ["1%-kal csökken", "nem változik", "1%-kal nő", "20%-kal csökken"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy árat 25%-kal emelnek, majd az új árat 20%-kal csökkentik. Mi történik az eredeti árhoz képest?", "options": ["nem változik", "5%-kal nő", "5%-kal csökken", "45%-kal változik"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy 10 000 Ft-os árat 20%-kal emelnek, majd 10%-kal csökkentenek. Hány forint lesz az ár?", "answer": "10800/10 800/10800 Ft" },
+        { "type": "mc", "time": 25, "text": "Mennyi az összesített szorzótényező 20%-os emelés, majd 10%-os csökkentés esetén?", "options": ["$1{,}08$", "$1{,}1$", "$0{,}9$", "$1{,}3$"], "answer": 0 },
+        { "type": "mc", "time": 45, "svg": "square-to-rect", "text": "Egy 10 cm oldalú négyzet egyik oldalát 20%-kal növeljük, a másikat 20%-kal csökkentjük. Hogyan változik a területe?", "options": ["4%-kal csökken", "nem változik", "4%-kal nő", "40%-kal csökken"], "answer": 0 },
+        { "type": "tf", "time": 30, "svg": "square-to-rect", "text": "Az ábrán a téglalap kerülete egyenlő a négyzet kerületével.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Egy 1 000 000 Ft-os gép értéke évente 20%-kal csökken. Mennyit ér 2 év múlva?", "options": ["640 000 Ft", "600 000 Ft", "800 000 Ft", "960 000 Ft"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Ha egy árat $p\\%$-kal emelünk, majd $p\\%$-kal csökkentünk ($p \\gt 0$), a végső ár mindig kisebb az eredetinél.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Egy csizmát 20%-kal leáraznak, majd az új árat még 25%-kal. Összesen hány százalékos az engedmény?", "options": ["40%", "45%", "50%", "35%"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Egy négyzet oldalát 20%-kal növeljük. Hány százalékkal nő a területe?", "answer": "44/44%/44 %" },
+        { "type": "mc", "time": 60, "text": "Egy 600 000 Ft-os pályázati összeg 40%-át eszközökre költik, a maradék 25%-át utazásra. Mennyi jut utazásra?", "options": ["90 000 Ft", "150 000 Ft", "240 000 Ft", "60 000 Ft"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a változásokat a szorzótényezővel!", "pairs": [
+          ["+20%", "1,2"],
+          ["−20%", "0,8"],
+          ["+20%, majd −20%", "0,96"],
+          ["−50%", "0,5"]
+        ] }
+      ]
+    },
+    {
+      "slug": "szoveges-feladatok",
+      "title": "Szöveges feladatok",
+      "description": "Lakásvásárlás, illeték, készletek, receptarányok, populációk, közös munka százalékokkal.",
+      "questions": [
+        { "type": "mc", "time": 30, "text": "Egy 30 millió Ft-os lakás vételárának 15%-át előlegként kell kifizetni. Mennyi az előleg?", "options": ["4,5 millió Ft", "15 millió Ft", "450 000 Ft", "25,5 millió Ft"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "A 30 millió Ft-os lakás után 4% vagyonszerzési illetéket kell fizetni. Mennyi ez?", "options": ["1,2 millió Ft", "120 000 Ft", "12 millió Ft", "4 millió Ft"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Egy 80 000 Ft-os tablet 25%-os kedvezménnyel kapható. Hány forintba kerül?", "answer": "60000/60 000/60000 Ft" },
+        { "type": "mc", "time": 60, "text": "Egy boltban eladták a jégkrémkészlet 55%-át. Hány százalékkal kell a megmaradt mennyiséget növelni, hogy az eredeti készlet legyen?", "options": ["kb. 122,2%-kal", "55%-kal", "100%-kal", "45%-kal"], "answer": 0 },
+        { "type": "tf", "time": 30, "text": "Eszter egyedül 6 óra alatt takarít ki. Ha a munkatempója 50%-kal nő, 4 óra alatt végez.", "answer": true },
+        { "type": "mc", "time": 60, "text": "Egy gyümölcssaláta négy összetevőjének aránya $8 : 4 : 6 : 5$. Hány gramm az első összetevő 920 g salátában?", "options": ["320 g", "160 g", "240 g", "200 g"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "20 tengerimalac száma félévente 50%-kal nő. Hány tengerimalac lesz egy év múlva?", "options": ["45", "40", "50", "60"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Egy 30 fős osztály 40%-a szemüveges. Hány szemüveges tanuló van?", "answer": "12" },
+        { "type": "tf", "time": 15, "text": "Százalékos szöveges feladatnál először érdemes azonosítani, mi a 100% (az alap).", "answer": true },
+        { "type": "mc", "time": 30, "text": "Egy kabát eredeti ára 15 000 Ft, most 12 000 Ft. Hány százalékos az engedmény?", "options": ["20%", "25%", "3%", "80%"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "pie-sports", "text": "Egy másik osztályban is a kördiagram szerinti arányban sportolnak a tanulók. Ha 18 tanuló focizik, hány tanuló van összesen?", "options": ["36", "9", "18", "72"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a helyzeteket a matematikai összefüggéssel!", "pairs": [
+          ["a lakás ára és az előleg", "egyenes arányosság"],
+          ["a munkások száma és a munkaidő", "fordított arányosság"],
+          ["az eladás utáni készlet visszatöltése", "alapváltás"],
+          ["egy recept összetevőinek aránya", "arányos osztás"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Százalékszámítás",
+      "description": "Témazáró gyakorló: arányok, százalékérték, alap, százalékláb, változások, ÁFA.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Mennyi 300-nak a 12%-a?", "options": ["36", "25", "3,6", "360"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy szám 30%-a 18. Melyik ez a szám?", "options": ["60", "5,4", "54", "600"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "A 45 hány százaléka a 180-nak?", "options": ["25%", "45%", "4%", "40%"], "answer": 0 },
+        { "type": "tf", "time": 30, "text": "Ha egy árat 50%-kal emelünk, majd az új árat 50%-kal csökkentjük, az eredeti ár 75%-át kapjuk.", "answer": true },
+        { "type": "text", "time": 30, "text": "70-et $2 : 5$ arányban osztunk szét. Mennyi a kisebbik rész?", "answer": "20" },
+        { "type": "mc", "time": 20, "svg": "hundred-grid-35", "text": "A táblázat hány százaléka NINCS kiszínezve?", "options": ["65%", "35%", "6,5%", "100%"], "answer": 0 },
+        { "type": "mc", "time": 20, "svg": "discount-bar-80", "text": "Az akciós ár az eredeti ár hány százaléka?", "options": ["80%", "20%", "120%", "24%"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy termék nettó ára 20 000 Ft, az ÁFA 27%. Hány forint a bruttó ár?", "answer": "25400/25 400/25400 Ft" },
+        { "type": "mc", "time": 20, "text": "Melyik változást jelenti az 1,15-ös szorzótényező?", "options": ["15%-os emelés", "15%-os csökkentés", "115%-os emelés", "1,15%-os emelés"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Egyenes arányosságnál a két mennyiség hányadosa állandó.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "storage-bar", "text": "Hány GB szabad hely van a pendrive-on?", "options": ["64 GB", "192 GB", "256 GB", "25 GB"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a képleteket a kiszámított mennyiséggel! ($A$: alap, $E$: százalékérték, $p$: százalékláb)", "pairs": [
+          ["$A \\cdot \\frac{p}{100}$", "százalékérték"],
+          ["$E : \\frac{p}{100}$", "alap (100%)"],
+          ["$\\frac{E}{A} \\cdot 100$", "százalékláb"],
+          ["$A \\cdot \\left(1 + \\frac{p}{100}\\right)$", "$p\\%$-kal megnövelt érték"]
+        ] }
+      ]
+    }
+  ]
+}

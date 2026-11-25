@@ -1,0 +1,32 @@
+{
+  "idPrefix": "g7-ev-vegi-ismetles",
+  "topic": "IX. Év végi ismétlés",
+  "grade_level": "7. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "ev-vegi-ismetles",
+      "title": "Év végi ismétlés – 7. osztály",
+      "description": "Vegyes ismétlő kvíz a 7. osztály minden témaköréből: kombinatorika, racionális számok, geometria, oszthatóság, százalék, egyenletek, statisztika.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Hányféleképpen állhat sorba 4 különböző ember?", "options": ["24", "16", "12", "4"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mennyi $(-3) \\cdot (-4) - 5$?", "options": ["$7$", "$-17$", "$17$", "$-7$"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "parallel-transversal", "text": "Az $e$ és $f$ egyenes párhuzamos. Mekkora az $\\alpha$ szög?", "options": ["$70^\\circ$", "$110^\\circ$", "$20^\\circ$", "$140^\\circ$"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Mennyi $2^4 \\cdot 5$?", "answer": "80" },
+        { "type": "mc", "time": 25, "text": "Mennyi az LNKO(18; 24)?", "options": ["6", "72", "3", "12"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mennyi 250 Ft-nak a 20%-a?", "options": ["50 Ft", "20 Ft", "200 Ft", "5 Ft"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Oldd meg: $5x - 3 = 2x + 12$. Mennyi $x$?", "answer": "5" },
+        { "type": "mc", "time": 30, "svg": "trapezoid-10-6-4", "text": "Mekkora a trapéz területe?", "options": ["$32\\text{ cm}^2$", "$64\\text{ cm}^2$", "$40\\text{ cm}^2$", "$24\\text{ cm}^2$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A szabályos hatszög középpontosan szimmetrikus.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "bag-balls", "text": "Mennyi a valószínűsége, hogy a zsákból zöld golyót húzunk?", "options": ["$\\frac{1}{5}$", "$\\frac{1}{2}$", "$\\frac{2}{8}$", "$\\frac{1}{10}$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Bármely négyszög belső szögeinek összege $360^\\circ$.", "answer": true },
+        { "type": "match", "time": 60, "text": "Párosítsd a témaköröket egy-egy példával!", "pairs": [
+          ["oszthatóság", "$3 \\mid 27$"],
+          ["hatványozás", "$2^3 = 8$"],
+          ["százalékszámítás", "50-nek a 20%-a 10"],
+          ["egyenletek", "$2x = 10 \\Rightarrow x = 5$"]
+        ] }
+      ]
+    }
+  ]
+}

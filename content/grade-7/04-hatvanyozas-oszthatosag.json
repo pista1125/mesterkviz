@@ -1,0 +1,272 @@
+{
+  "idPrefix": "g7-hatvanyozas-oszthatosag",
+  "topic": "IV. Hatványozás, oszthatóság",
+  "grade_level": "7. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "nagy-szamok-es-a-hatvanyalak",
+      "title": "Nagy számok és a hatványalak",
+      "description": "A hatvány fogalma, a 10 hatványai, nagy számok elnevezése, normálalak.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Mennyi $2^5$?", "options": ["$32$", "$10$", "$25$", "$64$"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "square-grid-3", "text": "Hány kis négyzetből áll az ábra? Melyik hatványalak írja le?", "options": ["$3^2$", "$2^3$", "$3^3$", "$9^2$"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "cube-2", "text": "Hány kis kockából áll a nagy kocka?", "options": ["$2^3 = 8$", "$2^2 = 4$", "$6$", "$3^2 = 9$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "$a^0 = 1$, ha $a \\neq 0$.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Hogyan olvassuk ki a $10^6$-t?", "options": ["egymillió", "százezer", "tízmillió", "egymilliárd"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Írd le számjegyekkel: $10^4$", "answer": "10000/10 000" },
+        { "type": "mc", "time": 30, "text": "Melyik a $350\\,000$ normálalakja?", "options": ["$3{,}5 \\cdot 10^5$", "$35 \\cdot 10^4$", "$3{,}5 \\cdot 10^4$", "$0{,}35 \\cdot 10^6$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mennyi $7 \\cdot 10^3 + 4 \\cdot 10^2 + 5$?", "options": ["$7405$", "$745$", "$74\\,005$", "$7045$"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "$0^5 = 0$", "answer": true },
+        { "type": "mc", "time": 30, "text": "A Föld és a Nap távolsága kb. 150 000 000 km. Melyik a normálalakja?", "options": ["$1{,}5 \\cdot 10^8$ km", "$15 \\cdot 10^7$ km", "$1{,}5 \\cdot 10^7$ km", "$1{,}5 \\cdot 10^9$ km"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Mennyi $3^4$?", "answer": "81" },
+        { "type": "match", "time": 45, "text": "Párosítsd a 10 hatványait a nevükkel!", "pairs": [
+          ["$10^1$", "tíz"],
+          ["$10^3$", "ezer"],
+          ["$10^6$", "egymillió"],
+          ["$10^9$", "egymilliárd"]
+        ] }
+      ]
+    },
+    {
+      "slug": "hatvanyok-alkalmazasa",
+      "title": "Hatványok alkalmazása",
+      "description": "A hatványozás azonosságai, negatív számok és törtek hatványai, duplázódás.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Mivel egyenlő $3^4 \\cdot 3^3$?", "options": ["$3^7$", "$3^{12}$", "$9^7$", "$3^1$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mennyi $\\frac{5^8}{5^5}$?", "options": ["$125$", "$5$", "$25$", "$625$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mennyi $(2 \\cdot 5)^3$?", "options": ["$1000$", "$250$", "$100$", "$30$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mennyi $\\left(\\frac{2}{3}\\right)^4$?", "options": ["$\\frac{16}{81}$", "$\\frac{8}{12}$", "$\\frac{2}{81}$", "$\\frac{16}{3}$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "$(-2)^4 = -16$", "answer": false },
+        { "type": "mc", "time": 25, "text": "Mennyi $-2^4$?", "options": ["$-16$", "$16$", "$-8$", "$8$"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "doubling-cells", "text": "Az 1. mezőre 1 szem búzát teszünk, és minden következőre kétszer annyit, mint az előzőre. Hány szem kerül a 8. mezőre?", "options": ["$128$", "$64$", "$256$", "$16$"], "answer": 0 },
+        { "type": "text", "time": 25, "svg": "doubling-cells", "text": "Ugyanebben a feladatban hány szem kerül a 6. mezőre?", "answer": "32" },
+        { "type": "tf", "time": 20, "text": "$(a^2)^3 = a^6$", "answer": true },
+        { "type": "mc", "time": 25, "text": "Mennyi $(-1)^{101}$?", "options": ["$-1$", "$1$", "$101$", "$-101$"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Mennyi $2^3 \\cdot 5^3$?", "answer": "1000/1 000" },
+        { "type": "match", "time": 60, "text": "Párosítsd a hatványozás azonosságait!", "pairs": [
+          ["$a^n \\cdot a^m$", "$a^{n+m}$"],
+          ["$\\frac{a^n}{a^m}$", "$a^{n-m}$"],
+          ["$(a \\cdot b)^n$", "$a^n \\cdot b^n$"],
+          ["$\\left(\\frac{a}{b}\\right)^n$", "$\\frac{a^n}{b^n}$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "mit-tanultunk-az-oszthatosagrol-ismetles",
+      "title": "Mit tanultunk az oszthatóságról? (ismétlés)",
+      "description": "Az oszthatóság fogalma, oszthatósági szabályok 2, 3, 4, 5, 8, 9, 10, 25, 100 esetén.",
+      "questions": [
+        { "type": "mc", "time": 30, "text": "Melyik szám osztható 4-gyel?", "options": ["5728", "5726", "5730", "5722"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyik szám osztható 9-cel?", "options": ["4581", "4582", "4580", "4583"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Melyik szám osztható 3-mal?", "options": ["738", "739", "734", "731"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Ha egy szám 0-ra végződik, akkor osztható 2-vel és 5-tel is.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Melyik szám osztható 8-cal?", "options": ["12 168", "12 164", "12 170", "12 172"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "A $4\\square5$ háromjegyű szám osztható 9-cel. Melyik a legkisebb számjegy, amely a $\\square$ helyére írható?", "answer": "0" },
+        { "type": "mc", "time": 25, "text": "Melyik szám osztható 25-tel?", "options": ["1975", "1985", "1955", "1960"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Ha egy szám osztható 9-cel, akkor 3-mal is osztható.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Mit jelent a $b \\mid a$ jelölés?", "options": ["$b$ osztója $a$-nak", "$a$ osztója $b$-nek", "$a$ és $b$ hányadosa", "$b$ nagyobb, mint $a$"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mennyi a maradék, ha 47-et elosztjuk 5-tel?", "options": ["2", "7", "9", "4"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "1 és 100 között hány olyan szám van, amely 2-vel és 5-tel is osztható?", "answer": "10" },
+        { "type": "match", "time": 60, "text": "Párosítsd az osztókat azzal, amit vizsgálni kell!", "pairs": [
+          ["2", "az utolsó számjegy páros"],
+          ["4", "az utolsó két számjegyből álló szám"],
+          ["8", "az utolsó három számjegyből álló szám"],
+          ["9", "a számjegyek összege"]
+        ] }
+      ]
+    },
+    {
+      "slug": "egy-kis-logika",
+      "title": "Egy kis logika",
+      "description": "„Ha…, akkor…” állítások, megfordítás, szükséges és elégséges feltétel, ellenpélda.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Mi a megfordítása: „Ha egy szám osztható 10-zel, akkor osztható 5-tel.”?", "options": ["Ha egy szám osztható 5-tel, akkor osztható 10-zel.", "Ha egy szám nem osztható 10-zel, akkor 5-tel sem.", "Minden szám osztható 5-tel.", "Ha egy szám osztható 10-zel, akkor 2-vel is."], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Az előző megfordított állítás („Ha egy szám osztható 5-tel, akkor osztható 10-zel.”) igaz.", "answer": false },
+        { "type": "mc", "time": 25, "text": "Melyik szám ellenpélda erre: „Ha egy szám osztható 5-tel, akkor osztható 10-zel.”?", "options": ["15", "20", "10", "100"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyik SZÜKSÉGES feltétele annak, hogy egy szám osztható legyen 6-tal?", "options": ["legyen páros", "végződjön 0-ra", "legyen osztható 9-cel", "legyen prímszám"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyik ELÉGSÉGES feltétele annak, hogy egy szám osztható legyen 5-tel?", "options": ["0-ra végződik", "páratlan", "osztható 3-mal", "a számjegyeinek összege 5"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Egy igaz állítás megfordítása mindig igaz.", "answer": false },
+        { "type": "mc", "time": 25, "text": "Mit jelent az „akkor és csak akkor” kifejezés?", "options": ["az állítás és a megfordítása is igaz", "csak az állítás igaz", "csak a megfordítás igaz", "egyik sem igaz"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyik igaz „akkor és csak akkor” állítás?", "options": ["Egy szám akkor és csak akkor osztható 2-vel, ha páros.", "Egy szám akkor és csak akkor osztható 5-tel, ha 0-ra végződik.", "Egy szám akkor és csak akkor osztható 4-gyel, ha páros.", "Egy szám akkor és csak akkor osztható 3-mal, ha páratlan."], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Melyik a legkisebb pozitív egész, amely osztható 4-gyel és 6-tal is, de 24-gyel NEM?", "answer": "12" },
+        { "type": "tf", "time": 15, "text": "Ha egy szám osztható 4-gyel, akkor páros.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Miért páros mindig két egymást követő egész szám szorzata, $n(n + 1)$?", "options": ["mert a két szám közül az egyik mindig páros", "mert mindkettő páros", "mert mindkettő páratlan", "mert a szorzat mindig 2"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd az állításokat a megítélésükkel!", "pairs": [
+          ["osztható 10-zel ⟹ osztható 5-tel", "igaz"],
+          ["osztható 5-tel ⟹ osztható 10-zel", "hamis, ellenpélda: 15"],
+          ["páros ⟺ osztható 2-vel", "ekvivalencia (akkor és csak akkor)"],
+          ["a párosság a 6-tal való oszthatósághoz", "szükséges, de nem elégséges feltétel"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-primszamok-a-szamok-primtenyezos-felbontasa",
+      "title": "A prímszámok. A számok prímtényezős felbontása",
+      "description": "Prímszámok és összetett számok, a számelmélet alaptétele, prímtényezős felbontás.",
+      "questions": [
+        { "type": "mc", "time": 15, "text": "Melyik a legkisebb prímszám?", "options": ["2", "1", "3", "0"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "primes-grid-30", "text": "A táblázatban zölddel jelöltük a prímszámokat. Hány prímszám van 1 és 30 között?", "options": ["10", "9", "11", "15"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Az 1 prímszám.", "answer": false },
+        { "type": "mc", "time": 30, "svg": "factor-tree-60", "text": "A tényezőfa alapján mi a 60 prímtényezős felbontása?", "options": ["$2^2 \\cdot 3 \\cdot 5$", "$6 \\cdot 10$", "$2 \\cdot 3 \\cdot 5$", "$4 \\cdot 15$"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "division-ladder-360", "text": "Az ábra alapján mi a 360 prímtényezős felbontása?", "options": ["$2^3 \\cdot 3^2 \\cdot 5$", "$2^3 \\cdot 3 \\cdot 5$", "$2^2 \\cdot 3^2 \\cdot 5$", "$2 \\cdot 3 \\cdot 5 \\cdot 12$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "A 91 nem prímszám: $91 = 7 \\cdot \\square$. Mi kerül a $\\square$ helyére?", "answer": "13" },
+        { "type": "mc", "time": 15, "text": "Melyik az egyetlen páros prímszám?", "options": ["2", "4", "0", "nincs ilyen"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Végtelen sok prímszám van.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Mi a 84 prímtényezős felbontása?", "options": ["$2^2 \\cdot 3 \\cdot 7$", "$2 \\cdot 3 \\cdot 14$", "$2^2 \\cdot 21$", "$4 \\cdot 3 \\cdot 7$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyik prímszám?", "options": ["97", "91", "87", "93"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Melyik számnak a prímtényezős felbontása $2^3 \\cdot 5^2$?", "answer": "200" },
+        { "type": "match", "time": 60, "text": "Párosítsd a számokat a prímtényezős felbontásukkal!", "pairs": [
+          ["12", "$2^2 \\cdot 3$"],
+          ["18", "$2 \\cdot 3^2$"],
+          ["45", "$3^2 \\cdot 5$"],
+          ["100", "$2^2 \\cdot 5^2$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "keszitsunk-magunknak-oszthatosagi-szabalyokat",
+      "title": "Készítsünk magunknak oszthatósági szabályokat!",
+      "description": "Oszthatóság összetett számokkal relatív prím tényezők segítségével, hiányzó számjegyek.",
+      "questions": [
+        { "type": "mc", "time": 30, "text": "Mikor osztható egy szám 12-vel?", "options": ["ha osztható 3-mal és 4-gyel", "ha osztható 2-vel és 6-tal", "ha osztható 2-vel és 3-mal", "ha osztható 6-tal és 4-gyel"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Ha egy szám osztható 2-vel és 6-tal, akkor 12-vel is osztható.", "answer": false },
+        { "type": "mc", "time": 30, "text": "Melyik szám osztható 15-tel?", "options": ["4575", "4570", "4565", "4580"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyik szám osztható 18-cal?", "options": ["4590", "4599", "4580", "4588"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Melyik számpár relatív prím?", "options": ["8 és 15", "6 és 9", "10 és 15", "12 és 18"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "A $3\\square4$ háromjegyű szám osztható 6-tal. Hány számjegy írható a $\\square$ helyére?", "answer": "3/három" },
+        { "type": "mc", "time": 25, "text": "Mikor osztható egy szám 36-tal?", "options": ["ha osztható 4-gyel és 9-cel", "ha osztható 6-tal és 6-tal", "ha osztható 3-mal és 12-vel", "ha osztható 2-vel és 18-cal"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mikor osztható egy szám 20-szal?", "options": ["ha 0-ra végződik, és a tízesek helyén páros számjegy áll", "ha 2-re végződik", "ha páros", "ha a számjegyeinek összege 20"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "A 24-gyel való oszthatóság így is vizsgálható: osztható-e 3-mal és 8-cal.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Melyik szám osztható 45-tel?", "options": ["2745", "2735", "2740", "2755"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Az $1\\square5$ háromjegyű szám osztható 45-tel. Melyik számjegy áll a $\\square$ helyén?", "answer": "3" },
+        { "type": "match", "time": 60, "text": "Párosítsd az osztókat a vizsgálandó relatív prím tényezőkkel!", "pairs": [
+          ["6", "2 és 3"],
+          ["12", "3 és 4"],
+          ["15", "3 és 5"],
+          ["18", "2 és 9"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osztokrol-tobbszorosokrol-meg-egyszer",
+      "title": "Osztókról, többszörösökről még egyszer",
+      "description": "Osztópárok, az osztók száma a prímtényezős felbontásból, négyzetszámok osztói, többszörösök.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "divisor-rectangles-12", "text": "12 egybevágó kis négyzetből háromféle téglalap rakható ki (az ábrán). Hány pozitív osztója van a 12-nek?", "options": ["6", "3", "4", "12"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Hány pozitív osztója van a 60-nak?", "options": ["12", "10", "8", "6"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Hány pozitív osztója van a 36-nak?", "answer": "9" },
+        { "type": "tf", "time": 25, "text": "A négyzetszámoknak páratlan sok pozitív osztójuk van.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Hány pozitív osztója van a $2^3 \\cdot 3^2$ számnak?", "options": ["12", "6", "5", "72"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Melyik szám többszöröse a 15-nek?", "options": ["45", "25", "50", "5"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Hány pozitív osztója van egy prímszámnak?", "options": ["2", "1", "3", "végtelen sok"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "Minden pozitív egész szám osztója önmagának.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Hány 7-tel osztható szám van 1 és 50 között?", "options": ["7", "6", "8", "5"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Mennyi a 28 önmagánál kisebb pozitív osztóinak összege?", "options": ["28", "56", "27", "14"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Melyik a 7 legkisebb háromjegyű többszöröse?", "answer": "105" },
+        { "type": "match", "time": 60, "text": "Párosítsd a számokat a pozitív osztóik számával!", "pairs": [
+          ["7", "2 osztó"],
+          ["9", "3 osztó"],
+          ["8", "4 osztó"],
+          ["12", "6 osztó"]
+        ] }
+      ]
+    },
+    {
+      "slug": "legnagyobb-kozos-oszto",
+      "title": "Legnagyobb közös osztó",
+      "description": "Az LNKO kiszámítása prímtényezős felbontással és Venn-diagrammal, relatív prímek, egyszerűsítés.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "venn-12-18", "text": "A Venn-diagram a 12 és a 18 prímtényezőit mutatja. Mennyi az LNKO(12; 18)?", "options": ["6", "36", "3", "2"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "$360 = 2^3 \\cdot 3^2 \\cdot 5$ és $840 = 2^3 \\cdot 3 \\cdot 5 \\cdot 7$. Mennyi az LNKO(360; 840)?", "options": ["120", "60", "2520", "40"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Ha LNKO($a$; $b$) = 1, akkor $a$ és $b$ relatív prímek.", "answer": true },
+        { "type": "mc", "time": 30, "svg": "tiles-12x18", "text": "Egy 12 cm × 18 cm-es téglalapot maradék nélkül a lehető legnagyobb egybevágó négyzetekre vágunk. Mekkora a négyzetek oldala?", "options": ["6 cm", "3 cm", "2 cm", "12 cm"], "answer": 0 },
+        { "type": "text", "time": 45, "svg": "tiles-12x18", "text": "Ugyanennél a feldarabolásnál hány négyzetet kapunk?", "answer": "6" },
+        { "type": "mc", "time": 30, "text": "Egyszerűsítsd a lehető legjobban: $\\frac{24}{36}$", "options": ["$\\frac{2}{3}$", "$\\frac{4}{6}$", "$\\frac{12}{18}$", "$\\frac{3}{4}$"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mennyi az LNKO(8; 15)?", "options": ["1", "2", "120", "5"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Mennyi az LNKO(48; 60)?", "answer": "12" },
+        { "type": "tf", "time": 20, "text": "Két pozitív egész szám LNKO-ja nagyobb lehet a kisebbik számnál.", "answer": false },
+        { "type": "mc", "time": 45, "text": "30 almát és 42 körtét egyforma csomagokba osztunk szét maradék nélkül. Legfeljebb hány csomagot készíthetünk?", "options": ["6", "12", "3", "210"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Hogyan kapjuk meg az LNKO-t a prímtényezős felbontásból?", "options": ["a közös prímtényezőket a legkisebb kitevőn összeszorozzuk", "az összes prímtényezőt a legnagyobb kitevőn összeszorozzuk", "összeadjuk a két számot", "a nagyobbik számot elosztjuk a kisebbikkel"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a számpárokat a legnagyobb közös osztójukkal!", "pairs": [
+          ["10 és 15", "5"],
+          ["12 és 16", "4"],
+          ["9 és 21", "3"],
+          ["14 és 15", "1"]
+        ] }
+      ]
+    },
+    {
+      "slug": "legkisebb-kozos-tobbszoros",
+      "title": "Legkisebb közös többszörös",
+      "description": "Az LKKT kiszámítása, közös nevező, menetrend-feladatok, az LNKO és az LKKT kapcsolata.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "venn-12-18", "text": "A Venn-diagram a 12 és a 18 prímtényezőit mutatja. Mennyi az LKKT(12; 18)?", "options": ["36", "6", "216", "72"], "answer": 0 },
+        { "type": "mc", "time": 45, "svg": "bus-timeline", "text": "Az A busz 12, a B busz 18 percenként indul. 8:00-kor együtt indultak. Mikor indulnak legközelebb újra együtt?", "options": ["8:36", "8:30", "8:18", "9:00"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "$360 = 2^3 \\cdot 3^2 \\cdot 5$ és $840 = 2^3 \\cdot 3 \\cdot 5 \\cdot 7$. Mennyi az LKKT(360; 840)?", "options": ["2520", "120", "302 400", "1200"], "answer": 0 },
+        { "type": "tf", "time": 30, "text": "Két pozitív egész számra LNKO($a$; $b$) · LKKT($a$; $b$) = $a \\cdot b$.", "answer": true },
+        { "type": "text", "time": 20, "text": "Mennyi az LKKT(4; 6)?", "answer": "12" },
+        { "type": "mc", "time": 30, "text": "Mi a legkisebb közös nevező az $\\frac{1}{6} + \\frac{1}{8}$ összeadásnál?", "options": ["24", "48", "14", "2"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Mennyi az LKKT(9; 12)?", "answer": "36" },
+        { "type": "mc", "time": 25, "text": "Mennyi két relatív prím szám LKKT-je?", "options": ["a két szám szorzata", "a két szám összege", "1", "a nagyobbik szám"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "LKKT(5; 10) = 50", "answer": false },
+        { "type": "mc", "time": 25, "text": "Hogyan kapjuk meg az LKKT-t a prímtényezős felbontásból?", "options": ["az összes előforduló prímtényezőt a legnagyobb kitevőn összeszorozzuk", "csak a közös prímtényezőket a legkisebb kitevőn szorozzuk össze", "összeadjuk a két számot", "kivonjuk a kisebbet a nagyobbikból"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Két jelzőlámpa egyszerre villan fel, majd az egyik 6, a másik 10 másodpercenként villan. Hány másodperc múlva villannak legközelebb egyszerre?", "options": ["30", "60", "16", "2"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a számpárokat a legkisebb közös többszörösükkel!", "pairs": [
+          ["4 és 6", "12"],
+          ["3 és 5", "15"],
+          ["6 és 8", "24"],
+          ["10 és 25", "50"]
+        ] }
+      ]
+    },
+    {
+      "slug": "matematikai-jatekok",
+      "title": "Matematikai játékok",
+      "description": "Számversenyek és elvételes játékok nyerő stratégiái, maradékos osztás, szimmetria.",
+      "questions": [
+        { "type": "mc", "time": 30, "text": "100-as számverseny: 0-ról indulva felváltva 1-et, 2-t vagy 3-at adunk hozzá, aki eléri a 100-at, nyer. Melyik számokat érdemes elérni?", "options": ["a 4 többszöröseit", "a páratlan számokat", "a prímszámokat", "a 10 többszöröseit"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Ugyanebben a játékban ki nyer biztosan, ha mindketten tökéletesen játszanak?", "options": ["a második játékos", "a kezdő", "senki", "a véletlen dönt"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "race-track", "text": "A 100-as számversenyben (1–3 adható hozzá) a számláló most 93-on áll, és te következel. Mennyit adj hozzá?", "options": ["3", "1", "2", "bármennyit, úgyis veszítek"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Ha 1-et, 2-t vagy 3-at lehet hozzáadni, az ellenfél lépését mindig ki tudom egészíteni 4-re.", "answer": true },
+        { "type": "text", "time": 30, "text": "Ha a cél az 50, és egy lépésben 1, 2, 3 vagy 4 adható hozzá, melyik szám többszöröseit kell elérni?", "answer": "5" },
+        { "type": "mc", "time": 30, "text": "20 gyufa van az asztalon, felváltva 1 vagy 2 vehető el, aki az utolsót elveszi, nyer. Hányat vegyen el a kezdő?", "options": ["2", "1", "3", "a kezdő nem nyerhet biztosan"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "A szimmetria-stratégiánál a második játékos mindig tükrözi (lemásolja) az első lépését.", "answer": true },
+        { "type": "mc", "time": 30, "text": "15 kavics van egy kupacban, felváltva 1 vagy 2 vehető el, aki az utolsót elveszi, nyer. Mit tegyen a kezdő?", "options": ["Bármit tesz, helyes játék mellett veszít.", "Vegyen el 1-et.", "Vegyen el 2-t.", "Vegyen el 3-at."], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mi a „kiegészítő” nyerő stratégia lényege?", "options": ["mindig annyit lépek, hogy az ellenfél lépésével együtt állandó összeget kapjunk", "mindig a lehető legtöbbet lépek", "mindig a lehető legkevesebbet lépek", "véletlenszerűen lépek"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "A cél a 30, 0-ról indulunk, és egy lépésben 1, 2 vagy 3 adható hozzá. Mennyit adjon hozzá a kezdő az első lépésben a biztos győzelemhez?", "answer": "2" },
+        { "type": "mc", "time": 25, "text": "A 100-as számversenyben (1–3) az ellenfeled 2-t adott hozzá egy 4-gyel osztható számhoz. Mennyit adj hozzá?", "options": ["2", "1", "3", "4"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "100-as számverseny (1–3 adható hozzá). Párosítsd az állást a jó lépéssel!", "pairs": [
+          ["a számláló 97-en áll", "adj hozzá 3-at"],
+          ["a számláló 94-en áll", "adj hozzá 2-t"],
+          ["a számláló 95-ön áll", "adj hozzá 1-et"],
+          ["a számláló 92-n áll", "vesztő helyzet"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Hatványozás, oszthatóság",
+      "description": "Témazáró gyakorló: hatványok, normálalak, oszthatósági szabályok, prímek, osztók, LNKO, LKKT.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Mivel egyenlő $2^3 \\cdot 2^4$?", "options": ["$2^7$", "$2^{12}$", "$4^7$", "$2^1$"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mennyi $(3 \\cdot 4)^2$?", "options": ["$144$", "$24$", "$48$", "$25$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "$4\\,000\\,000 = 4 \\cdot 10^6$", "answer": true },
+        { "type": "mc", "time": 25, "text": "Melyik szám osztható 9-cel?", "options": ["7290", "7291", "7280", "7282"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "factor-tree-60", "text": "Hány különböző prímtényezője van a 60-nak?", "options": ["3", "2", "4", "5"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Mennyi az LNKO(24; 36)?", "answer": "12" },
+        { "type": "text", "time": 30, "text": "Mennyi az LKKT(8; 12)?", "answer": "24" },
+        { "type": "mc", "time": 30, "text": "Mi a 72 prímtényezős felbontása?", "options": ["$2^3 \\cdot 3^2$", "$2^2 \\cdot 3^3$", "$8 \\cdot 9$", "$2^3 \\cdot 9$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Ha egy szám osztható 3-mal és 4-gyel, akkor 12-vel is osztható.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Hány pozitív osztója van a 72-nek?", "options": ["12", "6", "8", "9"], "answer": 0 },
+        { "type": "mc", "time": 45, "svg": "venn-12-18", "text": "Mennyi a 12 és a 18 legnagyobb közös osztójának és legkisebb közös többszörösének szorzata?", "options": ["216", "108", "36", "6"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a fogalmakat egy-egy példával!", "pairs": [
+          ["prímszám", "13"],
+          ["összetett szám", "15"],
+          ["relatív prímek", "8 és 9"],
+          ["négyzetszám", "49"]
+        ] }
+      ]
+    }
+  ]
+}

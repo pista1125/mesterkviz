@@ -1,0 +1,176 @@
+{
+  "idPrefix": "g7-gondolkodjunk",
+  "topic": "I. Gondolkodjunk!",
+  "grade_level": "7. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "szamold-ossze",
+      "title": "Számold össze!",
+      "description": "Rendszerezett összeszámlálás, Venn-diagram, skatulya-elv, szita-módszer.",
+      "questions": [
+        { "type": "mc", "time": 30, "text": "Hány kétjegyű szám képezhető az 1, 2, 3 számjegyekből, ha a számjegyek ismétlődhetnek?", "options": ["9", "6", "3", "27"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "venn-sport", "text": "Az ábra egy osztály tanulóit mutatja. Hányan fociznak?", "options": ["13", "8", "5", "19"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "venn-sport", "text": "Az ábra egy osztály tanulóit mutatja. Hány tanuló jár az osztályba?", "answer": "22" },
+        { "type": "mc", "time": 30, "svg": "venn-sport", "text": "Az ábra egy osztály tanulóit mutatja. Hányan űzik a két sport közül pontosan az egyiket?", "options": ["14", "19", "11", "5"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "13 ember között biztosan van kettő, akik ugyanabban a hónapban születtek.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Hány 3-mal osztható szám van 1 és 100 között?", "options": ["33", "34", "30", "3"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Egy dobókockával kétszer dobunk. Hány különböző eredménypár lehet, ha a sorrend is számít?", "answer": "36" },
+        { "type": "mc", "time": 45, "text": "1-től 20-ig hány olyan szám van, amely 2-vel VAGY 5-tel osztható?", "options": ["12", "14", "10", "16"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Rendszerezett felsorolásnál az a cél, hogy minden eset pontosan egyszer szerepeljen.", "answer": true },
+        { "type": "mc", "time": 30, "text": "25 tanulót 3 csoportba osztunk. Legalább hány fő van biztosan a legnagyobb csoportban?", "options": ["9", "8", "10", "7"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "triangle-split", "text": "Hány háromszög látható az ábrán?", "options": ["3", "2", "4", "1"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a módszereket a használatukkal!", "pairs": [
+          ["fa-diagram", "lépésenként elágazó döntések"],
+          ["táblázat", "két tulajdonság összes párosítása (pl. két kocka)"],
+          ["skatulya-elv", "több tárgy, mint doboz"],
+          ["szita-módszer", "$\\lvert A \\cup B \\rvert = \\lvert A \\rvert + \\lvert B \\rvert - \\lvert A \\cap B \\rvert$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "rendezd-sorba",
+      "title": "Rendezd sorba!",
+      "description": "Különböző elemek sorba rendezése (n!), számjegyek sorrendje, dobogó, körbe ültetés.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Hányféleképpen rakhatunk sorba 3 különböző könyvet a polcon?", "options": ["6", "3", "9", "27"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mennyi $4!$ (4 faktoriális)?", "options": ["24", "16", "10", "4"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Hány négyjegyű szám készíthető az 1, 2, 3, 4 számjegyekből, ha mindegyiket pontosan egyszer használjuk?", "answer": "24" },
+        { "type": "mc", "time": 45, "text": "Hány négyjegyű szám készíthető a 0, 2, 4, 6 számjegyekből, ha mindegyiket pontosan egyszer használjuk?", "options": ["18", "24", "12", "6"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "flag-3", "text": "A zászló három sávját piros, fehér és zöld színnel festjük ki, minden színt pontosan egyszer használva. Hány különböző zászló készíthető?", "options": ["6", "3", "9", "27"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "5 embert $5 \\cdot 4 \\cdot 3 \\cdot 2 \\cdot 1 = 120$-féleképpen lehet sorba állítani.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Hány különböző (értelmes vagy értelmetlen) betűsor készíthető a K, É, P, A betűkből, ha mindegyiket egyszer használjuk?", "options": ["24", "12", "16", "4"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Egy versenyen 5 futó indul. Hányféle lehet az első három helyezett (1., 2., 3. hely)?", "answer": "60" },
+        { "type": "mc", "time": 45, "text": "Hányféleképpen ülhet le 4 ember egy kerek asztal köré, ha az elforgatással egymásba vihető ültetéseket nem tekintjük különbözőnek?", "options": ["6", "24", "4", "12"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A 0 lehet egy négyjegyű szám első számjegye.", "answer": false },
+        { "type": "mc", "time": 45, "text": "Az 1, 2, 3 számjegyekből ismétlés nélkül képzett háromjegyű számokat növekvő sorrendbe rendezzük. Melyik a 4. szám?", "options": ["231", "213", "312", "321"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a számokat a faktoriálisukkal!", "pairs": [
+          ["$1!$", "1"],
+          ["$3!$", "6"],
+          ["$4!$", "24"],
+          ["$5!$", "120"]
+        ] }
+      ]
+    },
+    {
+      "slug": "hany-eset-van",
+      "title": "Hány eset van?",
+      "description": "Az összeadási és a szorzási szabály, fa-diagram, kiválasztás visszatevéssel és anélkül.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Vonattal (3 járat) VAGY busszal (4 járat) utazhatunk. Hány utazási lehetőség van?", "options": ["7", "12", "3", "4"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy menüben 3 leves, 4 főétel és 2 desszert közül választhatunk (mindegyikből egyet). Hány különböző menü állítható össze?", "options": ["24", "9", "12", "18"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "tree-outfit", "text": "A fa-diagram alapján hányféle öltözetet (póló + nadrág) állíthatunk össze?", "options": ["6", "5", "3", "8"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Hány különböző 4 jegyű PIN-kód létezik, ha minden számjegy 0 és 9 között bármi lehet?", "answer": "10000/10 000" },
+        { "type": "tf", "time": 25, "text": "Szorzási szabály: ha az első lépést $p$-féleképpen, a másodikat $q$-féleképpen tehetjük meg, akkor összesen $p + q$ lehetőség van.", "answer": false },
+        { "type": "mc", "time": 30, "text": "10 tanuló közül elnököt és titkárt választunk (két különböző embert). Hányféleképpen tehetjük meg?", "options": ["90", "100", "45", "20"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy érmét háromszor feldobunk. Hány különböző dobássorozat lehetséges?", "options": ["8", "6", "3", "9"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Hány olyan kétjegyű szám van, amelynek mindkét számjegye páratlan?", "answer": "25" },
+        { "type": "mc", "time": 45, "text": "20 tombolaszelvényből kihúzzuk az 1. és a 2. díj nyertesét (egy szelvény csak egyszer nyerhet). Hányféle lehet a húzás eredménye?", "options": ["380", "400", "190", "39"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Visszatevéses kiválasztásnál ugyanaz az elem többször is kiválasztható.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Egy rendszámtábla 3 betűből (26-féle) és 3 számjegyből (10-féle) áll. Hány különböző rendszám lehetséges?", "options": ["17 576 000", "108", "17 576", "1 000 000"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a helyzeteket a lehetőségek számának kiszámításával!", "pairs": [
+          ["3 vonat VAGY 4 busz", "$3 + 4$"],
+          ["3 póló ÉS 4 nadrág", "$3 \\cdot 4$"],
+          ["3 jegyű kód 0–9 számjegyekből", "$10^3$"],
+          ["3 ember sorrendje", "$3!$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "grafok",
+      "title": "Gráfok",
+      "description": "Csúcsok, élek, fokszám, a fokszámösszeg tétele, teljes gráf, fa.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Mit jelent egy gráf csúcsának fokszáma?", "options": ["a belőle kiinduló élek számát", "a gráf csúcsainak számát", "a gráf összes élének számát", "a leghosszabb út hosszát"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "graph-degrees", "text": "Mennyi a $C$ csúcs fokszáma az ábrán látható gráfban?", "options": ["3", "2", "4", "1"], "answer": 0 },
+        { "type": "text", "time": 25, "svg": "graph-degrees", "text": "Hány éle van az ábrán látható gráfnak?", "answer": "6" },
+        { "type": "mc", "time": 30, "svg": "graph-degrees", "text": "Mennyi az ábrán látható gráf csúcsainak fokszámösszege?", "options": ["12", "6", "10", "15"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Bármely gráfban a csúcsok fokszámának összege páros szám.", "answer": true },
+        { "type": "mc", "time": 30, "svg": "complete-k5", "text": "Az ábrán egy 5 csúcsú teljes gráf látható. Hány éle van?", "options": ["10", "5", "20", "15"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Hány éle van a 6 csúcsú teljes gráfnak?", "answer": "15" },
+        { "type": "tf", "time": 25, "text": "Létezik olyan gráf, amelyben pontosan 3 páratlan fokszámú csúcs van.", "answer": false },
+        { "type": "mc", "time": 30, "svg": "tree-graph6", "text": "Milyen gráf látható az ábrán?", "options": ["fa (összefüggő, nincs benne kör)", "teljes gráf", "nem összefüggő gráf", "kört tartalmazó gráf"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Hány éle van egy 8 csúcsú fának?", "options": ["7", "8", "9", "28"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "5 barát közül mindenki mindenkivel egyszer kezet fog. Hány kézfogás történik?", "options": ["10", "20", "25", "5"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a fogalmakat a leírásukkal!", "pairs": [
+          ["izolált csúcs", "a fokszáma 0"],
+          ["hurokél", "egy csúcsot önmagával köt össze"],
+          ["fa", "összefüggő gráf, amelyben nincs kör"],
+          ["teljes gráf", "minden csúcs össze van kötve minden másikkal"]
+        ] }
+      ]
+    },
+    {
+      "slug": "igazold-cafold",
+      "title": "Igazold! Cáfold!",
+      "description": "Kijelentések, igazságérték, tagadás, ellenpélda, általános állítások igazolása.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Melyik mondat matematikai kijelentés (eldönthető, hogy igaz vagy hamis)?", "options": ["A 7 prímszám.", "Gyere ide!", "Hány óra van?", "Bárcsak szünet lenne!"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mi az igazságértéke: „Minden prímszám páratlan.”?", "options": ["hamis, mert a 2 páros prímszám", "igaz", "nem kijelentés", "csak néha igaz"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Melyik szám ellenpélda erre az állításra: „Minden páratlan szám prímszám.”?", "options": ["9", "7", "3", "2"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Bármely két páros szám összege páros.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Állítás: „Ha egy szám osztható 4-gyel és 6-tal, akkor osztható 24-gyel is.” Melyik szám cáfolja?", "options": ["12", "24", "48", "6"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Egy általános állítás igazolásához elég néhány jó példát mutatni.", "answer": false },
+        { "type": "mc", "time": 30, "text": "Mi a tagadása: „Van olyan négyszög, amelynek minden szöge hegyesszög.”?", "options": ["Minden négyszögnek van olyan szöge, amely nem hegyesszög.", "Minden négyszög minden szöge hegyesszög.", "Van olyan négyszög, amelynek van tompaszöge.", "Egyik négyszögnek sincs hegyesszöge."], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Melyik a legkisebb pozitív egész szám, amely cáfolja: „Minden 3-mal osztható szám páratlan.”?", "answer": "6" },
+        { "type": "mc", "time": 45, "text": "Hogyan igazolható, hogy két páratlan szám összege mindig páros?", "options": ["$(2k + 1) + (2m + 1) = 2(k + m + 1)$, ez páros", "$3 + 5 = 8$, tehát igaz", "mert a páratlan számok különlegesek", "nem igazolható"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Milyen mindig két egymást követő egész szám szorzata?", "options": ["páros", "páratlan", "prímszám", "négyzetszám"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Három egymást követő egész szám összege mindig osztható egy 1-nél nagyobb számmal. Melyikkel?", "answer": "3" },
+        { "type": "match", "time": 60, "text": "Párosítsd az állításokat a megítélésükkel!", "pairs": [
+          ["Minden prímszám páratlan.", "hamis, ellenpélda: 2"],
+          ["Minden páratlan szám prím.", "hamis, ellenpélda: 9"],
+          ["Két páros szám összege páros.", "igaz, általános levezetéssel igazolható"],
+          ["Minden négyzet téglalap.", "igaz, a négyzet definíciójából következik"]
+        ] }
+      ]
+    },
+    {
+      "slug": "matematikai-jatekok",
+      "title": "Matematikai játékok",
+      "description": "Nyerő és vesztő pozíció, kavicsos játékok, szimmetria-stratégia, igazmondók és hazugok.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Melyik játék teljes információjú és determinisztikus (nincs benne véletlen)?", "options": ["sakk", "póker", "lottó", "rulett"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Az asztalon 21 kavics van. Felváltva 1, 2 vagy 3 kavics vehető el, aki az utolsót elviszi, nyer. Hány kavicsot vegyen el a kezdő az első lépésben a biztos győzelemhez?", "options": ["1", "2", "3", "a kezdő nem nyerhet biztosan"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Ugyanebben a játékban (1–3 vehető el, az utolsót elvevő nyer) 4 kavics van az asztalon, és te következel. Mi a helyzet?", "options": ["Vesztő helyzetben vagyok: bármennyit veszek, az ellenfél elviheti a maradékot.", "4-et veszek el, és nyerek.", "3-at veszek el, és biztosan nyerek.", "1-et veszek el, és biztosan nyerek."], "answer": 0 },
+        { "type": "tf", "time": 30, "text": "Ha két játékos felváltva tesz egyforma érméket egy kerek asztalra (átfedés nélkül), a kezdőnek van nyerő stratégiája: középre tesz, majd mindig tükrözi az ellenfél lépését.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Két kupacban 5-5 gyufa van. Egy lépésben az egyik kupacból tetszőleges számú gyufa vehető el, az utolsót elvevő nyer. Kinek van nyerő stratégiája?", "options": ["a második játékosnak (tükrözi a lépéseket)", "a kezdőnek", "senkinek", "a véletlen dönt"], "answer": 0 },
+        { "type": "text", "time": 45, "svg": "stones-13", "text": "Az asztalon az ábrán látható kavicsok vannak. Felváltva 1, 2 vagy 3 kavics vehető el, aki az utolsót elviszi, nyer. Hány kavicsot vegyen el a kezdő?", "answer": "1" },
+        { "type": "mc", "time": 30, "text": "Az asztalon 12 kavics van (1–3 vehető el, az utolsót elvevő nyer). Ki nyer, ha mindketten tökéletesen játszanak?", "options": ["a második játékos", "a kezdő", "döntetlen", "a véletlen dönt"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Az asztalon 32 kavics van. Egy lépésben 1–5 kavics vehető el, az utolsót elvevő nyer. Hányat vegyen el a kezdő a biztos győzelemhez?", "options": ["2", "1", "5", "4"], "answer": 0 },
+        { "type": "tf", "time": 30, "text": "Az igazmondók és hazugok szigetén egyetlen lakos sem mondhatja: „Én hazug vagyok.”", "answer": true },
+        { "type": "text", "time": 30, "text": "Az asztalon 27 kavics van (1–3 vehető el, az utolsót elvevő nyer). Hány kavicsot vegyen el a kezdő?", "answer": "3" },
+        { "type": "mc", "time": 25, "text": "Mit nevezünk nyerő pozíciónak?", "options": ["olyan állást, ahonnan a soron lévő játékos helyes játékkal biztosan nyer", "a játék kezdő állását", "olyan állást, ahol már nincs több lépés", "olyan állást, ahol mindkét játékos nyer"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a játékokat a jellemzőjükkel!", "pairs": [
+          ["sakk", "tiszta stratégiai játék"],
+          ["lottó", "tiszta szerencsejáték"],
+          ["Monopoly", "vegyes (véletlen + döntések)"],
+          ["21 kavics, 1–3 elvétel", "nyerő stratégia: 4-gyel osztható maradékot hagyni"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Gondolkodjunk!",
+      "description": "Témazáró gyakorló: összeszámlálás, sorba rendezés, szorzási szabály, gráfok, igazolás és játékok.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Mennyi $5!$?", "options": ["120", "25", "60", "15"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Egy étteremben 2 leves és 5 főétel közül választhatunk egyet-egyet. Hány különböző ebéd állítható össze?", "options": ["10", "7", "25", "32"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Hány éle van a 7 csúcsú teljes gráfnak?", "answer": "21" },
+        { "type": "tf", "time": 20, "text": "Bármely gráfban a páratlan fokszámú csúcsok száma páros.", "answer": true },
+        { "type": "mc", "time": 25, "svg": "graph-degrees", "text": "Az ábrán látható gráf melyik csúcsának fokszáma 1?", "options": ["$E$", "$A$", "$B$", "$D$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy iskolában 37 diák van egy évfolyamon. Legalább hányan születtek biztosan ugyanabban a hónapban?", "options": ["4", "3", "2", "5"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Hány négyjegyű szám készíthető az 1, 3, 5, 7 számjegyekből, ha mindegyiket pontosan egyszer használjuk?", "options": ["24", "16", "256", "12"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "$\\lvert A \\rvert = 15$, $\\lvert B \\rvert = 12$, $\\lvert A \\cap B \\rvert = 7$. Mennyi $\\lvert A \\cup B \\rvert$?", "answer": "20" },
+        { "type": "tf", "time": 20, "text": "Egy általános állítás cáfolatához egyetlen ellenpélda is elég.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Az asztalon 18 kavics van (1–3 vehető el, az utolsót elvevő nyer). Hányat vegyen el a kezdő a biztos győzelemhez?", "options": ["2", "1", "3", "a kezdő nem nyerhet biztosan"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy 6 fős csapatból kapitányt és helyettest választunk. Hányféleképpen tehetjük meg?", "options": ["30", "36", "15", "11"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a képleteket a fogalmakkal!", "pairs": [
+          ["$n!$", "$n$ különböző elem sorrendjeinek száma"],
+          ["$p \\cdot q$", "szorzási szabály"],
+          ["$\\frac{n(n-1)}{2}$", "az $n$ csúcsú teljes gráf éleinek száma"],
+          ["fokszámösszeg $= 2 \\cdot$ élek száma", "a gráfelmélet alaptétele"]
+        ] }
+      ]
+    }
+  ]
+}
