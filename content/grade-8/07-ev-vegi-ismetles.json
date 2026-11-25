@@ -1,0 +1,32 @@
+{
+  "idPrefix": "g8-ev-vegi-ismetles",
+  "topic": "VII. Év végi ismétlés",
+  "grade_level": "8. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "ev-vegi-ismetles",
+      "title": "Év végi ismétlés – 8. osztály",
+      "description": "Vegyes ismétlő kvíz a 8. osztály minden témaköréből: számok és betűk, geometria, egyenletek, Pitagorasz, függvények és valószínűség, testek.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Mi a tagadása: „Minden madár tud repülni.”?", "options": ["Van olyan madár, amelyik nem tud repülni.", "Egyetlen madár sem tud repülni.", "Minden madár tud úszni.", "Van olyan madár, amelyik tud repülni."], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mennyi $\\frac{2^5 \\cdot 2^{-2}}{2}$?", "options": ["$4$", "$8$", "$2$", "$16$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Emeld ki a gyöktényezőt: $\\sqrt{98} = ?$", "options": ["$7\\sqrt{2}$", "$2\\sqrt{7}$", "$49\\sqrt{2}$", "$14$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mivel egyenlő $(x - 3)^2$?", "options": ["$x^2 - 6x + 9$", "$x^2 - 9$", "$x^2 + 6x + 9$", "$x^2 - 3x + 9$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Oldd meg: $3(x - 2) = x + 8$. Mennyi $x$?", "answer": "7" },
+        { "type": "mc", "time": 30, "text": "Két hasonló háromszög hasonlósági aránya $k = 3$. A kisebbik területe $5\\text{ cm}^2$. Mekkora a nagyobbik területe?", "options": ["$45\\text{ cm}^2$", "$15\\text{ cm}^2$", "$135\\text{ cm}^2$", "$9\\text{ cm}^2$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy derékszögű háromszög befogói 9 cm és 40 cm. Hány cm az átfogója?", "answer": "41/41 cm" },
+        { "type": "mc", "time": 25, "text": "Tükrözzük az $A(2; -5)$ pontot az origóra. Mik a képpont koordinátái?", "options": ["$(-2; 5)$", "$(2; 5)$", "$(-2; -5)$", "$(-5; 2)$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Az $y = -3x + 2$ függvény szigorúan monoton csökkenő.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Két dobókockával dobunk. Mennyi a valószínűsége, hogy a dobott számok összege 4?", "options": ["$\\frac{1}{12}$", "$\\frac{1}{9}$", "$\\frac{1}{6}$", "$\\frac{1}{4}$"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Ha egy kocka élét a kétszeresére növeljük, a térfogata a nyolcszorosára nő.", "answer": true },
+        { "type": "match", "time": 60, "text": "Párosítsd a fogalmakat a képletükkel!", "pairs": [
+          ["Pitagorasz-tétel", "$a^2 + b^2 = c^2$"],
+          ["a gömb térfogata", "$\\frac{4}{3}\\pi r^3$"],
+          ["a mértani sorozat $n$-edik tagja", "$a_n = a_1 \\cdot q^{n-1}$"],
+          ["szita-formula", "$\\lvert A \\cup B \\rvert = \\lvert A \\rvert + \\lvert B \\rvert - \\lvert A \\cap B \\rvert$"]
+        ] }
+      ]
+    }
+  ]
+}

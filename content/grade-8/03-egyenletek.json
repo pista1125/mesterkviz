@@ -1,0 +1,200 @@
+{
+  "idPrefix": "g8-egyenletek",
+  "topic": "III. Egyenletek",
+  "grade_level": "8. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "egyenletek",
+      "title": "Egyenletek",
+      "description": "Elsőfokú egyenletek mérlegelvvel: zárójeles és törtes egyenletek, kikötés, ellenőrzés.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Oldd meg: $3x + 5 = 20$", "options": ["$x = 5$", "$x = \\frac{25}{3}$", "$x = 15$", "$x = 8$"], "answer": 0 },
+        { "type": "mc", "time": 60, "text": "Oldd meg: $4(2x - 3) - 2(x + 5) = 3(x - 2) + 8$", "options": ["$x = 8$", "$x = 2$", "$x = -8$", "$x = 4$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Oldd meg: $5x - 7 = 2x + 8$. Mennyi $x$?", "answer": "5" },
+        { "type": "mc", "time": 25, "text": "Mi a kikötés az $\\frac{5}{x - 2} = 3$ egyenletnél?", "options": ["$x \\neq 2$", "$x \\neq 0$", "$x \\neq -2$", "$x \\neq 5$"], "answer": 0 },
+        { "type": "mc", "time": 60, "text": "Oldd meg: $\\frac{x + 1}{3} - \\frac{2x - 5}{4} = 1$", "options": ["$x = 3{,}5$", "$x = 7$", "$x = -3{,}5$", "$x = 1$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Ha egy egyenlet mindkét oldalát ugyanazzal a nem nulla számmal szorozzuk, a megoldás nem változik.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Bontsd fel a zárójelet: $-3(2x - 4)$", "options": ["$-6x + 12$", "$-6x - 12$", "$6x + 12$", "$-6x - 4$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Oldd meg: $\\frac{x}{4} + 2 = 5$. Mennyi $x$?", "answer": "12" },
+        { "type": "tf", "time": 30, "text": "A $2x + 3 = 2x + 5$ egyenletnek nincs megoldása.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Mi a $3(x + 2) = 3x + 6$ egyenlet megoldása?", "options": ["minden valós szám", "csak $x = 0$", "nincs megoldása", "csak $x = 2$"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Oldd meg: $\\frac{6}{x + 1} = 2$ (kikötés: $x \\neq -1$)", "options": ["$x = 2$", "$x = 3$", "$x = -1$", "$x = 4$"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd az egyenleteket a megoldásukkal!", "pairs": [
+          ["$2x = 14$", "$x = 7$"],
+          ["$x - 9 = -4$", "$x = 5$"],
+          ["$\\frac{x}{3} = -2$", "$x = -6$"],
+          ["$5x + 1 = 1$", "$x = 0$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "szoveges-feladatok-szamokrol-eletkorokrol",
+      "title": "Szöveges feladatok számokról, életkorokról",
+      "description": "Gondolt számok, egymást követő számok, kétjegyű számok (10a + b) és életkoros feladatok.",
+      "questions": [
+        { "type": "mc", "time": 30, "text": "Gondoltam egy számot. A kétszereséhez 7-et adva 31-et kaptam. Melyik számra gondoltam?", "options": ["12", "19", "24", "14"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Három egymást követő egész szám összege 72. Melyik a legkisebb?", "options": ["23", "24", "22", "21"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Két egymást követő páros szám összege 46. Melyik a nagyobbik?", "answer": "24" },
+        { "type": "mc", "time": 20, "text": "Egy kétjegyű szám tízes helyiértékén $a$, egyes helyiértékén $b$ áll. Hogyan írható fel a szám?", "options": ["$10a + b$", "$a + b$", "$10b + a$", "$a \\cdot b$"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Egy kétjegyű szám és a jegyei felcserélésével kapott szám különbsége mindig osztható 9-cel.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Anya 38 éves, a fia 10 éves. Hány év múlva lesz az anya kétszer annyi idős, mint a fia?", "options": ["18", "8", "14", "28"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Apa 40 éves, a lánya 12 éves. Hány évvel ezelőtt volt az apa ötször annyi idős, mint a lánya?", "answer": "5" },
+        { "type": "tf", "time": 20, "text": "Két ember életkorának különbsége az évek során változik.", "answer": false },
+        { "type": "mc", "time": 45, "text": "Egy kétjegyű szám jegyeinek összege 9. Ha a jegyeit felcseréljük, 27-tel nagyobb számot kapunk. Melyik ez a szám?", "options": ["36", "63", "45", "27"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy szám harmadánál 4-gyel nagyobb szám a 10. Melyik ez a szám?", "options": ["18", "42", "2", "6"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "A 60-at $2 : 3$ arányban két részre osztjuk. Mekkora a nagyobbik rész?", "answer": "36" },
+        { "type": "match", "time": 45, "text": "Párosítsd a szöveget a megfelelő kifejezéssel!", "pairs": [
+          ["egy szám kétszerese", "$2x$"],
+          ["egy számnál 5-tel kisebb szám", "$x - 5$"],
+          ["egy szám fele", "$\\frac{x}{2}$"],
+          ["a számot követő egész szám", "$x + 1$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "szoveges-feladatok-osszekeveresrol",
+      "title": "Szöveges feladatok összekeverésről",
+      "description": "Oldatok töménysége, hígítás, töményítés, elpárologtatás, karát és hőmérséklet-keveredés.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Hány gramm só van 200 g 10%-os sóoldatban?", "options": ["20 g", "10 g", "2 g", "190 g"], "answer": 0 },
+        { "type": "mc", "time": 15, "text": "Mennyi a tiszta víz töménysége (sótartalma) a keverési feladatokban?", "options": ["0%", "100%", "50%", "1%"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Ha 10%-os és 30%-os oldatot keverünk össze, az eredmény mindig 20%-os lesz, bármennyit is veszünk belőlük.", "answer": false },
+        { "type": "text", "time": 45, "text": "300 g 20%-os sóoldathoz 100 g tiszta vizet öntünk. Hány százalékos lesz az új oldat?", "answer": "15/15%/15 %" },
+        { "type": "mc", "time": 45, "text": "Összekeverünk 2 kg 10%-os és 3 kg 20%-os oldatot. Hány százalékos lesz a keverék?", "options": ["16%", "15%", "30%", "18%"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mit jelent a 24 karátos arany?", "options": ["tiszta (100%-os) arany", "50%-os arany", "75%-os arany", "24%-os arany"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Hány százalék aranyat tartalmaz a 18 karátos ötvözet?", "options": ["75%", "18%", "50%", "82%"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "500 g 8%-os sóoldatból hány gramm vizet kell elpárologtatni, hogy 10%-os legyen?", "answer": "100/100 g" },
+        { "type": "mc", "time": 30, "text": "Melyik a két oldat keverésének alapegyenlete (az oldott anyag megmarad)?", "options": ["$m_1 p_1 + m_2 p_2 = (m_1 + m_2) \\cdot p$", "$p_1 + p_2 = p$", "$m_1 + m_2 = p$", "$m_1 p_2 + m_2 p_1 = p$"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Ha egy sóoldatba tiszta sót keverünk, az oldat tömege és töménysége is nő.", "answer": true },
+        { "type": "mc", "time": 45, "text": "2 liter 80 °C-os vizet összeöntünk 3 liter 20 °C-os vízzel. Hány fokos lesz a keverék (hőveszteség nélkül)?", "options": ["44 °C", "50 °C", "40 °C", "60 °C"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az anyagokat a töménységükkel!", "pairs": [
+          ["tiszta víz", "0%"],
+          ["tiszta só", "100%"],
+          ["12 karátos arany", "50%"],
+          ["6 karátos arany", "25%"]
+        ] }
+      ]
+    },
+    {
+      "slug": "szoveges-feladatok-mozgasrol-munkarol",
+      "title": "Szöveges feladatok mozgásról, munkáról",
+      "description": "s = v · t, találkozás, utolérés, folyóvíz, együttes munkavégzés és medencetöltés.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Egy autó 60 km/h sebességgel halad 2,5 órán át. Mekkora utat tesz meg?", "options": ["150 km", "24 km", "120 km", "62,5 km"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Hány óra 45 perc?", "options": ["0,75 óra", "0,45 óra", "0,5 óra", "4,5 óra"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy autó 120 km-t tesz meg 80 km/h sebességgel. Hány óráig tart az út? (tizedestörttel)", "answer": "1,5/1,5 óra/másfél/másfél óra" },
+        { "type": "mc", "time": 30, "text": "Két város távolsága 300 km. Egyszerre indul egymással szemben egy 70 km/h-s és egy 80 km/h-s autó. Mennyi idő múlva találkoznak?", "options": ["2 óra", "2,5 óra", "4 óra", "1,5 óra"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Egy gyalogos 5 km/h-val halad, 6 km előnye van. Utána indul egy kerékpáros 15 km/h-val. Mennyi idő alatt éri utol?", "options": ["36 perc", "24 perc", "1 óra", "30 perc"], "answer": 0 },
+        { "type": "tf", "time": 30, "text": "Ha valaki oda 60 km/h-val, vissza ugyanazon az úton 40 km/h-val megy, akkor az átlagsebessége 50 km/h.", "answer": false },
+        { "type": "mc", "time": 25, "text": "Egy hajó sebessége állóvízben 20 km/h, a folyó sebessége 4 km/h. Mekkora a hajó sebessége a folyón lefelé?", "options": ["24 km/h", "16 km/h", "20 km/h", "80 km/h"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Egy medencét az egyik csap 6 óra, a másik 3 óra alatt tölt meg. Mennyi idő alatt töltik meg együtt?", "options": ["2 óra", "4,5 óra", "9 óra", "1,5 óra"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Anna 4 nap alatt, Béla 12 nap alatt festene ki egyedül egy kerítést. Hány nap alatt végeznek együtt?", "answer": "3/3 nap" },
+        { "type": "tf", "time": 25, "text": "Ha az egyik munkás egyedül 2 nap, a másik 3 nap alatt végez egy munkával, akkor együtt 5 nap alatt végeznek.", "answer": false },
+        { "type": "mc", "time": 30, "text": "Hány km/h a 20 m/s sebesség?", "options": ["72 km/h", "20 km/h", "5,56 km/h", "7,2 km/h"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a helyzetet a megfelelő egyenlettel!", "pairs": [
+          ["találkozás (szembe haladnak)", "$(v_1 + v_2) \\cdot t = s$"],
+          ["utolérés (előnnyel)", "$(v_1 - v_2) \\cdot t = s_0$"],
+          ["egyenletes mozgás", "$s = v \\cdot t$"],
+          ["együttes munka", "$\\frac{1}{t_1} + \\frac{1}{t_2} = \\frac{1}{t}$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "szoveges-geometriai-feladatok",
+      "title": "Szöveges geometriai feladatok",
+      "description": "Szögek, kerület és terület kifejezése egyenletekkel háromszögekben és téglalapokban.",
+      "questions": [
+        { "type": "mc", "time": 30, "text": "Egy háromszög szögeinek aránya $2 : 3 : 4$. Mekkora a legnagyobb szöge?", "options": ["$80^\\circ$", "$60^\\circ$", "$40^\\circ$", "$90^\\circ$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy egyenlő szárú háromszög alapon fekvő szögei $70^\\circ$-osak. Hány fokos a szárszöge?", "answer": "40/40°/40 fok" },
+        { "type": "mc", "time": 45, "text": "Egy téglalap kerülete 30 cm, egyik oldala 4 cm-rel hosszabb a másiknál. Mekkorák az oldalai?", "options": ["5,5 cm és 9,5 cm", "5 cm és 10 cm", "13 cm és 17 cm", "4 cm és 11 cm"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Egy derékszögű háromszög két hegyesszögének összege $90^\\circ$.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Egy derékszögű háromszög egyik hegyesszöge kétszerese a másiknak. Mekkorák a hegyesszögei?", "options": ["$30^\\circ$ és $60^\\circ$", "$45^\\circ$ és $45^\\circ$", "$20^\\circ$ és $40^\\circ$", "$60^\\circ$ és $120^\\circ$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy egyenlő szárú háromszög kerülete 32 cm, az alapja 10 cm. Milyen hosszú egy szára?", "options": ["11 cm", "16 cm", "22 cm", "21 cm"], "answer": 0 },
+        { "type": "text", "time": 60, "text": "Egy téglalap egyik oldala 4 cm-rel hosszabb a másiknál. Ha mindkét oldalát 2 cm-rel növeljük, a területe $36\\text{ cm}^2$-rel nő. Hány cm a rövidebb oldala?", "answer": "6/6 cm" },
+        { "type": "mc", "time": 45, "text": "Egy négyzet oldalát 3 cm-rel növelve a területe $39\\text{ cm}^2$-rel nő. Mekkora volt az eredeti oldala?", "options": ["5 cm", "6 cm", "4 cm", "13 cm"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Egy háromszög szögei lehetnek $50^\\circ$, $60^\\circ$ és $80^\\circ$.", "answer": false },
+        { "type": "mc", "time": 45, "text": "Egy háromszög egyik szöge $40^\\circ$, a második $20^\\circ$-kal nagyobb a harmadiknál. Mekkora a harmadik szög?", "options": ["$60^\\circ$", "$80^\\circ$", "$50^\\circ$", "$70^\\circ$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy téglalap oldalai $x$ és $2x$, a kerülete 36 cm. Mennyi $x$?", "options": ["6 cm", "12 cm", "9 cm", "18 cm"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a mennyiségeket a képletükkel!", "pairs": [
+          ["téglalap kerülete", "$2(a + b)$"],
+          ["téglalap területe", "$a \\cdot b$"],
+          ["háromszög belső szögeinek összege", "$180^\\circ$"],
+          ["egyenlő szárú háromszög kerülete", "$a + 2b$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "vegyes-feladatok",
+      "title": "Vegyes feladatok",
+      "description": "Összetett szöveges feladatok, „fejek és lábak”, jegyvásárlás, kétismeretlenes egyenletrendszerek.",
+      "questions": [
+        { "type": "mc", "time": 45, "text": "Egy udvarban tyúkok és nyulak vannak, összesen 35 fejük és 94 lábuk van. Hány tyúk van?", "options": ["23", "12", "20", "15"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Tyúkok és nyulak: összesen 30 fej és 80 láb. Hány nyúl van?", "answer": "10" },
+        { "type": "mc", "time": 30, "text": "Oldd meg az egyenletrendszert: $x + y = 10$ és $x - y = 4$", "options": ["$x = 7$, $y = 3$", "$x = 6$, $y = 4$", "$x = 5$, $y = 5$", "$x = 8$, $y = 2$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mi a behelyettesítő módszer lényege?", "options": ["Az egyik egyenletből kifejezzük az egyik ismeretlent, és beírjuk a másik egyenletbe.", "A két egyenletet összeszorozzuk.", "Addig találgatunk, amíg jó nem lesz.", "Mindkét ismeretlent nullának vesszük."], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Az egyenlő együtthatók módszerénél úgy alakítjuk az egyenleteket, hogy összeadásukkor vagy kivonásukkor az egyik ismeretlen kiessen.", "answer": true },
+        { "type": "mc", "time": 45, "text": "120 mozijegyet adtak el összesen 280 000 Ft-ért. A diákjegy 2000 Ft, a felnőttjegy 3000 Ft. Hány diákjegyet adtak el?", "options": ["80", "40", "60", "100"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Oldd meg: $2x + y = 11$ és $x - y = 1$. Mennyi $x$?", "answer": "4" },
+        { "type": "mc", "time": 30, "text": "5 füzet és 3 toll együtt 1300 Ft. Egy füzet 200 Ft. Mennyibe kerül egy toll?", "options": ["100 Ft", "300 Ft", "150 Ft", "200 Ft"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A kapott eredményt mindig érdemes az eredeti szöveg alapján is ellenőrizni (pl. a gyerekek száma nem lehet tört).", "answer": true },
+        { "type": "mc", "time": 30, "text": "Három szám összege 60. A második kétszerese, a harmadik háromszorosa az elsőnek. Mennyi az első szám?", "options": ["10", "20", "30", "12"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Katinak háromszor annyi pénze van, mint Petinek. Ha Kati ad Petinek 600 Ft-ot, egyenlő lesz a pénzük. Mennyi pénze van Petinek?", "options": ["600 Ft", "300 Ft", "1200 Ft", "900 Ft"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a feladatokat a hozzájuk illő egyenlettel!", "pairs": [
+          ["$x$ tyúk és néhány nyúl: 20 fej, 50 láb", "$2x + 4(20 - x) = 50$"],
+          ["egy szám és kétszeresének összege 21", "$x + 2x = 21$"],
+          ["két egymást követő egész összege 21", "$x + (x + 1) = 21$"],
+          ["egy szám 20%-a 21", "$0{,}2x = 21$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "penzugyi-feladatok",
+      "title": "Pénzügyi feladatok",
+      "description": "Százalékos áremelés és leárazás, egymás utáni árváltozások, egyszerű kamat, ÁFA.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Mennyivel kell megszorozni az árat 20%-os áremelésnél?", "options": ["1,2", "0,8", "1,02", "20"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mennyivel kell megszorozni az árat 15%-os leárazásnál?", "options": ["0,85", "1,15", "0,15", "0,985"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Ha egy árat 20%-kal megemelünk, majd az új árat 20%-kal csökkentjük, visszakapjuk az eredeti árat.", "answer": false },
+        { "type": "mc", "time": 30, "text": "Egy árat 20%-kal megemelnek, majd az új árat 20%-kal csökkentik. Az eredeti ár hány százaléka lesz a végső ár?", "options": ["96%", "100%", "104%", "80%"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy 8000 Ft-os termék árát 25%-kal leszállítják. Hány forint lesz az új ár?", "answer": "6000/6000 Ft" },
+        { "type": "mc", "time": 30, "text": "100 000 Ft-ot 2 évre lekötünk évi 5%-os egyszerű kamatra. Mennyi kamatot kapunk?", "options": ["10 000 Ft", "5 000 Ft", "110 000 Ft", "20 000 Ft"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy termék nettó ára 10 000 Ft, az ÁFA 27%. Mennyi a bruttó ár?", "options": ["12 700 Ft", "10 270 Ft", "2 700 Ft", "7 300 Ft"], "answer": 0 },
+        { "type": "text", "time": 60, "text": "Egy kabát árát 20%-kal felemelték, majd az új árat 30%-kal csökkentették, így 29 400 Ft lett. Hány forint volt az eredeti ár?", "answer": "35000/35000 Ft" },
+        { "type": "mc", "time": 45, "text": "Egy termék bruttó ára 25 400 Ft (27% ÁFA-val). Mennyi a nettó ára?", "options": ["20 000 Ft", "18 542 Ft", "32 258 Ft", "24 127 Ft"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Egyszerű kamatnál a kamat egyenesen arányos a lekötés idejével.", "answer": true },
+        { "type": "mc", "time": 45, "text": "50 000 Ft-ot 6 hónapra lekötünk évi 4%-os egyszerű kamatra. Mennyi kamatot kapunk?", "options": ["1 000 Ft", "2 000 Ft", "12 000 Ft", "200 Ft"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd az árváltozást a szorzóval!", "pairs": [
+          ["10%-os emelés", "1,1"],
+          ["10%-os csökkentés", "0,9"],
+          ["27% ÁFA hozzáadása", "1,27"],
+          ["50%-os leárazás", "0,5"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Egyenletek",
+      "description": "Témazáró gyakorló: egyenletmegoldás és minden szöveges feladattípus.",
+      "questions": [
+        { "type": "mc", "time": 30, "text": "Oldd meg: $7x - 4 = 3x + 12$", "options": ["$x = 4$", "$x = 2$", "$x = 8$", "$x = -2$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Oldd meg: $\\frac{2x - 1}{3} = 5$", "options": ["$x = 8$", "$x = 7$", "$x = 6$", "$x = 2$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A $\\frac{3}{x + 4} = 1$ egyenletnél ki kell kötni, hogy $x \\neq -4$.", "answer": true },
+        { "type": "text", "time": 30, "text": "Három egymást követő egész szám összege 54. Melyik a legnagyobb?", "answer": "19" },
+        { "type": "mc", "time": 45, "text": "Anya 34 éves, a lánya 8 éves. Hány év múlva lesz az anya háromszor annyi idős, mint a lánya?", "options": ["5", "2", "10", "13"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Hány gramm só van 400 g 15%-os sóoldatban?", "options": ["60 g", "15 g", "40 g", "340 g"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Két város távolsága 210 km. Egyszerre indul egymással szemben egy 60 km/h-s és egy 45 km/h-s jármű. Mennyi idő múlva találkoznak?", "options": ["2 óra", "3 óra", "1,5 óra", "2,5 óra"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Egy tartályt az egyik csap 10 óra, a másik 15 óra alatt tölt meg. Hány óra alatt töltik meg együtt?", "answer": "6/6 óra" },
+        { "type": "mc", "time": 30, "text": "Egy háromszög szögeinek aránya $1 : 2 : 3$. Mekkora a legnagyobb szöge?", "options": ["$90^\\circ$", "$60^\\circ$", "$120^\\circ$", "$30^\\circ$"], "answer": 0 },
+        { "type": "tf", "time": 30, "text": "10%-os áremelés, majd 10%-os leárazás után az ár az eredeti 99%-a lesz.", "answer": true },
+        { "type": "mc", "time": 30, "text": "200 000 Ft-ot 3 évre lekötünk évi 3%-os egyszerű kamatra. Mennyi kamatot kapunk?", "options": ["18 000 Ft", "6 000 Ft", "9 000 Ft", "218 000 Ft"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a feladattípusokat a modelljükkel!", "pairs": [
+          ["kétjegyű szám", "$10a + b$"],
+          ["keverés", "$m_1 p_1 + m_2 p_2 = m \\cdot p$"],
+          ["mozgás", "$s = v \\cdot t$"],
+          ["egyszerű kamat", "$K = \\frac{T \\cdot p \\cdot t}{100}$"]
+        ] }
+      ]
+    }
+  ]
+}

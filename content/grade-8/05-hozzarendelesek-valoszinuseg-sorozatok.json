@@ -1,0 +1,296 @@
+{
+  "idPrefix": "g8-hozzarendelesek",
+  "topic": "V. Hozzárendelések, valószínűségek, sorozatok",
+  "grade_level": "8. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "egyenes-aranyossag",
+      "title": "Egyenes arányosság",
+      "description": "Az állandó hányados, az y = kx szabály, a grafikon (origón átmenő egyenes) és a tipikus buktatók.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Mikor egyenesen arányos két mennyiség?", "options": ["Ha az összetartozó értékek hányadosa állandó.", "Ha az összetartozó értékek szorzata állandó.", "Ha az összetartozó értékek összege állandó.", "Ha mindkettő egyszerre nő."], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Melyik hozzárendelés egyenes arányosság?", "options": ["$y = 3x$", "$y = 3x + 1$", "$y = \\frac{3}{x}$", "$y = x^2$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Az egyenes arányosság grafikonja mindig átmegy az origón.", "answer": true },
+        { "type": "text", "time": 30, "text": "3 kg alma 1200 Ft. Hány forint 5 kg alma?", "answer": "2000/2000 Ft" },
+        { "type": "mc", "time": 30, "text": "Az $y = k \\cdot x$ egyenes arányosságban $x = 4$ esetén $y = 10$. Mennyi $k$?", "options": ["$2{,}5$", "$40$", "$6$", "$0{,}4$"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "A taxi viteldíja (alapdíj + kilométerdíj) egyenesen arányos a megtett úttal.", "answer": false },
+        { "type": "mc", "time": 25, "text": "Milyen kapcsolat van a négyzet oldala és területe között?", "options": ["nem egyenes arányosság, mert $T = a^2$", "egyenes arányosság", "fordított arányosság", "a terület mindig ugyanannyi"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Milyen az $y = kx$ grafikonja, ha $k \\lt 0$?", "options": ["a II. és IV. síknegyeden halad át, csökkenő", "az I. és III. síknegyeden halad át, növekvő", "vízszintes egyenes", "nem megy át az origón"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy gép 5 perc alatt 40 alkatrészt készít. Hány alkatrészt készít 12 perc alatt?", "answer": "96/96 db" },
+        { "type": "mc", "time": 30, "text": "Az $x$ és $y$ egyenesen arányos. $x = 2 \\to y = 6$; $x = 5 \\to y = 15$; $x = 8 \\to y = ?$", "options": ["24", "18", "21", "11"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy térképen 1 cm a valóságban 2 km. Mekkora a valódi távolság, ha a térképen 7,5 cm?", "options": ["15 km", "3,75 km", "9,5 km", "150 km"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a hozzárendeléseket az arányossági tényezőjükkel ($k$)!", "pairs": [
+          ["$y = 5x$", "$5$"],
+          ["$y = -2x$", "$-2$"],
+          ["$y = \\frac{x}{4}$", "$\\frac{1}{4}$"],
+          ["$y = x$", "$1$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "hozzarendelesek-es-grafikonjaik",
+      "title": "Hozzárendelések és grafikonjaik",
+      "description": "A függvény fogalma, helyettesítési érték, lineáris függvény (meredekség, tengelymetszet, zérushely).",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Mikor nevezünk egy hozzárendelést függvénynek?", "options": ["Ha az értelmezési tartomány minden eleméhez pontosan egy elemet rendel.", "Ha minden elemhez legalább két elemet rendel.", "Ha csak pozitív számokhoz rendel értéket.", "Ha minden elemhez ugyanazt az értéket rendeli."], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "$f(x) = 2x - 3$. Mennyi $f(5)$?", "options": ["$7$", "$13$", "$4$", "$-7$"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mennyi az $f(x) = -3x + 4$ függvény meredeksége?", "options": ["$-3$", "$4$", "$3$", "$-4$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Hol metszi az $y = 2x + 5$ grafikonja az $y$ tengelyt?", "options": ["$(0; 5)$", "$(5; 0)$", "$(0; 2)$", "$(-2{,}5; 0)$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Hol van az $f(x) = 2x - 8$ függvény zérushelye? ($x = ?$)", "answer": "4" },
+        { "type": "mc", "time": 30, "svg": "linear-2x-1", "text": "Melyik függvény grafikonja látható az ábrán?", "options": ["$y = 2x - 1$", "$y = x - 1$", "$y = -2x + 1$", "$y = 2x + 1$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Ha $a \\lt 0$, az $f(x) = ax + b$ függvény szigorúan monoton csökkenő.", "answer": true },
+        { "type": "tf", "time": 20, "text": "Az $f(x) = 5$ függvény grafikonja függőleges egyenes.", "answer": false },
+        { "type": "mc", "time": 20, "text": "Milyen az $f(x) = \\lvert x \\rvert$ függvény grafikonja?", "options": ["„V” alakú, a csúcsa az origóban van", "parabola", "origón átmenő egyenes", "hiperbola"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyik pont van rajta az $y = 3x - 2$ függvény grafikonján?", "options": ["$(2; 4)$", "$(4; 2)$", "$(0; 2)$", "$(1; 3)$"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "$f(x) = x^2$. Mennyi $f(-4)$?", "answer": "16" },
+        { "type": "match", "time": 45, "text": "Párosítsd a függvényeket a típusukkal!", "pairs": [
+          ["$f(x) = 7$", "konstans függvény"],
+          ["$f(x) = x$", "identikus függvény"],
+          ["$f(x) = \\lvert x \\rvert$", "abszolútérték-függvény"],
+          ["$f(x) = x^2$", "másodfokú függvény (parabola)"]
+        ] }
+      ]
+    },
+    {
+      "slug": "forditott-aranyossag",
+      "title": "Fordított arányosság",
+      "description": "Az állandó szorzat, az y = k/x szabály, a hiperbola, munkás- és sebességfeladatok.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Mikor fordítottan arányos két mennyiség?", "options": ["Ha az összetartozó értékek szorzata állandó.", "Ha az összetartozó értékek hányadosa állandó.", "Ha az összetartozó értékek összege állandó.", "Ha mindkettő egyszerre csökken."], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Melyik hozzárendelés fordított arányosság?", "options": ["$y = \\frac{12}{x}$", "$y = 12x$", "$y = x + 12$", "$y = x - 12$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A fordított arányosság grafikonja hiperbola.", "answer": true },
+        { "type": "text", "time": 30, "text": "Egy munkát 4 munkás 6 nap alatt végez el. Hány nap alatt végezne vele 8 munkás (ugyanolyan tempóban)?", "answer": "3/3 nap" },
+        { "type": "mc", "time": 25, "text": "Egy 120 km-es utat 60 km/h-val 2 óra alatt teszünk meg. Mennyi ideig tart 40 km/h-val?", "options": ["3 óra", "1,5 óra", "4 óra", "2,5 óra"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Fordított arányosság: $x \\cdot y = 24$. Mennyi $y$, ha $x = 3$?", "options": ["8", "72", "21", "27"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Fordított arányosságnál ha $x$ a kétszeresére nő, akkor $y$ is a kétszeresére nő.", "answer": false },
+        { "type": "mc", "time": 25, "text": "Egy téglalap területe $36\\text{ cm}^2$, egyik oldala 4 cm. Mekkora a másik oldala?", "options": ["9 cm", "32 cm", "144 cm", "6 cm"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy medencét 6 egyforma csap 10 óra alatt tölt meg. Hány óra alatt töltené meg 15 ilyen csap?", "answer": "4/4 óra" },
+        { "type": "mc", "time": 30, "text": "Az $x$ és $y$ fordítottan arányos. $x = 2 \\to y = 20$; $x = 4 \\to y = 10$; $x = 8 \\to y = ?$", "options": ["5", "0", "2,5", "40"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Metszi-e az $y = \\frac{6}{x}$ grafikonja a koordinátatengelyeket?", "options": ["egyik tengelyt sem metszi", "csak az $x$ tengelyt metszi", "átmegy az origón", "csak az $y$ tengelyt metszi"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a hozzárendeléseket a típusukkal!", "pairs": [
+          ["$y = 5x$", "egyenes arányosság"],
+          ["$y = \\frac{5}{x}$", "fordított arányosság"],
+          ["$y = 5x + 1$", "lineáris, de nem arányosság"],
+          ["$y = x^2$", "másodfokú hozzárendelés"]
+        ] }
+      ]
+    },
+    {
+      "slug": "olvassunk-a-grafikonrol",
+      "title": "Olvassunk a grafikonról!",
+      "description": "Menetdiagramok, szélsőértékek, zérushely, növekvő, csökkenő és állandó szakaszok leolvasása.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "distance-time", "text": "Az ábra egy autó menetdiagramja. Mekkora utat tett meg az első órában?", "options": ["60 km", "30 km", "90 km", "150 km"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "distance-time", "text": "Az ábra egy autó menetdiagramja. Mikor állt az autó?", "options": ["1 és 1,5 óra között", "0 és 1 óra között", "1,5 és 2,5 óra között", "egyszer sem állt meg"], "answer": 0 },
+        { "type": "text", "time": 30, "svg": "distance-time", "text": "Az ábra egy autó menetdiagramja. Hány km/h volt a sebessége az első órában?", "answer": "60/60 km/h" },
+        { "type": "mc", "time": 45, "svg": "distance-time", "text": "Az ábra egy autó menetdiagramja. Mekkora volt a sebessége a pihenő után?", "options": ["90 km/h", "60 km/h", "150 km/h", "45 km/h"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "distance-time", "text": "Az ábra egy autó menetdiagramja. Mennyi ideig tartott az egész út?", "options": ["2,5 óra", "3 óra", "2 óra", "1,5 óra"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A menetdiagram vízszintes szakasza azt jelenti, hogy a test áll.", "answer": true },
+        { "type": "tf", "time": 20, "text": "A menetdiagramon a meredekebb szakasz kisebb sebességet jelent.", "answer": false },
+        { "type": "mc", "time": 25, "text": "Mit jelent két test menetdiagramjának metszéspontja?", "options": ["a két test találkozását (helyét és idejét)", "a pihenő idejét", "a legnagyobb sebességet", "semmi különöset"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy napi hőmérséklet-grafikon legkisebb értéke $-5\\,^\\circ\\text{C}$, legnagyobb értéke $22\\,^\\circ\\text{C}$. Mi a függvény értékkészlete?", "options": ["$-5 \\le T \\le 22$", "$0 \\le T \\le 22$", "$-5 \\le T \\le 0$", "csak a $22$"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Hol van a grafikonon egy függvény zérushelye?", "options": ["ahol a grafikon metszi az $x$ tengelyt", "ahol a grafikon metszi az $y$ tengelyt", "a grafikon legmagasabb pontjában", "a grafikon legmélyebb pontjában"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy nap a legalacsonyabb hőmérséklet $-3\\,^\\circ\\text{C}$, a legmagasabb $11\\,^\\circ\\text{C}$ volt. Hány fok volt a különbség?", "answer": "14/14 °C/14 fok" },
+        { "type": "match", "time": 45, "text": "Párosítsd a grafikon részeit a jelentésükkel!", "pairs": [
+          ["balról jobbra emelkedő szakasz", "növekvő"],
+          ["balról jobbra lejtő szakasz", "csökkenő"],
+          ["vízszintes szakasz", "állandó"],
+          ["a grafikon legmagasabb pontja", "maximum"]
+        ] }
+      ]
+    },
+    {
+      "slug": "keszitsunk-grafikont",
+      "title": "Készítsünk grafikont!",
+      "description": "Értéktáblázat, tengelyek és skála, folytonos és diszkrét grafikon, lineáris függvény gyors ábrázolása.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Mi a grafikonkészítés első lépése egy hozzárendelési szabályból?", "options": ["értéktáblázat készítése", "a pontok összekötése", "a grafikon kiszínezése", "a tengelyek letörlése"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "A két tengelyen az egység lehet különböző, de egy tengelyen belül a beosztásnak egyenletesnek kell lennie.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Mikor kötjük össze folytonos vonallal a grafikon pontjait?", "options": ["ha a változó folytonos (pl. idő, hőmérséklet)", "ha a változó emberek száma", "mindig", "soha"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Az $y = 2x + 1$ értéktáblázatában mi tartozik az $x = 3$ értékhez?", "options": ["7", "6", "5", "9"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "$y = -x + 4$. Mennyi $y$, ha $x = -2$?", "answer": "6" },
+        { "type": "mc", "time": 25, "text": "Az $y = 3x - 2$ gyors ábrázolásánál melyik pontból indulunk az $y$ tengelyen?", "options": ["$(0; -2)$", "$(0; 3)$", "$(-2; 0)$", "$(3; 0)$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Az $y = -2x + 1$ ábrázolásakor a $(0; 1)$ pontból 1 egységet lépünk jobbra. Merre és mennyit lépünk ezután?", "options": ["2 egységet le", "2 egységet fel", "1 egységet le", "1 egységet fel"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "A tanulók száma és a kiosztott ceruzák száma közötti kapcsolatot különálló (diszkrét) pontokkal ábrázoljuk.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Melyik pont NINCS rajta az $y = x + 3$ grafikonján?", "options": ["$(1; 3)$", "$(0; 3)$", "$(-3; 0)$", "$(2; 5)$"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Az $y = 4x - 2$ grafikonja hol metszi az $y$ tengelyt? Add meg az $y$ értéket!", "answer": "-2" },
+        { "type": "mc", "time": 30, "text": "Egy taxi alapdíja 1000 Ft, és kilométerenként 400 Ft-ot kell fizetni. Melyik szabály írja le a fizetendő összeget ($x$ km)?", "options": ["$y = 400x + 1000$", "$y = 1000x + 400$", "$y = 1400x$", "$y = 400x$"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Készíts értéktáblázatot az $y = 2x - 3$ szabályhoz! Párosítsd!", "pairs": [
+          ["$x = 0$", "$y = -3$"],
+          ["$x = 1$", "$y = -1$"],
+          ["$x = 2$", "$y = 1$"],
+          ["$x = 5$", "$y = 7$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "gyakorisag-relativ-gyakorisag-atlag",
+      "title": "Gyakoriság, relatív gyakoriság, átlag",
+      "description": "Gyakoriság, relatív gyakoriság, átlag, módusz, medián, terjedelem, oszlop- és kördiagram.",
+      "questions": [
+        { "type": "mc", "time": 30, "svg": "grades-bar", "text": "Az oszlopdiagram egy dolgozat jegyeit mutatja. Hány tanuló írta meg a dolgozatot?", "options": ["20", "5", "6", "15"], "answer": 0 },
+        { "type": "mc", "time": 25, "svg": "grades-bar", "text": "Az oszlopdiagram egy dolgozat jegyeit mutatja. Mi a jegyek módusza?", "options": ["3", "6", "4", "5"], "answer": 0 },
+        { "type": "text", "time": 60, "svg": "grades-bar", "text": "Az oszlopdiagram egy dolgozat jegyeit mutatja. Mennyi a jegyek átlaga?", "answer": "3,3" },
+        { "type": "mc", "time": 30, "svg": "grades-bar", "text": "Az oszlopdiagram egy dolgozat jegyeit mutatja. Mennyi az ötösök relatív gyakorisága?", "options": ["20%", "4%", "25%", "40%"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mi a mediánja a következő adatoknak: 2, 5, 7, 8, 10?", "options": ["7", "6,4", "8", "5"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mi a mediánja a következő adatoknak: 3, 4, 6, 9?", "options": ["5", "4", "6", "5,5"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A relatív gyakoriságok összege mindig 1 (azaz 100%).", "answer": true },
+        { "type": "text", "time": 25, "text": "Mennyi a terjedelme a következő adatoknak: 12, 7, 19, 4, 15?", "answer": "15" },
+        { "type": "mc", "time": 20, "text": "Mennyi a 4, 6, 8, 10, 12 számok átlaga?", "options": ["8", "10", "40", "6"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A számtani átlag érzékeny a kiugró értékekre.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Egy kördiagramon egy kategória relatív gyakorisága 25%. Mekkora a hozzá tartozó körcikk középponti szöge?", "options": ["$90^\\circ$", "$25^\\circ$", "$45^\\circ$", "$100^\\circ$"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a statisztikai mutatókat a definíciójukkal!", "pairs": [
+          ["módusz", "a leggyakoribb érték"],
+          ["medián", "a sorba rendezett adatok középső eleme"],
+          ["átlag", "az adatok összege osztva az adatok számával"],
+          ["terjedelem", "a legnagyobb és a legkisebb adat különbsége"]
+        ] }
+      ]
+    },
+    {
+      "slug": "jatek",
+      "title": "Játék",
+      "description": "Stratégiai és szerencsejátékok, két kocka összege, a Nim-játék nyerő stratégiája, tévhitek.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Melyik tiszta stratégiai játék (nincs benne véletlen)?", "options": ["sakk", "lottó", "rulett", "tombola"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Melyik tiszta szerencsejáték?", "options": ["lottó", "sakk", "amőba", "Nim-játék"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Két dobókockával dobunk. Melyik összeg jön ki a legtöbbféleképpen?", "options": ["7", "6", "12", "2"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Két (megkülönböztethető) dobókockával dobunk. Hány lehetséges kimenetel van összesen?", "options": ["36", "12", "11", "21"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Két dobókockával dobunk. Hány esetben lesz a dobott számok összege 12?", "answer": "1" },
+        { "type": "tf", "time": 25, "text": "Ha egy szabályos érmével ötször egymás után fejet dobtunk, a következő dobásnál nagyobb eséllyel lesz írás.", "answer": false },
+        { "type": "mc", "time": 30, "text": "Két dobókockával dobunk. Mennyi a valószínűsége, hogy az összeg 7?", "options": ["$\\frac{1}{6}$", "$\\frac{1}{7}$", "$\\frac{7}{36}$", "$\\frac{1}{12}$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Nim-játék: 21 gyufa, egy lépésben 1, 2 vagy 3 vehető el, aki az utolsót elveszi, veszít. Az ellenfeled 3 gyufát vett el. Hányat vegyél el te?", "options": ["1", "3", "2", "4"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Az előző Nim-játékban (21 gyufa, 1–3 vehető, az utolsót elvevő veszít) melyek a vesztő állások annak, aki lépni következik?", "options": ["1, 5, 9, 13, 17, 21 gyufa", "4, 8, 12, 16, 20 gyufa", "minden páros szám", "minden prímszám"], "answer": 0 },
+        { "type": "tf", "time": 30, "text": "A Monty Hall-feladatban (3 ajtó) az ajtóváltással $\\frac{2}{3}$-ra nő a nyerés esélye.", "answer": true },
+        { "type": "text", "time": 30, "text": "Két dobókockával dobunk. Hány esetben lesz a dobott számok összege páros?", "answer": "18" },
+        { "type": "match", "time": 60, "text": "Két dobókockával dobunk. Párosítsd az összeget azzal, hány esetben jöhet ki (a 36-ból)!", "pairs": [
+          ["összeg: 2", "1 eset"],
+          ["összeg: 3", "2 eset"],
+          ["összeg: 5", "4 eset"],
+          ["összeg: 7", "6 eset"]
+        ] }
+      ]
+    },
+    {
+      "slug": "valoszinuseg",
+      "title": "Valószínűség",
+      "description": "Klasszikus valószínűség (kedvező / összes), biztos és lehetetlen esemény, komplementer, nagy számok törvénye.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Hogyan számítjuk ki a klasszikus valószínűséget?", "options": ["kedvező esetek száma / összes eset száma", "összes eset száma / kedvező esetek száma", "kedvező esetek száma − összes eset száma", "kedvező esetek száma · összes eset száma"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mennyi a valószínűsége, hogy egy szabályos dobókockával 6-ost dobunk?", "options": ["$\\frac{1}{6}$", "$\\frac{1}{2}$", "$6$", "$\\frac{1}{3}$"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mennyi a valószínűsége, hogy egy szabályos dobókockával páros számot dobunk?", "options": ["$\\frac{1}{2}$", "$\\frac{1}{3}$", "$\\frac{1}{6}$", "$\\frac{2}{3}$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Egy esemény valószínűsége lehet $1{,}2$ is.", "answer": false },
+        { "type": "mc", "time": 15, "text": "Mennyi a lehetetlen esemény valószínűsége?", "options": ["0", "1", "−1", "0,5"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Egy $A$ esemény valószínűsége $0{,}3$. Mennyi a valószínűsége, hogy $A$ NEM következik be?", "answer": "0,7" },
+        { "type": "mc", "time": 30, "text": "Egy zsákban 3 piros, 5 kék és 2 zöld golyó van. Mennyi a valószínűsége, hogy kéket húzunk?", "options": ["$\\frac{1}{2}$", "$\\frac{1}{5}$", "$\\frac{5}{7}$", "$\\frac{3}{10}$"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Ha egy kísérletet nagyon sokszor elvégzünk, egy esemény relatív gyakorisága egyre közelebb kerül a valószínűségéhez.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Mit mondhatunk arról az eseményről, hogy egy szabályos dobókockával 7-est dobunk?", "options": ["lehetetlen esemény, valószínűsége 0", "biztos esemény, valószínűsége 1", "valószínűsége $\\frac{1}{7}$", "valószínűsége $\\frac{1}{6}$"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "1-től 20-ig számozott kártyák közül húzunk egyet. Mennyi a valószínűsége, hogy prímszámot húzunk?", "options": ["$\\frac{2}{5}$", "$\\frac{1}{2}$", "$\\frac{9}{20}$", "$\\frac{7}{20}$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy dobozban 20 golyó van, ebből 5 piros. Hány százalék a valószínűsége, hogy pirosat húzunk?", "answer": "25/25%/25 %" },
+        { "type": "match", "time": 60, "text": "Egy szabályos dobókockával dobunk. Párosítsd az eseményeket a valószínűségükkel!", "pairs": [
+          ["6-ost dobunk", "$\\frac{1}{6}$"],
+          ["páros számot dobunk", "$\\frac{1}{2}$"],
+          ["7-nél kisebb számot dobunk", "$1$"],
+          ["legfeljebb 2-t dobunk", "$\\frac{1}{3}$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "valoszinusegszamitasi-feladatok",
+      "title": "Valószínűségszámítási feladatok",
+      "description": "Két kocka, érmék, fa-diagram, húzás visszatevéssel és visszatevés nélkül, „legalább egy” módszer.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Két érmét feldobunk. Mennyi a valószínűsége, hogy mindkettő fej lesz?", "options": ["$\\frac{1}{4}$", "$\\frac{1}{2}$", "$\\frac{1}{3}$", "$\\frac{3}{4}$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Két dobókockával dobunk. Mennyi a valószínűsége, hogy mindkettő 6-os?", "options": ["$\\frac{1}{36}$", "$\\frac{1}{6}$", "$\\frac{1}{12}$", "$\\frac{1}{3}$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A fa-diagramon egy ág mentén a valószínűségeket összeszorozzuk.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Egy dobozban 3 piros és 2 kék golyó van. Visszatevés NÉLKÜL kihúzunk kettőt. Mennyi a valószínűsége, hogy mindkettő piros?", "options": ["$\\frac{3}{10}$", "$\\frac{9}{25}$", "$\\frac{6}{25}$", "$\\frac{1}{2}$"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Egy dobozban 3 piros és 2 kék golyó van. Visszatevéssel kétszer húzunk. Mennyi a valószínűsége, hogy mindkettő piros?", "options": ["$\\frac{9}{25}$", "$\\frac{3}{10}$", "$\\frac{6}{25}$", "$\\frac{3}{5}$"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Két dobókockával dobunk. Hány esetben lesz a dobott számok összege 7?", "answer": "6" },
+        { "type": "mc", "time": 45, "text": "Három érmét feldobunk. Mennyi a valószínűsége, hogy legalább egy fej lesz?", "options": ["$\\frac{7}{8}$", "$\\frac{3}{8}$", "$\\frac{1}{2}$", "$\\frac{1}{8}$"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Visszatevés nélküli húzásnál a második húzás valószínűségei nem függnek az első húzás eredményétől.", "answer": false },
+        { "type": "mc", "time": 45, "text": "Két dobókockával dobunk. Mennyi a valószínűsége, hogy az összeg 10?", "options": ["$\\frac{1}{12}$", "$\\frac{1}{10}$", "$\\frac{1}{6}$", "$\\frac{1}{36}$"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Három érmét feldobunk. Hány lehetséges kimenetel van (pl. FFI, FIF, …)?", "answer": "8" },
+        { "type": "mc", "time": 45, "text": "Egy dobókockával kétszer dobunk. Mennyi a valószínűsége, hogy legalább egyszer 6-ost dobunk?", "options": ["$\\frac{11}{36}$", "$\\frac{1}{3}$", "$\\frac{1}{6}$", "$\\frac{1}{36}$"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd az eseményeket a valószínűségükkel!", "pairs": [
+          ["két érme: mindkettő írás", "$\\frac{1}{4}$"],
+          ["két érme: pontosan egy fej", "$\\frac{1}{2}$"],
+          ["két érme: legalább egy fej", "$\\frac{3}{4}$"],
+          ["két kocka: a két szám egyenlő", "$\\frac{1}{6}$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "keressunk-osszefuggeseket",
+      "title": "Keressünk összefüggéseket!",
+      "description": "Szabályok felismerése, gyufaszál-láncok, háromszögszámok, kézfogások, sokszögek átlói.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Melyik szabály adja a 4, 7, 10, 13, … számokat ($n = 1, 2, 3, \\ldots$)?", "options": ["$3n + 1$", "$4n$", "$n + 3$", "$3n$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy négyzetláncot gyufákból rakunk ki (a szomszédos négyzeteknek egy közös oldaluk van): $3n + 1$ gyufa kell. Hány gyufa kell 10 négyzethez?", "options": ["31", "40", "30", "34"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Egy háromszöglánchoz $2n + 1$ gyufa kell. Hány gyufa kell 20 háromszöghöz?", "answer": "41" },
+        { "type": "mc", "time": 25, "text": "Mennyi az 5. háromszögszám ($1 + 2 + 3 + 4 + 5$)?", "options": ["15", "10", "25", "21"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy 10 fős társaságban mindenki mindenkivel egyszer kezet fog. Hány kézfogás történik?", "answer": "45" },
+        { "type": "mc", "time": 30, "text": "Hány átlója van egy konvex hatszögnek?", "options": ["9", "6", "12", "18"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Ha egy számsorban a szomszédos tagok különbsége állandó, akkor a szabály lineáris ($dn + b$ alakú).", "answer": true },
+        { "type": "mc", "time": 25, "text": "Egy konvex tízszög egyik csúcsából hány átló húzható?", "options": ["7", "10", "8", "35"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "A négyzetlánchoz $3n + 1$ gyufa kell. Hány négyzetből áll az a lánc, amelyhez pontosan 100 gyufa kell?", "options": ["33", "25", "34", "99"], "answer": 0 },
+        { "type": "tf", "time": 30, "text": "A 3. és a 4. háromszögszám összege egy négyzetszám: $T_3 + T_4 = 16$.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Mi a következő szám: 2, 6, 12, 20, 30, …?", "options": ["42", "40", "36", "44"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a mintázatokat a képletükkel!", "pairs": [
+          ["négyzetlánc gyufái", "$3n + 1$"],
+          ["háromszöglánc gyufái", "$2n + 1$"],
+          ["kézfogások $n$ fő között", "$\\frac{n(n - 1)}{2}$"],
+          ["konvex $n$-szög átlói", "$\\frac{n(n - 3)}{2}$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "sorozatok",
+      "title": "Sorozatok",
+      "description": "Explicit és rekurzív megadás, számtani és mértani sorozat, számtani és mértani közép, Fibonacci.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Mennyi a 3, 7, 11, 15, … számtani sorozat differenciája ($d$)?", "options": ["4", "3", "7", "11"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "$a_n = 3n + 1$. Mennyi $a_{100}$?", "options": ["301", "300", "103", "304"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy számtani sorozatban $a_1 = 5$ és $d = 3$. Mennyi $a_{10}$?", "answer": "32" },
+        { "type": "mc", "time": 20, "text": "Mennyi a 2, 6, 18, 54, … mértani sorozat hányadosa ($q$)?", "options": ["3", "4", "2", "36"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy mértani sorozatban $a_1 = 3$ és $q = 2$. Mennyi $a_5$?", "options": ["48", "96", "24", "30"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Egy sorozat grafikonja különálló pontokból áll.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Mi a következő tagja a Fibonacci-sorozatnak: 1, 1, 2, 3, 5, 8, …?", "options": ["13", "11", "16", "12"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Ha $d \\lt 0$, akkor a számtani sorozat szigorúan monoton növekvő.", "answer": false },
+        { "type": "mc", "time": 25, "text": "$a_1 = 4$ és $a_{n+1} = a_n + 3$. Mennyi $a_4$?", "options": ["13", "16", "12", "10"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mennyi az 5 és a 13 számtani közepe?", "options": ["9", "8", "$\\sqrt{65}$", "18"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Mennyi a 4 és a 9 (pozitív) mértani közepe?", "answer": "6" },
+        { "type": "match", "time": 60, "text": "Párosítsd a sorozatokat a típusukkal!", "pairs": [
+          ["2, 4, 6, 8, …", "számtani, $d = 2$"],
+          ["2, 4, 8, 16, …", "mértani, $q = 2$"],
+          ["1, 1, 2, 3, 5, …", "Fibonacci-sorozat"],
+          ["1, −1, 1, −1, …", "mértani, $q = -1$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Hozzárendelések, valószínűség, sorozatok",
+      "description": "Témazáró gyakorló: arányosságok, függvények, grafikonok, statisztika, valószínűség, mintázatok, sorozatok.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Milyen hozzárendelés az $y = 4x$?", "options": ["egyenes arányosság", "fordított arányosság", "lineáris, de nem arányosság", "konstans függvény"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy munkát 5 munkás 12 nap alatt végez el. Hány nap alatt végezne vele 10 munkás?", "options": ["6", "24", "7", "2,4"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Hol van az $f(x) = -2x + 6$ függvény zérushelye?", "options": ["$x = 3$", "$x = 6$", "$x = -3$", "$x = -2$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A fordított arányosság grafikonja átmegy az origón.", "answer": false },
+        { "type": "text", "time": 40, "text": "Mi a mediánja a következő adatoknak: 3, 5, 5, 6, 8, 9?", "answer": "5,5" },
+        { "type": "mc", "time": 20, "text": "Mennyi a 2, 4 és 9 számok átlaga?", "options": ["5", "4", "15", "3"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mennyi a valószínűsége, hogy egy szabályos dobókockával 5-nél nagyobbat dobunk?", "options": ["$\\frac{1}{6}$", "$\\frac{1}{3}$", "$\\frac{5}{6}$", "$\\frac{1}{2}$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Két dobókockával dobunk. Mennyi a valószínűsége, hogy az összeg 2?", "options": ["$\\frac{1}{36}$", "$\\frac{1}{18}$", "$\\frac{1}{6}$", "$\\frac{1}{12}$"], "answer": 0 },
+        { "type": "tf", "time": 30, "text": "A Nim-játékban (21 gyufa, 1–3 vehető, az utolsót elvevő veszít) érdemes az ellenfél lépését 4-re kiegészíteni.", "answer": true },
+        { "type": "text", "time": 30, "text": "Hány átlója van egy konvex hétszögnek?", "answer": "14" },
+        { "type": "mc", "time": 45, "text": "Mennyi az 1, 5, 9, 13, … számtani sorozat 20. tagja?", "options": ["77", "81", "80", "76"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a képleteket a fogalmakkal!", "pairs": [
+          ["$y = kx$", "egyenes arányosság"],
+          ["$x \\cdot y = k$", "fordított arányosság"],
+          ["$P = \\frac{k}{n}$", "klasszikus valószínűség"],
+          ["$a_n = a_1 + (n - 1)d$", "a számtani sorozat $n$-edik tagja"]
+        ] }
+      ]
+    }
+  ]
+}

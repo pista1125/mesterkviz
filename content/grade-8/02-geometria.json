@@ -1,0 +1,176 @@
+{
+  "idPrefix": "g8-geometria",
+  "topic": "II. Geometria",
+  "grade_level": "8. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "egybevagosagi-transzformaciok-ismetles",
+      "title": "Egybevágósági transzformációk (ismétlés)",
+      "description": "Tükrözések a koordináta-rendszerben, invariáns tulajdonságok, háromszögek egybevágósági alapesetei.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Melyik tulajdonság NEM igaz minden egybevágósági transzformációra?", "options": ["megtartja a körüljárási irányt", "távolságtartó", "szögtartó", "területtartó"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Tükrözzük a $P(4; -3)$ pontot az $x$ tengelyre. Mik a képpont koordinátái?", "options": ["$(4; 3)$", "$(-4; -3)$", "$(-4; 3)$", "$(-3; 4)$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Tükrözzük a $P(-2; 5)$ pontot az $y$ tengelyre. Mik a képpont koordinátái?", "options": ["$(2; 5)$", "$(-2; -5)$", "$(2; -5)$", "$(5; -2)$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Tükrözzük a $P(3; -1)$ pontot az origóra. Mik a képpont koordinátái?", "options": ["$(-3; 1)$", "$(3; 1)$", "$(-3; -1)$", "$(-1; 3)$"], "answer": 0 },
+        { "type": "mc", "time": 30, "svg": "coord-point-a", "text": "Az ábrán látható $A$ pontot tükrözzük az $y$ tengelyre. Mik a képpont koordinátái?", "options": ["$(-3; 2)$", "$(3; -2)$", "$(-3; -2)$", "$(2; 3)$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Tükrözzük a $P(2; 7)$ pontot az $y = x$ egyenesre. Mik a képpont koordinátái?", "options": ["$(7; 2)$", "$(-2; -7)$", "$(2; -7)$", "$(-7; -2)$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A tengelyes tükrözés megfordítja az alakzat körüljárási irányát.", "answer": true },
+        { "type": "tf", "time": 25, "text": "Ha két háromszög három-három szöge páronként egyenlő, akkor a két háromszög biztosan egybevágó.", "answer": false },
+        { "type": "text", "time": 45, "text": "Tükrözzük a $P(4; 6)$ pontot a $K(1; 2)$ pontra. Mennyi a képpont első ($x$) koordinátája?", "answer": "-2" },
+        { "type": "mc", "time": 30, "text": "Egy háromszöget az egyik oldalának felezőpontjára tükrözünk. Milyen négyszöget alkot együtt az eredeti háromszög és a képe?", "options": ["paralelogrammát", "deltoidot", "trapézt, amely nem paralelogramma", "mindig négyzetet"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Egy $6\\text{ cm} \\times 4\\text{ cm}$-es téglalapot tengelyesen tükrözünk. Hány $\\text{cm}^2$ a képének a területe?", "answer": "24/24 cm2/24 cm²" },
+        { "type": "match", "time": 60, "text": "Párosítsd a tükrözéseket a koordináták változásával!", "pairs": [
+          ["tükrözés az $x$ tengelyre", "$(x; y) \\mapsto (x; -y)$"],
+          ["tükrözés az $y$ tengelyre", "$(x; y) \\mapsto (-x; y)$"],
+          ["tükrözés az origóra", "$(x; y) \\mapsto (-x; -y)$"],
+          ["tükrözés az $y = x$ egyenesre", "$(x; y) \\mapsto (y; x)$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "transzformaciok",
+      "title": "Transzformációk",
+      "description": "A geometriai transzformáció fogalma, invariáns tulajdonságok, fixpontok, fixegyenesek, invariáns egyenesek.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Mit nevezünk egy transzformáció fixpontjának?", "options": ["Olyan pontot, amelynek a képe önmaga.", "Olyan pontot, amelynek a képe az origó.", "A tükörtengelytől legtávolabbi pontot.", "Olyan pontot, amelynek nincs képe."], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Tengelyes tükrözésnél melyik egyenes fixegyenes (minden pontja fixpont)?", "options": ["a tükörtengely", "a tengelyre merőleges egyenesek", "a tengellyel párhuzamos egyenesek", "nincs ilyen egyenes"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Középpontos tükrözésnél a középponton átmenő minden egyenes önmagára képeződik (invariáns egyenes).", "answer": true },
+        { "type": "mc", "time": 25, "text": "Hány fixpontja van egy nem nullvektorral végzett eltolásnak?", "options": ["egy sincs", "pontosan 1", "pontosan 2", "végtelen sok"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Hány fixpontja van egy forgatásnak, ha a forgatás szöge nem $0^\\circ$ és nem $360^\\circ$?", "options": ["pontosan 1, a forgásközéppont", "egy sincs", "pontosan 2", "végtelen sok"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Eltolásnál mely egyenesek képeződnek önmagukra (invariáns egyenesek)?", "options": ["az eltolásvektorral párhuzamos egyenesek", "az eltolásvektorra merőleges egyenesek", "minden egyenes", "egyik egyenes sem"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Egy invariáns (önmagára képeződő) egyenes minden pontja szükségképpen fixpont.", "answer": false },
+        { "type": "mc", "time": 25, "text": "Melyik tulajdonság NEM marad meg egy $k = 2$ arányú nagyításnál?", "options": ["a szakaszok hossza", "a szögek nagysága", "a párhuzamosság", "az egyenesség"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mit jelent, hogy egy transzformáció kölcsönösen egyértelmű?", "options": ["Különböző pontok képe különböző, és a sík minden pontja képpontként előáll.", "Minden pont képe önmaga.", "Csak egyetlen pontnak van képe.", "Minden pont képe ugyanaz a pont."], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy $A$ pont 7 cm-re van a tükörtengelytől. Hány cm-re van egymástól $A$ és a tükörképe, $A'$?", "answer": "14/14 cm" },
+        { "type": "text", "time": 20, "text": "Egy $P$ pontot az $O$ pont körül $90^\\circ$-kal elforgatunk. $OP = 5$ cm. Hány cm az $OP'$ távolság?", "answer": "5/5 cm" },
+        { "type": "match", "time": 60, "text": "Párosítsd a transzformációkat a fixpontjaikkal!", "pairs": [
+          ["tengelyes tükrözés", "a tengely összes pontja"],
+          ["középpontos tükrözés", "csak a középpont"],
+          ["eltolás (nem nullvektorral)", "nincs fixpontja"],
+          ["identitás (helyben hagyás)", "a sík minden pontja"]
+        ] }
+      ]
+    },
+    {
+      "slug": "hasznaljunk-szerkesztoprogramot",
+      "title": "Használjunk szerkesztőprogramot!",
+      "description": "Dinamikus geometria (pl. GeoGebra): eszközök, mértani helyek, szerkesztés kontra szemre rajzolás.",
+      "questions": [
+        { "type": "mc", "time": 30, "text": "Mi a dinamikus geometriai programok (pl. GeoGebra) legfontosabb jellemzője?", "options": ["Ha egy pontot elmozdítunk, a hozzá kötött alakzatok is követik, és a szerkesztés szabályai megmaradnak.", "Csak szép rajzokat lehet vele készíteni.", "Csak számolni lehet vele.", "Minden pontot egyenként kell átrajzolni, ha valami változik."], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Melyik eszköz adja meg egy szakasz két végpontjától egyenlő távol lévő pontok halmazát?", "options": ["szakaszfelező merőleges", "szögfelező", "párhuzamos egyenes", "kör"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mi a szög két szárától egyenlő távol lévő pontok mértani helye (a szögtartományban)?", "options": ["a szögfelező", "a szakaszfelező merőleges", "egy kör", "a szög csúcsán átmenő merőleges"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mi egy adott ponttól adott távolságra lévő pontok halmaza a síkban?", "options": ["kör", "egyenes", "szakasz", "szögfelező"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Ha egy négyzetet csak „szemre” rajzolunk meg a programban, a csúcsai elhúzása után is négyzet marad.", "answer": false },
+        { "type": "tf", "time": 20, "text": "Két különböző pont egyértelműen meghatároz egy egyenest.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Egy háromszögben megszerkesztjük az oldalfelező merőlegeseket, majd elhúzzuk az egyik csúcsot. Mi történik?", "options": ["Továbbra is egy pontban metszik egymást (a körülírt kör középpontjában).", "Szétesnek, már nem metszik egymást egy pontban.", "Eltűnnek a rajzról.", "Párhuzamosak lesznek."], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mire jó leginkább a dinamikus geometriai program a tanulásban?", "options": ["Sejtések felállítására és ellenőrzésére sok eset gyors kipróbálásával.", "A bizonyítás kiváltására: ha a képen jónak tűnik, az már bizonyítás.", "Csak a kész ábrák kinyomtatására.", "Semmire, mert nem pontos."], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Hogyan érdemes négyzetet szerkeszteni, hogy a csúcsok elhúzásakor is négyzet maradjon?", "options": ["Merőleges egyenesekkel és körrel mérjük fel az oldalt.", "Négy szakaszt rajzolunk szemre.", "Négy tetszőleges pontot teszünk le, és összekötjük őket.", "Rácsra rajzoljuk, és megígérjük, hogy nem mozgatjuk."], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Egy háromszög belső szögfelezői egy pontban metszik egymást. Melyik kör középpontja ez a pont? (… kör)", "answer": "beírt kör/beírt/beírható kör/a beírt kör" },
+        { "type": "text", "time": 25, "text": "A programban $AB = 5$ cm. Rajzolunk egy $A$ középpontú, $B$-n átmenő kört. Hány cm a kör sugara?", "answer": "5/5 cm" },
+        { "type": "match", "time": 60, "text": "Párosítsd az eszközöket a matematikai hátterükkel!", "pairs": [
+          ["szakaszfelező merőleges", "a két végponttól egyenlő távol lévő pontok"],
+          ["szögfelező", "a szögszáraktól egyenlő távol lévő pontok"],
+          ["kör", "adott ponttól adott távolságra lévő pontok"],
+          ["metszéspont", "két alakzat közös pontja"]
+        ] }
+      ]
+    },
+    {
+      "slug": "hasonlosag",
+      "title": "Hasonlóság",
+      "description": "A hasonlósági arány, a háromszögek hasonlóságának alapesetei, kerület- és területarány.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Mit jelent a $k = 1$ arányú hasonlóság?", "options": ["egybevágóságot", "nagyítást", "kicsinyítést", "ilyen hasonlóság nincs"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mit jelent a $k = 0{,}5$ arányú hasonlóság?", "options": ["kicsinyítést", "nagyítást", "egybevágóságot", "tükrözést"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Hasonló háromszögek megfelelő szögei egyenlők.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Melyik NEM a háromszögek hasonlóságának alapesete?", "options": ["egy-egy oldaluk egyenlő", "két-két szögük egyenlő", "három-három oldaluk aránya egyenlő", "két oldaluk aránya és a közbezárt szögük egyenlő"], "answer": 0 },
+        { "type": "text", "time": 45, "svg": "similar-triangles", "text": "Az ábrán látható két háromszög hasonló. Mekkora az $x$-szel jelölt oldal?", "answer": "6" },
+        { "type": "mc", "time": 25, "text": "Egy háromszög minden oldalát a 3-szorosára növeljük. Hányszorosára nő a területe?", "options": ["9-szeresére", "3-szorosára", "6-szorosára", "27-szeresére"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy sokszög kerülete 12 cm. Mekkora a kerülete a $k = 2$ arányú hasonló képének?", "options": ["24 cm", "48 cm", "12 cm", "6 cm"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy négyszög területe $5\\text{ cm}^2$. Hány $\\text{cm}^2$ a $k = 3$ arányú hasonló képének a területe?", "answer": "45/45 cm2/45 cm²" },
+        { "type": "mc", "time": 30, "text": "Egy háromszög oldalai 3, 4 és 5 cm. Egy hozzá hasonló háromszög leghosszabb oldala 15 cm. Milyen hosszú a legrövidebb oldala?", "options": ["9 cm", "12 cm", "13 cm", "5 cm"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Bármely két négyzet hasonló egymáshoz.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Két hasonló síkidom közül a nagyobbik területe 16-szor, a kisebbik 9-szer akkora, mint egy egységnégyzet. Mennyi a hasonlóság aránya (nagyobb : kisebb)?", "options": ["$\\frac{4}{3}$", "$\\frac{16}{9}$", "$\\frac{256}{81}$", "$2$"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a fogalmakat!", "pairs": [
+          ["$k \\gt 1$", "nagyítás"],
+          ["$k = 1$", "egybevágóság"],
+          ["$0 \\lt k \\lt 1$", "kicsinyítés"],
+          ["a területek aránya", "$k^2$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-kozeppontos-hasonlosag",
+      "title": "A középpontos hasonlóság",
+      "description": "A centrum és a λ arányszám, pozitív és negatív λ, a párhuzamos szelők tétele.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Melyik transzformáció a $\\lambda = -1$ arányú középpontos hasonlóság?", "options": ["középpontos tükrözés az $O$ pontra", "identitás (helyben hagyás)", "kétszeres nagyítás", "tengelyes tükrözés"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Középpontos hasonlóság: $\\lambda = 2$ és $OP = 3$ cm. Mekkora $OP'$?", "options": ["6 cm", "1,5 cm", "5 cm", "9 cm"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Középpontos hasonlóság: $\\lambda = -3$ és $OP = 2$ cm. Hol van a $P'$ képpont?", "options": ["$OP' = 6$ cm, és $O$ a $P$ és $P'$ között van", "$OP' = 6$ cm, és $P'$ az $OP$ félegyenesen van", "$OP' = -6$ cm", "$OP' = \\frac{2}{3}$ cm"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A középpontos hasonlóság $O$ középpontja (centruma) fixpont.", "answer": true },
+        { "type": "tf", "time": 25, "text": "Középpontos hasonlóságnál az $O$-n át nem menő egyenes képe vele párhuzamos egyenes.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Mit jelent a $\\lambda = 0{,}5$ arányú középpontos hasonlóság?", "options": ["kicsinyítést", "nagyítást", "tükrözést", "identitást"], "answer": 0 },
+        { "type": "text", "time": 45, "svg": "parallel-sections", "text": "Az ábrán $AB \\parallel A'B'$, $OA = 4$, $AA' = 2$ és $OB = 6$. Mekkora a $BB' = x$ szakasz?", "answer": "3" },
+        { "type": "mc", "time": 25, "text": "Mekkora a hasonlóság aránya ($k$), ha a középpontos hasonlóság arányszáma $\\lambda = -2{,}5$?", "options": ["$2{,}5$", "$-2{,}5$", "$0{,}4$", "$6{,}25$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "A középpontos hasonlóság centruma az origó, $\\lambda = 3$. Hová kerül a $P(2; -1)$ pont?", "options": ["$(6; -3)$", "$(5; 2)$", "$(-6; 3)$", "$(2; -3)$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy háromszög területe $7\\text{ cm}^2$. Hány $\\text{cm}^2$ a $\\lambda = 2$ arányú középpontos hasonlósággal kapott képének a területe?", "answer": "28/28 cm2/28 cm²" },
+        { "type": "mc", "time": 45, "text": "Egy szög szárait két párhuzamos egyenes metszi: $AB \\parallel A'B'$, ahol $A$ és $A'$ az egyik száron van. $OA = 2$, $OA' = 5$, $AB = 3$. Mekkora $A'B'$?", "options": ["$7{,}5$", "$6$", "$4{,}5$", "$10$"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a $\\lambda$ értékeket a hatásukkal!", "pairs": [
+          ["$\\lambda = 1$", "identitás (minden pont helyben marad)"],
+          ["$\\lambda = -1$", "középpontos tükrözés"],
+          ["$\\lambda = 3$", "nagyítás, a kép az $O$-nak ugyanazon az oldalán van"],
+          ["$\\lambda = -0{,}5$", "kicsinyítés, a kép az $O$ túloldalán van"]
+        ] }
+      ]
+    },
+    {
+      "slug": "szerkesztesek",
+      "title": "Szerkesztések",
+      "description": "Szakasz felosztása adott arányban, negyedik arányos, hasonló alakzatok szerkesztése, méretarány.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Az $AB$ szakaszt $2 : 3$ arányban akarjuk felosztani. Hány egyenlő egységet mérünk fel a segédfélegyenesre?", "options": ["5", "2", "3", "6"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Melyik tételen alapul a szakasz adott arányú felosztásának szerkesztése?", "options": ["a párhuzamos szelők tételén", "a Pitagorasz-tételen", "a Thalész-tételen", "a háromszög-egyenlőtlenségen"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "$AB = 10$ cm. A $P$ pont $AP : PB = 2 : 3$ arányban osztja $AB$-t. Hány cm az $AP$?", "answer": "4/4 cm" },
+        { "type": "text", "time": 30, "text": "$AB = 21$ cm. A $P$ pont $AP : PB = 3 : 4$ arányban osztja $AB$-t. Hány cm az $AP$?", "answer": "9/9 cm" },
+        { "type": "mc", "time": 30, "text": "Negyedik arányos: $\\frac{a}{b} = \\frac{c}{x}$, ahol $a = 2$, $b = 3$, $c = 4$. Mennyi $x$?", "options": ["$6$", "$\\frac{8}{3}$", "$1{,}5$", "$24$"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "A szakasz felosztásakor a segédfélegyenesre tetszőleges hosszúságú, de egymással egyenlő egységeket mérhetünk fel.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Az $AB$ szakasz $2 : 3$ arányú felosztásánál a segédfélegyenesen kijelöljük az $A_1, \\ldots, A_5$ pontokat, és $A_5$-öt összekötjük $B$-vel. Melyik ponton át húzunk párhuzamost $A_5B$-vel?", "options": ["$A_2$", "$A_3$", "$A_5$", "$A_1$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyik képlet adja meg a negyedik arányost, ha $\\frac{a}{b} = \\frac{c}{x}$?", "options": ["$x = \\frac{b \\cdot c}{a}$", "$x = \\frac{a \\cdot c}{b}$", "$x = \\frac{a \\cdot b}{c}$", "$x = a + b - c$"], "answer": 0 },
+        { "type": "tf", "time": 30, "text": "Egy háromszöghöz hasonló, kétszer akkora háromszöget középpontos hasonlósággal is szerkeszthetünk: az $O$-ból a csúcsokba mutató sugarakra kétszeres távolságot mérünk fel.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Egy $1 : 50\\,000$ méretarányú térképen két falu távolsága 3 cm. Mekkora a valódi távolság?", "options": ["1,5 km", "15 km", "150 m", "0,15 km"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy szakaszt $1 : 1 : 2$ arányban három részre osztunk. Hány egyenlő egységet mérünk fel a segédfélegyenesre?", "options": ["4", "3", "2", "5"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "$AB = 12$ cm. Párosítsd az $AP : PB$ arányt az $AP$ hosszával!", "pairs": [
+          ["$1 : 1$", "6 cm"],
+          ["$1 : 2$", "4 cm"],
+          ["$1 : 3$", "3 cm"],
+          ["$3 : 1$", "9 cm"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Geometria",
+      "description": "Témazáró gyakorló: egybevágóságok, transzformációk, hasonlóság, középpontos hasonlóság, szerkesztések.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Melyik transzformáció NEM egybevágóság?", "options": ["$\\lambda = 2$ arányú középpontos hasonlóság", "tengelyes tükrözés", "eltolás", "forgatás"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Tükrözzük a $P(-4; 1)$ pontot az origóra. Mik a képpont koordinátái?", "options": ["$(4; -1)$", "$(-4; -1)$", "$(4; 1)$", "$(1; -4)$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Az egybevágóság a hasonlóság speciális esete ($k = 1$).", "answer": true },
+        { "type": "mc", "time": 20, "text": "Hány fixpontja van egy nem nullvektorral végzett eltolásnak?", "options": ["egy sincs", "1", "2", "végtelen sok"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy síkidomot $k = 4$ arányban nagyítunk. Hányszorosára nő a területe?", "options": ["16-szorosára", "4-szeresére", "8-szorosára", "64-szeresére"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy háromszög kerülete 15 cm. Hány cm a kerülete a $k = 2$ arányú hasonló képének?", "answer": "30/30 cm" },
+        { "type": "mc", "time": 30, "text": "Hol van a $P'$ képpont $\\lambda = -2$ arányú középpontos hasonlóságnál?", "options": ["Az $OP$ egyenesen, $O$ túloldalán, $OP' = 2 \\cdot OP$", "Az $OP$ félegyenesen, $OP' = 2 \\cdot OP$", "Az $OP$ egyenesen, $OP' = OP : 2$", "Az $OP$-re merőleges egyenesen"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Két háromszög szögei páronként egyenlők. Mit mondhatunk róluk biztosan?", "options": ["Hasonlók, de nem feltétlenül egybevágók.", "Biztosan egybevágók.", "Nem lehetnek hasonlók.", "Biztosan egyenlő a területük."], "answer": 0 },
+        { "type": "text", "time": 30, "text": "$AB = 15$ cm. A $P$ pont $AP : PB = 2 : 3$ arányban osztja $AB$-t. Hány cm az $AP$?", "answer": "6/6 cm" },
+        { "type": "tf", "time": 20, "text": "A tengelyes tükrözés megtartja az alakzat körüljárási irányát.", "answer": false },
+        { "type": "mc", "time": 30, "text": "Két hasonló háromszög megfelelő oldalainak aránya $2 : 5$. Mennyi a területük aránya?", "options": ["$4 : 25$", "$2 : 5$", "$4 : 10$", "$8 : 125$"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a transzformációkat a jellemző tulajdonságukkal!", "pairs": [
+          ["tengelyes tükrözés", "megfordítja a körüljárási irányt"],
+          ["eltolás", "nincs fixpontja"],
+          ["forgatás", "egyetlen fixpontja a forgásközéppont"],
+          ["középpontos hasonlóság", "$OP' = \\lvert \\lambda \\rvert \\cdot OP$"]
+        ] }
+      ]
+    }
+  ]
+}

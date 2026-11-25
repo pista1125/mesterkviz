@@ -1,0 +1,176 @@
+{
+  "idPrefix": "g8-pitagorasz-tetel",
+  "topic": "IV. A Pitagorasz-tétel és alkalmazásai",
+  "grade_level": "8. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "szerkesztesek-meresek",
+      "title": "Szerkesztések, mérések",
+      "description": "Derékszögű háromszögek elemei és szerkesztése, Thalész-tétel, az oldalakra emelt négyzetek területe.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Melyik oldal a derékszögű háromszög átfogója?", "options": ["a derékszöggel szemközti oldal", "a derékszöget bezáró egyik oldal", "a legrövidebb oldal", "a háromszög magassága"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mennyi egy derékszögű háromszög két hegyesszögének összege?", "options": ["$90^\\circ$", "$180^\\circ$", "$45^\\circ$", "$60^\\circ$"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "A Thalész-kör bármely pontját (az átmérő végpontjain kívül) az átmérő két végpontjával összekötve derékszöget kapunk.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Egy derékszögű háromszög befogóira emelt négyzetek területe $9\\text{ cm}^2$ és $16\\text{ cm}^2$. Mekkora az átfogóra emelt négyzet területe?", "options": ["$25\\text{ cm}^2$", "$7\\text{ cm}^2$", "$144\\text{ cm}^2$", "$5\\text{ cm}^2$"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Egy derékszögű háromszög egyik hegyesszöge $35^\\circ$. Hány fokos a másik hegyesszöge?", "answer": "55/55°/55 fok" },
+        { "type": "mc", "time": 30, "text": "Derékszögű háromszöget szerkesztünk a két befogóból. Felmértük az $a$ befogót. Mi a következő lépés?", "options": ["Az $a$ egyik végpontjában merőlegest állítunk, és arra felmérjük a $b$ befogót.", "Egy $c$ sugarú kört rajzolunk.", "Megfelezzük az $a$ szakaszt.", "Párhuzamost húzunk az $a$ szakasszal."], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "A derékszögű háromszögben az átfogó a leghosszabb oldal.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Adott az $a = CB$ befogó és a $c$ átfogó. A $C$ csúcsban merőlegest állítottunk. Hogyan kapjuk meg az $A$ csúcsot?", "options": ["$B$-ből $c$ sugarú körívvel kimetsszük a merőlegesből.", "$B$-ből $a$ sugarú körívvel metszünk.", "Megrajzoljuk a $C$ csúcs szögfelezőjét.", "$B$-n át párhuzamost húzunk a merőlegessel."], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy derékszögű háromszög átfogójára emelt négyzet területe $100\\text{ cm}^2$, az egyik befogójára emelté $36\\text{ cm}^2$. Hány $\\text{cm}^2$ a másik befogóra emelt négyzet területe?", "answer": "64/64 cm2/64 cm²" },
+        { "type": "mc", "time": 30, "text": "Hol van a derékszögű háromszög köré írt körének középpontja?", "options": ["az átfogó felezőpontjában", "a derékszögű csúcsban", "az egyik befogó felezőpontjában", "mindig a háromszögön kívül"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy derékszögű háromszög átfogója 10 cm. Mekkora a köré írt kör sugara?", "options": ["5 cm", "10 cm", "20 cm", "2,5 cm"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a fogalmakat a leírásukkal!", "pairs": [
+          ["befogó", "a derékszöget bezáró egyik oldal"],
+          ["átfogó", "a derékszöggel szemközti oldal"],
+          ["Thalész-kör", "az átfogó mint átmérő fölé rajzolt kör"],
+          ["$T_a + T_b = T_c$", "a befogókra és az átfogóra emelt négyzetek területének kapcsolata"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-pitagorasz-tetel",
+      "title": "A Pitagorasz-tétel",
+      "description": "A tétel kimondása, az átfogó és a befogók kiszámítása, gyökös eredmények.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Melyik a Pitagorasz-tétel ($a$, $b$ befogók, $c$ átfogó)?", "options": ["$a^2 + b^2 = c^2$", "$a + b = c$", "$a^2 - b^2 = c^2$", "$2a + 2b = c$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy derékszögű háromszög befogói 6 cm és 8 cm. Mekkora az átfogója?", "options": ["10 cm", "14 cm", "48 cm", "100 cm"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egy derékszögű háromszög átfogója 13 cm, egyik befogója 5 cm. Hány cm a másik befogó?", "answer": "12/12 cm" },
+        { "type": "tf", "time": 25, "text": "Befogó kiszámításakor a két ismert oldal négyzetét összeadjuk.", "answer": false },
+        { "type": "mc", "time": 25, "text": "Egy derékszögű háromszög mindkét befogója 1 cm. Mekkora az átfogója?", "options": ["$\\sqrt{2}$ cm", "2 cm", "1 cm", "$\\frac{1}{2}$ cm"], "answer": 0 },
+        { "type": "text", "time": 45, "svg": "right-triangle-8-15", "text": "Mekkora az ábrán látható derékszögű háromszög $x$-szel jelölt oldala?", "answer": "17" },
+        { "type": "mc", "time": 45, "text": "Egy derékszögű háromszög átfogója 25 cm, egyik befogója 7 cm. Mekkora a másik befogó?", "options": ["24 cm", "18 cm", "32 cm", "$\\sqrt{674}$ cm"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy derékszögű háromszög befogói 2 cm és 3 cm. Mekkora az átfogója?", "options": ["$\\sqrt{13}$ cm", "5 cm", "$\\sqrt{5}$ cm", "13 cm"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A Pitagorasz-tétel bármilyen háromszögre érvényes.", "answer": false },
+        { "type": "mc", "time": 25, "text": "Melyik képlet adja meg helyesen az $a$ befogót?", "options": ["$a = \\sqrt{c^2 - b^2}$", "$a = \\sqrt{c^2 + b^2}$", "$a = c - b$", "$a = \\sqrt{b^2 - c^2}$"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Egy egyenlő szárú derékszögű háromszög átfogója 10 cm. Mekkora egy befogója?", "options": ["$5\\sqrt{2}$ cm", "5 cm", "50 cm", "$10\\sqrt{2}$ cm"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a befogókat az átfogóval!", "pairs": [
+          ["$a = 3$, $b = 4$", "$c = 5$"],
+          ["$a = 5$, $b = 12$", "$c = 13$"],
+          ["$a = 8$, $b = 15$", "$c = 17$"],
+          ["$a = 9$, $b = 12$", "$c = 15$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-pitagorasz-tetel-megforditasa",
+      "title": "A Pitagorasz-tétel megfordítása",
+      "description": "Derékszögűség ellenőrzése oldalakból, hegyes- és tompaszögű háromszögek, pitagoraszi számhármasok.",
+      "questions": [
+        { "type": "mc", "time": 30, "text": "Melyik oldalhármas alkot derékszögű háromszöget?", "options": ["5, 12, 13", "4, 5, 6", "6, 7, 8", "2, 3, 4"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Mivel $7^2 + 24^2 = 25^2$, a 7, 24, 25 oldalú háromszög derékszögű.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Milyen szögű a 4, 5, 6 oldalú háromszög?", "options": ["hegyesszögű", "derékszögű", "tompaszögű", "ilyen háromszög nincs"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Milyen szögű a 2, 3, 4 oldalú háromszög?", "options": ["tompaszögű", "hegyesszögű", "derékszögű", "ilyen háromszög nincs"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mit mondhatunk az 1, 2, 5 hosszúságú szakaszokról?", "options": ["nem alkotnak háromszöget", "hegyesszögű háromszöget alkotnak", "derékszögű háromszöget alkotnak", "tompaszögű háromszöget alkotnak"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Egészítsd ki pitagoraszi számhármassá: $(8; 15; ?)$", "answer": "17" },
+        { "type": "mc", "time": 25, "text": "Melyik számhármas a $(3; 4; 5)$ többszöröse?", "options": ["9, 12, 15", "6, 8, 12", "3, 5, 7", "4, 5, 6"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "Az egyiptomi zsinór 12 egyenlő részre osztott zárt kötél, amelyet $3 : 4 : 5$ arányban kifeszítve derékszöget kapunk.", "answer": true },
+        { "type": "text", "time": 30, "text": "Egészítsd ki pitagoraszi számhármassá: $(10; 24; ?)$", "answer": "26" },
+        { "type": "mc", "time": 25, "text": "A 6, 8, 10 oldalú háromszögben melyik oldallal szemben van a derékszög?", "options": ["a 10 egységnyi oldallal szemben", "a 8 egységnyi oldallal szemben", "a 6 egységnyi oldallal szemben", "nincs derékszöge"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy háromszög leghosszabb oldala $c$, és $c^2 \\gt a^2 + b^2$. Milyen a háromszög?", "options": ["tompaszögű", "hegyesszögű", "derékszögű", "egyenlő oldalú"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd az oldalhármasokat a háromszög típusával!", "pairs": [
+          ["3, 4, 5", "derékszögű"],
+          ["5, 6, 7", "hegyesszögű"],
+          ["3, 4, 6", "tompaszögű"],
+          ["1, 2, 4", "nem alkotnak háromszöget"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-pitagorasz-tetel-alkalmazasa",
+      "title": "A Pitagorasz-tétel alkalmazása",
+      "description": "Téglalap és négyzet átlója, egyenlő szárú és szabályos háromszög magassága, rombusz, trapéz, érintőszakasz.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Egy téglalap oldalai 6 cm és 8 cm. Milyen hosszú az átlója?", "options": ["10 cm", "14 cm", "48 cm", "7 cm"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy négyzet oldala 5 cm. Milyen hosszú az átlója?", "options": ["$5\\sqrt{2}$ cm", "10 cm", "$5\\sqrt{3}$ cm", "25 cm"], "answer": 0 },
+        { "type": "text", "time": 45, "svg": "ladder", "text": "Egy 5 m hosszú létra alja 3 m-re van a faltól. Milyen magasan éri el a létra a falat (méterben)?", "answer": "4/4 m" },
+        { "type": "mc", "time": 45, "text": "Egy egyenlő szárú háromszög alapja 10 cm, szára 13 cm. Mekkora az alaphoz tartozó magassága?", "options": ["12 cm", "$\\sqrt{194}$ cm", "8 cm", "3 cm"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mekkora egy $a$ oldalú szabályos háromszög magassága?", "options": ["$\\frac{a\\sqrt{3}}{2}$", "$a\\sqrt{2}$", "$\\frac{a}{2}$", "$a\\sqrt{3}$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A rombusz átlói merőlegesen felezik egymást.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Egy rombusz átlói 6 cm és 8 cm. Milyen hosszú az oldala?", "options": ["5 cm", "10 cm", "7 cm", "14 cm"], "answer": 0 },
+        { "type": "text", "time": 60, "text": "Egy szimmetrikus trapéz alapjai 14 cm és 8 cm, szárai 5 cm-esek. Hány cm a magassága?", "answer": "4/4 cm" },
+        { "type": "mc", "time": 45, "text": "Egy kör sugara 5 cm. A $P$ pont 13 cm-re van a kör középpontjától. Milyen hosszú a $P$-ből húzott érintőszakasz?", "options": ["12 cm", "8 cm", "18 cm", "$\\sqrt{194}$ cm"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A kör érintője merőleges az érintési pontba húzott sugárra.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Egy téglalap alakú képernyő 40 cm széles és 30 cm magas. Mekkora az átlója?", "options": ["50 cm", "70 cm", "35 cm", "1200 cm"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a mennyiségeket a képletükkel!", "pairs": [
+          ["téglalap átlója", "$\\sqrt{a^2 + b^2}$"],
+          ["négyzet átlója", "$a\\sqrt{2}$"],
+          ["szabályos háromszög magassága", "$\\frac{a\\sqrt{3}}{2}$"],
+          ["érintőszakasz hossza", "$\\sqrt{d^2 - r^2}$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "alkalmazas-szamologep-projektmunka",
+      "title": "Számológép és projektmunka",
+      "description": "Gyökvonás és kerekítés számológéppel, becslés, Theodórosz spirálja (gyökcsiga).",
+      "questions": [
+        { "type": "mc", "time": 30, "text": "Mennyi $\\sqrt{50}$ két tizedesjegyre kerekítve?", "options": ["$7{,}07$", "$7{,}10$", "$25{,}00$", "$7{,}50$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Hogyan írjuk be helyesen a számológépbe a $c = \\sqrt{a^2 + b^2}$ képletet?", "options": ["$\\sqrt{(a^2 + b^2)}$ – zárójellel a gyökjel alatt", "$\\sqrt{a^2} + b^2$", "$a^2 + \\sqrt{b^2}$", "$(\\sqrt{a})^2 + b^2$"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "A köztes eredményeket érdemes kerekítés nélkül a számológép memóriájában tárolni.", "answer": true },
+        { "type": "mc", "time": 20, "text": "Melyik két szomszédos egész szám közé esik $\\sqrt{50}$?", "options": ["7 és 8", "6 és 7", "8 és 9", "25 és 26"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Egy derékszögű háromszög befogói 2 cm és 5 cm. Hány cm az átfogója egy tizedesjegyre kerekítve?", "answer": "5,4/5,4 cm" },
+        { "type": "mc", "time": 25, "text": "Theodórosz spirálja (gyökcsiga) egy 1 cm-es befogójú egyenlő szárú derékszögű háromszöggel indul. Milyen hosszú ennek az átfogója?", "options": ["$\\sqrt{2}$ cm", "2 cm", "1 cm", "$\\sqrt{3}$ cm"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "A gyökcsigában az első háromszög átfogója $\\sqrt{2}$, a másodiké $\\sqrt{3}$. Hányadik háromszög átfogója lesz $\\sqrt{5}$?", "options": ["a 4.", "az 5.", "a 3.", "a 2."], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "A gyökcsigával bármely $n$ pozitív egész számra megszerkeszthető egy $\\sqrt{n}$ hosszúságú szakasz.", "answer": true },
+        { "type": "mc", "time": 30, "text": "Mennyi $\\sqrt{17}$ két tizedesjegyre kerekítve?", "options": ["$4{,}12$", "$4{,}25$", "$8{,}50$", "$4{,}02$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Milyen hosszú annak a derékszögű háromszögnek az átfogója, amelynek befogói 1 cm és $\\sqrt{3}$ cm?", "options": ["2 cm", "$\\sqrt{2}$ cm", "4 cm", "3 cm"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Kerekítsd egy tizedesjegyre: $\\sqrt{10} \\approx ?$", "answer": "3,2" },
+        { "type": "match", "time": 60, "text": "Párosítsd a gyököket a közelítő értékükkel!", "pairs": [
+          ["$\\sqrt{2}$", "$1{,}41$"],
+          ["$\\sqrt{3}$", "$1{,}73$"],
+          ["$\\sqrt{5}$", "$2{,}24$"],
+          ["$\\sqrt{8}$", "$2{,}83$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "nevezetes-derekszogu-haromszogek",
+      "title": "Nevezetes derékszögű háromszögek",
+      "description": "A 45°–45°–90°-os és a 30°–60°–90°-os (félszabályos) háromszög oldalarányai.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Mi a $45^\\circ$–$45^\\circ$–$90^\\circ$-os háromszög oldalainak aránya?", "options": ["$1 : 1 : \\sqrt{2}$", "$1 : \\sqrt{3} : 2$", "$1 : 2 : 3$", "$3 : 4 : 5$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mi a $30^\\circ$–$60^\\circ$–$90^\\circ$-os háromszög oldalainak aránya (rövid befogó : hosszú befogó : átfogó)?", "options": ["$1 : \\sqrt{3} : 2$", "$1 : 1 : \\sqrt{2}$", "$2 : 3 : 4$", "$1 : 2 : 3$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A $30^\\circ$-os szöggel szemközti befogó pontosan fele az átfogónak.", "answer": true },
+        { "type": "text", "time": 30, "text": "Egy $30^\\circ$–$60^\\circ$–$90^\\circ$-os háromszög átfogója 14 cm. Hány cm a rövidebb befogója?", "answer": "7/7 cm" },
+        { "type": "mc", "time": 25, "text": "Egy egyenlő szárú derékszögű háromszög befogói 6 cm-esek. Mekkora az átfogója?", "options": ["$6\\sqrt{2}$ cm", "12 cm", "$6\\sqrt{3}$ cm", "36 cm"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Hogyan kapható a félszabályos ($30^\\circ$–$60^\\circ$–$90^\\circ$-os) háromszög?", "options": ["egy szabályos háromszöget a magassága mentén kettévágva", "egy négyzetet az átlója mentén kettévágva", "egy téglalapot a középvonala mentén kettévágva", "egy rombuszt az egyik oldala mentén kettévágva"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy $30^\\circ$–$60^\\circ$–$90^\\circ$-os háromszög rövidebb befogója 5 cm. Mekkora a hosszabb befogója?", "options": ["$5\\sqrt{3}$ cm", "10 cm", "$5\\sqrt{2}$ cm", "2,5 cm"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Egy négyzetet az átlója mentén kettévágva két $30^\\circ$–$60^\\circ$–$90^\\circ$-os háromszöget kapunk.", "answer": false },
+        { "type": "mc", "time": 45, "text": "Egy egyenlő szárú derékszögű háromszög átfogója 10 cm. Mekkora egy befogója?", "options": ["$5\\sqrt{2}$ cm", "5 cm", "$10\\sqrt{2}$ cm", "20 cm"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Egy $30^\\circ$–$60^\\circ$–$90^\\circ$-os háromszög rövidebb befogója 6 cm. Hány cm az átfogója?", "answer": "12/12 cm" },
+        { "type": "mc", "time": 45, "text": "Egy szabályos háromszög oldala 8 cm. Mekkora a magassága?", "options": ["$4\\sqrt{3}$ cm", "$8\\sqrt{3}$ cm", "4 cm", "$4\\sqrt{2}$ cm"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd! (A félszabályos háromszög rövidebb befogója $a$.)", "pairs": [
+          ["a $30^\\circ$-kal szemközti oldal", "$a$"],
+          ["a $60^\\circ$-kal szemközti oldal", "$a\\sqrt{3}$"],
+          ["a $90^\\circ$-kal szemközti oldal", "$2a$"],
+          ["az $a$ befogójú egyenlő szárú derékszögű háromszög átfogója", "$a\\sqrt{2}$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Pitagorasz-tétel",
+      "description": "Témazáró gyakorló: a tétel és megfordítása, síkbeli és térbeli alkalmazások, nevezetes háromszögek.",
+      "questions": [
+        { "type": "mc", "time": 30, "text": "Egy derékszögű háromszög befogói 9 cm és 12 cm. Mekkora az átfogója?", "options": ["15 cm", "21 cm", "108 cm", "$\\sqrt{63}$ cm"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy derékszögű háromszög átfogója 17 cm, egyik befogója 8 cm. Mekkora a másik befogó?", "options": ["15 cm", "9 cm", "$\\sqrt{353}$ cm", "25 cm"], "answer": 0 },
+        { "type": "tf", "time": 30, "text": "A 6, 8, 11 oldalú háromszög derékszögű.", "answer": false },
+        { "type": "mc", "time": 30, "text": "Milyen hosszú egy $a$ élű kocka testátlója?", "options": ["$a\\sqrt{3}$", "$a\\sqrt{2}$", "$3a$", "$a^3$"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Egy téglatest élei 3 cm, 4 cm és 12 cm. Hány cm a testátlója?", "answer": "13/13 cm" },
+        { "type": "mc", "time": 30, "text": "Egy négyzet átlója $8\\sqrt{2}$ cm. Mekkora az oldala?", "options": ["8 cm", "4 cm", "16 cm", "$8\\sqrt{2}$ cm"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Egy kocka éle 2 cm. Milyen hosszú egy lapátlója?", "options": ["$2\\sqrt{2}$ cm", "4 cm", "$2\\sqrt{3}$ cm", "8 cm"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Egy egyenlő szárú háromszög alapja 16 cm, szárai 10 cm-esek. Hány cm az alaphoz tartozó magassága?", "answer": "6/6 cm" },
+        { "type": "tf", "time": 25, "text": "Ha egy háromszög leghosszabb oldala $c$, és $c^2 \\lt a^2 + b^2$, akkor a háromszög hegyesszögű.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Egy $30^\\circ$–$60^\\circ$–$90^\\circ$-os háromszög átfogója 20 cm. Mekkora a rövidebb befogója?", "options": ["10 cm", "$10\\sqrt{3}$ cm", "40 cm", "5 cm"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Egy rombusz átlói 10 cm és 24 cm. Milyen hosszú az oldala?", "options": ["13 cm", "17 cm", "26 cm", "34 cm"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a képleteket a jelentésükkel!", "pairs": [
+          ["$D = a\\sqrt{3}$", "a kocka testátlója"],
+          ["$d = a\\sqrt{2}$", "a négyzet átlója"],
+          ["$D = \\sqrt{a^2 + b^2 + c^2}$", "a téglatest testátlója"],
+          ["$m = \\frac{a\\sqrt{3}}{2}$", "a szabályos háromszög magassága"]
+        ] }
+      ]
+    }
+  ]
+}

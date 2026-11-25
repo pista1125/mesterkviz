@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260" width="260" height="260" font-family="Arial, sans-serif">
+  <rect x="0" y="0" width="260" height="260" fill="#ffffff"/>
+  <rect x="30" y="30" width="130" height="130" fill="#dbeafe" stroke="#1e3a8a" stroke-width="2"/>
+  <rect x="160" y="30" width="70" height="130" fill="#fef3c7" stroke="#1e3a8a" stroke-width="2"/>
+  <rect x="30" y="160" width="130" height="70" fill="#fef3c7" stroke="#1e3a8a" stroke-width="2"/>
+  <rect x="160" y="160" width="70" height="70" fill="#dcfce7" stroke="#1e3a8a" stroke-width="2"/>
+  <text x="95" y="102" font-size="22" text-anchor="middle" fill="#1e3a8a">a²</text>
+  <text x="195" y="102" font-size="20" text-anchor="middle" fill="#92400e">ab</text>
+  <text x="95" y="202" font-size="20" text-anchor="middle" fill="#92400e">ab</text>
+  <text x="195" y="202" font-size="20" text-anchor="middle" fill="#166534">b²</text>
+  <text x="95" y="22" font-size="18" text-anchor="middle" fill="#111827">a</text>
+  <text x="195" y="22" font-size="18" text-anchor="middle" fill="#111827">b</text>
+  <text x="16" y="100" font-size="18" text-anchor="middle" fill="#111827">a</text>
+  <text x="16" y="200" font-size="18" text-anchor="middle" fill="#111827">b</text>
+</svg>

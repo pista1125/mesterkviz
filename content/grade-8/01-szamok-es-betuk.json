@@ -1,0 +1,296 @@
+{
+  "idPrefix": "g8-szamok-es-betuk",
+  "topic": "I. Számok és betűk",
+  "grade_level": "8. osztály",
+  "subject": "matematika",
+  "quizzes": [
+    {
+      "slug": "logika-feladatok",
+      "title": "Logika feladatok",
+      "description": "Állítások, tagadás, „és” / „vagy” műveletek, skatulya-elv és lovagok–lókötők feladat.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Melyik mondat állítás (kijelentés)?", "options": ["A 17 prímszám.", "Hány éves vagy?", "Csukd be az ajtót!", "Bárcsak esne a hó!"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A „$3 + 5 = 9$” mondat állítás, mert egyértelműen eldönthető róla, hogy hamis.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Mi a tagadása ennek az állításnak: „Minden diák szeret sportolni.”?", "options": ["Van olyan diák, aki nem szeret sportolni.", "Egyik diák sem szeret sportolni.", "Minden diák utál sportolni.", "Van olyan diák, aki szeret sportolni."], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mi a tagadása ennek az állításnak: „Van olyan prímszám, amely páros.”?", "options": ["Egyetlen prímszám sem páros.", "Van olyan prímszám, amely páratlan.", "Minden prímszám páros.", "Van olyan páros szám, amely nem prím."], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "$A$: „A 12 páros szám.” (igaz) $B$: „A 12 osztható 5-tel.” (hamis). Melyik összetett állítás IGAZ?", "options": ["$A$ vagy $B$", "$A$ és $B$", "nem $A$", "$B$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Az „$A$ és $B$” állítás már akkor igaz, ha a két állítás közül legalább az egyik igaz.", "answer": false },
+        { "type": "mc", "time": 30, "text": "Egy fiókban 5 piros és 5 kék zokni van. Sötétben legalább hány zoknit kell kivenni ahhoz, hogy biztosan legyen köztük két azonos színű?", "options": ["3", "2", "6", "10"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Legalább hány diáknak kell lennie egy csoportban ahhoz, hogy biztosan legyen kettő, aki ugyanabban a hónapban született?", "answer": "13" },
+        { "type": "mc", "time": 30, "text": "Egy 30 fős osztályban legalább hány olyan diák van biztosan, aki ugyanabban a hónapban született?", "options": ["3", "2", "4", "5"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Egy szigeten a lovagok mindig igazat mondanak, a lókötők mindig hazudnak. $A$ azt mondja: „$B$ lókötő.” $B$ azt mondja: „Mindketten lovagok vagyunk.” Ki kicsoda?", "options": ["$A$ lovag, $B$ lókötő", "$A$ lókötő, $B$ lovag", "Mindketten lovagok", "Mindketten lókötők"], "answer": 0 },
+        { "type": "text", "time": 40, "text": "Egy dobozban 4 piros, 6 zöld és 8 kék golyó van. Legalább hány golyót kell vakon kihúzni ahhoz, hogy biztosan legyen köztük piros?", "answer": "15" },
+        { "type": "match", "time": 60, "text": "Párosítsd az állításokat a tagadásukkal!", "pairs": [
+          ["Minden szám páros.", "Van olyan szám, amely nem páros."],
+          ["Van olyan szám, amely páros.", "Egyik szám sem páros."],
+          ["Esik az eső.", "Nem esik az eső."],
+          ["Minden macska fekete.", "Van olyan macska, amely nem fekete."]
+        ] }
+      ]
+    },
+    {
+      "slug": "mit-tudunk-a-halmazokrol",
+      "title": "Mit tudunk a halmazokról?",
+      "description": "Halmazok megadása, eleme / nem eleme, üres halmaz, részhalmazok és egyenlő halmazok.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Melyik NEM tekinthető halmaznak (mert nem egyértelmű, mi tartozik bele)?", "options": ["Az osztály magas tanulói", "Az egyjegyű prímszámok", "A hét napjai", "A 10-nél kisebb páros természetes számok"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "$A = \\{2, 3, 5, 7\\}$. Melyik állítás igaz?", "options": ["$5 \\in A$", "$4 \\in A$", "$9 \\in A$", "$2 \\notin A$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Add meg felsorolással: $B = \\{x \\in \\mathbb{N} \\mid x \\text{ páros és } x \\lt 10\\}$", "options": ["$\\{0, 2, 4, 6, 8\\}$", "$\\{2, 4, 6, 8\\}$", "$\\{2, 4, 6, 8, 10\\}$", "$\\{0, 2, 4, 6, 8, 10\\}$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "A 10-nél nagyobb egyjegyű számok halmaza az üres halmaz.", "answer": true },
+        { "type": "text", "time": 20, "text": "Hány eleme van a $\\{1, 2, 2, 3, 3, 3\\}$ halmaznak?", "answer": "3" },
+        { "type": "mc", "time": 25, "text": "Hány részhalmaza van az $\\{a, b, c\\}$ halmaznak?", "options": ["8", "6", "3", "9"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Hány részhalmaza van egy 5 elemű halmaznak?", "answer": "32" },
+        { "type": "tf", "time": 20, "text": "Az üres halmaz minden halmaznak részhalmaza.", "answer": true },
+        { "type": "mc", "time": 25, "text": "$A = \\{1, 2\\}$ és $B = \\{1, 2, 3\\}$. Melyik állítás igaz?", "options": ["$A \\subset B$ ($A$ valódi részhalmaza $B$-nek)", "$B \\subseteq A$", "$A = B$", "$3 \\in A$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Melyik halmaz egyenlő az $\\{1, 2, 3\\}$ halmazzal?", "options": ["$\\{3, 1, 2, 2\\}$", "$\\{1, 2, 3, 4\\}$", "$\\{1, 2\\}$", "$\\{0, 1, 2, 3\\}$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Hány VALÓDI részhalmaza van az $\\{1, 2, 3\\}$ halmaznak?", "options": ["7", "8", "6", "3"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a jeleket a jelentésükkel!", "pairs": [
+          ["$\\in$", "eleme"],
+          ["$\\notin$", "nem eleme"],
+          ["$\\emptyset$", "üres halmaz"],
+          ["$\\subseteq$", "részhalmaza"]
+        ] }
+      ]
+    },
+    {
+      "slug": "muveletek-halmazokkal",
+      "title": "Műveletek halmazokkal",
+      "description": "Metszet, unió, különbség, komplementer és a szita-formula szöveges feladatokban.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "$A = \\{1, 2, 3, 4\\}$, $B = \\{3, 4, 5, 6\\}$. Mi az $A \\cap B$?", "options": ["$\\{3, 4\\}$", "$\\{1, 2, 3, 4, 5, 6\\}$", "$\\{1, 2\\}$", "$\\{5, 6\\}$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "$A = \\{1, 2, 3, 4\\}$, $B = \\{3, 4, 5, 6\\}$. Mi az $A \\cup B$?", "options": ["$\\{1, 2, 3, 4, 5, 6\\}$", "$\\{3, 4\\}$", "$\\{1, 2, 5, 6\\}$", "$\\{1, 2, 3, 4, 5\\}$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "$A = \\{1, 2, 3, 4\\}$, $B = \\{3, 4, 5, 6\\}$. Mi az $A \\setminus B$?", "options": ["$\\{1, 2\\}$", "$\\{5, 6\\}$", "$\\{3, 4\\}$", "$\\{1, 2, 5, 6\\}$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Bármely két halmazra igaz, hogy $A \\setminus B = B \\setminus A$.", "answer": false },
+        { "type": "mc", "time": 30, "text": "Az alaphalmaz $U = \\{1, 2, \\ldots, 10\\}$, $A$ a páros számok halmaza. Mi $\\bar{A}$ (az $A$ komplementere)?", "options": ["$\\{1, 3, 5, 7, 9\\}$", "$\\{2, 4, 6, 8, 10\\}$", "$\\emptyset$", "$\\{1, 2, \\ldots, 10\\}$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Ha $A \\cap B = \\emptyset$, akkor az $A$ és $B$ halmazok diszjunktak.", "answer": true },
+        { "type": "text", "time": 45, "text": "Egy 30 fős osztályban mindenki tanul legalább egy idegen nyelvet: 20-an angolul, 17-en németül. Hányan tanulják mindkét nyelvet?", "answer": "7" },
+        { "type": "text", "time": 30, "text": "$\\lvert A \\rvert = 12$, $\\lvert B \\rvert = 9$ és $\\lvert A \\cap B \\rvert = 4$. Mennyi $\\lvert A \\cup B \\rvert$?", "answer": "17" },
+        { "type": "mc", "time": 30, "text": "$\\lvert A \\rvert = 10$ és $\\lvert A \\cap B \\rvert = 3$. Mennyi $\\lvert A \\setminus B \\rvert$?", "options": ["7", "13", "3", "10"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyik összefüggés igaz bármely $A$ halmazra ($U$ az alaphalmaz)?", "options": ["$A \\cup \\bar{A} = U$", "$A \\cap \\bar{A} = U$", "$A \\cup \\bar{A} = \\emptyset$", "$\\bar{\\bar{A}} = \\bar{A}$"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Egy 25 fős osztályban 14-en fociznak, 11-en kosaraznak, és 5-en mindkettőt űzik. Hányan nem űzik egyik sportot sem?", "options": ["5", "0", "10", "20"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a halmazműveleteket a leírásukkal!", "pairs": [
+          ["$A \\cap B$", "$A$-nak és $B$-nek is eleme"],
+          ["$A \\cup B$", "legalább az egyik halmaznak eleme"],
+          ["$A \\setminus B$", "$A$-nak eleme, de $B$-nek nem"],
+          ["$\\bar{A}$", "az alaphalmaz $A$-n kívüli elemei"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-racionalis-szamok-halmaza",
+      "title": "A racionális számok halmaza",
+      "description": "Számhalmazok, véges és végtelen szakaszos tizedestörtek, ellentett, abszolútérték.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Melyik szám NEM racionális?", "options": ["$\\sqrt{2}$", "$-\\frac{3}{4}$", "$0{,}75$", "$-5$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Minden egész szám racionális szám is.", "answer": true },
+        { "type": "mc", "time": 25, "text": "Melyik a számhalmazok helyes részhalmaz-lánca?", "options": ["$\\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{Q}$", "$\\mathbb{Z} \\subset \\mathbb{N} \\subset \\mathbb{Q}$", "$\\mathbb{Q} \\subset \\mathbb{Z} \\subset \\mathbb{N}$", "$\\mathbb{N} \\subset \\mathbb{Q} \\subset \\mathbb{Z}$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Írd fel tizedestört alakban: $\\frac{3}{4}$", "answer": "0,75" },
+        { "type": "mc", "time": 30, "text": "Melyik tört tizedestört alakja VÉGES?", "options": ["$\\frac{7}{8}$", "$\\frac{1}{3}$", "$\\frac{5}{6}$", "$\\frac{2}{7}$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mi a $0{,}777\\ldots = 0{,}\\dot{7}$ tört alakja?", "options": ["$\\frac{7}{9}$", "$\\frac{7}{10}$", "$\\frac{7}{99}$", "$\\frac{1}{7}$"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Mi a $0{,}121212\\ldots$ tört alakja (egyszerűsítve)?", "options": ["$\\frac{4}{33}$", "$\\frac{12}{100}$", "$\\frac{1}{12}$", "$\\frac{6}{50}$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Az $\\frac{1}{3}$ tizedestört alakja véges.", "answer": false },
+        { "type": "mc", "time": 20, "text": "Mennyi $\\lvert -7{,}5 \\rvert$?", "options": ["$7{,}5$", "$-7{,}5$", "$0$", "$\\frac{1}{7{,}5}$"], "answer": 0 },
+        { "type": "text", "time": 20, "text": "Mi a $-3{,}2$ ellentettje?", "answer": "3,2" },
+        { "type": "mc", "time": 30, "text": "Mi az $\\frac{5}{6}$ tizedestört alakja?", "options": ["$0{,}8333\\ldots$", "$0{,}8383\\ldots$", "$0{,}83$", "$0{,}5666\\ldots$"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a számokat azzal, amelyik a legszűkebb számhalmaz, amelybe tartoznak!", "pairs": [
+          ["$5$", "természetes szám ($\\mathbb{N}$)"],
+          ["$-4$", "egész, de nem természetes"],
+          ["$\\frac{2}{3}$", "racionális, de nem egész"],
+          ["$\\sqrt{3}$", "irracionális"]
+        ] }
+      ]
+    },
+    {
+      "slug": "mit-tudunk-a-racionalis-szamokrol",
+      "title": "Mit tudunk a racionális számokról?",
+      "description": "Műveleti tulajdonságok, előjelszabályok, műveleti sorrend, törtműveletek és ésszerű számolás.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Melyik a szorzás felcserélhetősége (kommutativitása)?", "options": ["$a \\cdot b = b \\cdot a$", "$(a + b) + c = a + (b + c)$", "$a(b + c) = ab + ac$", "$a + 0 = a$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Hogy hívjuk az $a \\cdot (b + c) = a \\cdot b + a \\cdot c$ tulajdonságot?", "options": ["széttagolhatóság (disztributivitás)", "felcserélhetőség (kommutativitás)", "csoportosíthatóság (asszociativitás)", "ellentett-szabály"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mennyi $(-2) \\cdot (-3) \\cdot (-5)$?", "options": ["$-30$", "$30$", "$-10$", "$10$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Páros sok negatív tényező szorzata pozitív.", "answer": true },
+        { "type": "text", "time": 30, "text": "Mennyi $3 + 4 \\cdot 5 - 2$?", "answer": "21" },
+        { "type": "mc", "time": 30, "text": "Mennyi $\\frac{2}{3} + \\frac{1}{4}$?", "options": ["$\\frac{11}{12}$", "$\\frac{3}{7}$", "$\\frac{3}{12}$", "$\\frac{2}{12}$"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Mennyi $\\frac{3}{4} : \\frac{9}{8}$?", "options": ["$\\frac{2}{3}$", "$\\frac{27}{32}$", "$\\frac{3}{2}$", "$\\frac{1}{3}$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Számold ki ésszerűen: $2{,}5 \\cdot 17 \\cdot 4$", "answer": "170" },
+        { "type": "mc", "time": 45, "text": "Számold ki ésszerűen (kiemeléssel): $14 \\cdot \\frac{3}{7} + 21 \\cdot \\frac{3}{7}$", "options": ["$15$", "$35$", "$105$", "$9$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Az osztás felcserélhető, vagyis $a : b = b : a$.", "answer": false },
+        { "type": "mc", "time": 45, "text": "Mennyi $[(-6) + 2] \\cdot 3 - (-5)$?", "options": ["$-7$", "$-17$", "$7$", "$17$"], "answer": 0 },
+        { "type": "match", "time": 60, "text": "Párosítsd a műveleteket az eredményükkel!", "pairs": [
+          ["$(-4) \\cdot (-5)$", "$20$"],
+          ["$(-20) : 4$", "$-5$"],
+          ["$\\frac{1}{2} - \\frac{3}{4}$", "$-\\frac{1}{4}$"],
+          ["$(-2) \\cdot 0{,}5$", "$-1$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "hatvanyozas",
+      "title": "Hatványozás",
+      "description": "A hatványozás azonosságai, 0 és negatív egész kitevő, a számok normálalakja.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Mennyi $2^5$?", "options": ["$32$", "$10$", "$25$", "$64$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mivel egyenlő $a^3 \\cdot a^4$?", "options": ["$a^7$", "$a^{12}$", "$a^1$", "$2a^7$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mivel egyenlő $(x^2)^5$?", "options": ["$x^{10}$", "$x^7$", "$x^{25}$", "$x^{32}$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "$7^0 = 0$", "answer": false },
+        { "type": "text", "time": 30, "text": "Mennyi $2^{-3}$ tizedestört alakban?", "answer": "0,125" },
+        { "type": "mc", "time": 45, "text": "Mennyi $\\left(\\frac{2}{3}\\right)^{-2}$?", "options": ["$\\frac{9}{4}$", "$\\frac{4}{9}$", "$-\\frac{4}{9}$", "$-\\frac{9}{4}$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mivel egyenlő $\\frac{5^8}{5^5}$?", "options": ["$5^3$", "$5^{13}$", "$5^{40}$", "$1^3$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyik a $350\\,000$ normálalakja?", "options": ["$3{,}5 \\cdot 10^5$", "$35 \\cdot 10^4$", "$3{,}5 \\cdot 10^4$", "$0{,}35 \\cdot 10^6$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyik a $0{,}000\\,42$ normálalakja?", "options": ["$4{,}2 \\cdot 10^{-4}$", "$4{,}2 \\cdot 10^{-5}$", "$42 \\cdot 10^{-5}$", "$4{,}2 \\cdot 10^{4}$"], "answer": 0 },
+        { "type": "tf", "time": 30, "text": "$(2 \\cdot 10^4) \\cdot (3 \\cdot 10^5) = 6 \\cdot 10^9$", "answer": true },
+        { "type": "text", "time": 25, "text": "Mennyi $(-2)^4$?", "answer": "16" },
+        { "type": "match", "time": 60, "text": "Párosítsd a hatványozás azonosságait!", "pairs": [
+          ["$a^n \\cdot a^m$", "$a^{n+m}$"],
+          ["$a^n : a^m$", "$a^{n-m}$"],
+          ["$(a^n)^m$", "$a^{n \\cdot m}$"],
+          ["$(a \\cdot b)^n$", "$a^n \\cdot b^n$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "a-negyzetgyok-fogalma",
+      "title": "A négyzetgyök fogalma",
+      "description": "A négyzetgyök definíciója, nemnegativitása, értelmezési tartománya és a √(a²) = |a| összefüggés.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Mennyi $\\sqrt{64}$?", "options": ["$8$", "$\\pm 8$", "$32$", "$16$"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "$\\sqrt{25} = -5$ is igaz, hiszen $(-5)^2 = 25$.", "answer": false },
+        { "type": "mc", "time": 25, "text": "Melyik kifejezés NEM értelmezhető a valós számok körében?", "options": ["$\\sqrt{-9}$", "$\\sqrt{0}$", "$\\sqrt{0{,}09}$", "$-\\sqrt{9}$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Mennyi $\\sqrt{0{,}36}$?", "answer": "0,6" },
+        { "type": "mc", "time": 30, "text": "Mennyi $\\sqrt{(-7)^2}$?", "options": ["$7$", "$-7$", "$\\pm 7$", "nem értelmezhető"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Milyen $x$ értékekre értelmezhető $\\sqrt{x - 5}$?", "options": ["$x \\ge 5$", "$x \\le 5$", "$x \\ge -5$", "minden $x$-re"], "answer": 0 },
+        { "type": "tf", "time": 15, "text": "$\\sqrt{0} = 0$", "answer": true },
+        { "type": "mc", "time": 30, "text": "Melyik két szomszédos egész szám közé esik $\\sqrt{54}$?", "options": ["7 és 8", "6 és 7", "8 és 9", "27 és 28"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyek az $x^2 = 25$ egyenlet megoldásai?", "options": ["$x = 5$ vagy $x = -5$", "csak $x = 5$", "csak $x = -5$", "nincs megoldása"], "answer": 0 },
+        { "type": "text", "time": 25, "text": "Mennyi $\\left(\\sqrt{13}\\right)^2$?", "answer": "13" },
+        { "type": "mc", "time": 45, "text": "Milyen $x$ értékekre értelmezhető $\\sqrt{6 - 2x}$?", "options": ["$x \\le 3$", "$x \\ge 3$", "$x \\le 6$", "$x \\ge -3$"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a négyzetgyököket az értékükkel!", "pairs": [
+          ["$\\sqrt{81}$", "$9$"],
+          ["$\\sqrt{1}$", "$1$"],
+          ["$\\sqrt{\\frac{1}{4}}$", "$\\frac{1}{2}$"],
+          ["$\\sqrt{144}$", "$12$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "szamok-negyzetgyoke",
+      "title": "Számok négyzetgyöke",
+      "description": "Szorzat és hányados gyöke, gyöktényező kiemelése és bevitele, becslés, irracionális számok.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Mennyi $\\sqrt{3600}$?", "options": ["$60$", "$600$", "$6$", "$1800$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mennyi $\\sqrt{2} \\cdot \\sqrt{18}$?", "options": ["$6$", "$\\sqrt{20}$", "$36$", "$9$"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "$\\sqrt{9 + 16} = \\sqrt{9} + \\sqrt{16}$", "answer": false },
+        { "type": "mc", "time": 30, "text": "Emeld ki a gyöktényezőt: $\\sqrt{50} = ?$", "options": ["$5\\sqrt{2}$", "$2\\sqrt{5}$", "$25\\sqrt{2}$", "$10\\sqrt{5}$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Emeld ki a gyöktényezőt: $\\sqrt{48} = ?$", "options": ["$4\\sqrt{3}$", "$3\\sqrt{4}$", "$16\\sqrt{3}$", "$6\\sqrt{2}$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Vidd be a gyökjel alá: $3\\sqrt{5} = ?$", "options": ["$\\sqrt{45}$", "$\\sqrt{15}$", "$\\sqrt{75}$", "$\\sqrt{8}$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Mennyi $\\sqrt{0{,}09}$?", "answer": "0,3" },
+        { "type": "mc", "time": 25, "text": "Melyik szám irracionális?", "options": ["$\\sqrt{10}$", "$\\sqrt{49}$", "$\\sqrt{0{,}25}$", "$\\sqrt{\\frac{4}{9}}$"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a négyzetgyököket az értékükkel!", "pairs": [
+          ["$\\sqrt{196}$", "$14$"],
+          ["$\\sqrt{225}$", "$15$"],
+          ["$\\sqrt{361}$", "$19$"],
+          ["$\\sqrt{625}$", "$25$"]
+        ] },
+        { "type": "tf", "time": 20, "text": "A racionális és az irracionális számok együtt alkotják a valós számok halmazát ($\\mathbb{R}$).", "answer": true },
+        { "type": "mc", "time": 45, "text": "Melyik a legnagyobb szám?", "options": ["$\\sqrt{30}$", "$5$", "$2\\sqrt{7}$", "$3\\sqrt{3}$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "Melyik pozitív egész szám négyzetgyöke a 17?", "answer": "289" }
+      ]
+    },
+    {
+      "slug": "betus-kifejezesek-ismetles",
+      "title": "Betűs kifejezések (ismétlés)",
+      "description": "Együttható, egynemű kifejezések összevonása, zárójelbontás és helyettesítési érték.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Mi az együtthatója az $5x^2y$ egytagú kifejezésnek?", "options": ["$5$", "$2$", "$x^2y$", "$1$"], "answer": 0 },
+        { "type": "mc", "time": 20, "text": "Mi az együtthatója a $-x$ kifejezésnek?", "options": ["$-1$", "$0$", "$1$", "$x$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Melyik kifejezés egynemű a $3x^2$-tel?", "options": ["$-7x^2$", "$3x$", "$3x^3$", "$x^2y$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "Az $5ab$ és az $5a^2b$ egynemű kifejezések.", "answer": false },
+        { "type": "mc", "time": 30, "text": "Vond össze: $7a^2 - 10a^2 + 4a^2$", "options": ["$a^2$", "$21a^2$", "$a^6$", "$-a^2$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Vond össze: $4x + 3y - 2x + 5y$", "options": ["$2x + 8y$", "$10xy$", "$6x + 8y$", "$2x - 2y$"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Mennyi a $3x^2 - 2x + 5$ kifejezés értéke, ha $x = -2$?", "answer": "21" },
+        { "type": "tf", "time": 25, "text": "$(-3)^2 = -3^2$", "answer": false },
+        { "type": "text", "time": 30, "text": "Mennyi a $2a - b$ kifejezés értéke, ha $a = 4$ és $b = -3$?", "answer": "11" },
+        { "type": "mc", "time": 30, "text": "Bontsd fel a zárójelet és vond össze: $5x - (2x - 3)$", "options": ["$3x + 3$", "$3x - 3$", "$7x - 3$", "$3x$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Egy téglalap oldalai $a$ és $2a$. Mekkora a kerülete?", "options": ["$6a$", "$2a^2$", "$3a$", "$4a$"], "answer": 0 },
+        { "type": "match", "time": 45, "text": "Párosítsd a kifejezéseket az összevont alakjukkal!", "pairs": [
+          ["$3x + 5x$", "$8x$"],
+          ["$2y - 7y$", "$-5y$"],
+          ["$x + x + x$", "$3x$"],
+          ["$4ab - ab$", "$3ab$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "betus-kifejezesek-szorzasa-es-kiemeles",
+      "title": "Betűs kifejezések szorzása és a kiemelés",
+      "description": "Egytagúak szorzása, egytagú szorzása többtagúval, közös tényező kiemelése zárójel elé.",
+      "questions": [
+        { "type": "mc", "time": 20, "text": "Mennyi $3x \\cdot 4y$?", "options": ["$12xy$", "$7xy$", "$12x$", "$34xy$"], "answer": 0 },
+        { "type": "mc", "time": 25, "text": "Mennyi $2a^2 \\cdot 5a^3$?", "options": ["$10a^5$", "$10a^6$", "$7a^5$", "$7a^6$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mennyi $(-4x^2y) \\cdot (3xy^3)$?", "options": ["$-12x^3y^4$", "$12x^3y^4$", "$-12x^2y^3$", "$-x^3y^4$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Bontsd fel a zárójelet: $-2x \\cdot (3x - 4)$", "options": ["$-6x^2 + 8x$", "$-6x^2 - 8x$", "$6x^2 - 8x$", "$-6x + 8$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "$3 \\cdot (2x + 5) = 6x + 5$", "answer": false },
+        { "type": "mc", "time": 30, "text": "Emeld ki a közös tényezőt: $6x + 9$", "options": ["$3(2x + 3)$", "$3(2x + 9)$", "$6(x + 9)$", "$9(6x + 1)$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Emeld ki a közös tényezőt: $8x^2 - 12x$", "options": ["$4x(2x - 3)$", "$4(2x^2 - 3)$", "$2x(4x - 12)$", "$4x(2x - 12)$"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Emeld ki a legnagyobb közös tényezőt: $15a^3b^2 + 10a^2b^3$", "options": ["$5a^2b^2(3a + 2b)$", "$5a^3b^3(3 + 2)$", "$5a^2b^2(3a + 2)$", "$10a^2b^2(5a + b)$"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "$-4x - 8 = -4 \\cdot (x + 2)$", "answer": true },
+        { "type": "text", "time": 30, "text": "Bontsd fel a zárójelet: $5x \\cdot (2x - 1)$. Mennyi lesz az $x^2$-es tag együtthatója?", "answer": "10" },
+        { "type": "text", "time": 45, "text": "$12x^2 + 18x = 6x \\cdot (\\ldots)$. Mi kerül a zárójelbe?", "answer": "2x+3" },
+        { "type": "match", "time": 45, "text": "Párosítsd a szorzatokat a kifejtett alakjukkal!", "pairs": [
+          ["$2(x + 3)$", "$2x + 6$"],
+          ["$x(x - 1)$", "$x^2 - x$"],
+          ["$-3(a - 2)$", "$-3a + 6$"],
+          ["$a(b + c)$", "$ab + ac$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "tobbtagu-kifejezesek-szorzata",
+      "title": "Többtagú kifejezések szorzata",
+      "description": "Kéttagúak szorzása, a három nevezetes azonosság és a területmodell.",
+      "questions": [
+        { "type": "mc", "time": 30, "text": "Mennyi $(x + 3)(x + 5)$?", "options": ["$x^2 + 8x + 15$", "$x^2 + 15$", "$x^2 + 15x + 8$", "$2x + 8$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mennyi $(x + 4)^2$?", "options": ["$x^2 + 8x + 16$", "$x^2 + 16$", "$x^2 + 4x + 16$", "$x^2 + 8x + 8$"], "answer": 0 },
+        { "type": "tf", "time": 30, "text": "Az ábrán egy $(a + b)$ oldalú négyzet látható. Az ábra alapján igaz-e, hogy $(a + b)^2 = a^2 + b^2$?", "answer": false, "svg": "area-model" },
+        { "type": "mc", "time": 30, "text": "Mennyi $(x - 5)^2$?", "options": ["$x^2 - 10x + 25$", "$x^2 - 25$", "$x^2 + 10x + 25$", "$x^2 - 10x - 25$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mennyi $(x + 6)(x - 6)$?", "options": ["$x^2 - 36$", "$x^2 + 36$", "$x^2 - 12x - 36$", "$x^2 - 12$"], "answer": 0 },
+        { "type": "mc", "time": 45, "text": "Mennyi $(2x - 1)(3x + 4)$?", "options": ["$6x^2 + 5x - 4$", "$6x^2 - 4$", "$6x^2 + 11x - 4$", "$6x^2 - 5x - 4$"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Számold ki ügyesen a $(40 + 2)(40 - 2)$ felbontással: $42 \\cdot 38 = ?$", "answer": "1596" },
+        { "type": "mc", "time": 45, "text": "Mennyi $(2x + 3y)^2$?", "options": ["$4x^2 + 12xy + 9y^2$", "$4x^2 + 9y^2$", "$2x^2 + 12xy + 3y^2$", "$4x^2 + 6xy + 9y^2$"], "answer": 0 },
+        { "type": "tf", "time": 30, "text": "$(2a + 5)(2a - 5) = 4a^2 - 25$", "answer": true },
+        { "type": "mc", "time": 30, "text": "Alakítsd szorzattá: $x^2 - 49$", "options": ["$(x + 7)(x - 7)$", "$(x - 7)^2$", "$(x + 7)^2$", "$(x - 49)(x + 1)$"], "answer": 0 },
+        { "type": "text", "time": 30, "text": "$(3x - 1)^2 = 9x^2 - \\square \\cdot x + 1$. Milyen szám kerül a $\\square$ helyére?", "answer": "6" },
+        { "type": "match", "time": 60, "text": "Párosítsd a kifejezéseket a szorzattá alakított alakjukkal!", "pairs": [
+          ["$x^2 + 2x + 1$", "$(x + 1)^2$"],
+          ["$x^2 - 2x + 1$", "$(x - 1)^2$"],
+          ["$x^2 - 1$", "$(x + 1)(x - 1)$"],
+          ["$x^2 + 4x + 4$", "$(x + 2)^2$"]
+        ] }
+      ]
+    },
+    {
+      "slug": "osszefoglalas",
+      "title": "Összefoglalás – Számok és betűk",
+      "description": "Témazáró gyakorló: logika, halmazok, racionális számok, hatványok, gyökök és algebrai kifejezések.",
+      "questions": [
+        { "type": "mc", "time": 25, "text": "Mi a tagadása: „Minden szám pozitív.”?", "options": ["Van olyan szám, amely nem pozitív.", "Egyik szám sem pozitív.", "Minden szám negatív.", "Van olyan szám, amely pozitív."], "answer": 0 },
+        { "type": "text", "time": 45, "text": "$\\lvert A \\rvert = 15$, $\\lvert B \\rvert = 10$ és $\\lvert A \\cup B \\rvert = 20$. Mennyi $\\lvert A \\cap B \\rvert$?", "answer": "5" },
+        { "type": "mc", "time": 25, "text": "Hány részhalmaza van egy 4 elemű halmaznak?", "options": ["16", "8", "4", "12"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Mi a $0{,}333\\ldots = 0{,}\\dot{3}$ tört alakja?", "options": ["$\\frac{1}{3}$", "$\\frac{3}{10}$", "$\\frac{3}{100}$", "$\\frac{1}{30}$"], "answer": 0 },
+        { "type": "tf", "time": 20, "text": "$a^{-2} = \\frac{1}{a^2}$, ha $a \\neq 0$.", "answer": true },
+        { "type": "mc", "time": 45, "text": "Mennyi $\\frac{2^7 \\cdot 2^3}{2^8}$?", "options": ["$4$", "$2$", "$8$", "$16$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Melyik a $0{,}000\\,05$ normálalakja?", "options": ["$5 \\cdot 10^{-5}$", "$5 \\cdot 10^{-4}$", "$5 \\cdot 10^{5}$", "$0{,}5 \\cdot 10^{-4}$"], "answer": 0 },
+        { "type": "mc", "time": 30, "text": "Emeld ki a gyöktényezőt: $\\sqrt{72} = ?$", "options": ["$6\\sqrt{2}$", "$8\\sqrt{3}$", "$2\\sqrt{6}$", "$36\\sqrt{2}$"], "answer": 0 },
+        { "type": "tf", "time": 25, "text": "$\\sqrt{a^2} = a$ minden valós $a$ számra.", "answer": false },
+        { "type": "mc", "time": 30, "text": "Emeld ki a közös tényezőt: $9x^2 - 6x$", "options": ["$3x(3x - 2)$", "$3(3x^2 - 2)$", "$9x(x - 6)$", "$3x(3x - 6)$"], "answer": 0 },
+        { "type": "text", "time": 45, "text": "Mennyi az $x^2 + 6x + 9$ kifejezés értéke, ha $x = 7$? (Tipp: nevezetes azonosság!)", "answer": "100" },
+        { "type": "match", "time": 60, "text": "Párosítsd a fogalmakat a képletükkel!", "pairs": [
+          ["Szita-formula", "$\\lvert A \\cup B \\rvert = \\lvert A \\rvert + \\lvert B \\rvert - \\lvert A \\cap B \\rvert$"],
+          ["Részhalmazok száma", "$2^n$"],
+          ["Negatív kitevő", "$a^{-n} = \\frac{1}{a^n}$"],
+          ["Összeg négyzete", "$(a + b)^2 = a^2 + 2ab + b^2$"]
+        ] }
+      ]
+    }
+  ]
+}
